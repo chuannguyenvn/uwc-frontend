@@ -1,0 +1,4 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
+    <Style src="project://database/Assets/Filter.uss?fileID=7433441132597879392&amp;guid=d05f93eba5c7db242a5a31ebe0a78200&amp;type=3#Filter" />
+    <UI.Filter.Filter />
+</ui:UXML>
