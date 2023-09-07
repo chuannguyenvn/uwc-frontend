@@ -1,4 +1,8 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" editor-extension-mode="False">
     <Style src="project://database/Assets/Filter.uss?fileID=7433441132597879392&amp;guid=d05f93eba5c7db242a5a31ebe0a78200&amp;type=3#Filter" />
-    <UI.Filter.Filter />
+    <Style src="project://database/Assets/Sidebar.uss?fileID=7433441132597879392&amp;guid=5fa91e5da16834d4aaf1de08acf5ce22&amp;type=3#Sidebar" />
+    <ui:VisualElement name="Main" style="flex-grow: 1; flex-direction: row; align-items: flex-start;">
+        <UI.Sidebar name="Sidebar" />
+        <UI.Filter.Filter style="align-self: auto;" />
+    </ui:VisualElement>
 </ui:UXML>

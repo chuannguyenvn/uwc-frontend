@@ -1,9 +1,6 @@
 .filter {
     background-image: url('project://database/Assets/Graphics/Pill%20With%20Shadow.png?fileID=2800000&guid=b0f68667dcacdbc4c9f0e64289ada020&type=3#Pill With Shadow');
-    padding-top: 12px;
-    padding-bottom: 12px;
-    padding-left: 24px;
-    padding-right: 24px;
+    padding: 12px 24px;
     align-items: center;
     -unity-slice-left: 0;
     -unity-slice-top: 0;
@@ -12,7 +9,7 @@
     -unity-background-scale-mode: scale-to-fit;
     flex-direction: row;
     justify-content: space-between;
-    align-self: center;
+    align-self: auto;
     width: auto;
     height: auto;
 }
