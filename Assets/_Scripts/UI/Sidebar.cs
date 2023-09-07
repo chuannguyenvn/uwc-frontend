@@ -1,4 +1,5 @@
-﻿using UnityEngine.Scripting;
+﻿using System.Collections.Generic;
+using UnityEngine.Scripting;
 using UnityEngine.UIElements;
 
 namespace UI
@@ -26,7 +27,9 @@ namespace UI
         private readonly VisualElement _reportIcon;
         private readonly VisualElement _messagesIcon;
         private readonly VisualElement _settingsIcon;
-
+        
+        private readonly List<VisualElement> _icons = new ();
+        
         public Sidebar()
         {
             AddToClassList("sidebar");
@@ -58,6 +61,32 @@ namespace UI
             _settingsIcon = new VisualElement() { name = "SettingsIcon" };
             _settingsIcon.AddToClassList("icon");
             Add(_settingsIcon);
+            
+            _icons = new List<VisualElement>
+            {
+                _mapIcon,
+                _workersIcon,
+                _mcpsIcon,
+                _vehiclesIcon,
+                _reportIcon,
+                _messagesIcon,
+                _settingsIcon
+            };
+
+            foreach (var icon in _icons)
+            {
+                icon.RegisterCallback<MouseDownEvent>(_ => FocusIcon(icon));
+            }
+        }
+        
+        private void FocusIcon(VisualElement icon)
+        {
+            foreach (var i in _icons)
+            {
+                i.RemoveFromClassList("active");
+            }
+            
+            icon.AddToClassList("active");
         }
     }
 }

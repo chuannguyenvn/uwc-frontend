@@ -41,4 +41,10 @@
     width: 24px;
     height: 24px;
     -unity-background-scale-mode: scale-to-fit;
+    opacity: 0.5;
+}
+
+
+#Sidebar .icon.active {
+    opacity: 1;
 }
