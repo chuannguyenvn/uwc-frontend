@@ -16,12 +16,28 @@ namespace UI.Messages
         public new class UxmlTraits : ListView.UxmlTraits
         {
         }
-
+ 
         #endregion
 
         public InboxMessageList()
         {
             name = "InboxMessageList";
+
+            makeItem = HandleMakeItem;
+            bindItem = HandleBindItem;
+            itemsSource = DataStoreDummy.MessageData;
+        }
+
+        private VisualElement HandleMakeItem()
+        {
+            return new InboxMessageEntry();
+        }
+
+        private void HandleBindItem(VisualElement item, int index)
+        {
+            var messageEntry = item as InboxMessageEntry;
+            var data = DataStoreDummy.MessageData[index];
+            messageEntry?.SetData(data.content, data.timestamp, data.isFromUser);
         }
     }
 }
