@@ -72,7 +72,7 @@
     width: 100%;
 }
 
-#MessagesScreen #InboxContainer #TitleContainer {
+#MessagesScreen #InboxContainer #InboxTitleBar {
     width: 100%;
     height: 10%;
     max-height: 10%;
@@ -81,14 +81,14 @@
     background-color: rgb(220, 220, 220);
 }
 
-#MessagesScreen #InboxContainer #TitleContainer #Avatar {
+#MessagesScreen #InboxContainer #InboxTitleBar #Avatar {
 }
 
-#MessagesScreen #InboxContainer #TitleContainer #Name {
+#MessagesScreen #InboxContainer #InboxTitleBar #Name {
     font-size: 30px;
 }
 
-#MessagesScreen #InboxContainer #TitleContainer #Status {
+#MessagesScreen #InboxContainer #InboxTitleBar #Status {
     font-size: 20px;
 }
 
