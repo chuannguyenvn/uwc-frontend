@@ -37,8 +37,20 @@
 
 .list-item {
     height: 100px;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+    border-bottom-left-radius: 10px;
+    background-color: rgb(255, 255, 255);
 }
 
 .icon {
     -unity-background-scale-mode: scale-to-fit;
+}
+
+.list-item:hover {
+    background-color: rgb(233, 233, 233);
+    transition-duration: 0.1s;
+    transition-property: background-color;
+    transition-timing-function: ease-in-sine;
 }

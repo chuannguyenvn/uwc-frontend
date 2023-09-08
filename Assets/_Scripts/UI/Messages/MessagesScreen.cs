@@ -19,15 +19,15 @@ namespace UI.Messages
 
         #endregion
 
-        private ContactsContainer _contactsContainer;
+        private ContactsList _contactsList;
         private InboxContainer _inboxContainer;
 
         public MessagesScreen()
         {
             AddToClassList("messages-screen");
 
-            _contactsContainer = new ContactsContainer();
-            Add(_contactsContainer);
+            _contactsList = new ContactsList();
+            Add(_contactsList);
 
             _inboxContainer = new InboxContainer();
             Add(_inboxContainer);

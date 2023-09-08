@@ -21,6 +21,7 @@ namespace UI.Messages
 
         private TextField _textField;
         private Button _sendButton;
+        private Image _sendIcon;
 
         public MessagingField()
         {
@@ -30,7 +31,12 @@ namespace UI.Messages
             Add(_textField);
 
             _sendButton = new Button() { name = "SendButton" };
+            _sendButton.AddToClassList("colored-element");
             Add(_sendButton);
+            
+            _sendIcon = new Image() { name = "SendIcon" };
+            _sendIcon.AddToClassList("icon");
+            _sendButton.Add(_sendIcon);
         }
     }
 }

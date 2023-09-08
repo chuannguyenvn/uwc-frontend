@@ -3,25 +3,25 @@ using UnityEngine.UIElements;
 
 namespace UI.Messages
 {
-    public class ContactsContainer : VisualElement
+    public class ContactsList : ScrollView
     {
         #region UXML
 
         [Preserve]
-        public new class UxmlFactory : UxmlFactory<ContactsContainer, UxmlTraits>
+        public new class UxmlFactory : UxmlFactory<ContactsList, UxmlTraits>
         {
         }
 
         [Preserve]
-        public new class UxmlTraits : VisualElement.UxmlTraits
+        public new class UxmlTraits : ScrollView.UxmlTraits
         {
         }
 
         #endregion
 
-        public ContactsContainer()
+        public ContactsList()
         {
-            name = "ContactsContainer";
+            name = "ContactsList";
             for (int i = 0; i < 20; i++)
             {
                 Add(new ContactEntry());
