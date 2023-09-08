@@ -22,31 +22,24 @@ namespace UI
             AddToClassList("colored-element");
 
             _mapIcon = new VisualElement { name = "MapIcon" };
-            _mapIcon.AddToClassList("icon");
             Add(_mapIcon);
 
             _workersIcon = new VisualElement { name = "WorkersIcon" };
-            _workersIcon.AddToClassList("icon");
             Add(_workersIcon);
 
             _mcpsIcon = new VisualElement { name = "MCPsIcon" };
-            _mcpsIcon.AddToClassList("icon");
             Add(_mcpsIcon);
 
             _vehiclesIcon = new VisualElement { name = "VehiclesIcon" };
-            _vehiclesIcon.AddToClassList("icon");
             Add(_vehiclesIcon);
 
             _reportIcon = new VisualElement { name = "ReportIcon" };
-            _reportIcon.AddToClassList("icon");
             Add(_reportIcon);
 
             _messagesIcon = new VisualElement { name = "MessagesIcon" };
-            _messagesIcon.AddToClassList("icon");
             Add(_messagesIcon);
 
             _settingsIcon = new VisualElement { name = "SettingsIcon" };
-            _settingsIcon.AddToClassList("icon");
             Add(_settingsIcon);
 
             _icons = new List<VisualElement>
@@ -60,7 +53,11 @@ namespace UI
                 _settingsIcon
             };
 
-            foreach (var icon in _icons) icon.RegisterCallback<MouseDownEvent>(_ => FocusIcon(icon));
+            foreach (var icon in _icons)
+            {
+                icon.AddToClassList("sidebar-icon");
+                icon.RegisterCallback<MouseDownEvent>(_ => FocusIcon(icon));
+            }
         }
 
         private void FocusIcon(VisualElement icon)

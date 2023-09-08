@@ -1,44 +1,29 @@
-﻿using UnityEngine;
+﻿using UI.Commons;
+using UnityEngine;
 using UnityEngine.Scripting;
 using UnityEngine.UIElements;
 
 namespace UI.Messages.Contacts
 {
-    public class ContactEntry : VisualElement
+    public class ContactEntry : ListEntry
     {
-        private readonly Image _avatar;
-        
-        private readonly VisualElement _textContainer;
-        private readonly TextElement _name;
-        private readonly TextElement _messagePreview;
-
         public ContactEntry()
         {
             name = "ContactEntry";
             AddToClassList("contact-entry");
-            AddToClassList("list-item");
-            
-            _avatar = new Image { name = "Avatar" };
-            _avatar.AddToClassList("icon");
-            Add(_avatar);
-            
-            _textContainer = new VisualElement { name = "TextContainer" };
-            Add(_textContainer);
 
-            _name = new TextElement { name = "Name" };
-            _name.AddToClassList("primary-text");
-            _name.text = "Placeholder Name";
-            _textContainer.Add(_name);
+            Icon.name = "Avatar";
 
-            _messagePreview = new TextElement { name = "MessagePreview" };
-            _messagePreview.AddToClassList("secondary-text");
-            _messagePreview.text = "Placeholder Message Preview";
-            _textContainer.Add(_messagePreview);
+            PrimaryText.name = "Name";
+            PrimaryText.text = "Placeholder Name";
+
+            SecondaryText.name = "MessagePreview";
+            SecondaryText.text = "Placeholder Message Preview";
         }
 
         public ContactEntry(Sprite sprite) : this()
         {
-            _avatar.sprite = sprite;
+            Icon.sprite = sprite;
         }
 
         #region UXML

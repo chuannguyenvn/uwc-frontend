@@ -1,0 +1,5 @@
+#VehiclesScreen #VehicleIcon {
+    background-color: rgba(0, 0, 255, 0);
+    background-image: url('project://database/Assets/Graphics/Icons/Vehicles.png?fileID=21300000&guid=99e23c0cf71dc2a4a974ecaeba9a78d2&type=3#Vehicles');
+    flex-shrink: 0;
+}
