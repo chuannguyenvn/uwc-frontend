@@ -1,13 +1,12 @@
 ﻿using UnityEngine.Scripting;
 using UnityEngine.UIElements;
 
-namespace UI.Messages
+namespace UI.Messages.Inbox
 {
     public class InboxContainer : VisualElement
     {
-        private readonly InboxMessageList _inboxMessageList;
-
         private readonly InboxTitleBar _inboxTitleBar;
+        private readonly InboxMessageList _inboxMessageList;
         private readonly MessagingField _messagingField;
 
         public InboxContainer()

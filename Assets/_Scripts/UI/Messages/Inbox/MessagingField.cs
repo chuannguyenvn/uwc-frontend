@@ -1,14 +1,14 @@
 ﻿using UnityEngine.Scripting;
 using UnityEngine.UIElements;
 
-namespace UI.Messages
+namespace UI.Messages.Inbox
 {
     public class MessagingField : VisualElement
     {
+        private readonly TextField _textField;
+        
         private readonly Button _sendButton;
         private readonly Image _sendIcon;
-
-        private readonly TextField _textField;
 
         public MessagingField()
         {

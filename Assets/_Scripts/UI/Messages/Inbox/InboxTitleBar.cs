@@ -1,19 +1,19 @@
 ﻿using UnityEngine.Scripting;
 using UnityEngine.UIElements;
 
-namespace UI.Messages
+namespace UI.Messages.Inbox
 {
     public class InboxTitleBar : VisualElement
     {
-        private readonly VisualElement _assignTaskButton;
-
         private readonly Image _avatar;
-        private readonly VisualElement _infoButton;
+
+        private readonly VisualElement _textContainer;
         private readonly TextElement _name;
+        private readonly TextElement _status;
 
         private readonly VisualElement _quickActionsContainer;
-        private readonly TextElement _status;
-        private readonly VisualElement _textContainer;
+        private readonly VisualElement _assignTaskButton;
+        private readonly VisualElement _infoButton;
 
         public InboxTitleBar()
         {

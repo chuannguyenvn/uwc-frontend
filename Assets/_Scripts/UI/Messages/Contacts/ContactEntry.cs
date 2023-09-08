@@ -2,28 +2,26 @@
 using UnityEngine.Scripting;
 using UnityEngine.UIElements;
 
-namespace UI.Messages
+namespace UI.Messages.Contacts
 {
     public class ContactEntry : VisualElement
     {
         private readonly Image _avatar;
-        private readonly TextElement _messagePreview;
-        private readonly TextElement _name;
-
+        
         private readonly VisualElement _textContainer;
+        private readonly TextElement _name;
+        private readonly TextElement _messagePreview;
 
         public ContactEntry()
         {
             name = "ContactEntry";
             AddToClassList("contact-entry");
             AddToClassList("list-item");
-
-
+            
             _avatar = new Image { name = "Avatar" };
             _avatar.AddToClassList("icon");
             Add(_avatar);
-
-
+            
             _textContainer = new VisualElement { name = "TextContainer" };
             Add(_textContainer);
 
@@ -38,30 +36,9 @@ namespace UI.Messages
             _textContainer.Add(_messagePreview);
         }
 
-        public ContactEntry(Sprite sprite)
+        public ContactEntry(Sprite sprite) : this()
         {
-            name = "ContactEntry";
-            AddToClassList("contact-entry");
-            AddToClassList("list-item");
-
-
-            _avatar = new Image { name = "Avatar", sprite = sprite };
-            _avatar.AddToClassList("icon");
-            Add(_avatar);
-
-
-            _textContainer = new VisualElement { name = "TextContainer" };
-            Add(_textContainer);
-
-            _name = new TextElement { name = "Name" };
-            _name.AddToClassList("primary-text");
-            _name.text = "Placeholder Name";
-            _textContainer.Add(_name);
-
-            _messagePreview = new TextElement { name = "MessagePreview" };
-            _messagePreview.AddToClassList("secondary-text");
-            _messagePreview.text = "Placeholder Message Preview";
-            _textContainer.Add(_messagePreview);
+            _avatar.sprite = sprite;
         }
 
         #region UXML

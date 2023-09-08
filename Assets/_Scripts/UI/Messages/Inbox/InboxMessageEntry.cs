@@ -2,15 +2,14 @@
 using UnityEngine.Scripting;
 using UnityEngine.UIElements;
 
-namespace UI.Messages
+namespace UI.Messages.Inbox
 {
     public class InboxMessageEntry : VisualElement
     {
-        private readonly TextElement _content;
-
         private readonly VisualElement _contentContainer;
+        private readonly TextElement _content;
         private readonly TextElement _timestamp;
-
+        
         public InboxMessageEntry()
         {
             name = "InboxMessageEntry";
@@ -27,19 +26,8 @@ namespace UI.Messages
             SetData("Test", DateTime.Now, true);
         }
 
-        public InboxMessageEntry(string content, DateTime timestamp, bool isFromUser)
+        public InboxMessageEntry(string content, DateTime timestamp, bool isFromUser) : this()
         {
-            name = "InboxMessageEntry";
-
-            _contentContainer = new VisualElement { name = "ContentContainer" };
-            Add(_contentContainer);
-
-            _content = new TextElement { name = "Content" };
-            _contentContainer.Add(_content);
-
-            _timestamp = new TextElement { name = "Timestamp" };
-            Add(_timestamp);
-
             SetData(content, timestamp, isFromUser);
         }
 
