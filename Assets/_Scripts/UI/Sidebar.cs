@@ -9,12 +9,12 @@ namespace UI
         private readonly List<VisualElement> _icons = new();
 
         private readonly VisualElement _mapIcon;
-        private readonly VisualElement _mcpsIcon;
-        private readonly VisualElement _messagesIcon;
-        private readonly VisualElement _reportIcon;
-        private readonly VisualElement _settingsIcon;
-        private readonly VisualElement _vehiclesIcon;
         private readonly VisualElement _workersIcon;
+        private readonly VisualElement _mcpsIcon;
+        private readonly VisualElement _vehiclesIcon;
+        private readonly VisualElement _reportIcon;
+        private readonly VisualElement _messagesIcon;
+        private readonly VisualElement _settingsIcon;
 
         public Sidebar()
         {

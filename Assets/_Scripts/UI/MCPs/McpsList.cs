@@ -9,7 +9,9 @@ namespace UI.MCPs
         {
             name = "McpsList";
             AddToClassList("list");
-            for (var i = 0; i < 20; i++) Add(new McpEntry());
+            if (Configs.IS_DEBUGGING)
+                for (var i = 0; i < 20; i++)
+                    Add(new McpEntry());
         }
 
         #region UXML

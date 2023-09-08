@@ -9,7 +9,9 @@ namespace UI.Vehicles
         {
             name = "VehiclesList";
             AddToClassList("list");
-            for (var i = 0; i < 20; i++) Add(new VehicleEntry());
+            if (Configs.IS_DEBUGGING)
+                for (var i = 0; i < 20; i++)
+                    Add(new VehicleEntry());
         }
 
         #region UXML
