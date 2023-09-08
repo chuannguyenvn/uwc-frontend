@@ -1,0 +1,6 @@
+#McpsScreen #McpIcon {
+    flex-shrink: 0;
+    background-image: url('project://database/Assets/Graphics/Icons/Recycling.png?fileID=21300000&guid=739723c54932fb4439c22430ff309b75&type=3#Recycling');
+    left: -1px;
+    bottom: -1px;
+}
