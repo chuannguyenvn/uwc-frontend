@@ -17,7 +17,7 @@
     min-width: 300px;
     -unity-background-image-tint-color: rgb(255, 255, 255);
     background-color: rgb(255, 255, 255);
-    flex-direction: row;
+    flex-direction: column;
 }
 
 #MessagesScreen #ContactEntry {
@@ -111,4 +111,13 @@
 
 #MessagesScreen #InboxContainer #QuickActionsContainer #InfoButton {
     background-image: url('project://database/Assets/Graphics/Icons/Info.png?fileID=21300000&guid=5c23495c53b0fef49833abbda73b6ad1&type=3#Info');
+}
+
+#MessagesScreen #InboxContainer #InboxMessageList {
+    flex-grow: 1;
+}
+
+#MessagesScreen #InboxContainer #MessagingField {
+    height: 75px;
+    width: 100%;
 }

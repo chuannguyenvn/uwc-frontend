@@ -20,6 +20,8 @@ namespace UI.Messages
         #endregion
 
         private InboxTitleBar _inboxTitleBar;
+        private InboxMessageList _inboxMessageList;
+        private MessagingField _messagingField;
 
         public InboxContainer()
         {
@@ -27,6 +29,12 @@ namespace UI.Messages
 
             _inboxTitleBar = new InboxTitleBar();
             Add(_inboxTitleBar);
+
+            _inboxMessageList = new InboxMessageList();
+            Add(_inboxMessageList);
+
+            _messagingField = new MessagingField();
+            Add(_messagingField);
         }
     }
 }
