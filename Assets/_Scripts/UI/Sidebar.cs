@@ -33,6 +33,7 @@ namespace UI
         public Sidebar()
         {
             AddToClassList("sidebar");
+            AddToClassList("colored-element");
 
             _mapIcon = new VisualElement() { name = "MapIcon" };
             _mapIcon.AddToClassList("icon");

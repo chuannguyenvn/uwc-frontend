@@ -7,3 +7,22 @@
     font-size: 15px;
     color: rgb(82, 82, 82);
 }
+
+.colored-element {
+    background-color: rgb(61, 163, 93);
+}
+
+.light-element {
+    background-color: rgb(255, 255, 255);
+}
+
+.list {
+}
+
+.list-item {
+    height: 100px;
+}
+
+.icon {
+    -unity-background-scale-mode: scale-to-fit;
+}

@@ -20,7 +20,6 @@ namespace UI.Messages
 
         #endregion
 
-        private VisualElement _avatarContainer;
         private Image _avatar;
 
         private VisualElement _textContainer;
@@ -31,12 +30,12 @@ namespace UI.Messages
         {
             name = "ContactEntry";
             AddToClassList("contact-entry");
-
-            _avatarContainer = new VisualElement { name = "AvatarContainer" };
-            Add(_avatarContainer);
+            AddToClassList("list-item");
+            
 
             _avatar = new Image { name = "Avatar" };
-            _avatarContainer.Add(_avatar);
+            _avatar.AddToClassList("icon");
+            Add(_avatar);
 
 
             _textContainer = new VisualElement { name = "TextContainer" };
@@ -57,12 +56,12 @@ namespace UI.Messages
         {
             name = "ContactEntry";
             AddToClassList("contact-entry");
+            AddToClassList("list-item");
 
-            _avatarContainer = new VisualElement { name = "AvatarContainer" };
-            Add(_avatarContainer);
 
             _avatar = new Image { name = "Avatar", sprite = sprite };
-            _avatarContainer.Add(_avatar);
+            _avatar.AddToClassList("icon");
+            Add(_avatar);
 
 
             _textContainer = new VisualElement { name = "TextContainer" };
