@@ -3,7 +3,7 @@ using UnityEngine.Scripting;
 
 namespace UI.Messages
 {
-    public class InboxMessageList : ListView
+    public class InboxMessageList : ScrollView
     {
         #region UXML
 
@@ -13,19 +13,20 @@ namespace UI.Messages
         }
 
         [Preserve]
-        public new class UxmlTraits : ListView.UxmlTraits
+        public new class UxmlTraits : ScrollView.UxmlTraits
         {
         }
- 
+
         #endregion
 
         public InboxMessageList()
         {
             name = "InboxMessageList";
 
-            makeItem = HandleMakeItem;
-            bindItem = HandleBindItem;
-            itemsSource = DataStoreDummy.MessageData;
+            foreach (var (content, timestamp, isFromUser) in DataStoreDummy.MessageData)
+            {
+                Add(new InboxMessageEntry(content, timestamp, isFromUser));
+            }
         }
 
         private VisualElement HandleMakeItem()

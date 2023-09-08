@@ -3,7 +3,7 @@ using UnityEngine.Scripting;
 
 namespace UI.Messages
 {
-    public class MessagingField : TextField
+    public class MessagingField : VisualElement
     {
         #region UXML
 
@@ -13,15 +13,24 @@ namespace UI.Messages
         }
 
         [Preserve]
-        public new class UxmlTraits : TextField.UxmlTraits
+        public new class UxmlTraits : VisualElement.UxmlTraits
         {
         }
 
         #endregion
 
+        private TextField _textField;
+        private Button _sendButton;
+
         public MessagingField()
         {
             name = "MessagingField";
+
+            _textField = new TextField() { name = "TextField" };
+            Add(_textField);
+
+            _sendButton = new Button() { name = "SendButton" };
+            Add(_sendButton);
         }
     }
 }

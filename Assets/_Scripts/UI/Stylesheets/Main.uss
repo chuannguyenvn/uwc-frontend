@@ -8,12 +8,28 @@
     color: rgb(82, 82, 82);
 }
 
+.black-text {
+    color: rgb(0, 0, 0);
+}
+
+.grey-text {
+    color: rgb(82, 82, 82);
+}
+
+.white-text {
+    color: rgb(255, 255, 255);
+}
+
 .colored-element {
     background-color: rgb(61, 163, 93);
 }
 
 .light-element {
     background-color: rgb(255, 255, 255);
+}
+
+.grey-element {
+    background-color: rgb(233, 233, 233);
 }
 
 .list {
