@@ -55,7 +55,7 @@ namespace UI
 
             foreach (var icon in _icons)
             {
-                icon.AddToClassList("sidebar-icon");
+                icon.AddToClassList("icon");
                 icon.RegisterCallback<MouseDownEvent>(_ => FocusIcon(icon));
             }
         }
