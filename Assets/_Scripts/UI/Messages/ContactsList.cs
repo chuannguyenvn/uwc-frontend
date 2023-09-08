@@ -5,6 +5,12 @@ namespace UI.Messages
 {
     public class ContactsList : ScrollView
     {
+        public ContactsList()
+        {
+            name = "ContactsList";
+            for (var i = 0; i < 20; i++) Add(new ContactEntry());
+        }
+
         #region UXML
 
         [Preserve]
@@ -18,14 +24,5 @@ namespace UI.Messages
         }
 
         #endregion
-
-        public ContactsList()
-        {
-            name = "ContactsList";
-            for (int i = 0; i < 20; i++)
-            {
-                Add(new ContactEntry());
-            }
-        }
     }
 }

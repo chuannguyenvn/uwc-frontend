@@ -7,9 +7,11 @@ public static class DataStoreDummy
     {
         ("Short and sweet.", DateTime.Now.AddMinutes(-19), false),
         ("Hi there!", DateTime.Now.AddMinutes(-18), true),
-        ("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla vel turpis at ipsum posuere sollicitudin. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla vel turpis at ipsum posuere sollicitudin. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla vel turpis at ipsum posuere sollicitudin. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla vel turpis at ipsum posuere sollicitudin.", DateTime.Now.AddMinutes(-17),
+        ("Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla vel turpis at ipsum posuere sollicitudin. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla vel turpis at ipsum posuere sollicitudin. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla vel turpis at ipsum posuere sollicitudin. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla vel turpis at ipsum posuere sollicitudin.",
+            DateTime.Now.AddMinutes(-17),
             true),
-        ("Quick response. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla vel turpis at ipsum posuere sollicitudin. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla vel turpis at ipsum posuere sollicitudin.", DateTime.Now.AddMinutes(-14), false),
+        ("Quick response. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla vel turpis at ipsum posuere sollicitudin. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nulla vel turpis at ipsum posuere sollicitudin.",
+            DateTime.Now.AddMinutes(-14), false),
         ("Good morning!", DateTime.Now.AddMinutes(-10), false),
         ("Happy Friday!", DateTime.Now, true),
         ("This is a test message.", DateTime.Now.AddMinutes(-10), true),
@@ -25,6 +27,6 @@ public static class DataStoreDummy
         ("How's the weather today?", DateTime.Now.AddMinutes(-1), false),
         ("Longer message to fill the screen with content for testing purposes.", DateTime.Now.AddMinutes(-7), false),
         ("This is a longer message to test the UI layout. It should span multiple lines when displayed in the UI.", DateTime.Now.AddMinutes(-5),
-            true),
+            true)
     };
 }

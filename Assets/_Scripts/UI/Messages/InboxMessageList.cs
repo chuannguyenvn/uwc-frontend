@@ -1,10 +1,17 @@
-﻿using UnityEngine.UIElements;
-using UnityEngine.Scripting;
+﻿using UnityEngine.Scripting;
+using UnityEngine.UIElements;
 
 namespace UI.Messages
 {
     public class InboxMessageList : ScrollView
     {
+        public InboxMessageList()
+        {
+            name = "InboxMessageList";
+
+            foreach (var (content, timestamp, isFromUser) in DataStoreDummy.MessageData) Add(new InboxMessageEntry(content, timestamp, isFromUser));
+        }
+
         #region UXML
 
         [Preserve]
@@ -18,27 +25,5 @@ namespace UI.Messages
         }
 
         #endregion
-
-        public InboxMessageList()
-        {
-            name = "InboxMessageList";
-
-            foreach (var (content, timestamp, isFromUser) in DataStoreDummy.MessageData)
-            {
-                Add(new InboxMessageEntry(content, timestamp, isFromUser));
-            }
-        }
-
-        private VisualElement HandleMakeItem()
-        {
-            return new InboxMessageEntry();
-        }
-
-        private void HandleBindItem(VisualElement item, int index)
-        {
-            var messageEntry = item as InboxMessageEntry;
-            var data = DataStoreDummy.MessageData[index];
-            messageEntry?.SetData(data.content, data.timestamp, data.isFromUser);
-        }
     }
 }

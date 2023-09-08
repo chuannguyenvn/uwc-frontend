@@ -5,23 +5,10 @@ namespace UI.Messages
 {
     public class InboxContainer : VisualElement
     {
-        #region UXML
+        private readonly InboxMessageList _inboxMessageList;
 
-        [Preserve]
-        public new class UxmlFactory : UxmlFactory<InboxContainer, UxmlTraits>
-        {
-        }
-
-        [Preserve]
-        public new class UxmlTraits : VisualElement.UxmlTraits
-        {
-        }
-
-        #endregion
-
-        private InboxTitleBar _inboxTitleBar;
-        private InboxMessageList _inboxMessageList;
-        private MessagingField _messagingField;
+        private readonly InboxTitleBar _inboxTitleBar;
+        private readonly MessagingField _messagingField;
 
         public InboxContainer()
         {
@@ -36,5 +23,19 @@ namespace UI.Messages
             _messagingField = new MessagingField();
             Add(_messagingField);
         }
+
+        #region UXML
+
+        [Preserve]
+        public new class UxmlFactory : UxmlFactory<InboxContainer, UxmlTraits>
+        {
+        }
+
+        [Preserve]
+        public new class UxmlTraits : VisualElement.UxmlTraits
+        {
+        }
+
+        #endregion
     }
 }

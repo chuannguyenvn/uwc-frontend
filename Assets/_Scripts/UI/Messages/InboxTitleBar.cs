@@ -1,37 +1,24 @@
-﻿using UnityEngine.UIElements;
-using UnityEngine.Scripting;
+﻿using UnityEngine.Scripting;
+using UnityEngine.UIElements;
 
 namespace UI.Messages
 {
     public class InboxTitleBar : VisualElement
     {
-        #region UXML
+        private readonly VisualElement _assignTaskButton;
 
-        [Preserve]
-        public new class UxmlFactory : UxmlFactory<InboxTitleBar, UxmlTraits>
-        {
-        }
+        private readonly Image _avatar;
+        private readonly VisualElement _infoButton;
+        private readonly TextElement _name;
 
-        [Preserve]
-        public new class UxmlTraits : VisualElement.UxmlTraits
-        {
-        }
+        private readonly VisualElement _quickActionsContainer;
+        private readonly TextElement _status;
+        private readonly VisualElement _textContainer;
 
-        #endregion
-
-        private Image _avatar;
-        private VisualElement _textContainer;
-        private TextElement _name;
-        private TextElement _status;
-        
-        private VisualElement _quickActionsContainer;
-        private VisualElement _assignTaskButton;
-        private VisualElement _infoButton;
-        
         public InboxTitleBar()
         {
             name = "InboxTitleBar";
-            
+
             _avatar = new Image { name = "Avatar" };
             Add(_avatar);
 
@@ -60,5 +47,19 @@ namespace UI.Messages
             _infoButton.AddToClassList("icon");
             _quickActionsContainer.Add(_infoButton);
         }
+
+        #region UXML
+
+        [Preserve]
+        public new class UxmlFactory : UxmlFactory<InboxTitleBar, UxmlTraits>
+        {
+        }
+
+        [Preserve]
+        public new class UxmlTraits : VisualElement.UxmlTraits
+        {
+        }
+
+        #endregion
     }
 }

@@ -5,22 +5,8 @@ namespace UI.Filter
 {
     public class Filter : VisualElement
     {
-        #region UXML
-
-        [Preserve]
-        public new class UxmlFactory : UxmlFactory<Filter, UxmlTraits>
-        {
-        }
-
-        [Preserve]
-        public new class UxmlTraits : VisualElement.UxmlTraits
-        {
-        }
-
-        #endregion
-
-        private Image _filterIcon;
-        private TextElement _text;
+        private readonly Image _filterIcon;
+        private readonly TextElement _text;
 
         public Filter()
         {
@@ -34,5 +20,19 @@ namespace UI.Filter
             _text = new TextElement { name = "Text", text = "Filter" };
             Add(_text);
         }
+
+        #region UXML
+
+        [Preserve]
+        public new class UxmlFactory : UxmlFactory<Filter, UxmlTraits>
+        {
+        }
+
+        [Preserve]
+        public new class UxmlTraits : VisualElement.UxmlTraits
+        {
+        }
+
+        #endregion
     }
 }

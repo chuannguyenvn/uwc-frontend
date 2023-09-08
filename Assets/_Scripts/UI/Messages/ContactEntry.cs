@@ -6,32 +6,18 @@ namespace UI.Messages
 {
     public class ContactEntry : VisualElement
     {
-        #region UXML
+        private readonly Image _avatar;
+        private readonly TextElement _messagePreview;
+        private readonly TextElement _name;
 
-        [Preserve]
-        public new class UxmlFactory : UxmlFactory<ContactEntry, UxmlTraits>
-        {
-        }
-
-        [Preserve]
-        public new class UxmlTraits : VisualElement.UxmlTraits
-        {
-        }
-
-        #endregion
-
-        private Image _avatar;
-
-        private VisualElement _textContainer;
-        private TextElement _name;
-        private TextElement _messagePreview;
+        private readonly VisualElement _textContainer;
 
         public ContactEntry()
         {
             name = "ContactEntry";
             AddToClassList("contact-entry");
             AddToClassList("list-item");
-            
+
 
             _avatar = new Image { name = "Avatar" };
             _avatar.AddToClassList("icon");
@@ -77,5 +63,19 @@ namespace UI.Messages
             _messagePreview.text = "Placeholder Message Preview";
             _textContainer.Add(_messagePreview);
         }
+
+        #region UXML
+
+        [Preserve]
+        public new class UxmlFactory : UxmlFactory<ContactEntry, UxmlTraits>
+        {
+        }
+
+        [Preserve]
+        public new class UxmlTraits : VisualElement.UxmlTraits
+        {
+        }
+
+        #endregion
     }
 }

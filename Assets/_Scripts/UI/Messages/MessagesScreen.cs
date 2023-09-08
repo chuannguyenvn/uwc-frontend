@@ -5,6 +5,20 @@ namespace UI.Messages
 {
     public class MessagesScreen : VisualElement
     {
+        private readonly ContactsList _contactsList;
+        private readonly InboxContainer _inboxContainer;
+
+        public MessagesScreen()
+        {
+            AddToClassList("messages-screen");
+
+            _contactsList = new ContactsList();
+            Add(_contactsList);
+
+            _inboxContainer = new InboxContainer();
+            Add(_inboxContainer);
+        }
+
         #region UXML
 
         [Preserve]
@@ -18,19 +32,5 @@ namespace UI.Messages
         }
 
         #endregion
-
-        private ContactsList _contactsList;
-        private InboxContainer _inboxContainer;
-
-        public MessagesScreen()
-        {
-            AddToClassList("messages-screen");
-
-            _contactsList = new ContactsList();
-            Add(_contactsList);
-
-            _inboxContainer = new InboxContainer();
-            Add(_inboxContainer);
-        }
     }
 }
