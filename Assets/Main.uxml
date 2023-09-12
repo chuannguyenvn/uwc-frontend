@@ -8,7 +8,7 @@
     <ui:VisualElement name="Main" style="flex-grow: 1; flex-direction: row; align-items: flex-start;">
         <UI.Sidebar name="Sidebar" style="flex-shrink: 0;" />
         <ui:VisualElement name="Content" style="flex-grow: 1; width: 100%; height: 100%;">
-            <UI.Messages.MessagesScreen name="MessagesScreen" style="display: none;" />
+            <UI.Messages.MessagesScreen name="MessagesScreen" style="display: flex;" />
             <UI.MCPs.McpsScreen name="McpsScreen" style="display: none;" />
             <UI.Vehicles.VehiclesScreen name="VehiclesScreen" style="display: none;" />
             <UI.Filter.Filter name="Filter" style="align-self: auto; position: absolute;" />
