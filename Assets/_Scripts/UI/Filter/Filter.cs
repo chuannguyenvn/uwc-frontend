@@ -12,7 +12,7 @@ namespace UI.Filter
         {
             AddToClassList("filter");
 
-            _filterIcon = new Image { name = "FilterIcon" };
+            _filterIcon = new Image { name = "FilterIcon" }; 
             _filterIcon.AddToClassList("icon");
             _filterIcon.AddToClassList("dark-icon");
             Add(_filterIcon);
