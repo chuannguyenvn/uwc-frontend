@@ -36,7 +36,7 @@ namespace UI.Messages.Inbox
             _textContainer.Add(_status);
 
             _quickActionsContainer = new VisualElement { name = "QuickActionsContainer" };
-            _quickActionsContainer.AddToClassList("colored-element");
+            _quickActionsContainer.AddToClassList("colored-background");
             Add(_quickActionsContainer);
 
             _assignTaskButton = new VisualElement { name = "AssignTaskButton" };

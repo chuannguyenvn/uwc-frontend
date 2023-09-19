@@ -19,7 +19,7 @@ namespace UI
         public Sidebar()
         {
             AddToClassList("sidebar");
-            AddToClassList("colored-element");
+            AddToClassList("colored-background");
 
             _mapIcon = new VisualElement { name = "MapIcon" };
             Add(_mapIcon);

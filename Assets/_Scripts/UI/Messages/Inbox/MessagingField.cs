@@ -18,7 +18,7 @@ namespace UI.Messages.Inbox
             Add(_textField);
 
             _sendButton = new Button { name = "SendButton" };
-            _sendButton.AddToClassList("colored-element");
+            _sendButton.AddToClassList("colored-background");
             Add(_sendButton);
 
             _sendIcon = new Image { name = "SendIcon" };

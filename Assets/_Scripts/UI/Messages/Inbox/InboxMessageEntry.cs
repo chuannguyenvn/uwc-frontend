@@ -40,7 +40,7 @@ namespace UI.Messages.Inbox
             _timestamp.text = timestamp.ToString("dd/MM/yyyy HH:mm");
 
             style.alignSelf = _contentContainer.style.alignSelf = _timestamp.style.alignSelf = isFromUser ? Align.FlexEnd : Align.FlexStart;
-            _contentContainer.EnableInClassList("colored-element", isFromUser);
+            _contentContainer.EnableInClassList("colored-background", isFromUser);
             _contentContainer.EnableInClassList("grey-element", !isFromUser);
         }
 
