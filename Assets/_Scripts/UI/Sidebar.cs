@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using UnityEngine;
 using UnityEngine.Scripting;
 using UnityEngine.UIElements;
 
@@ -6,65 +7,65 @@ namespace UI
 {
     public class Sidebar : VisualElement
     {
-        private readonly List<VisualElement> _icons = new();
+        private readonly List<VisualElement> _buttons = new();
 
-        private readonly VisualElement _mapIcon;
-        private readonly VisualElement _workersIcon;
-        private readonly VisualElement _mcpsIcon;
-        private readonly VisualElement _vehiclesIcon;
-        private readonly VisualElement _reportIcon;
-        private readonly VisualElement _messagesIcon;
-        private readonly VisualElement _settingsIcon;
+        public readonly VisualElement MapButton;
+        public readonly VisualElement WorkersButton;
+        public readonly VisualElement McpsButton;
+        public readonly VisualElement VehiclesButton;
+        public readonly VisualElement ReportButton;
+        public readonly VisualElement MessagesButton;
+        public readonly VisualElement SettingsButton;
 
         public Sidebar()
         {
             AddToClassList("sidebar");
             AddToClassList("colored-background");
 
-            _mapIcon = new VisualElement { name = "MapIcon" };
-            Add(_mapIcon);
+            MapButton = new VisualElement { name = "MapButton" };
+            Add(MapButton);
 
-            _workersIcon = new VisualElement { name = "WorkersIcon" };
-            Add(_workersIcon);
+            WorkersButton = new VisualElement { name = "WorkersButton" };
+            Add(WorkersButton);
 
-            _mcpsIcon = new VisualElement { name = "MCPsIcon" };
-            Add(_mcpsIcon);
+            McpsButton = new VisualElement { name = "MCPsButton" };
+            Add(McpsButton);
 
-            _vehiclesIcon = new VisualElement { name = "VehiclesIcon" };
-            Add(_vehiclesIcon);
+            VehiclesButton = new VisualElement { name = "VehiclesButton" };
+            Add(VehiclesButton);
 
-            _reportIcon = new VisualElement { name = "ReportIcon" };
-            Add(_reportIcon);
+            ReportButton = new VisualElement { name = "ReportsButton" };
+            Add(ReportButton);
 
-            _messagesIcon = new VisualElement { name = "MessagesIcon" };
-            Add(_messagesIcon);
+            MessagesButton = new VisualElement { name = "MessagesButton" };
+            Add(MessagesButton);
 
-            _settingsIcon = new VisualElement { name = "SettingsIcon" };
-            Add(_settingsIcon);
+            SettingsButton = new VisualElement { name = "SettingsButton" };
+            Add(SettingsButton);
 
-            _icons = new List<VisualElement>
+            _buttons = new List<VisualElement>
             {
-                _mapIcon,
-                _workersIcon,
-                _mcpsIcon,
-                _vehiclesIcon,
-                _reportIcon,
-                _messagesIcon,
-                _settingsIcon
+                MapButton,
+                WorkersButton,
+                McpsButton,
+                VehiclesButton,
+                ReportButton,
+                MessagesButton,
+                SettingsButton
             };
 
-            foreach (var icon in _icons)
+            foreach (var button in _buttons)
             {
-                icon.AddToClassList("icon");
-                icon.RegisterCallback<MouseDownEvent>(_ => FocusIcon(icon));
+                button.AddToClassList("icon");
+                button.RegisterCallback<MouseDownEvent>(_ => FocusButton(button));
             }
         }
 
-        private void FocusIcon(VisualElement icon)
+        private void FocusButton(VisualElement button)
         {
-            foreach (var i in _icons) i.RemoveFromClassList("active");
+            foreach (var i in _buttons) i.RemoveFromClassList("active");
 
-            icon.AddToClassList("active");
+            button.AddToClassList("active");
         }
 
         #region UXML

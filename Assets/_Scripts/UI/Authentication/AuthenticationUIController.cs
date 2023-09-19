@@ -1,11 +1,13 @@
 ﻿using System;
+using Constants;
 using Managers;
+using UI.MainController;
 using UnityEngine;
 using UnityEngine.UIElements;
 
 namespace UI.Authentication
 {
-    public class AuthenticationUIController : MonoBehaviour
+    public class AuthenticationUIController : Singleton<AuthenticationUIController>
     {
         [SerializeField] MainUIController _mainUiController;
 
@@ -21,15 +23,19 @@ namespace UI.Authentication
             _passwordField = _authenticationScreen.Q<CredentialsContainer>().Q<TextField>("Password");
             _uiDocument.rootVisualElement.Q<Button>("LoginButton").clickable.clicked += LoginButtonClickedHandler;
             _uiDocument.rootVisualElement.Q<Button>("ForgotPasswordButton").clickable.clicked += ForgotPasswordButtonClickedHandler;
+
+            if (Debugs.IS_DEBUG) SuccessfulLoginHandler();
         }
 
         private void LoginButtonClickedHandler()
         {
-            AuthenticationManager.Instance.Login(_usernameField.value, _passwordField.value, () =>
-            {
-                gameObject.SetActive(false);
-                _mainUiController.gameObject.SetActive(true);
-            });
+            AuthenticationManager.Instance.Login(_usernameField.value, _passwordField.value, SuccessfulLoginHandler);
+        }
+
+        private void SuccessfulLoginHandler()
+        {
+            _mainUiController.gameObject.SetActive(true);
+            gameObject.SetActive(false);
         }
 
         private void ForgotPasswordButtonClickedHandler()
