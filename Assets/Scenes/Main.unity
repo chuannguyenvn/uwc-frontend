@@ -375,6 +375,7 @@ GameObject:
   m_Component:
   - component: {fileID: 641997123}
   - component: {fileID: 641997124}
+  - component: {fileID: 641997125}
   m_Layer: 0
   m_Name: Authentication UI
   m_TagString: Untagged
@@ -413,6 +414,20 @@ MonoBehaviour:
   m_ParentUI: {fileID: 0}
   sourceAsset: {fileID: 9197481963319205126, guid: eda0f4c6753328d45a1b41206741a402, type: 3}
   m_SortingOrder: 0
+--- !u!114 &641997125
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 641997122}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 196585754fd84093b217cf10a2ba8190, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _mainUiController: {fileID: 2139813898}
+  _uiDocument: {fileID: 641997124}
 --- !u!1 &829157571
 GameObject:
   m_ObjectHideFlags: 0
@@ -457,8 +472,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d7b9e036c203463386ef62e3c9ea7a3f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Username: chuan
-  Password: chuan123
 --- !u!1 &1029288390
 GameObject:
   m_ObjectHideFlags: 0
@@ -513,6 +526,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2139813897}
   - component: {fileID: 2139813896}
+  - component: {fileID: 2139813898}
   m_Layer: 5
   m_Name: Main UI
   m_TagString: Untagged
@@ -551,6 +565,20 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2139813898
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2139813895}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6c0ee375b8044acdba28ab6078e916d4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _authenticationUiController: {fileID: 641997125}
+  _uiDocument: {fileID: 2139813896}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

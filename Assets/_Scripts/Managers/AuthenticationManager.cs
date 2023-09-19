@@ -8,26 +8,35 @@ namespace Managers
 {
     public class AuthenticationManager : Singleton<AuthenticationManager>
     {
-        public string Username;
-        public string Password;
-        public string BearerKey { get; private set; }
+        public string jwtToken { get; private set; }
 
-        private IEnumerator Start()
+        public void Login(string username, string password, Action callback)
         {
-            yield return Login_CO();
+            StartCoroutine(Login_CO(username, password, callback));
         }
 
-        public IEnumerator Login_CO()
+        private IEnumerator Login_CO(string username, string password, Action callback)
         {
             yield return HttpsClient.SendRequest<LoginResponse>(
                 endpoint: Endpoints.Account.LOGIN,
                 requestRequestType: HttpsClient.RequestType.POST,
-                callback: (success, result) => Debug.Log(result.JwtToken),
+                callback: (success, result) =>
+                {
+                    if (success)
+                    {
+                        jwtToken = result.JwtToken;
+                        callback?.Invoke();
+                    }
+                    else
+                    {
+                        Debug.LogError("Can't login.");
+                    }
+                },
                 bearerKey: null,
                 objectToSend: new LoginRequest()
                 {
-                    Username = Username,
-                    Password = Password
+                    Username = username,
+                    Password = password
                 });
         }
     }
