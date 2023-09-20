@@ -5,14 +5,14 @@ namespace UI.Vehicles
 {
     public class VehiclesScreen : VisualElement
     {
-        private VehiclesList _vehiclesList;
+        private VehiclesDataList _vehiclesDataList;
 
         public VehiclesScreen()
         {
             name = "VehiclesScreen";
 
-            _vehiclesList = new VehiclesList();
-            Add(_vehiclesList);
+            _vehiclesDataList = new VehiclesDataList();
+            Add(_vehiclesDataList);
         }
 
         #region UXML

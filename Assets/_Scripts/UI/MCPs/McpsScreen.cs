@@ -5,14 +5,14 @@ namespace UI.MCPs
 {
     public class McpsScreen : VisualElement
     {
-        private McpsList _mcpsList;
+        private McpsDataList _mcpsDataList;
         
         public McpsScreen()
         {
             name = "MCPsScreen";
             
-            _mcpsList = new McpsList(); 
-            Add(_mcpsList);
+            _mcpsDataList = new McpsDataList(); 
+            Add(_mcpsDataList);
         }
         
         #region UXML

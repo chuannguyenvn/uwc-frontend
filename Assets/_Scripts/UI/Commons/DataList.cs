@@ -2,9 +2,9 @@
 
 namespace UI.Commons
 {
-    public abstract class List : ScrollView
+    public abstract class DataList : ScrollView
     {
-        public List()
+        public DataList()
         {
             name = "List";
             AddToClassList("list");

@@ -1,14 +1,15 @@
-﻿using UnityEngine.UIElements;
+﻿using UI.Commons;
+using UnityEngine.UIElements;
 using UnityEngine.Scripting;
 
 namespace UI.Vehicles
 {
-    public class VehiclesList : ScrollView
+    public class VehiclesDataList : DataList
     {
-        public VehiclesList()
+        public VehiclesDataList()
         {
             name = "VehiclesList";
-            AddToClassList("list");
+            
             if (Configs.IS_DEBUGGING)
                 for (var i = 0; i < 20; i++)
                     Add(new VehicleEntry());
@@ -17,12 +18,12 @@ namespace UI.Vehicles
         #region UXML
 
         [Preserve]
-        public new class UxmlFactory : UxmlFactory<VehiclesList, UxmlTraits>
+        public new class UxmlFactory : UxmlFactory<VehiclesDataList, UxmlTraits>
         {
         }
 
         [Preserve]
-        public new class UxmlTraits : ScrollView.UxmlTraits
+        public new class UxmlTraits : DataList.UxmlTraits
         {
         }
 

@@ -1,3 +1,12 @@
+:root {
+    --primary-theme-color: rgb(61, 163, 93);
+    --primary-text-color: rgb(0, 0, 0);
+    --secondary-text-color: rgb(82, 82, 82);
+    --white-text-color: rgb(255, 255, 255);
+    --background-color: rgb(255, 255, 255);
+    --background-color-hovered: rgb(233, 233, 233);
+}
+
 .primary-text {
     font-size: 20px;
     -unity-font-style: normal;
@@ -5,7 +14,7 @@
 
 .secondary-text {
     font-size: 15px;
-    color: rgb(82, 82, 82);
+    color: var(--secondary-text-color);
 }
 
 .black-text {
@@ -17,23 +26,23 @@
 }
 
 .white-text {
-    color: rgb(255, 255, 255);
+    color: var(--white-text-color);
 }
 
 .colored-image {
-    -unity-background-image-tint-color: rgb(61, 163, 93);
+    -unity-background-image-tint-color: var(--primary-theme-color);
 }
 
 .colored-background {
-    background-color: rgb(61, 163, 93);
+    background-color: var(--primary-theme-color);
 }
 
 .colored-text {
-    color: rgb(61, 163, 93);
+    color: var(--primary-theme-color);
 }
 
 .light-element {
-    background-color: rgb(255, 255, 255);
+    background-color: var(--background-color);
 }
 
 .grey-element {
@@ -46,13 +55,13 @@
     min-width: 300px;
     flex-grow: 1;
     max-width: 500px;
-    background-color: rgb(255, 255, 255);
+    background-color: var(--background-color);
 }
 
 .list-item {
     height: 75px;
     border-radius: 10px;
-    background-color: rgb(255, 255, 255);
+    background-color: var(--background-color);
     width: auto;
     min-height: 75px;
     max-height: 10%;
@@ -69,7 +78,7 @@
 }
 
 .list-item:hover {
-    background-color: rgb(233, 233, 233);
+    background-color: var(--background-color-hovered);
     transition-duration: 0.1s;
     transition-property: background-color;
     transition-timing-function: ease-in-sine;
@@ -83,12 +92,12 @@
     align-self: center;
     align-items: center;
     margin: 10px;
-    -unity-background-image-tint-color: rgb(255, 255, 255);
-    background-color: rgba(255, 255, 255, 0);
+    -unity-background-image-tint-color: var(--background-color);
+    background-color: rgba(0, 0, 0, 0);
 }
 
 .icon-container {
-    background-color: rgb(19, 176, 72);
+    background-color: var(--primary-theme-color);
     width: 50px;
     height: 50px;
     margin: 10px;

@@ -1,14 +1,15 @@
-﻿using UnityEngine.UIElements;
+﻿using UI.Commons;
+using UnityEngine.UIElements;
 using UnityEngine.Scripting;
 
 namespace UI.MCPs
 {
-    public class McpsList : ScrollView
+    public class McpsDataList : DataList
     {
-        public McpsList()
+        public McpsDataList()
         {
             name = "McpsList";
-            AddToClassList("list");
+
             if (Configs.IS_DEBUGGING)
                 for (var i = 0; i < 20; i++)
                     Add(new McpEntry());
@@ -17,12 +18,12 @@ namespace UI.MCPs
         #region UXML
 
         [Preserve]
-        public new class UxmlFactory : UxmlFactory<McpsList, UxmlTraits>
+        public new class UxmlFactory : UxmlFactory<McpsDataList, UxmlTraits>
         {
         }
 
         [Preserve]
-        public new class UxmlTraits : ScrollView.UxmlTraits
+        public new class UxmlTraits : DataList.UxmlTraits
         {
         }
 
