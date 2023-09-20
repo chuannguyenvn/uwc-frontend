@@ -8,7 +8,7 @@
     min-width: 300px;
     flex-grow: 1;
     max-width: 500px;
-    background-color: rgb(255, 255, 255);
+    background-color: var(--background-color);
 }
 
 #MessagesScreen #InboxContainer {
@@ -16,7 +16,7 @@
     width: auto;
     min-width: 300px;
     -unity-background-image-tint-color: rgb(255, 255, 255);
-    background-color: rgb(255, 255, 255);
+    background-color: var(--background-color);
     flex-direction: column;
 }
 

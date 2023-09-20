@@ -4,7 +4,7 @@ using UnityEngine.Scripting;
 
 namespace UI.MCPs
 {
-    public class McpEntry : ListEntry
+    public class McpEntry : DataListEntry
     {
         public McpEntry()
         {

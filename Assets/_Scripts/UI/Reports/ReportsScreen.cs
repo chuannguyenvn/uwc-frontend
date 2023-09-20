@@ -1,9 +1,10 @@
-﻿using UnityEngine.UIElements;
+﻿using UI.Commons;
+using UnityEngine.UIElements;
 using UnityEngine.Scripting;
 
 namespace UI.Reports
 {
-    public class ReportsScreen : VisualElement
+    public class ReportsScreen : FullScreenPanel
     {
         public ReportsScreen()
         {
@@ -18,7 +19,7 @@ namespace UI.Reports
         }
 
         [Preserve]
-        public new class UxmlTraits : VisualElement.UxmlTraits
+        public new class UxmlTraits : FullScreenPanel.UxmlTraits
         {
         }
 

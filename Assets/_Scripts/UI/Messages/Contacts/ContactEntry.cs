@@ -5,7 +5,7 @@ using UnityEngine.UIElements;
 
 namespace UI.Messages.Contacts
 {
-    public class ContactEntry : ListEntry
+    public class ContactEntry : DataListEntry
     {
         public ContactEntry()
         {

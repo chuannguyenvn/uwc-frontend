@@ -111,3 +111,9 @@
     border-bottom-right-radius: 6px;
     border-bottom-left-radius: 6px;
 }
+
+.full-screen-panel{
+    height: 100%;
+    width: 100%;
+    background-color: var(--background-color);
+}

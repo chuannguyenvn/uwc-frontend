@@ -5,7 +5,7 @@ using UnityEngine.Scripting;
 
 namespace UI.Workers
 {
-    public class WorkerEntry : ListEntry
+    public class WorkerEntry : DataListEntry
     {
         public WorkerEntry()
         {

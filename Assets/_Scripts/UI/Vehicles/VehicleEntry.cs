@@ -4,7 +4,7 @@ using UnityEngine.Scripting;
 
 namespace UI.Vehicles
 {
-    public class VehicleEntry : ListEntry
+    public class VehicleEntry : DataListEntry
     {
         public VehicleEntry()
         {

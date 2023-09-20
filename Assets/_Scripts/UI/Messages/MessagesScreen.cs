@@ -1,11 +1,12 @@
-﻿using UI.Messages.Contacts;
+﻿using UI.Commons;
+using UI.Messages.Contacts;
 using UI.Messages.Inbox;
 using UnityEngine.Scripting;
 using UnityEngine.UIElements;
 
 namespace UI.Messages
 {
-    public class MessagesScreen : VisualElement
+    public class MessagesScreen : FullScreenPanel
     {
         private readonly ContactsList _contactsList;
         private readonly InboxContainer _inboxContainer;
@@ -29,7 +30,7 @@ namespace UI.Messages
         }
 
         [Preserve]
-        public new class UxmlTraits : VisualElement.UxmlTraits
+        public new class UxmlTraits : FullScreenPanel.UxmlTraits
         {
         }
 

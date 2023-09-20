@@ -3,7 +3,7 @@ using UnityEngine.Scripting;
 
 namespace UI.Commons
 {
-    public class ListEntry : VisualElement
+    public class DataListEntry : VisualElement
     {
         protected readonly VisualElement ImageContainer;
         protected readonly Image Icon;
@@ -12,7 +12,7 @@ namespace UI.Commons
         protected readonly TextElement PrimaryText;
         protected readonly TextElement SecondaryText;
 
-        public ListEntry()
+        public DataListEntry()
         {
             name = "ContactEntry";
             AddToClassList("list-item");
