@@ -10,8 +10,10 @@ namespace UI.Authentication
         public SplashContainer()
         {
             name = "SplashContainer";
+            AddToClassList("splash-container");
             
-            _splash = new Image {name = "Splash"};
+            _splash = new Image {name = "SplashImage"};
+            _splash.AddToClassList("splash-image");
             
             Add(_splash);
         }

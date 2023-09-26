@@ -1,4 +1,4 @@
-#AuthenticationScreen {
+.authentication {
     flex-direction: row;
     justify-content: space-between;
     width: 100%;
@@ -7,7 +7,7 @@
     flex-grow: 0;
 }
 
-#AuthenticationScreen #Splash {
+.authentication .splash-image {
     background-image: url('project://database/Assets/Graphics/Splash.png?fileID=21300000&guid=a62e7a547a03c264ca49e3fc8a0e79e8&type=3#Splash');
     width: 100%;
     height: 100%;
@@ -15,7 +15,7 @@
     flex-grow: 1;
 }
 
-#AuthenticationScreen #CredentialsContainer {
+.authentication .credentials-container {
     flex-grow: 1;
     align-items: center;
     align-self: auto;
@@ -23,25 +23,14 @@
     width: 100%;
 }
 
-#AuthenticationScreen #SplashContainer {
-    flex-grow: 1;
-    width: 100%;
-}
-
-#AuthenticationScreen TextField {
-    border-top-left-radius: 24px;
-    border-top-right-radius: 24px;
-    border-bottom-right-radius: 24px;
-    border-bottom-left-radius: 24px;
+.authentication TextField {
+    border-radius: 24px;
     height: 50px;
     width: 50%;
-    margin-top: 8px;
-    margin-right: 8px;
-    margin-bottom: 8px;
-    margin-left: 8px;
+    margin: 8px;
 }
 
-#AuthenticationScreen TextField #unity-text-input {
+.authentication TextField #unity-text-input {
     border-radius: 0;
     border-left-color: rgba(0, 0, 0, 0);
     border-right-color: rgba(0, 0, 0, 0);
@@ -51,14 +40,11 @@
     margin: 0;
 }
 
-#AuthenticationScreen TextField #Username {
-    border-top-left-radius: 8px;
-    border-top-right-radius: 8px;
-    border-bottom-right-radius: 8px;
-    border-bottom-left-radius: 8px;
+.authentication TextField .username {
+    border-radius: 8px;
 }
 
-#AuthenticationScreen #Logo {
+.authentication #Logo {
     flex-direction: row;
     justify-content: space-between;
     background-image: url('project://database/Assets/Graphics/Icons/Recycling.png?fileID=21300000&guid=739723c54932fb4439c22430ff309b75&type=3#Recycling');
@@ -71,7 +57,7 @@
     height: 200px;
 }
 
-#AuthenticationScreen #Title {
+.authentication .title {
     flex-direction: row;
     justify-content: space-between;
     -unity-text-align: upper-center;
@@ -80,15 +66,9 @@
     margin-bottom: 30px;
 }
 
-#AuthenticationScreen Button {
-    border-top-left-radius: 24px;
-    border-top-right-radius: 24px;
-    border-bottom-right-radius: 24px;
-    border-bottom-left-radius: 24px;
+.authentication .button {
+    border-radius: 24px;
     height: 50px;
     width: 25%;
-    margin-top: 8px;
-    margin-right: 8px;
-    margin-bottom: 8px;
-    margin-left: 8px;
+    margin: 8px;
 }

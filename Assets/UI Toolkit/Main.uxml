@@ -2,9 +2,9 @@
     <Style src="project://database/Assets/_Scripts/UI/Stylesheets/Filter.uss?fileID=7433441132597879392&amp;guid=d05f93eba5c7db242a5a31ebe0a78200&amp;type=3#Filter" />
     <Style src="project://database/Assets/_Scripts/UI/Stylesheets/Sidebar.uss?fileID=7433441132597879392&amp;guid=5fa91e5da16834d4aaf1de08acf5ce22&amp;type=3#Sidebar" />
     <Style src="project://database/Assets/_Scripts/UI/Stylesheets/MessagesScreen.uss?fileID=7433441132597879392&amp;guid=96ceb389f01c7e64b8706616527d8d4e&amp;type=3#MessagesScreen" />
-    <Style src="project://database/Assets/_Scripts/UI/Stylesheets/Main.uss?fileID=7433441132597879392&amp;guid=0d0f91578a8cd3344aec4250287227e2&amp;type=3#Main" />
     <Style src="project://database/Assets/_Scripts/UI/Stylesheets/VehiclesScreen.uss?fileID=7433441132597879392&amp;guid=3526b2dd303b096428972852e9aed21d&amp;type=3#VehiclesScreen" />
     <Style src="project://database/Assets/_Scripts/UI/Stylesheets/McpsScreen.uss?fileID=7433441132597879392&amp;guid=8b7c4b2b81ee1bc4faaa6bb4f4900321&amp;type=3#McpsScreen" />
+    <Style src="project://database/Assets/_Scripts/UI/Stylesheets/Main.uss?fileID=7433441132597879392&amp;guid=0d0f91578a8cd3344aec4250287227e2&amp;type=3#Main" />
     <ui:VisualElement name="Main" style="flex-grow: 1; flex-direction: row; align-items: flex-start;">
         <UI.Sidebar name="Sidebar" style="flex-shrink: 0;" />
         <ui:VisualElement name="Content" style="flex-grow: 1; width: 100%; height: 100%;">

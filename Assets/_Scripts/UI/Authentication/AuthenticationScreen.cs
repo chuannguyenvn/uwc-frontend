@@ -1,4 +1,6 @@
-﻿using UnityEngine.UIElements;
+﻿using Constants;
+using UnityEngine;
+using UnityEngine.UIElements;
 using UnityEngine.Scripting;
 
 namespace UI.Authentication
@@ -11,7 +13,21 @@ namespace UI.Authentication
         public AuthenticationScreen()
         {
             name = "AuthenticationScreen";
+            AddToClassList("authentication");
 
+            var commonStylesheet = Resources.Load<StyleSheet>("Stylesheets/Common/AuthenticationScreen");
+            styleSheets.Add(commonStylesheet);
+            if (Debugs.IS_DESKTOP)
+            {
+                var desktopStylesheet = Resources.Load<StyleSheet>("Stylesheets/Desktop/AuthenticationScreen");
+                styleSheets.Add(desktopStylesheet);
+            }
+            else
+            {
+                var mobileStylesheet = Resources.Load<StyleSheet>("Stylesheets/Mobile/AuthenticationScreen");
+                styleSheets.Add(mobileStylesheet);
+            }
+            
             _credentialsContainer = new CredentialsContainer();
             Add(_credentialsContainer);
 
