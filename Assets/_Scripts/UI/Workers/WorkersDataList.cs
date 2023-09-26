@@ -1,4 +1,4 @@
-﻿using UI.Commons;
+﻿using UI.Common;
 using UnityEngine.UIElements;
 using UnityEngine.Scripting;
 
@@ -23,7 +23,7 @@ namespace UI.Workers
         }
 
         [Preserve]
-        public new class UxmlTraits : DataList.UxmlTraits
+        public new class UxmlTraits : ScrollView.UxmlTraits
         {
         }
 

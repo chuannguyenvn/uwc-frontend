@@ -1,6 +1,6 @@
-﻿namespace UI.MainController
+﻿namespace UI.Main
 {
-    public enum Screen
+    public enum View
     {
         Map,
         Workers,

@@ -1,6 +1,6 @@
 ﻿using UnityEngine.UIElements;
 
-namespace UI.Commons
+namespace UI.Common
 {
     public abstract class DataList : ScrollView
     {

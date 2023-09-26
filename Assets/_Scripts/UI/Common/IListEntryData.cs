@@ -1,4 +1,4 @@
-﻿namespace UI.Commons
+﻿namespace UI.Common
 {
     public interface IListEntryData
     {

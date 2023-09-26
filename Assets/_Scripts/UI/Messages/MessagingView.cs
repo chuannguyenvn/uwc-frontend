@@ -1,19 +1,19 @@
-﻿using UI.Commons;
-using UI.Messages.Contacts;
-using UI.Messages.Inbox;
+﻿using UI.Common;
+using UI.Messaging.Contacts;
+using UI.Messaging.Inbox;
 using UnityEngine.Scripting;
 using UnityEngine.UIElements;
 
-namespace UI.Messages
+namespace UI.Messaging
 {
-    public class MessagesScreen : FullScreenPanel
+    public class MessagingView : FullScreenView
     {
         private readonly ContactsList _contactsList;
         private readonly InboxContainer _inboxContainer;
 
-        public MessagesScreen()
+        public MessagingView() : base("Messaging")
         {
-            AddToClassList("messages-screen");
+            AddToClassList("messaging");
 
             _contactsList = new ContactsList();
             Add(_contactsList);
@@ -25,12 +25,12 @@ namespace UI.Messages
         #region UXML
 
         [Preserve]
-        public new class UxmlFactory : UxmlFactory<MessagesScreen, UxmlTraits>
+        public new class UxmlFactory : UxmlFactory<MessagingView, UxmlTraits>
         {
         }
 
         [Preserve]
-        public new class UxmlTraits : FullScreenPanel.UxmlTraits
+        public new class UxmlTraits : VisualElement.UxmlTraits
         {
         }
 

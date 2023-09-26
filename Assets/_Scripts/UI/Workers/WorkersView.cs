@@ -1,16 +1,16 @@
-﻿using UnityEngine.UIElements;
+﻿using UI.Common;
+using UnityEngine.UIElements;
 using UnityEngine.Scripting;
 
 namespace UI.Workers
 {
-    public class WorkersScreen : VisualElement
+    public class WorkersView : View
+    
     {
         private WorkersDataList _workersDataList;
         
-        public WorkersScreen()
+        public WorkersView() : base("WorkersView")
         {
-            name = "WorkersScreen";
-            
             _workersDataList = new WorkersDataList();
             Add(_workersDataList);
         }
@@ -18,7 +18,7 @@ namespace UI.Workers
         #region UXML
 
         [Preserve]
-        public new class UxmlFactory : UxmlFactory<WorkersScreen, UxmlTraits>
+        public new class UxmlFactory : UxmlFactory<WorkersView, UxmlTraits>
         {
         }
 

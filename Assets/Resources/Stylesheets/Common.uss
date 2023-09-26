@@ -49,12 +49,18 @@
     background-color: rgb(233, 233, 233);
 }
 
+.view {
+    height: 100%;
+    width: 100%;
+    flex-grow: 1;
+}
+
 .list {
     height: 100%;
     width: 30%;
     min-width: 300px;
-    flex-grow: 1;
     max-width: 500px;
+    flex-grow: 1;
     background-color: var(--background-color);
 }
 
@@ -112,7 +118,7 @@
     border-bottom-left-radius: 6px;
 }
 
-.full-screen-panel{
+.full-screen-panel {
     height: 100%;
     width: 100%;
     background-color: var(--background-color);

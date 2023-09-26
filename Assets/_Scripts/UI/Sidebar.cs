@@ -19,6 +19,9 @@ namespace UI
 
         public Sidebar()
         {
+            var stylesheet = Resources.Load<StyleSheet>("Stylesheets/Common/Sidebar");
+            styleSheets.Add(stylesheet);
+            
             AddToClassList("sidebar");
             AddToClassList("colored-background");
 

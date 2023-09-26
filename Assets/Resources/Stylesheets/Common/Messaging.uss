@@ -1,8 +1,8 @@
-#MessagesScreen {
+.messaging {
     flex-direction: row;
 }
 
-#MessagesScreen #ContactsList {
+.messaging #ContactsList {
     height: 100%;
     width: 30%;
     min-width: 300px;
@@ -11,7 +11,7 @@
     background-color: var(--background-color);
 }
 
-#MessagesScreen #InboxContainer {
+.messaging #InboxContainer {
     height: auto;
     width: auto;
     min-width: 300px;
@@ -20,7 +20,7 @@
     flex-direction: column;
 }
 
-#MessagesScreen #ContactEntry {
+.messaging #ContactEntry {
     width: auto;
     height: 10%;
     min-height: 75px;
@@ -29,16 +29,16 @@
     flex-direction: row;
 }
 
-#MessagesScreen #Name {
+.messaging #Name {
 }
 
-#MessagesScreen #MessagePreview {
+.messaging #MessagePreview {
     align-self: auto;
     align-items: auto;
     justify-content: flex-start;
 }
 
-#MessagesScreen #Avatar {
+.messaging #Avatar {
     width: 50px;
     height: 50px;
     justify-content: center;
@@ -49,11 +49,11 @@
     margin: 10px;
 }
 
-#MessagesScreen #InboxContainer #Avatar {
+.messaging #InboxContainer #Avatar {
     margin: 10px;
 }
 
-#MessagesScreen #TextContainer {
+.messaging #TextContainer {
     justify-content: center;
     align-self: center;
     align-items: flex-start;
@@ -61,7 +61,7 @@
     width: 100%;
 }
 
-#MessagesScreen #InboxContainer #InboxTitleBar {
+.messaging #InboxContainer #InboxTitleBar {
     width: 100%;
     height: 100px;
     max-height: none;
@@ -70,18 +70,12 @@
     background-color: rgb(255, 255, 255);
 }
 
-#MessagesScreen #InboxContainer #InboxTitleBar #Avatar {
-    padding-top: 0;
-    padding-right: 0;
-    padding-bottom: 0;
-    padding-left: 0;
-    margin-top: 10px;
-    margin-right: 10px;
-    margin-bottom: 10px;
-    margin-left: 20px;
+.messaging #InboxContainer #InboxTitleBar #Avatar {
+    padding: 0;
+    margin: 10px 10px 10px 20px;
 }
 
-#MessagesScreen #InboxContainer #QuickActionsContainer {
+.messaging #InboxContainer #QuickActionsContainer {
     width: 150px;
     height: 100%;
     justify-content: space-around;
@@ -90,20 +84,20 @@
     flex-direction: row;
 }
 
-#MessagesScreen #InboxContainer #QuickActionsContainer .icon {
+.messaging #InboxContainer #QuickActionsContainer .icon {
     width: 30px;
     height: 30px;
 }
 
-#MessagesScreen #InboxContainer #QuickActionsContainer #AssignTaskButton {
+.messaging #InboxContainer #QuickActionsContainer #AssignTaskButton {
     background-image: url('project://database/Assets/Graphics/Icons/New%20Task.png?fileID=21300000&guid=9de7ccd5ff041c548a062fc6a0b2761d&type=3#New Task');
 }
 
-#MessagesScreen #InboxContainer #QuickActionsContainer #InfoButton {
+.messaging #InboxContainer #QuickActionsContainer #InfoButton {
     background-image: url('project://database/Assets/Graphics/Icons/Info.png?fileID=21300000&guid=5c23495c53b0fef49833abbda73b6ad1&type=3#Info');
 }
 
-#MessagesScreen #InboxContainer #InboxMessageList {
+.messaging #InboxContainer #InboxMessageList {
     flex-grow: 0;
     align-items: stretch;
     justify-content: flex-start;
@@ -111,30 +105,18 @@
     flex-direction: column-reverse;
 }
 
-#MessagesScreen #ContentContainer {
+.messaging #ContentContainer {
     align-self: flex-start;
-    border-top-left-radius: 10px;
-    border-top-right-radius: 10px;
-    border-bottom-right-radius: 10px;
-    border-bottom-left-radius: 10px;
-    padding-top: 8px;
-    padding-right: 8px;
-    padding-bottom: 8px;
-    padding-left: 8px;
+    border-radius: 10px;
+    padding: 8px;
     justify-content: center;
     align-items: stretch;
 }
 
-#MessagesScreen InboxMessageEntry {
+.messaging InboxMessageEntry {
     align-self: auto;
-    padding-top: 10px;
-    padding-right: 10px;
-    padding-bottom: 10px;
-    padding-left: 10px;
-    border-top-left-radius: 0;
-    border-top-right-radius: 0;
-    border-bottom-right-radius: 0;
-    border-bottom-left-radius: 0;
+    padding: 10px;
+    border-radius: 0;
     align-items: auto;
     justify-content: flex-start;
     flex-grow: 1;
@@ -145,26 +127,26 @@
     min-width: 200px;
 }
 
-#MessagesScreen InboxMessageEntry #Timestamp {
+.messaging InboxMessageEntry #Timestamp {
     font-size: 10px;
     padding-left: 8px;
     padding-right: 8px;
     padding-top: 2px;
 }
 
-#MessagesScreen MessagingField {
+.messaging MessagingField {
     flex-direction: row;
     height: 75px;
     padding-bottom: 5px;
 }
 
-#MessagesScreen MessagingField #TextField {
+.messaging MessagingField #TextField {
     flex-grow: 1;
     border-radius: 15px;
     margin: 5px;
 }
 
-#MessagesScreen MessagingField #SendButton {
+.messaging MessagingField #SendButton {
     flex-grow: 0;
     width: 35px;
     height: 35px;
@@ -179,7 +161,7 @@
     border-bottom-color: rgba(0, 0, 0, 0);
 }
 
-#MessagesScreen MessagingField #unity-text-input {
+.messaging MessagingField #unity-text-input {
     border-top-width: 0;
     border-right-width: 0;
     border-bottom-width: 0;
@@ -187,7 +169,7 @@
     margin-left: 0;
 }
 
-#MessagesScreen MessagingField #SendIcon {
+.messaging MessagingField #SendIcon {
     background-image: url('project://database/Assets/Graphics/Icons/Send.png?fileID=21300000&guid=85e7a45670f06314a9beeab5531f512d&type=3#Send');
     -unity-background-scale-mode: scale-to-fit;
     background-color: rgba(255, 255, 255, 0);

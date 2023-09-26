@@ -1,6 +1,6 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
-    <Style src="project://database/Assets/_Scripts/UI/Stylesheets/Desktop/AuthenticationScreen.uss?fileID=7433441132597879392&amp;guid=b2219fece2d3484cab71f24b4d7421f9&amp;type=3#AuthenticationScreen" />
-    <Style src="project://database/Assets/_Scripts/UI/Stylesheets/Main.uss?fileID=7433441132597879392&amp;guid=0d0f91578a8cd3344aec4250287227e2&amp;type=3#Main" />
-    <Style src="project://database/Assets/_Scripts/UI/Stylesheets/Common/AuthenticationScreen.uss?fileID=7433441132597879392&amp;guid=2b5567ac39574c3190aaa6e8970f8af1&amp;type=3#AuthenticationScreen" />
-    <UI.Authentication.AuthenticationScreen name="AuthenticationScreen" />
+    <Style src="project://database/Assets/Resources/Stylesheets/Desktop/Authentication.uss?fileID=7433441132597879392&amp;guid=b2219fece2d3484cab71f24b4d7421f9&amp;type=3#Authentication" />
+    <Style src="project://database/Assets/Resources/Stylesheets/Common.uss?fileID=7433441132597879392&amp;guid=0d0f91578a8cd3344aec4250287227e2&amp;type=3#Common" />
+    <Style src="project://database/Assets/Resources/Stylesheets/Common/Authentication.uss?fileID=7433441132597879392&amp;guid=2b5567ac39574c3190aaa6e8970f8af1&amp;type=3#Authentication" />
+    <UI.Authentication.AuthenticationView />
 </ui:UXML>

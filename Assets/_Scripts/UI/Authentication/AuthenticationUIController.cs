@@ -2,7 +2,7 @@
 using System.Reflection;
 using Constants;
 using Managers;
-using UI.MainController;
+using UI.Main;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -13,15 +13,15 @@ namespace UI.Authentication
         [SerializeField] MainUIController _mainUiController;
 
         [SerializeField] private UIDocument _uiDocument;
-        private AuthenticationScreen _authenticationScreen;
+        private AuthenticationView _authenticationView;
         private TextField _usernameField;
         private TextField _passwordField;
 
         private void Start()
         {
-            _authenticationScreen = _uiDocument.rootVisualElement.Q<AuthenticationScreen>();
-            _usernameField = _authenticationScreen.Q<CredentialsContainer>().Q<TextField>("Username");
-            _passwordField = _authenticationScreen.Q<CredentialsContainer>().Q<TextField>("Password");
+            _authenticationView = _uiDocument.rootVisualElement.Q<AuthenticationView>();
+            _usernameField = _authenticationView.Q<CredentialsContainer>().Q<TextField>("Username");
+            _passwordField = _authenticationView.Q<CredentialsContainer>().Q<TextField>("Password");
             _uiDocument.rootVisualElement.Q<Button>("LoginButton").clickable.clicked += LoginButtonClickedHandler;
             _uiDocument.rootVisualElement.Q<Button>("ForgotPasswordButton").clickable.clicked += ForgotPasswordButtonClickedHandler;
 

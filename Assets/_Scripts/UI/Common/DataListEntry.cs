@@ -1,7 +1,7 @@
 ﻿using UnityEngine.UIElements;
 using UnityEngine.Scripting;
 
-namespace UI.Commons
+namespace UI.Common
 {
     public class DataListEntry : VisualElement
     {

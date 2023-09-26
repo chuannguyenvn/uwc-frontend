@@ -1,9 +1,9 @@
-﻿using UI.Commons;
+﻿using UI.Common;
 using UnityEngine;
 using UnityEngine.Scripting;
 using UnityEngine.UIElements;
 
-namespace UI.Messages.Contacts
+namespace UI.Messaging.Contacts
 {
     public class ContactEntry : DataListEntry
     {

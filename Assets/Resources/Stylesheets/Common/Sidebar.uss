@@ -2,10 +2,8 @@
     width: auto;
     height: 100%;
     background-color: rgb(61, 163, 93);
-    padding-top: 24px;
-    padding-right: 24px;
-    padding-bottom: 24px;
-    padding-left: 24px;
+    padding: 24px;
+    flex-shrink: 0;
 }
 
 #MapButton {
