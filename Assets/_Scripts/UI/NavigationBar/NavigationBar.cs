@@ -5,7 +5,7 @@ using UnityEngine.UIElements;
 
 namespace UI
 {
-    public class Sidebar : VisualElement
+    public class NavigationBar : VisualElement
     {
         private readonly List<VisualElement> _buttons = new();
 
@@ -17,12 +17,12 @@ namespace UI
         public readonly VisualElement MessagesButton;
         public readonly VisualElement SettingsButton;
 
-        public Sidebar()
+        public NavigationBar()
         {
-            var stylesheet = Resources.Load<StyleSheet>("Stylesheets/Common/Sidebar");
+            var stylesheet = Resources.Load<StyleSheet>("Stylesheets/Common/NavigationBar");
             styleSheets.Add(stylesheet);
             
-            AddToClassList("sidebar");
+            AddToClassList("navigation-bar");
             AddToClassList("colored-background");
 
             MapButton = new VisualElement { name = "MapButton" };
@@ -74,7 +74,7 @@ namespace UI
         #region UXML
 
         [Preserve]
-        public new class UxmlFactory : UxmlFactory<Sidebar, UxmlTraits>
+        public new class UxmlFactory : UxmlFactory<NavigationBar, UxmlTraits>
         {
         }
 

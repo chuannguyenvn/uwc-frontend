@@ -16,7 +16,7 @@ namespace UI.Main
         [SerializeField] private AuthenticationUIController _authenticationUiController;
 
         [SerializeField] private UIDocument _uiDocument;
-        private Sidebar _sidebar;
+        private NavigationBar _navigationBar;
         private WorkersView _workersView;
         private McpsScreen _mcpsScreen;
         private VehiclesScreen _vehiclesScreen;
@@ -37,7 +37,7 @@ namespace UI.Main
 
         private void QueryElements()
         {
-            _sidebar = _uiDocument.rootVisualElement.Q<Sidebar>();
+            _navigationBar = _uiDocument.rootVisualElement.Q<NavigationBar>();
             _workersView = _uiDocument.rootVisualElement.Q<WorkersView>();
             _mcpsScreen = _uiDocument.rootVisualElement.Q<McpsScreen>();
             _vehiclesScreen = _uiDocument.rootVisualElement.Q<VehiclesScreen>();
@@ -48,13 +48,13 @@ namespace UI.Main
 
         private void BindButtons()
         {
-            _sidebar.MapButton.RegisterCallback<MouseUpEvent>(_ => FocusScreen(View.Map));
-            _sidebar.WorkersButton.RegisterCallback<MouseUpEvent>(_ => FocusScreen(View.Workers));
-            _sidebar.McpsButton.RegisterCallback<MouseUpEvent>(_ => FocusScreen(View.Mcps));
-            _sidebar.VehiclesButton.RegisterCallback<MouseUpEvent>(_ => FocusScreen(View.Vehicles));
-            _sidebar.ReportButton.RegisterCallback<MouseUpEvent>(_ => FocusScreen(View.Reports));
-            _sidebar.MessagesButton.RegisterCallback<MouseUpEvent>(_ => FocusScreen(View.Messages));
-            _sidebar.SettingsButton.RegisterCallback<MouseUpEvent>(_ => FocusScreen(View.Settings));
+            _navigationBar.MapButton.RegisterCallback<MouseUpEvent>(_ => FocusScreen(View.Map));
+            _navigationBar.WorkersButton.RegisterCallback<MouseUpEvent>(_ => FocusScreen(View.Workers));
+            _navigationBar.McpsButton.RegisterCallback<MouseUpEvent>(_ => FocusScreen(View.Mcps));
+            _navigationBar.VehiclesButton.RegisterCallback<MouseUpEvent>(_ => FocusScreen(View.Vehicles));
+            _navigationBar.ReportButton.RegisterCallback<MouseUpEvent>(_ => FocusScreen(View.Reports));
+            _navigationBar.MessagesButton.RegisterCallback<MouseUpEvent>(_ => FocusScreen(View.Messages));
+            _navigationBar.SettingsButton.RegisterCallback<MouseUpEvent>(_ => FocusScreen(View.Settings));
         }
 
         private void HideAllScreens()

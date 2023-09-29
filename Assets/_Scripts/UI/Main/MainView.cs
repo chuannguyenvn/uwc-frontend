@@ -12,7 +12,7 @@ namespace UI.Main
 {
     public class MainView : VisualElement
     {
-        public readonly Sidebar Sidebar;
+        public readonly NavigationBar NavigationBar;
 
         public readonly VisualElement ContentContainer;
         public readonly WorkersView WorkersView;
@@ -29,8 +29,8 @@ namespace UI.Main
             
             AddToClassList("main");
             
-            Sidebar = new Sidebar();
-            Add(Sidebar);
+            NavigationBar = new NavigationBar();
+            Add(NavigationBar);
             
             ContentContainer = new VisualElement { name = "Container" };
             Add(ContentContainer);
