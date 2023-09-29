@@ -1,6 +1,4 @@
-﻿using UnityEngine.UIElements;
-
-namespace UI.Common
+﻿namespace UI.Common
 {
     public class FullScreenView : View
     {

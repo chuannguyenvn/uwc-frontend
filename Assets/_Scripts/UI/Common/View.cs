@@ -1,8 +1,4 @@
-﻿using Constants;
-using UnityEngine;
-using UnityEngine.UIElements;
-
-namespace UI.Common
+﻿namespace UI.Common
 {
     public abstract class View : ResponsiveVisualElement
     {

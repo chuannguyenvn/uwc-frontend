@@ -1,5 +1,4 @@
 ﻿using UnityEngine.UIElements;
-using UnityEngine.Scripting;
 
 namespace UI.Common
 {

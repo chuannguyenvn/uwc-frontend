@@ -1,6 +1,4 @@
-﻿using Commons.Categories;
-
-namespace Constants
+﻿namespace Constants
 {
     public static class Endpoints
     {
