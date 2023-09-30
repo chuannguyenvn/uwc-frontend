@@ -1,4 +1,5 @@
-﻿using UI.Common;
+﻿using Constants;
+using UI.Common;
 using UnityEngine;
 using UnityEngine.Scripting;
 using UnityEngine.UIElements;
@@ -19,7 +20,7 @@ namespace UI.Views.Messaging.Contacts
 
             SecondaryText.name = "MessagePreview";
             SecondaryText.text = "Placeholder Message Preview";
-            
+
             RegisterCallback<MouseUpEvent>(MouseUpHandler);
         }
 
@@ -30,7 +31,13 @@ namespace UI.Views.Messaging.Contacts
 
         private void MouseUpHandler(MouseUpEvent evt)
         {
-            MessagingController.Instance.ShowInbox();
+            if (Configs.IS_DESKTOP)
+            {
+            }
+            else
+            {
+                MessagingController.Instance.ShowInbox();
+            }
         }
     }
 }

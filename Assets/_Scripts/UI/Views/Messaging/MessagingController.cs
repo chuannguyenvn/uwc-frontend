@@ -1,4 +1,5 @@
-﻿using UI.Main;
+﻿using Constants;
+using UI.Main;
 using UI.Views.Messaging.Contacts;
 using UI.Views.Messaging.Inbox;
 using UnityEngine.UIElements;
@@ -14,7 +15,14 @@ namespace UI.Views.Messaging
         {
             base.Awake();
             QueryElements();
-            HideInbox();
+
+            if (Configs.IS_DESKTOP)
+            {
+            }
+            else
+            {
+                HideInbox();
+            }
         }
 
         private void QueryElements()
@@ -24,7 +32,13 @@ namespace UI.Views.Messaging
             _contactsSubview = messagingView.Q<ContactsSubview>();
             _inboxSubview = messagingView.Q<InboxSubview>();
 
-            _inboxSubview.Q("BackButton").RegisterCallback<MouseUpEvent>(_ => HideInbox());
+            if (Configs.IS_DESKTOP)
+            {
+            }
+            else
+            {
+                _inboxSubview.Q("BackButton").RegisterCallback<MouseUpEvent>(_ => HideInbox());
+            }
         }
 
         public void ShowInbox()

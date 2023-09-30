@@ -22,7 +22,7 @@ namespace UI.Main
         
         public MainView() : base("Main")
         {
-            styleSheets.Add(Resources.Load<StyleSheet>("Stylesheets/Common"));
+            styleSheets.Add(Resources.Load<StyleSheet>("Stylesheets/Common/Common"));
             
             AddToClassList("main");
             

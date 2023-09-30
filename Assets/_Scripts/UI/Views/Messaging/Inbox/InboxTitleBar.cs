@@ -29,11 +29,11 @@ namespace UI.Views.Messaging.Inbox
             else
             {
                 AddToClassList("colored-background");
+                
+                _backButton = new VisualElement { name = "BackButton" };
+                _backButton.AddToClassList("icon");
+                Add(_backButton);
             }
-
-            _backButton = new VisualElement { name = "BackButton" };
-            _backButton.AddToClassList("icon");
-            Add(_backButton);
             
             _avatar = new Image { name = "Avatar" };
             Add(_avatar);
