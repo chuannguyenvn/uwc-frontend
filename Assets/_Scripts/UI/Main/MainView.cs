@@ -22,8 +22,7 @@ namespace UI.Main
         
         public MainView() : base("Main")
         {
-            styleSheets.Add(Resources.Load<StyleSheet>("Stylesheets/Common/Common"));
-            
+            LoadStylesheet("Common");
             AddToClassList("main");
             
             NavigationBar = new NavigationBar();

@@ -9,7 +9,11 @@ namespace UI.Common
         public ResponsiveVisualElement(string name)
         {
             this.name = name;
-            
+            LoadStylesheet(name);
+        }
+        
+        public void LoadStylesheet(string name)
+        {
             var commonStylesheet = Resources.Load<StyleSheet>("Stylesheets/Common/" + name);
             if (commonStylesheet == null) return;
             styleSheets.Add(commonStylesheet);
