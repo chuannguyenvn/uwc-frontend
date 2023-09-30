@@ -6,8 +6,10 @@
         Workers,
         Mcps,
         Vehicles,
+        Tasks,
+        Status,
         Reporting,
         Messaging,
-        Settings
+        Settings,
     }
 }

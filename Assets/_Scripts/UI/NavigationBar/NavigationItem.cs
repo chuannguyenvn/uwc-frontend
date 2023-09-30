@@ -19,6 +19,8 @@ namespace UI
 
             _name = new TextElement { name = "Name" };
             _name.AddToClassList("name");
+            _name.AddToClassList("white-text");
+            _name.text = name;
             Add(_name);
         }
         

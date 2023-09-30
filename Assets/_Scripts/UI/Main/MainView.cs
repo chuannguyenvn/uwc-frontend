@@ -1,7 +1,12 @@
-﻿using UI.MCPs;
+﻿using Constants;
+using UI.Common;
+using UI.MCPs;
+using UI.Views.Map;
 using UI.Views.Messaging;
 using UI.Views.Reporting;
 using UI.Views.Settings;
+using UI.Views.Status;
+using UI.Views.Tasks;
 using UI.Views.Vehicles;
 using UI.Views.Workers;
 using UnityEngine;
@@ -10,48 +15,41 @@ using UnityEngine.UIElements;
 
 namespace UI.Main
 {
-    public class MainView : VisualElement
+    public class MainView : ResponsiveVisualElement
     {
         public readonly NavigationBar NavigationBar;
-
         public readonly VisualElement ContentContainer;
-        public readonly WorkersView WorkersView;
-        public readonly McpsView McpsView;
-        public readonly VehiclesView VehiclesView;
-        public readonly ReportingView ReportingView;
-        public readonly MessagingView MessagingView;
-        public readonly SettingsView SettingsView;
         
-        public MainView()
+        public MainView() : base("Main")
         {
             styleSheets.Add(Resources.Load<StyleSheet>("Stylesheets/Common"));
-            styleSheets.Add(Resources.Load<StyleSheet>("Stylesheets/Common/Main"));
             
             AddToClassList("main");
             
             NavigationBar = new NavigationBar();
             Add(NavigationBar);
             
-            ContentContainer = new VisualElement { name = "Container" };
+            ContentContainer = new VisualElement { name = "Content" };
             Add(ContentContainer);
             
-            WorkersView = new WorkersView();
-            ContentContainer.Add(WorkersView);
-            
-            McpsView = new McpsView();
-            ContentContainer.Add(McpsView);
-            
-            VehiclesView = new VehiclesView();
-            ContentContainer.Add(VehiclesView);
-            
-            ReportingView = new ReportingView();
-            ContentContainer.Add(ReportingView);
-            
-            MessagingView = new MessagingView();
-            ContentContainer.Add(MessagingView);
-            
-            SettingsView = new SettingsView();
-            ContentContainer.Add(SettingsView);
+            if (Configs.IS_DESKTOP)
+            {
+                ContentContainer.Add(new MapView());
+                ContentContainer.Add(new WorkersView());
+                ContentContainer.Add(new McpsView());
+                ContentContainer.Add(new VehiclesView());
+                ContentContainer.Add(new ReportingView());
+                ContentContainer.Add(new MessagingView());
+                ContentContainer.Add(new SettingsView());
+            }
+            else
+            {
+                ContentContainer.Add(new MapView());
+                ContentContainer.Add(new TasksView());
+                ContentContainer.Add(new StatusView());
+                ContentContainer.Add(new MessagingView());
+                ContentContainer.Add(new SettingsView());
+            }
         }
 
         #region UXML

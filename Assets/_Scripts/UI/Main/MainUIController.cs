@@ -1,10 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
+using Constants;
 using UI.Authentication;
 using UI.MCPs;
+using UI.Views.Map;
 using UI.Views.Messaging;
 using UI.Views.Reporting;
 using UI.Views.Settings;
+using UI.Views.Status;
+using UI.Views.Tasks;
 using UI.Views.Vehicles;
 using UI.Views.Workers;
 using UnityEngine;
@@ -35,13 +39,24 @@ namespace UI.Main
         {
             _navigationBar = _uiDocument.rootVisualElement.Q<NavigationBar>();
 
-            _viewsByViewType.Add(ViewType.Map, null);
-            _viewsByViewType.Add(ViewType.Workers, _uiDocument.rootVisualElement.Q<WorkersView>());
-            _viewsByViewType.Add(ViewType.Mcps, _uiDocument.rootVisualElement.Q<McpsView>());
-            _viewsByViewType.Add(ViewType.Vehicles, _uiDocument.rootVisualElement.Q<VehiclesView>());
-            _viewsByViewType.Add(ViewType.Reporting, _uiDocument.rootVisualElement.Q<ReportingView>());
-            _viewsByViewType.Add(ViewType.Messaging, _uiDocument.rootVisualElement.Q<MessagingView>());
-            _viewsByViewType.Add(ViewType.Settings, _uiDocument.rootVisualElement.Q<SettingsView>());
+            if (Configs.IS_DESKTOP)
+            {
+                _viewsByViewType.Add(ViewType.Map, _uiDocument.rootVisualElement.Q<MapView>());
+                _viewsByViewType.Add(ViewType.Workers, _uiDocument.rootVisualElement.Q<WorkersView>());
+                _viewsByViewType.Add(ViewType.Mcps, _uiDocument.rootVisualElement.Q<McpsView>());
+                _viewsByViewType.Add(ViewType.Vehicles, _uiDocument.rootVisualElement.Q<VehiclesView>());
+                _viewsByViewType.Add(ViewType.Reporting, _uiDocument.rootVisualElement.Q<ReportingView>());
+                _viewsByViewType.Add(ViewType.Messaging, _uiDocument.rootVisualElement.Q<MessagingView>());
+                _viewsByViewType.Add(ViewType.Settings, _uiDocument.rootVisualElement.Q<SettingsView>());
+            }
+            else
+            {
+                _viewsByViewType.Add(ViewType.Map, _uiDocument.rootVisualElement.Q<MapView>());
+                _viewsByViewType.Add(ViewType.Tasks, _uiDocument.rootVisualElement.Q<TasksView>());
+                _viewsByViewType.Add(ViewType.Status, _uiDocument.rootVisualElement.Q<StatusView>());
+                _viewsByViewType.Add(ViewType.Messaging, _uiDocument.rootVisualElement.Q<MessagingView>());
+                _viewsByViewType.Add(ViewType.Settings, _uiDocument.rootVisualElement.Q<SettingsView>());
+            }
         }
 
         private void BindButtons()

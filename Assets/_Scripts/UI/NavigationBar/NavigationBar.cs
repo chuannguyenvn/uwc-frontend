@@ -1,4 +1,6 @@
 ﻿using System.Collections.Generic;
+using Constants;
+using UI.Common;
 using UI.Main;
 using UnityEngine;
 using UnityEngine.Scripting;
@@ -6,54 +8,69 @@ using UnityEngine.UIElements;
 
 namespace UI
 {
-    public class NavigationBar : VisualElement
+    public class NavigationBar : ResponsiveVisualElement
     {
-        public readonly NavigationItem MapButton;
-        public readonly NavigationItem WorkersButton;
-        public readonly NavigationItem McpsButton;
-        public readonly NavigationItem VehiclesButton;
-        public readonly NavigationItem ReportingButton;
-        public readonly NavigationItem MessagingButton;
-        public readonly NavigationItem SettingsButton;
-        
-        public readonly Dictionary<ViewType, NavigationItem> NavigationItemsByViewType = new ();
+        public readonly Dictionary<ViewType, NavigationItem> NavigationItemsByViewType = new();
 
-        public NavigationBar()
+        public NavigationBar() : base("NavigationBar")
         {
-            var stylesheet = Resources.Load<StyleSheet>("Stylesheets/Common/NavigationBar");
-            styleSheets.Add(stylesheet);
-            
             AddToClassList("navigation-bar");
             AddToClassList("colored-background");
 
-            MapButton = new NavigationItem ("Map");
-            NavigationItemsByViewType.Add(ViewType.Map, MapButton);
-            Add(MapButton);
+            if (Configs.IS_DESKTOP)
+            {
+                var mapItem = new NavigationItem("Map");
+                NavigationItemsByViewType.Add(ViewType.Map, mapItem);
+                Add(mapItem);
 
-            WorkersButton = new NavigationItem ("Workers");
-            NavigationItemsByViewType.Add(ViewType.Workers, WorkersButton);
-            Add(WorkersButton);
+                var workersItem = new NavigationItem("Workers");
+                NavigationItemsByViewType.Add(ViewType.Workers, workersItem);
+                Add(workersItem);
 
-            McpsButton = new NavigationItem ("MCPs");
-            NavigationItemsByViewType.Add(ViewType.Mcps, McpsButton);
-            Add(McpsButton);
+                var mcpsItem = new NavigationItem("MCPs");
+                NavigationItemsByViewType.Add(ViewType.Mcps, mcpsItem);
+                Add(mcpsItem);
 
-            VehiclesButton = new NavigationItem ("Vehicles");
-            NavigationItemsByViewType.Add(ViewType.Vehicles, VehiclesButton);
-            Add(VehiclesButton);
+                var vehiclesItem = new NavigationItem("Vehicles");
+                NavigationItemsByViewType.Add(ViewType.Vehicles, vehiclesItem);
+                Add(vehiclesItem);
 
-            ReportingButton = new NavigationItem ("Reporting");
-            NavigationItemsByViewType.Add(ViewType.Reporting, ReportingButton);
-            Add(ReportingButton);
+                var reportingItem = new NavigationItem("Reporting");
+                NavigationItemsByViewType.Add(ViewType.Reporting, reportingItem);
+                Add(reportingItem);
 
-            MessagingButton = new NavigationItem ("Messaging");
-            NavigationItemsByViewType.Add(ViewType.Messaging, MessagingButton);
-            Add(MessagingButton);
+                var messagingItem = new NavigationItem("Messaging");
+                NavigationItemsByViewType.Add(ViewType.Messaging, messagingItem);
+                Add(messagingItem);
 
-            SettingsButton = new NavigationItem ("Settings");
-            NavigationItemsByViewType.Add(ViewType.Settings, SettingsButton);
-            Add(SettingsButton);
+                var settingsItem = new NavigationItem("Settings");
+                NavigationItemsByViewType.Add(ViewType.Settings, settingsItem);
+                Add(settingsItem);
+            }
+            else
+            {
+                var mapItem = new NavigationItem("Map");
+                NavigationItemsByViewType.Add(ViewType.Map, mapItem);
+                Add(mapItem);
+
+                var vehiclesItem = new NavigationItem("Tasks");
+                NavigationItemsByViewType.Add(ViewType.Tasks, vehiclesItem);
+                Add(vehiclesItem);
+
+                var reportingItem = new NavigationItem("Status");
+                NavigationItemsByViewType.Add(ViewType.Status, reportingItem);
+                Add(reportingItem);
+
+                var messagingItem = new NavigationItem("Messaging");
+                NavigationItemsByViewType.Add(ViewType.Messaging, messagingItem);
+                Add(messagingItem);
+
+                var settingsItem = new NavigationItem("Settings");
+                NavigationItemsByViewType.Add(ViewType.Settings, settingsItem);
+                Add(settingsItem);
+            }
         }
+
         #region UXML
 
         [Preserve]

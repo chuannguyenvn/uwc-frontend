@@ -1,9 +1,8 @@
 .navigation-bar {
-    width: auto;
-    height: 100%;
     background-color: rgb(61, 163, 93);
     padding: 24px;
     flex-shrink: 0;
+    justify-content: space-around;
 }
 
 #Map .icon {
@@ -19,6 +18,14 @@
 }
 
 #Vehicles .icon {
+    background-image: url('project://database/Assets/Graphics/Icons/Vehicles.png?fileID=21300000&guid=99e23c0cf71dc2a4a974ecaeba9a78d2&type=3#Vehicles');
+}
+
+#Tasks .icon {
+    background-image: url('project://database/Assets/Graphics/Icons/MCPs.png?fileID=21300000&guid=402dce15cf4c3a241a02117142a2e60c&type=3#MCPs');
+}
+
+#Status .icon {
     background-image: url('project://database/Assets/Graphics/Icons/Vehicles.png?fileID=21300000&guid=99e23c0cf71dc2a4a974ecaeba9a78d2&type=3#Vehicles');
 }
 
@@ -42,11 +49,14 @@
     align-self: center;
     align-items: center;
     margin: 10px;
-    margin-bottom: 50px;
+    margin-bottom: 10px;
     opacity: 0.5;
 }
 
-
 .navigation-bar .icon.active {
     opacity: 1;
+}
+
+.navigation-bar .name {
+    -unity-text-align: upper-center;
 }
