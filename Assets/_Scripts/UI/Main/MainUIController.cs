@@ -37,11 +37,11 @@ namespace UI.Main
 
             _viewsByViewType.Add(ViewType.Map, null);
             _viewsByViewType.Add(ViewType.Workers, _uiDocument.rootVisualElement.Q<WorkersView>());
-            _viewsByViewType.Add(ViewType.Mcps, _uiDocument.rootVisualElement.Q<McpsScreen>());
-            _viewsByViewType.Add(ViewType.Vehicles, _uiDocument.rootVisualElement.Q<VehiclesScreen>());
+            _viewsByViewType.Add(ViewType.Mcps, _uiDocument.rootVisualElement.Q<McpsView>());
+            _viewsByViewType.Add(ViewType.Vehicles, _uiDocument.rootVisualElement.Q<VehiclesView>());
             _viewsByViewType.Add(ViewType.Reporting, _uiDocument.rootVisualElement.Q<ReportingView>());
             _viewsByViewType.Add(ViewType.Messaging, _uiDocument.rootVisualElement.Q<MessagingView>());
-            _viewsByViewType.Add(ViewType.Settings, _uiDocument.rootVisualElement.Q<SettingsScreen>());
+            _viewsByViewType.Add(ViewType.Settings, _uiDocument.rootVisualElement.Q<SettingsView>());
         }
 
         private void BindButtons()

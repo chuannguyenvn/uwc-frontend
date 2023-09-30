@@ -1,16 +1,15 @@
-﻿using UnityEngine.UIElements;
+﻿using UI.Common;
+using UnityEngine.UIElements;
 using UnityEngine.Scripting;
 
 namespace UI.MCPs
 {
-    public class McpsScreen : VisualElement
+    public class McpsView : View
     {
         private McpsDataList _mcpsDataList;
         
-        public McpsScreen()
+        public McpsView() : base ("MCPs")
         {
-            name = "MCPsScreen";
-            
             _mcpsDataList = new McpsDataList(); 
             Add(_mcpsDataList);
         }
@@ -18,7 +17,7 @@ namespace UI.MCPs
         #region UXML
 
         [Preserve]
-        public new class UxmlFactory : UxmlFactory<McpsScreen, UxmlTraits>
+        public new class UxmlFactory : UxmlFactory<McpsView, UxmlTraits>
         {
         }
 

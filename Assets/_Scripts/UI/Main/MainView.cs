@@ -16,11 +16,11 @@ namespace UI.Main
 
         public readonly VisualElement ContentContainer;
         public readonly WorkersView WorkersView;
-        public readonly McpsScreen McpsScreen;
-        public readonly VehiclesScreen VehiclesScreen;
+        public readonly McpsView McpsView;
+        public readonly VehiclesView VehiclesView;
         public readonly ReportingView ReportingView;
         public readonly MessagingView MessagingView;
-        public readonly SettingsScreen SettingsScreen;
+        public readonly SettingsView SettingsView;
         
         public MainView()
         {
@@ -38,11 +38,11 @@ namespace UI.Main
             WorkersView = new WorkersView();
             ContentContainer.Add(WorkersView);
             
-            McpsScreen = new McpsScreen();
-            ContentContainer.Add(McpsScreen);
+            McpsView = new McpsView();
+            ContentContainer.Add(McpsView);
             
-            VehiclesScreen = new VehiclesScreen();
-            ContentContainer.Add(VehiclesScreen);
+            VehiclesView = new VehiclesView();
+            ContentContainer.Add(VehiclesView);
             
             ReportingView = new ReportingView();
             ContentContainer.Add(ReportingView);
@@ -50,8 +50,8 @@ namespace UI.Main
             MessagingView = new MessagingView();
             ContentContainer.Add(MessagingView);
             
-            SettingsScreen = new SettingsScreen();
-            ContentContainer.Add(SettingsScreen);
+            SettingsView = new SettingsView();
+            ContentContainer.Add(SettingsView);
         }
 
         #region UXML

@@ -1,19 +1,19 @@
-﻿using UnityEngine.UIElements;
+﻿using UI.Common;
+using UnityEngine.UIElements;
 using UnityEngine.Scripting;
 
 namespace UI.Settings
 {
-    public class SettingsScreen : VisualElement
+    public class SettingsView : View
     {
-        public SettingsScreen()
+        public SettingsView() : base("Settings")
         {
-            name = "SettingsScreen";
         }
 
         #region UXML
 
         [Preserve]
-        public new class UxmlFactory : UxmlFactory<SettingsScreen, UxmlTraits>
+        public new class UxmlFactory : UxmlFactory<SettingsView, UxmlTraits>
         {
         }
 

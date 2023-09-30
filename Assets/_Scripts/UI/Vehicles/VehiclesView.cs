@@ -1,16 +1,15 @@
-﻿using UnityEngine.UIElements;
+﻿using UI.Common;
+using UnityEngine.UIElements;
 using UnityEngine.Scripting;
 
 namespace UI.Vehicles
 {
-    public class VehiclesScreen : VisualElement
+    public class VehiclesView : View
     {
         private VehiclesDataList _vehiclesDataList;
 
-        public VehiclesScreen()
+        public VehiclesView() : base("Vehicles")
         {
-            name = "VehiclesScreen";
-
             _vehiclesDataList = new VehiclesDataList();
             Add(_vehiclesDataList);
         }
@@ -18,7 +17,7 @@ namespace UI.Vehicles
         #region UXML
 
         [Preserve]
-        public new class UxmlFactory : UxmlFactory<VehiclesScreen, UxmlTraits>
+        public new class UxmlFactory : UxmlFactory<VehiclesView, UxmlTraits>
         {
         }
 
