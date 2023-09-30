@@ -1,7 +1,7 @@
 ﻿using UnityEngine.Scripting;
 using UnityEngine.UIElements;
 
-namespace UI.Messaging.Contacts
+namespace UI.Views.Messaging.Contacts
 {
     public class ContactsList : ScrollView
     {

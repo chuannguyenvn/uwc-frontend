@@ -1,9 +1,9 @@
 ﻿using Commons.Categories;
 using UI.Common;
-using UnityEngine.UIElements;
 using UnityEngine.Scripting;
+using UnityEngine.UIElements;
 
-namespace UI.Workers
+namespace UI.Views.Workers
 {
     public class WorkerEntry : DataListEntry
     {

@@ -1,19 +1,19 @@
 ﻿using UI.Common;
-using UnityEngine.UIElements;
 using UnityEngine.Scripting;
+using UnityEngine.UIElements;
 
-namespace UI.Settings
+namespace UI.Views.Reporting
 {
-    public class SettingsView : View
+    public class ReportingView : FullScreenView
     {
-        public SettingsView() : base("Settings")
+        public ReportingView() : base("Reporting")
         {
         }
 
         #region UXML
 
         [Preserve]
-        public new class UxmlFactory : UxmlFactory<SettingsView, UxmlTraits>
+        public new class UxmlFactory : UxmlFactory<ReportingView, UxmlTraits>
         {
         }
 

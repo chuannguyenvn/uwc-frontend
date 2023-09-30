@@ -3,7 +3,7 @@ using UnityEngine;
 using UnityEngine.Scripting;
 using UnityEngine.UIElements;
 
-namespace UI.Messaging.Contacts
+namespace UI.Views.Messaging.Contacts
 {
     public class ContactEntry : DataListEntry
     {

@@ -1,6 +1,6 @@
 ﻿using UI.Common;
 
-namespace UI.Vehicles
+namespace UI.Views.Vehicles
 {
     public class VehicleEntryData : IListEntryData
     {

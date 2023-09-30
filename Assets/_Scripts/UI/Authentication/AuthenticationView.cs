@@ -1,6 +1,6 @@
 ﻿using UI.Common;
-using UnityEngine.UIElements;
 using UnityEngine.Scripting;
+using UnityEngine.UIElements;
 
 namespace UI.Authentication
 {

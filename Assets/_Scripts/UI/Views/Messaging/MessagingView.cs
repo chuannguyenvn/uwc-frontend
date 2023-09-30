@@ -1,10 +1,10 @@
 ﻿using UI.Common;
-using UI.Messaging.Contacts;
-using UI.Messaging.Inbox;
+using UI.Views.Messaging.Contacts;
+using UI.Views.Messaging.Inbox;
 using UnityEngine.Scripting;
 using UnityEngine.UIElements;
 
-namespace UI.Messaging
+namespace UI.Views.Messaging
 {
     public class MessagingView : FullScreenView
     {

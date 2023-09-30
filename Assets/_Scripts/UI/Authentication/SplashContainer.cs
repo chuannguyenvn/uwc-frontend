@@ -1,5 +1,5 @@
-﻿using UnityEngine.UIElements;
-using UnityEngine.Scripting;
+﻿using UnityEngine.Scripting;
+using UnityEngine.UIElements;
 
 namespace UI.Authentication
 {

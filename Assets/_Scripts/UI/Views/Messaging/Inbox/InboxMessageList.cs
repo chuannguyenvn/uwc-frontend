@@ -1,7 +1,7 @@
 ﻿using UnityEngine.Scripting;
 using UnityEngine.UIElements;
 
-namespace UI.Messaging.Inbox
+namespace UI.Views.Messaging.Inbox
 {
     public class InboxMessageList : ScrollView
     {

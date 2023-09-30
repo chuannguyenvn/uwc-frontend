@@ -2,11 +2,11 @@
 using System.Collections.Generic;
 using UI.Authentication;
 using UI.MCPs;
-using UI.Messaging;
-using UI.Reporting;
-using UI.Settings;
-using UI.Vehicles;
-using UI.Workers;
+using UI.Views.Messaging;
+using UI.Views.Reporting;
+using UI.Views.Settings;
+using UI.Views.Vehicles;
+using UI.Views.Workers;
 using UnityEngine;
 using UnityEngine.UIElements;
 
