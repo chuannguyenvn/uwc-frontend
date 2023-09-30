@@ -4,6 +4,7 @@
     {
         public View(string name) : base(name)
         {
+            AddToClassList("white-background");
         }
     }
 }

@@ -2,13 +2,14 @@
 using Managers;
 using UI.Main;
 using UnityEngine;
+using UnityEngine.Serialization;
 using UnityEngine.UIElements;
 
 namespace UI.Authentication
 {
     public class AuthenticationUIController : Singleton<AuthenticationUIController>
     {
-        [SerializeField] MainUIController _mainUiController;
+        [FormerlySerializedAs("_mainUiController")] [SerializeField] MainController _mainController;
 
         [SerializeField] private UIDocument _uiDocument;
         private AuthenticationView _authenticationView;
@@ -33,7 +34,7 @@ namespace UI.Authentication
 
         private void SuccessfulLoginHandler()
         {
-            _mainUiController.gameObject.SetActive(true);
+            _mainController.gameObject.SetActive(true);
             gameObject.SetActive(false);
         }
 

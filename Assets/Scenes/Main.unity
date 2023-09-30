@@ -426,7 +426,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 196585754fd84093b217cf10a2ba8190, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _mainUiController: {fileID: 2139813898}
+  _mainController: {fileID: 2139813898}
   _uiDocument: {fileID: 641997124}
 --- !u!1 &791994100
 GameObject:
@@ -655,6 +655,7 @@ GameObject:
   - component: {fileID: 2139813897}
   - component: {fileID: 2139813896}
   - component: {fileID: 2139813898}
+  - component: {fileID: 2139813899}
   m_Layer: 0
   m_Name: Main UI
   m_TagString: Untagged
@@ -707,6 +708,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _authenticationUiController: {fileID: 641997125}
   _uiDocument: {fileID: 2139813896}
+--- !u!114 &2139813899
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2139813895}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e62480e846bf4e41b6257be71dc20c8f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

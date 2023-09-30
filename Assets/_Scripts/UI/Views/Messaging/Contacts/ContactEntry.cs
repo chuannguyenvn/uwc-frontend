@@ -19,6 +19,8 @@ namespace UI.Views.Messaging.Contacts
 
             SecondaryText.name = "MessagePreview";
             SecondaryText.text = "Placeholder Message Preview";
+            
+            RegisterCallback<MouseUpEvent>(MouseUpHandler);
         }
 
         public ContactEntry(Sprite sprite) : this()
@@ -26,18 +28,9 @@ namespace UI.Views.Messaging.Contacts
             Icon.sprite = sprite;
         }
 
-        #region UXML
-
-        [Preserve]
-        public new class UxmlFactory : UxmlFactory<ContactEntry, UxmlTraits>
+        private void MouseUpHandler(MouseUpEvent evt)
         {
+            MessagingController.Instance.ShowInbox();
         }
-
-        [Preserve]
-        public new class UxmlTraits : VisualElement.UxmlTraits
-        {
-        }
-
-        #endregion
     }
 }

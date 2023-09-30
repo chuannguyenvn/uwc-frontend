@@ -1,12 +1,15 @@
-﻿using UnityEngine.Scripting;
+﻿using Constants;
+using UnityEngine.Scripting;
 using UnityEngine.UIElements;
 
 namespace UI.Views.Messaging.Inbox
 {
     public class InboxTitleBar : VisualElement
     {
+        private readonly VisualElement _backButton;
+        
         private readonly Image _avatar;
-
+        
         private readonly VisualElement _textContainer;
         private readonly TextElement _name;
         private readonly TextElement _status;
@@ -19,9 +22,22 @@ namespace UI.Views.Messaging.Inbox
         {
             name = "InboxTitleBar";
 
+            if (Configs.IS_DESKTOP)
+            {
+                AddToClassList("white-background");
+            }
+            else
+            {
+                AddToClassList("colored-background");
+            }
+
+            _backButton = new VisualElement { name = "BackButton" };
+            _backButton.AddToClassList("icon");
+            Add(_backButton);
+            
             _avatar = new Image { name = "Avatar" };
             Add(_avatar);
-
+            
             _textContainer = new VisualElement { name = "TextContainer" };
             Add(_textContainer);
 
@@ -35,17 +51,26 @@ namespace UI.Views.Messaging.Inbox
             _status.AddToClassList("secondary-text");
             _textContainer.Add(_status);
 
-            _quickActionsContainer = new VisualElement { name = "QuickActionsContainer" };
-            _quickActionsContainer.AddToClassList("colored-background");
-            Add(_quickActionsContainer);
+            if (Configs.IS_DESKTOP)
+            {
+                _quickActionsContainer = new VisualElement { name = "QuickActionsContainer" };
+                _quickActionsContainer.AddToClassList("colored-background");
+                Add(_quickActionsContainer);
 
-            _assignTaskButton = new VisualElement { name = "AssignTaskButton" };
-            _assignTaskButton.AddToClassList("icon");
-            _quickActionsContainer.Add(_assignTaskButton);
+                _assignTaskButton = new VisualElement { name = "AssignTaskButton" };
+                _assignTaskButton.AddToClassList("icon");
+                _quickActionsContainer.Add(_assignTaskButton);
 
-            _infoButton = new VisualElement { name = "InfoButton" };
-            _infoButton.AddToClassList("icon");
-            _quickActionsContainer.Add(_infoButton);
+                _infoButton = new VisualElement { name = "InfoButton" };
+                _infoButton.AddToClassList("icon");
+                _quickActionsContainer.Add(_infoButton);
+            }
+            else
+            {
+                _name.AddToClassList("white-text");
+                _status.AddToClassList("white-text");
+
+            }
         }
 
         #region UXML

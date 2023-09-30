@@ -7,7 +7,6 @@ namespace UI.Views.Messaging.Contacts
         public ContactList()
         {
             name = "ContactList";
-            AddToClassList("list");
             for (var i = 0; i < 20; i++) Add(new ContactEntry());
         }
     }

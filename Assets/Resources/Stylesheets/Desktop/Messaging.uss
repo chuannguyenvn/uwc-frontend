@@ -1,0 +1,5 @@
+.messaging .subview-contacts {
+    width: 30%;
+    min-width: 300px;
+    max-width: 500px;
+}

@@ -5,6 +5,7 @@
         public Subview(string name) : base(name)
         {
             AddToClassList("subview");
+            AddToClassList("subview-" + name.ToLower());
         }
     }
 }

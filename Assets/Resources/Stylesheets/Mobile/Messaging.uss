@@ -1,0 +1,3 @@
+.messaging .subview-contacts {
+    width: 100%;
+}

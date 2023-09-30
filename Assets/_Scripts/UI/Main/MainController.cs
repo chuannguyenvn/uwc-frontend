@@ -16,14 +16,14 @@ using UnityEngine.UIElements;
 
 namespace UI.Main
 {
-    public class MainUIController : Singleton<MainUIController>
+    public class MainController : Singleton<MainController>
     {
         [SerializeField] private AuthenticationUIController _authenticationUiController;
 
         [SerializeField] private UIDocument _uiDocument;
         private NavigationBar _navigationBar;
 
-        private readonly Dictionary<ViewType, VisualElement> _viewsByViewType = new();
+        public readonly Dictionary<ViewType, VisualElement> ViewsByViewType = new();
 
         private ViewType _currentViewType = ViewType.Map;
 
@@ -41,21 +41,21 @@ namespace UI.Main
 
             if (Configs.IS_DESKTOP)
             {
-                _viewsByViewType.Add(ViewType.Map, _uiDocument.rootVisualElement.Q<MapView>());
-                _viewsByViewType.Add(ViewType.Workers, _uiDocument.rootVisualElement.Q<WorkersView>());
-                _viewsByViewType.Add(ViewType.Mcps, _uiDocument.rootVisualElement.Q<McpsView>());
-                _viewsByViewType.Add(ViewType.Vehicles, _uiDocument.rootVisualElement.Q<VehiclesView>());
-                _viewsByViewType.Add(ViewType.Reporting, _uiDocument.rootVisualElement.Q<ReportingView>());
-                _viewsByViewType.Add(ViewType.Messaging, _uiDocument.rootVisualElement.Q<MessagingView>());
-                _viewsByViewType.Add(ViewType.Settings, _uiDocument.rootVisualElement.Q<SettingsView>());
+                ViewsByViewType.Add(ViewType.Map, _uiDocument.rootVisualElement.Q<MapView>());
+                ViewsByViewType.Add(ViewType.Workers, _uiDocument.rootVisualElement.Q<WorkersView>());
+                ViewsByViewType.Add(ViewType.Mcps, _uiDocument.rootVisualElement.Q<McpsView>());
+                ViewsByViewType.Add(ViewType.Vehicles, _uiDocument.rootVisualElement.Q<VehiclesView>());
+                ViewsByViewType.Add(ViewType.Reporting, _uiDocument.rootVisualElement.Q<ReportingView>());
+                ViewsByViewType.Add(ViewType.Messaging, _uiDocument.rootVisualElement.Q<MessagingView>());
+                ViewsByViewType.Add(ViewType.Settings, _uiDocument.rootVisualElement.Q<SettingsView>());
             }
             else
             {
-                _viewsByViewType.Add(ViewType.Map, _uiDocument.rootVisualElement.Q<MapView>());
-                _viewsByViewType.Add(ViewType.Tasks, _uiDocument.rootVisualElement.Q<TasksView>());
-                _viewsByViewType.Add(ViewType.Status, _uiDocument.rootVisualElement.Q<StatusView>());
-                _viewsByViewType.Add(ViewType.Messaging, _uiDocument.rootVisualElement.Q<MessagingView>());
-                _viewsByViewType.Add(ViewType.Settings, _uiDocument.rootVisualElement.Q<SettingsView>());
+                ViewsByViewType.Add(ViewType.Map, _uiDocument.rootVisualElement.Q<MapView>());
+                ViewsByViewType.Add(ViewType.Tasks, _uiDocument.rootVisualElement.Q<TasksView>());
+                ViewsByViewType.Add(ViewType.Status, _uiDocument.rootVisualElement.Q<StatusView>());
+                ViewsByViewType.Add(ViewType.Messaging, _uiDocument.rootVisualElement.Q<MessagingView>());
+                ViewsByViewType.Add(ViewType.Settings, _uiDocument.rootVisualElement.Q<SettingsView>());
             }
         }
 
@@ -69,7 +69,7 @@ namespace UI.Main
 
         private void HideAllScreens()
         {
-            foreach (var (_, view) in _viewsByViewType)
+            foreach (var (_, view) in ViewsByViewType)
             {
                 if (view != null) view.style.display = new StyleEnum<DisplayStyle>(DisplayStyle.None);
             }
@@ -84,14 +84,14 @@ namespace UI.Main
 
         private void ShowCurrentScreenElement()
         {
-            if (_viewsByViewType[_currentViewType] == null) return;
-            _viewsByViewType[_currentViewType].style.display = new StyleEnum<DisplayStyle>(DisplayStyle.Flex);
+            if (ViewsByViewType[_currentViewType] == null) return;
+            ViewsByViewType[_currentViewType].style.display = new StyleEnum<DisplayStyle>(DisplayStyle.Flex);
         }
 
         private void HideCurrentScreenElement()
         {
-            if (_viewsByViewType[_currentViewType] == null) return;
-            _viewsByViewType[_currentViewType].style.display = new StyleEnum<DisplayStyle>(DisplayStyle.None);
+            if (ViewsByViewType[_currentViewType] == null) return;
+            ViewsByViewType[_currentViewType].style.display = new StyleEnum<DisplayStyle>(DisplayStyle.None);
         }
     }
 }
