@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using UI.Main;
 using UnityEngine;
 using UnityEngine.Scripting;
 using UnityEngine.UIElements;
@@ -7,15 +8,15 @@ namespace UI
 {
     public class NavigationBar : VisualElement
     {
-        private readonly List<VisualElement> _buttons = new();
-
-        public readonly VisualElement MapButton;
-        public readonly VisualElement WorkersButton;
-        public readonly VisualElement McpsButton;
-        public readonly VisualElement VehiclesButton;
-        public readonly VisualElement ReportButton;
-        public readonly VisualElement MessagesButton;
-        public readonly VisualElement SettingsButton;
+        public readonly NavigationItem MapButton;
+        public readonly NavigationItem WorkersButton;
+        public readonly NavigationItem McpsButton;
+        public readonly NavigationItem VehiclesButton;
+        public readonly NavigationItem ReportingButton;
+        public readonly NavigationItem MessagingButton;
+        public readonly NavigationItem SettingsButton;
+        
+        public readonly Dictionary<ViewType, NavigationItem> NavigationItemsByViewType = new ();
 
         public NavigationBar()
         {
@@ -25,52 +26,34 @@ namespace UI
             AddToClassList("navigation-bar");
             AddToClassList("colored-background");
 
-            MapButton = new VisualElement { name = "MapButton" };
+            MapButton = new NavigationItem ("Map");
+            NavigationItemsByViewType.Add(ViewType.Map, MapButton);
             Add(MapButton);
 
-            WorkersButton = new VisualElement { name = "WorkersButton" };
+            WorkersButton = new NavigationItem ("Workers");
+            NavigationItemsByViewType.Add(ViewType.Workers, WorkersButton);
             Add(WorkersButton);
 
-            McpsButton = new VisualElement { name = "MCPsButton" };
+            McpsButton = new NavigationItem ("MCPs");
+            NavigationItemsByViewType.Add(ViewType.Mcps, McpsButton);
             Add(McpsButton);
 
-            VehiclesButton = new VisualElement { name = "VehiclesButton" };
+            VehiclesButton = new NavigationItem ("Vehicles");
+            NavigationItemsByViewType.Add(ViewType.Vehicles, VehiclesButton);
             Add(VehiclesButton);
 
-            ReportButton = new VisualElement { name = "ReportsButton" };
-            Add(ReportButton);
+            ReportingButton = new NavigationItem ("Reporting");
+            NavigationItemsByViewType.Add(ViewType.Reporting, ReportingButton);
+            Add(ReportingButton);
 
-            MessagesButton = new VisualElement { name = "MessagesButton" };
-            Add(MessagesButton);
+            MessagingButton = new NavigationItem ("Messaging");
+            NavigationItemsByViewType.Add(ViewType.Messaging, MessagingButton);
+            Add(MessagingButton);
 
-            SettingsButton = new VisualElement { name = "SettingsButton" };
+            SettingsButton = new NavigationItem ("Settings");
+            NavigationItemsByViewType.Add(ViewType.Settings, SettingsButton);
             Add(SettingsButton);
-
-            _buttons = new List<VisualElement>
-            {
-                MapButton,
-                WorkersButton,
-                McpsButton,
-                VehiclesButton,
-                ReportButton,
-                MessagesButton,
-                SettingsButton
-            };
-
-            foreach (var button in _buttons)
-            {
-                button.AddToClassList("icon");
-                button.RegisterCallback<MouseDownEvent>(_ => FocusButton(button));
-            }
         }
-
-        private void FocusButton(VisualElement button)
-        {
-            foreach (var i in _buttons) i.RemoveFromClassList("active");
-
-            button.AddToClassList("active");
-        }
-
         #region UXML
 
         [Preserve]

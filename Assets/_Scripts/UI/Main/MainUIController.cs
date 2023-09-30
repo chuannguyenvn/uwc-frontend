@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using UI.Authentication;
 using UI.MCPs;
 using UI.Messaging;
@@ -17,15 +18,10 @@ namespace UI.Main
 
         [SerializeField] private UIDocument _uiDocument;
         private NavigationBar _navigationBar;
-        private WorkersView _workersView;
-        private McpsScreen _mcpsScreen;
-        private VehiclesScreen _vehiclesScreen;
-        private ReportingView _reportingView;
-        private MessagingView _messagingView;
-        private SettingsScreen _settingsScreen;
 
-        private VisualElement _currentScreenElement;
-        private View _currentView = View.Map;
+        private readonly Dictionary<ViewType, VisualElement> _viewsByViewType = new();
+
+        private ViewType _currentViewType = ViewType.Map;
 
         protected override void Awake()
         {
@@ -38,71 +34,49 @@ namespace UI.Main
         private void QueryElements()
         {
             _navigationBar = _uiDocument.rootVisualElement.Q<NavigationBar>();
-            _workersView = _uiDocument.rootVisualElement.Q<WorkersView>();
-            _mcpsScreen = _uiDocument.rootVisualElement.Q<McpsScreen>();
-            _vehiclesScreen = _uiDocument.rootVisualElement.Q<VehiclesScreen>();
-            _reportingView = _uiDocument.rootVisualElement.Q<ReportingView>();
-            _messagingView = _uiDocument.rootVisualElement.Q<MessagingView>();
-            _settingsScreen = _uiDocument.rootVisualElement.Q<SettingsScreen>();
+
+            _viewsByViewType.Add(ViewType.Map, null);
+            _viewsByViewType.Add(ViewType.Workers, _uiDocument.rootVisualElement.Q<WorkersView>());
+            _viewsByViewType.Add(ViewType.Mcps, _uiDocument.rootVisualElement.Q<McpsScreen>());
+            _viewsByViewType.Add(ViewType.Vehicles, _uiDocument.rootVisualElement.Q<VehiclesScreen>());
+            _viewsByViewType.Add(ViewType.Reporting, _uiDocument.rootVisualElement.Q<ReportingView>());
+            _viewsByViewType.Add(ViewType.Messaging, _uiDocument.rootVisualElement.Q<MessagingView>());
+            _viewsByViewType.Add(ViewType.Settings, _uiDocument.rootVisualElement.Q<SettingsScreen>());
         }
 
         private void BindButtons()
         {
-            _navigationBar.MapButton.RegisterCallback<MouseUpEvent>(_ => FocusScreen(View.Map));
-            _navigationBar.WorkersButton.RegisterCallback<MouseUpEvent>(_ => FocusScreen(View.Workers));
-            _navigationBar.McpsButton.RegisterCallback<MouseUpEvent>(_ => FocusScreen(View.Mcps));
-            _navigationBar.VehiclesButton.RegisterCallback<MouseUpEvent>(_ => FocusScreen(View.Vehicles));
-            _navigationBar.ReportButton.RegisterCallback<MouseUpEvent>(_ => FocusScreen(View.Reports));
-            _navigationBar.MessagesButton.RegisterCallback<MouseUpEvent>(_ => FocusScreen(View.Messages));
-            _navigationBar.SettingsButton.RegisterCallback<MouseUpEvent>(_ => FocusScreen(View.Settings));
+            foreach (var (viewType, navigationItem) in _navigationBar.NavigationItemsByViewType)
+            {
+                navigationItem.RegisterCallback<MouseUpEvent>(_ => FocusView(viewType));
+            }
         }
 
         private void HideAllScreens()
         {
-            _workersView.style.display = new StyleEnum<DisplayStyle>(DisplayStyle.None);
-            _mcpsScreen.style.display = new StyleEnum<DisplayStyle>(DisplayStyle.None);
-            _vehiclesScreen.style.display = new StyleEnum<DisplayStyle>(DisplayStyle.None);
-            _reportingView.style.display = new StyleEnum<DisplayStyle>(DisplayStyle.None);
-            _messagingView.style.display = new StyleEnum<DisplayStyle>(DisplayStyle.None);
-            _settingsScreen.style.display = new StyleEnum<DisplayStyle>(DisplayStyle.None);
+            foreach (var (_, view) in _viewsByViewType)
+            {
+                if (view != null) view.style.display = new StyleEnum<DisplayStyle>(DisplayStyle.None);
+            }
         }
 
-        private void FocusScreen(View view)
+        private void FocusView(ViewType viewType)
         {
-            Debug.Log("Focusing: " + view);
-
             HideCurrentScreenElement();
-            _currentScreenElement = GetScreenElement(view);
+            _currentViewType = viewType;
             ShowCurrentScreenElement();
-
-            _currentView = view;
         }
 
         private void ShowCurrentScreenElement()
         {
-            if (_currentScreenElement == null) return;
-            _currentScreenElement.style.display = new StyleEnum<DisplayStyle>(DisplayStyle.Flex);
+            if (_viewsByViewType[_currentViewType] == null) return;
+            _viewsByViewType[_currentViewType].style.display = new StyleEnum<DisplayStyle>(DisplayStyle.Flex);
         }
 
         private void HideCurrentScreenElement()
         {
-            if (_currentScreenElement == null) return;
-            _currentScreenElement.style.display = new StyleEnum<DisplayStyle>(DisplayStyle.None);
-        }
-
-        private VisualElement GetScreenElement(View view)
-        {
-            return view switch
-            {
-                View.Map => null,
-                View.Workers => _workersView,
-                View.Mcps => _mcpsScreen,
-                View.Vehicles => _vehiclesScreen,
-                View.Reports => _reportingView,
-                View.Messages => _messagingView,
-                View.Settings => _settingsScreen,
-                _ => throw new ArgumentOutOfRangeException(nameof(view), view, null)
-            };
+            if (_viewsByViewType[_currentViewType] == null) return;
+            _viewsByViewType[_currentViewType].style.display = new StyleEnum<DisplayStyle>(DisplayStyle.None);
         }
     }
 }

@@ -1,13 +1,13 @@
 ﻿namespace UI.Main
 {
-    public enum View
+    public enum ViewType
     {
         Map,
         Workers,
         Mcps,
         Vehicles,
-        Reports,
-        Messages,
+        Reporting,
+        Messaging,
         Settings
     }
 }
