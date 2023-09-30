@@ -1,6 +1,6 @@
 ﻿using UI.Common;
 
-namespace UI.MCPs
+namespace UI.Views.MCPs
 {
     public struct McpEntryData : IListEntryData
     {

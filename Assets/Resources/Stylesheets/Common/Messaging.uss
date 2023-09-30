@@ -2,19 +2,30 @@
     flex-direction: row;
 }
 
-.messaging #ContactsList {
+.messaging #Contacts {
     height: 100%;
     width: 30%;
+    min-width: 300px;
+}
+
+.messaging #ContactList {
+    height: 100%;
+    width: 100%;
     min-width: 300px;
     flex-grow: 1;
     max-width: 500px;
     background-color: var(--background-color);
 }
 
-.messaging #InboxContainer {
+.messaging #Inbox {
     height: auto;
     width: auto;
     min-width: 300px;
+}
+
+.messaging #InboxContainer {
+    height: 100%;
+    width: 100%;
     -unity-background-image-tint-color: rgb(255, 255, 255);
     background-color: var(--background-color);
     flex-direction: column;

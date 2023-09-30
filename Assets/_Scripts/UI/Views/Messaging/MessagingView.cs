@@ -8,32 +8,18 @@ namespace UI.Views.Messaging
 {
     public class MessagingView : FullScreenView
     {
-        private readonly ContactsList _contactsList;
-        private readonly InboxContainer _inboxContainer;
+        private readonly ContactsSubview _contactsSubview;
+        private readonly InboxSubview _inboxSubview;
 
         public MessagingView() : base("Messaging")
         {
             AddToClassList("messaging");
 
-            _contactsList = new ContactsList();
-            Add(_contactsList);
-
-            _inboxContainer = new InboxContainer();
-            Add(_inboxContainer);
+            _contactsSubview = new ContactsSubview();
+            Add(_contactsSubview);
+            
+            _inboxSubview = new InboxSubview();
+            Add(_inboxSubview);
         }
-
-        #region UXML
-
-        [Preserve]
-        public new class UxmlFactory : UxmlFactory<MessagingView, UxmlTraits>
-        {
-        }
-
-        [Preserve]
-        public new class UxmlTraits : VisualElement.UxmlTraits
-        {
-        }
-
-        #endregion
     }
 }
