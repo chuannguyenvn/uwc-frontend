@@ -23,7 +23,7 @@ namespace UI.Authentication
             _uiDocument.rootVisualElement.Q<Button>("LoginButton").clickable.clicked += LoginButtonClickedHandler;
             _uiDocument.rootVisualElement.Q<Button>("ForgotPasswordButton").clickable.clicked += ForgotPasswordButtonClickedHandler;
 
-            if (Debugs.IS_DEBUG) SuccessfulLoginHandler();
+            if (Configs.IS_DEBUGGING) SuccessfulLoginHandler();
         }
 
         private void LoginButtonClickedHandler()

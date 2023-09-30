@@ -14,7 +14,7 @@ namespace UI.Common
             if (commonStylesheet == null) return;
             styleSheets.Add(commonStylesheet);
             
-            if (Debugs.IS_DESKTOP)
+            if (Configs.IS_DESKTOP)
             {
                 var desktopStylesheet = Resources.Load<StyleSheet>("Stylesheets/Desktop/" + name);
                 if (desktopStylesheet == null) return;
