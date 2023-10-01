@@ -10,7 +10,7 @@
     align-items: center;
 }
 
-.card {
+.details {
     flex-grow: 1;
     border-top-left-radius: 36px;
     border-top-right-radius: 36px;

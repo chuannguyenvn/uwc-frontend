@@ -6,12 +6,12 @@ namespace UI.Views.Tasks.Tasks
 {
     public class TaskEntry : VisualElement
     {
-        private readonly VisualElement _status;
+        private readonly VisualElement _statusContainer;
         private readonly TextElement _statusText;
         private readonly VisualElement _upperLine;
         private readonly VisualElement _lowerLine;
 
-        private readonly VisualElement _card;
+        private readonly VisualElement _detailsContainer;
         private readonly TextElement _addressText;
         private readonly VisualElement _crossLine;
 
@@ -19,40 +19,40 @@ namespace UI.Views.Tasks.Tasks
         {
             AddToClassList("task-entry");
 
-            _status = new VisualElement { name = "Status" };
-            _status.AddToClassList("status");
-            Add(_status);
+            _statusContainer = new VisualElement { name = "Status" };
+            _statusContainer.AddToClassList("status");
+            Add(_statusContainer);
 
             _upperLine = new VisualElement { name = "UpperLine" };
             _upperLine.AddToClassList("upper-line");
             _upperLine.AddToClassList("timeline-line");
-            _status.Add(_upperLine);
+            _statusContainer.Add(_upperLine);
 
             _statusText = new TextElement { name = "StatusText" };
             _statusText.text = "Status";
             _statusText.AddToClassList("status-text");
             _statusText.AddToClassList("normal-text");
             _statusText.AddToClassList("black-text");
-            _status.Add(_statusText);
+            _statusContainer.Add(_statusText);
 
             _lowerLine = new VisualElement { name = "LowerLine" };
             _lowerLine.AddToClassList("lower-line");
             _lowerLine.AddToClassList("timeline-line");
-            _status.Add(_lowerLine);
+            _statusContainer.Add(_lowerLine);
 
-            _card = new VisualElement { name = "Card" };
-            _card.AddToClassList("card");
-            Add(_card);
+            _detailsContainer = new VisualElement { name = "Card" };
+            _detailsContainer.AddToClassList("details");
+            Add(_detailsContainer);
 
             _addressText = new TextElement { name = "AddressText" };
             _addressText.text = "Address placeholder";
             _addressText.AddToClassList("address-text");
             _addressText.AddToClassList("normal-text");
-            _card.Add(_addressText);
+            _detailsContainer.Add(_addressText);
 
             _crossLine = new VisualElement { name = "CrossLine" };
             _crossLine.AddToClassList("cross-line");
-            _card.Add(_crossLine);
+            _detailsContainer.Add(_crossLine);
         }
 
         public void SetFillStatus(McpFillStatus status)
@@ -60,13 +60,13 @@ namespace UI.Views.Tasks.Tasks
             switch (status)
             {
                 case McpFillStatus.Full:
-                    _card.AddToClassList("mcp-full");
+                    _detailsContainer.AddToClassList("mcp-full");
                     break;
                 case McpFillStatus.AlmostFull:
-                    _card.AddToClassList("mcp-almost-full");
+                    _detailsContainer.AddToClassList("mcp-almost-full");
                     break;
                 case McpFillStatus.NotFull:
-                    _card.AddToClassList("mcp-not-full");
+                    _detailsContainer.AddToClassList("mcp-not-full");
                     break;
             }
         }
@@ -87,11 +87,11 @@ namespace UI.Views.Tasks.Tasks
         {
             if (isFocused)
             {
-                _card.AddToClassList("focused");
+                _detailsContainer.AddToClassList("focused");
             }
             else
             {
-                _card.RemoveFromClassList("focused");
+                _detailsContainer.RemoveFromClassList("focused");
             }
         }
     }
