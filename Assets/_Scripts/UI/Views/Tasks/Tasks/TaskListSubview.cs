@@ -1,6 +1,4 @@
 ﻿using UI.Common;
-using UnityEngine.Scripting;
-using UnityEngine.UIElements;
 
 namespace UI.Views.Tasks.Tasks
 {
@@ -13,14 +11,5 @@ namespace UI.Views.Tasks.Tasks
             _taskList = new TaskList();
             Add(_taskList);
         }
-
-        #region UXML
-
-        [Preserve]
-        public new class UxmlFactory : UxmlFactory<TaskListSubview, UxmlTraits>
-        {
-        }
-
-        #endregion
     }
 }

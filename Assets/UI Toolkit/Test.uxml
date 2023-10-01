@@ -1,5 +1,5 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
-    <Style src="project://database/Assets/Resources/Stylesheets/Common/Tasks.uss?fileID=7433441132597879392&amp;guid=f742cf497d8c32b4994ad6d4b255e97c&amp;type=3#Tasks" />
     <Style src="project://database/Assets/Resources/Stylesheets/Common/Common.uss?fileID=7433441132597879392&amp;guid=0d0f91578a8cd3344aec4250287227e2&amp;type=3#Common" />
-    <UI.Views.Tasks.Tasks.TaskListSubview name="TaskListSubview" />
+    <Style src="project://database/Assets/Resources/Stylesheets/Common/Status.uss?fileID=7433441132597879392&amp;guid=2d4d50f3855808243a2464c57914f28c&amp;type=3#Status" />
+    <UI.Views.Status.StatusView />
 </ui:UXML>
