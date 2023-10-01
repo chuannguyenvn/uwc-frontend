@@ -5,3 +5,15 @@
 .secondary-text {
     font-size: 15px;
 }
+
+.title-text {
+    font-size: 20px;
+}
+
+.normal-text {
+    font-size: 15px;
+}
+
+.sub-text {
+    font-size: 10px;
+}

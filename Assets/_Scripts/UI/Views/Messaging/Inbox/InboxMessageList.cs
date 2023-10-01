@@ -9,7 +9,13 @@ namespace UI.Views.Messaging.Inbox
         {
             name = "InboxMessageList";
 
-            foreach (var (content, timestamp, isFromUser) in DataStoreDummy.MessageData) Add(new InboxMessageEntry(content, timestamp, isFromUser));
+            foreach (var (content, timestamp, isFromUser) in DataStoreDummy.MessageData)
+            {
+                var entry = new InboxMessageEntry(content, timestamp, isFromUser);
+                Add(entry);
+            }
+
+            verticalScroller.value = verticalScroller.highValue > 0 ? verticalScroller.highValue : 0;
         }
 
         #region UXML

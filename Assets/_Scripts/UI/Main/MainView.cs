@@ -28,7 +28,8 @@ namespace UI.Main
             NavigationBar = new NavigationBar();
             Add(NavigationBar);
             
-            ContentContainer = new VisualElement { name = "Content" };
+            ContentContainer = new VisualElement { name = "MainContent" };
+            ContentContainer.AddToClassList("main-content");
             Add(ContentContainer);
             
             if (Configs.IS_DESKTOP)

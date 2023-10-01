@@ -1,5 +1,4 @@
 ﻿using Commons.Types;
-using UI.Views.Messaging.Contacts;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -25,6 +24,8 @@ namespace UI.Views.Tasks.Tasks
                 }
                 Add(newTask);
             }
+            
+            verticalScroller.value = verticalScroller.highValue > 0 ? verticalScroller.highValue : 0;
         }
     }
 }

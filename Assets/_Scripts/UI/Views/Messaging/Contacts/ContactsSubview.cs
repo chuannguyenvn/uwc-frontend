@@ -1,4 +1,6 @@
-﻿using UI.Common;
+﻿using Constants;
+using UI.Common;
+using UnityEngine;
 
 namespace UI.Views.Messaging.Contacts
 {
@@ -8,6 +10,7 @@ namespace UI.Views.Messaging.Contacts
 
         public ContactsSubview() : base("Contacts")
         {
+            if (!Configs.IS_DESKTOP) AddToClassList("full-screen-view");
             _contactList = new ContactList();
             Add(_contactList);
         }

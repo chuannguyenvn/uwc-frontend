@@ -18,6 +18,7 @@ namespace UI.Views.Messaging.Inbox
             Add(_contentContainer);
 
             _content = new TextElement { name = "Content" };
+            _content.AddToClassList("normal-text");
             _contentContainer.Add(_content);
 
             _timestamp = new TextElement { name = "Timestamp" };

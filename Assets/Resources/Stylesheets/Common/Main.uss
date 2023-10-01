@@ -2,7 +2,7 @@
     flex-grow: 1;
 }
 
-.main #Content {
+.main .main-content {
     width: 100%;
     height: 100%;
 }

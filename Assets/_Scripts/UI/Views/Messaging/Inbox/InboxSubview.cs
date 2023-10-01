@@ -1,4 +1,5 @@
-﻿using UI.Common;
+﻿using Constants;
+using UI.Common;
 
 namespace UI.Views.Messaging.Inbox
 {
@@ -10,6 +11,8 @@ namespace UI.Views.Messaging.Inbox
 
         public InboxSubview() : base("Inbox")
         {
+            if (!Configs.IS_DESKTOP) AddToClassList("full-screen-view");
+
             _inboxTitleBar = new InboxTitleBar();
             Add(_inboxTitleBar);
 
