@@ -28,11 +28,11 @@ namespace UI.Common
             Add(TextContainer);
 
             PrimaryText = new TextElement();
-            PrimaryText.AddToClassList("primary-text");
+            PrimaryText.AddToClassList("normal-text");
             TextContainer.Add(PrimaryText);
 
             SecondaryText = new TextElement();
-            SecondaryText.AddToClassList("secondary-text");
+            SecondaryText.AddToClassList("sub-text");
             TextContainer.Add(SecondaryText);
         }
     }

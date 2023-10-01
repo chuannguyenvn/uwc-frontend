@@ -1,19 +1,11 @@
-.primary-text {
-    font-size: 20px;
-}
-
-.secondary-text {
-    font-size: 15px;
-}
-
 .title-text {
-    font-size: 20px;
+    font-size: 25px;
 }
 
 .normal-text {
-    font-size: 15px;
+    font-size: 20px;
 }
 
 .sub-text {
-    font-size: 10px;
+    font-size: 15px;
 }

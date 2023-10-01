@@ -76,10 +76,13 @@ namespace UI.Views.Tasks.Tasks
             if (isCompleted)
             {
                 _addressText.AddToClassList("grey-text");
+                _detailsContainer.AddToClassList("grey-background");
+                _crossLine.style.display = DisplayStyle.Flex;
             }
             else
             {
                 _addressText.AddToClassList("white-text");
+                _crossLine.style.display = DisplayStyle.None;
             }
         }
         

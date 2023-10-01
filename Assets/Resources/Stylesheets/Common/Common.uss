@@ -3,19 +3,12 @@
     --black-text-color: rgb(0, 0, 0);
     --grey-text-color: rgb(82, 82, 82);
     --white-text-color: rgb(255, 255, 255);
-    --background-color: rgb(255, 255, 255);
+    --white-background-color: rgb(255, 255, 255);
+    --grey-background-color: rgb(230, 230, 230);
     --background-color-hovered: rgb(233, 233, 233);
     --mcp-full-color: rgb(225, 27, 13);
     --mcp-almost-full-color: rgb(241, 209, 2);
     --mcp-not-full-color: rgb(61, 163, 93);
-}
-
-.primary-text {
-    -unity-font-style: normal;
-}
-
-.secondary-text {
-    color: var(--grey-text-color);
 }
 
 .title-text {
@@ -50,7 +43,11 @@
 }
 
 .white-background {
-    background-color: var(--background-color);
+    background-color: var(--white-background-color);
+}
+
+.grey-background {
+    background-color: var(--grey-background-color);
 }
 
 .colored-background {
@@ -62,7 +59,7 @@
 }
 
 .light-element {
-    background-color: var(--background-color);
+    background-color: var(--white-background-color);
 }
 
 .grey-element {
@@ -81,13 +78,13 @@
     min-width: 300px;
     max-width: 500px;
     flex-grow: 1;
-    background-color: var(--background-color);
+    background-color: var(--white-background-color);
 }
 
 .list-item {
     height: 75px;
     border-radius: 10px;
-    background-color: var(--background-color);
+    background-color: var(--white-background-color);
     width: auto;
     min-height: 75px;
     max-height: 10%;
@@ -118,7 +115,7 @@
     align-self: center;
     align-items: center;
     margin: 10px;
-    -unity-background-image-tint-color: var(--background-color);
+    -unity-background-image-tint-color: var(--white-background-color);
     background-color: rgba(0, 0, 0, 0);
 }
 
@@ -141,7 +138,7 @@
 .full-screen-panel {
     height: 100%;
     width: 100%;
-    background-color: var(--background-color);
+    background-color: var(--white-background-color);
 }
 
 .mcp-full {
@@ -157,18 +154,9 @@
 }
 
 .card {
-    border-top-left-radius: 24px;
-    border-top-right-radius: 24px;
-    border-bottom-right-radius: 24px;
-    border-bottom-left-radius: 24px;
-    margin-top: 10px;
-    margin-right: 10px;
-    margin-bottom: 10px;
-    margin-left: 10px;
-    padding-top: 10px;
-    padding-right: 10px;
-    padding-bottom: 10px;
-    padding-left: 10px;
+    border-radius: 24px;
+    margin: 10px;
+    padding: 10px;
 }
 
 .separator {

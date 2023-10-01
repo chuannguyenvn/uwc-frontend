@@ -43,12 +43,12 @@ namespace UI.Views.Messaging.Inbox
 
             _name = new TextElement { name = "Name" };
             _name.text = "Placeholder Name";
-            _name.AddToClassList("primary-text");
+            _name.AddToClassList("normal-text");
             _textContainer.Add(_name);
 
             _status = new TextElement { name = "Status" };
             _status.text = "Placeholder Status";
-            _status.AddToClassList("secondary-text");
+            _status.AddToClassList("sub-text");
             _textContainer.Add(_status);
 
             if (Configs.IS_DESKTOP)

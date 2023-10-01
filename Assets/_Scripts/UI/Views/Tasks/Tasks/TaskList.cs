@@ -9,7 +9,7 @@ namespace UI.Views.Tasks.Tasks
         public TaskList()
         {
             name = "TaskList";
-            for (var i = 0; i < 20; i++)
+            for (var i = 0; i < 30; i++)
             {
                 var newTask = new TaskEntry();
                 
