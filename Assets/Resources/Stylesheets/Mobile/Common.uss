@@ -9,3 +9,9 @@
 .sub-text {
     font-size: 20px;
 }
+
+.icon-container {
+    width: 100px;
+    height: 100px;
+    margin: 16px;
+}

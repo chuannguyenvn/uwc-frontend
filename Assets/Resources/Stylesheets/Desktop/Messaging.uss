@@ -3,3 +3,18 @@
     min-width: 300px;
     max-width: 500px;
 }
+
+.messaging .subview-inbox #InboxTitleBar {
+    height: 100px;
+}
+
+.messaging MessagingField {
+    height: 75px;
+    padding-bottom: 5px;
+}
+
+.messaging #Avatar {
+    width: 50px;
+    height: 50px;
+    margin: 10px;
+}

@@ -22,6 +22,8 @@ namespace UI.Views.Messaging.Inbox
             _contentContainer.Add(_content);
 
             _timestamp = new TextElement { name = "Timestamp" };
+            _timestamp.AddToClassList("normal-text");
+            _timestamp.AddToClassList("grey-text");
             Add(_timestamp);
 
             SetData("Test", DateTime.Now, true);

@@ -1,3 +1,29 @@
 .messaging .subview-contacts {
     width: 100%;
 }
+
+.messaging .subview-inbox #InboxTitleBar {
+    height: 200px;
+}
+
+.messaging MessagingField {
+    flex-direction: row;
+    height: 200px;
+    padding-bottom: 10px;
+}
+
+.messaging MessagingField #SendButton {
+    width: 75px;
+    height: 75px;
+}
+
+.messaging #ContactEntry {
+    min-height: 150px;
+    margin: 10px;
+}
+
+.messaging #Avatar {
+    width: 75px;
+    height: 75px;
+    margin: 10px;
+}
