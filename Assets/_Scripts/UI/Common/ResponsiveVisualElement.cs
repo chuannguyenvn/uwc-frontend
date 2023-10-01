@@ -15,19 +15,31 @@ namespace UI.Common
         public void LoadStylesheet(string name)
         {
             var commonStylesheet = Resources.Load<StyleSheet>("Stylesheets/Common/" + name);
-            if (commonStylesheet == null) return;
+            if (commonStylesheet == null)
+            {
+                Debug.LogWarning("Stylesheet not found: Stylesheets/Common/" + name + ".");
+                return;
+            }
             styleSheets.Add(commonStylesheet);
             
             if (Configs.IS_DESKTOP)
             {
                 var desktopStylesheet = Resources.Load<StyleSheet>("Stylesheets/Desktop/" + name);
-                if (desktopStylesheet == null) return;
+                if (desktopStylesheet == null)
+                {
+                    Debug.LogWarning("Stylesheet not found: Stylesheets/Desktop/" + name + ".");
+                    return;
+                }
                 styleSheets.Add(desktopStylesheet);
             }
             else
             {
                 var mobileStylesheet = Resources.Load<StyleSheet>("Stylesheets/Mobile/" + name);
-                if (mobileStylesheet == null) return;
+                if (mobileStylesheet == null)
+                {
+                    Debug.LogWarning("Stylesheet not found: Stylesheets/Mobile/" + name + ".");
+                    return;
+                }
                 styleSheets.Add(mobileStylesheet);
             }
         }

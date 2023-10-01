@@ -5,6 +5,9 @@
     --white-text-color: rgb(255, 255, 255);
     --background-color: rgb(255, 255, 255);
     --background-color-hovered: rgb(233, 233, 233);
+    --mcp-full-color: rgb(225, 27, 13);
+    --mcp-almost-full-color: rgb(241, 209, 2);
+    --mcp-not-full-color: rgb(61, 163, 93);
 }
 
 .primary-text {
@@ -13,6 +16,18 @@
 
 .secondary-text {
     color: var(--secondary-text-color);
+}
+
+.title-text {
+    -unity-font: url('project://database/Assets/Graphics/Fonts/Segoe%20UI%20Bold.ttf?fileID=12800000&guid=d39367468006e144194466e5686e40a3&type=3#Segoe UI Bold');
+}
+
+.normal-text {
+    -unity-font: url('project://database/Assets/Graphics/Fonts/Segoe%20UI.ttf?fileID=12800000&guid=3a56917333bec3c49bde9f46c791793c&type=3#Segoe UI');
+}
+
+.sub-text {
+    -unity-font: url('project://database/Assets/Graphics/Fonts/Segoe%20UI.ttf?fileID=12800000&guid=3a56917333bec3c49bde9f46c791793c&type=3#Segoe UI');
 }
 
 .black-text {
@@ -124,4 +139,16 @@
     height: 100%;
     width: 100%;
     background-color: var(--background-color);
+}
+
+.mcp-full {
+    background-color: var(--mcp-full-color);
+}
+
+.mcp-almost-full {
+    background-color: var(--mcp-almost-full-color);
+}
+
+.mcp-not-full {
+    background-color: var(--mcp-not-full-color);
 }

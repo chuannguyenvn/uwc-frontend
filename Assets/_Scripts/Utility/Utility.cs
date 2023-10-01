@@ -430,4 +430,10 @@ public static class Utility
     {
         return Vector2.Lerp(a, b, distance / Vector2.Distance(a, b));
     }
+
+    public static T GetRandomEnumValue<T>() where T : Enum
+    {
+        var values = Enum.GetValues(typeof(T));
+        return (T)values.GetValue(Random.Range(0, values.Length));
+    }
 }

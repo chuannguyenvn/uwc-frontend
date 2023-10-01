@@ -1,4 +1,6 @@
-﻿namespace UI.Common
+﻿using UnityEngine.UIElements;
+
+namespace UI.Common
 {
     public class Subview : ResponsiveVisualElement
     {
