@@ -17,6 +17,8 @@
 }
 
 .navigation-bar {
-    justify-content: space-evenly;
+    justify-content: space-around;
     align-self: flex-start;
+    padding-right: 2px;
+    align-items: center;
 }
