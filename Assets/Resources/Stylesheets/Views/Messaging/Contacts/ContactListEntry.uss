@@ -1,0 +1,14 @@
+#ContactListEntry {
+    width: 100%;
+    height: 64px;
+    flex-direction: row;
+}
+
+#TextContainer {
+    justify-content: center;
+}
+
+#Avatar {
+    width: 64px;
+    height: 64px;
+}

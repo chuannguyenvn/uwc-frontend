@@ -1,0 +1,3 @@
+﻿#MessagingView {
+    flex-direction: row;
+}

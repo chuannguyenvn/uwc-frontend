@@ -1,0 +1,7 @@
+#InputBar {
+    flex-direction: row;
+}
+
+#InputBar #TextField {
+    flex-grow: 1;
+}

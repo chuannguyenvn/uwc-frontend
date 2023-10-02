@@ -1,6 +1,6 @@
 :root {
     --theme-color: rgb(61, 163, 93);
-    --hover-color: rgb(213, 213, 213);
+    --grey-color: rgb(213, 213, 213);
     --black-text-color: rgb(0, 0, 0);
     --grey-text-color: rgb(102, 102, 102);
     --white-text-color: rgb(255, 255, 255);
@@ -35,5 +35,5 @@
 }
 
 .list-entry:hover {
-    background-color: var(--hover-color);
+    background-color: var(--grey-color);
 }

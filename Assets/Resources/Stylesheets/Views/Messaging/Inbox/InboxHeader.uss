@@ -1,0 +1,4 @@
+#InboxHeader {
+    background-color: var(--theme-color);
+    height: 100px;
+}

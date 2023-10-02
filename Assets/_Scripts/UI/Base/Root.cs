@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using Constants;
 using UI.Navigation;
+using UI.Views.Messaging;
 using UI.Views.Workers;
 using UnityEngine;
 using UnityEngine.UIElements;
@@ -16,18 +17,19 @@ namespace UI.Base
         {
             styleSheets.Add(Resources.Load<StyleSheet>("Stylesheets/Common"));
             styleSheets.Add(Resources.Load<StyleSheet>("Stylesheets/Base/Root"));
-
-            AddViews();
             
             NavigationBar = new NavigationBar();
             Add(NavigationBar);
+            
+            AddViews();
         }
         
         private void AddViews()
         {
             if (Configs.IS_DESKTOP)
             {
-                ViewsByViewType.Add(ViewType.Workers, new WorkersView());
+                // ViewsByViewType.Add(ViewType.Workers, new WorkersView());
+                ViewsByViewType.Add(ViewType.Messaging, new MessagingView());
             }
             else
             {
