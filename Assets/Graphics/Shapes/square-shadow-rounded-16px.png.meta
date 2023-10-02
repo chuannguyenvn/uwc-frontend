@@ -152,7 +152,8 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      square-shadow-rounded-16px_0: -3431235089818586065
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

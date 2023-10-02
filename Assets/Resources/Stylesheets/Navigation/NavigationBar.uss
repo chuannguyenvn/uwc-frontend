@@ -1,5 +1,16 @@
+.navigation-bar {
+    justify-content: space-around;
+    align-self: flex-start;
+    align-items: center;
+}
+
 .desktop.navigation-bar {
+    width: 104px;
     height: 100%;
+    padding-right: 2px;
+    margin-right: -3px;
+    position: absolute;
+    left: 0;
 }
 
 .mobile.navigation-bar {
@@ -15,11 +26,4 @@
     left: 0;
     right: 0;
     bottom: 0;
-}
-
-.navigation-bar {
-    justify-content: space-around;
-    align-self: flex-start;
-    padding-right: 2px;
-    align-items: center;
 }

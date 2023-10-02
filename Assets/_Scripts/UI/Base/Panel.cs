@@ -1,4 +1,5 @@
-﻿using UnityEngine.UIElements;
+﻿using UnityEngine;
+using UnityEngine.UIElements;
 
 namespace UI.Base
 {
@@ -8,6 +9,7 @@ namespace UI.Base
 
         public Panel() : base(nameof(Panel))
         {
+            styleSheets.Add(Resources.Load<StyleSheet>("Stylesheets/Base/Panel"));
             AddToClassList("panel");
 
             _background = new VisualElement { name = "Background" };

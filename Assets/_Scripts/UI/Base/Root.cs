@@ -16,11 +16,11 @@ namespace UI.Base
         {
             styleSheets.Add(Resources.Load<StyleSheet>("Stylesheets/Common"));
             styleSheets.Add(Resources.Load<StyleSheet>("Stylesheets/Base/Root"));
+
+            AddViews();
             
             NavigationBar = new NavigationBar();
             Add(NavigationBar);
-            
-            AddViews();
         }
         
         private void AddViews()

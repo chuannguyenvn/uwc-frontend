@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using Constants;
 using UI.Base;
+using UnityEngine;
 using UnityEngine.UIElements;
 using UnityEngine.Scripting;
 
@@ -13,6 +14,8 @@ namespace UI.Navigation
 
         public NavigationBar() : base(nameof(NavigationBar))
         {
+            styleSheets.Add(Resources.Load<StyleSheet>("Stylesheets/Navigation/NavigationBar"));
+            styleSheets.Add(Resources.Load<StyleSheet>("Stylesheets/Navigation/NavigationItem"));
             AddToClassList("navigation-bar");
 
             _background = new Panel();
