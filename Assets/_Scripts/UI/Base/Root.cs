@@ -2,6 +2,7 @@
 using Constants;
 using UI.Navigation;
 using UI.Views.Messaging;
+using UI.Views.Settings;
 using UI.Views.Status;
 using UI.Views.Tasks;
 using UI.Views.Workers;
@@ -33,12 +34,14 @@ namespace UI.Base
             {
                 ViewsByViewType.Add(ViewType.Workers, new WorkersView());
                 ViewsByViewType.Add(ViewType.Messaging, new MessagingView());
+                ViewsByViewType.Add(ViewType.Settings, new SettingsView());
             }
             else
             {
                 ViewsByViewType.Add(ViewType.Tasks, new TasksView());
                 ViewsByViewType.Add(ViewType.Status, new StatusView());
                 ViewsByViewType.Add(ViewType.Messaging, new MessagingView());
+                ViewsByViewType.Add(ViewType.Settings, new SettingsView());
             }
 
             foreach (var (viewType, view) in ViewsByViewType)

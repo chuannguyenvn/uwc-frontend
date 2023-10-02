@@ -1,0 +1,9 @@
+#unity-content-viewport {
+    padding-right: 24px;
+    padding-left: 24px;
+}
+
+#SettingList {
+    width: 100%;
+    height: 100%;
+}

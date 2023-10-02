@@ -1,0 +1,14 @@
+.section-header {
+    flex-direction: row;
+    align-items: center;
+    margin-top: 16px;
+    margin-bottom: 8px;
+}
+
+#HeaderLine {
+    flex-grow: 1;
+    height: 2px;
+    background-color: var(--grey-text-color);
+    margin-right: 8px;
+    margin-left: 8px;
+}

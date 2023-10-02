@@ -1,0 +1,14 @@
+.choice-setting-list-entry {
+    flex-direction: row;
+    align-items: flex-end;
+}
+
+#SettingNameText {
+    margin-right: 24px;
+}
+
+#OptionsContainer {
+    flex-direction: row;
+    flex-grow: 1;
+    justify-content: flex-end;
+}

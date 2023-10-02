@@ -1,0 +1,13 @@
+.option {
+    margin-right: 24px;
+}
+
+.activated {
+    color: var(--theme-color);
+    -unity-font-definition: url('project://database/Assets/Graphics/Fonts/Segoe%20UI%20Bold.ttf?fileID=12800000&guid=d39367468006e144194466e5686e40a3&type=3#Segoe UI Bold');
+}
+
+.deactivated {
+    color: var(--grey-text-color);
+    -unity-font-definition: url('project://database/Assets/Graphics/Fonts/Segoe%20UI.ttf?fileID=12800000&guid=3a56917333bec3c49bde9f46c791793c&type=3#Segoe UI');
+}
