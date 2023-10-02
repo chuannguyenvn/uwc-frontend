@@ -1,8 +1,6 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
     <Style src="project://database/Assets/Resources/Stylesheets/Common.uss?fileID=7433441132597879392&amp;guid=b143485b20294be4a84594fdfb10686d&amp;type=3#Common" />
     <Style src="project://database/Assets/Resources/Stylesheets/Base/View.uss?fileID=7433441132597879392&amp;guid=658283e2dc7948d995690ff7b19f7247&amp;type=3#View" />
-    <Style src="project://database/Assets/Resources/Stylesheets/Views/Messaging/MessagingView.uss?fileID=7433441132597879392&amp;guid=cc53f780acde410599a2c5e7aaa65d02&amp;type=3#MessagingView" />
-    <Style src="project://database/Assets/Resources/Stylesheets/Views/Messaging/Inbox/MessageListEntry.uss?fileID=7433441132597879392&amp;guid=7b90917440ac46b5991a286ad1176d9a&amp;type=3#MessageListEntry" />
-    <Style src="project://database/Assets/Resources/Stylesheets/Views/Messaging/Inbox/MessageList.uss?fileID=7433441132597879392&amp;guid=59c3859783194e709179445f2870e704&amp;type=3#MessageList" />
+    <Style src="project://database/Assets/Resources/Stylesheets/Navigation/NavigationBar.uss?fileID=7433441132597879392&amp;guid=6a46d1b9b97b4e0e9dabfdae687e5635&amp;type=3#NavigationBar" />
     <UI.Base.Root class="root" />
 </ui:UXML>

@@ -1,4 +1,5 @@
 ﻿using Commons.Models;
+using Constants;
 using UI.Base;
 using UnityEngine;
 using UnityEngine.UIElements;
@@ -35,6 +36,15 @@ namespace UI.Views.Messaging.Contacts
             _previewText.AddToClassList("grey-text");
             _previewText.text = "Content - Time";
             _textContainer.Add(_previewText);
+
+            if (!Configs.IS_DESKTOP)
+            {
+                RegisterCallback<MouseUpEvent>(_ =>
+                {
+                    GetFirstAncestorOfType<MessagingView>().InboxContainer.style.display = DisplayStyle.Flex;
+                    GetFirstAncestorOfType<MessagingView>().ContactList.style.display = DisplayStyle.None;
+                });
+            }
         }
     }
 }

@@ -1,4 +1,16 @@
 #InboxHeader {
     background-color: var(--theme-color);
-    height: 100px;
+    height: 150px;
+    flex-direction: row;
+    align-items: center;
+    padding-right: 24px;
+    padding-left: 24px;
+}
+
+#BackButton {
+    background-image: url('project://database/Assets/Graphics/Icons/back.png?fileID=21300000&guid=00dc965edd0cf1d4fb4cc8fd7a89186b&type=3#back');
+    width: 50px;
+    height: 50px;
+    margin-right: 24px;
+    margin-left: 24px;
 }

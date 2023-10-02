@@ -1,43 +1,51 @@
-#MessageListEntry {
-    margin-top: 5px;
-    align-self: flex-start;
-    align-items: flex-end;
+.desktop {
+    margin-top: 4px;
+    margin-bottom: 4px;
 }
 
-#MessageListEntry.sent-message {
+.mobile {
+    margin-top: 8px;
+    margin-bottom: 8px;
+}
+
+.sent-message {
     align-self: flex-end;
     align-items: flex-end;
 }
 
-#MessageListEntry.received-message {
+.received-message {
     align-self: flex-start;
     align-items: flex-start;
 }
 
 #ContentContainer {
-    border-radius: 8px;
-    padding: 10px;
     flex-wrap: nowrap;
     flex-direction: column;
     width: auto;
     align-items: flex-start;
-    border-top-left-radius: 16px;
-    border-top-right-radius: 16px;
-    border-bottom-right-radius: 16px;
-    border-bottom-left-radius: 16px;
 }
 
-#ContentContainer.sent-message {
+.desktop #ContentContainer {
+    border-radius: 16px;
+    padding: 10px;
+}
+
+.mobile #ContentContainer {
+    border-radius: 24px;
+    padding: 16px;
+}
+
+.sent-message #ContentContainer {
     background-color: var(--theme-color);
 }
 
-#ContentContainer.received-message {
+.received-message #ContentContainer {
     background-color: var(--grey-color);
 }
 
-#ContentText.sent-message {
+.sent-message #ContentText {
     -unity-text-align: upper-right;
 }
 
-#ContentText.received-message {
+.received-message #ContentText {
 }

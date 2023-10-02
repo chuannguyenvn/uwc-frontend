@@ -1,8 +1,13 @@
-#unity-content-viewport {
+#MessageList {
+    height: 100%;
+}
+
+.desktop #unity-content-viewport {
     padding-right: 10px;
     padding-left: 10px;
 }
 
-#MessageList {
-    flex-grow: 1;
+.mobile #unity-content-viewport {
+    padding-right: 16px;
+    padding-left: 16px;
 }

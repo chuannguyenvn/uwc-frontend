@@ -19,7 +19,7 @@ namespace UI.Navigation
             AddToClassList("navigation-bar");
 
             _background = new Panel();
-            _background.AddToClassList("left-bar");
+            _background.AddToClassList(Configs.IS_DESKTOP ? "left-bar" : "bottom-bar");
             Add(_background);
 
             AddNavigationItems();

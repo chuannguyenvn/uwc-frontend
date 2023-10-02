@@ -9,19 +9,21 @@ namespace UI.Views.Messaging
 {
     public class MessagingView : View
     {
-        private ContactList _contactList;
-        private InboxContainer _inboxContainer;
-        
+        public ContactList ContactList;
+        public InboxContainer InboxContainer;
+
         public MessagingView() : base(nameof(MessagingView))
         {
             styleSheets.Add(Resources.Load<StyleSheet>("Stylesheets/Views/Messaging/MessagingView"));
-            if(Configs.IS_DESKTOP) AddToClassList("full-view");
+            if (Configs.IS_DESKTOP) AddToClassList("full-view");
 
-            _contactList = new ContactList();
-            Add(_contactList);
-            
-            _inboxContainer = new InboxContainer();
-            Add(_inboxContainer);
+            ContactList = new ContactList();
+            Add(ContactList);
+
+            InboxContainer = new InboxContainer();
+            Add(InboxContainer);
+
+            if (!Configs.IS_DESKTOP) InboxContainer.style.display = DisplayStyle.None;
         }
     }
 }

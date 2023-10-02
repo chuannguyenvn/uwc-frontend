@@ -7,12 +7,36 @@
 }
 
 .title-text {
+    -unity-font-definition: url('project://database/Assets/Graphics/Fonts/Segoe%20UI%20Bold.ttf?fileID=12800000&guid=d39367468006e144194466e5686e40a3&type=3#Segoe UI Bold');
 }
 
 .normal-text {
+    -unity-font-definition: url('project://database/Assets/Graphics/Fonts/Segoe%20UI.ttf?fileID=12800000&guid=3a56917333bec3c49bde9f46c791793c&type=3#Segoe UI');
 }
 
 .sub-text {
+    -unity-font-definition: url('project://database/Assets/Graphics/Fonts/Segoe%20UI.ttf?fileID=12800000&guid=3a56917333bec3c49bde9f46c791793c&type=3#Segoe UI');
+}
+
+.desktop .title-text {
+}
+
+.desktop .normal-text {
+}
+
+.desktop .sub-text {
+}
+
+.mobile .title-text {
+    font-size: 50px;
+}
+
+.mobile .normal-text {
+    font-size: 40px;
+}
+
+.mobile .sub-text {
+    font-size: 25px;
 }
 
 .black-text {
@@ -27,11 +51,12 @@
     color: var(--white-text-color);
 }
 
-.list-entry {
-    border-top-left-radius: 8px;
-    border-top-right-radius: 8px;
-    border-bottom-right-radius: 8px;
-    border-bottom-left-radius: 8px;
+.desktop .list-entry {
+    border-radius: 8px;
+}
+
+.mobile .list-entry {
+    border-radius: 16px;
 }
 
 .list-entry:hover {

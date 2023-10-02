@@ -1,4 +1,5 @@
 .view {
+    height: 100%;
 }
 
 .side-view {
@@ -13,5 +14,4 @@
     height: 100%;
     -unity-background-image-tint-color: rgba(255, 255, 255, 0);
     background-color: rgb(255, 255, 255);
-    flex-grow: 1;
 }
