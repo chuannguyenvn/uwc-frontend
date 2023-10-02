@@ -1,0 +1,13 @@
+.desktop {
+}
+
+.mobile {
+    width: 100%;
+    height: 100px;
+}
+
+.panel {
+    width: 100%;
+    height: 100%;
+    position: absolute;
+}

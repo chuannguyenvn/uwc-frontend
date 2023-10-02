@@ -1,0 +1,41 @@
+#Background {
+}
+
+.left-bar {
+    background-image: url('project://database/Assets/Graphics/Shapes/square-shadow.png?fileID=-2744241399563890845&guid=229febb0e6cd4614f8bf2961be1c6df1&type=3#square-shadow_0');
+    height: 100%;
+    scale: 1.1 1.1;
+    -unity-background-image-tint-color: var(--theme-color);
+    transform-origin: right;
+}
+
+.bottom-bar {
+    -unity-background-image-tint-color: var(--theme-color);
+}
+
+.square {
+    background-image: url('project://database/Assets/Graphics/Shapes/square-shadow.png?fileID=-2744241399563890845&guid=229febb0e6cd4614f8bf2961be1c6df1&type=3#square-shadow_0');
+}
+
+.rounded-16px {
+}
+
+.rounded-32px {
+    background-image: url('project://database/Assets/Graphics/Shapes/square-shadow-rounded-32px.png?fileID=-414892841926334688&guid=d1b1a160b977dbc4c9e716b4ff052a4b&type=3#square-shadow-rounded-32px_0');
+    -unity-slice-left: 40;
+    -unity-slice-top: 40;
+    -unity-slice-right: 40;
+    -unity-slice-bottom: 40;
+    -unity-background-scale-mode: stretch-to-fill;
+}
+
+.rounded-64px {
+    background-image: url('project://database/Assets/Graphics/Shapes/square-shadow-rounded-64px.png?fileID=7006034526747111667&guid=fa0b71c51ec43c841a1067a5fe911bf2&type=3#square-shadow-rounded-64px_0');
+    -unity-slice-left: 64;
+    -unity-slice-top: 64;
+    -unity-slice-right: 64;
+    -unity-slice-bottom: 64;
+}
+
+.rounded-128px {
+}

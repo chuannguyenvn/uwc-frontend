@@ -1,0 +1,6 @@
+<ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="project://database/Assets/Resources/Stylesheets/Navigation/NavigationBar.uss?fileID=7433441132597879392&amp;guid=6a46d1b9b97b4e0e9dabfdae687e5635&amp;type=3#NavigationBar" />
+    <Style src="project://database/Assets/Resources/Stylesheets/Base/PanelWithShadow.uss?fileID=7433441132597879392&amp;guid=a6420d711ef34808bddb21a0e78aaa92&amp;type=3#PanelWithShadow" />
+    <Style src="project://database/Assets/Resources/Stylesheets/Variables.uss?fileID=7433441132597879392&amp;guid=b143485b20294be4a84594fdfb10686d&amp;type=3#Variables" />
+    <UI.Navigation.NavigationBar style="width: 100px; height: 100%;" />
+</ui:UXML>
