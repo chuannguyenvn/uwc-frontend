@@ -1,0 +1,25 @@
+#PersonalInformationPanel {
+    align-items: center;
+}
+
+#VehicleInformationPanel {
+    align-items: stretch;
+}
+
+#LicensePlateContainer {
+    align-items: center;
+}
+
+#ClassAndModelContainer {
+    align-items: center;
+    flex-direction: row;
+    justify-content: space-around;
+}
+
+#ClassContainer {
+    align-items: center;
+}
+
+#ModelContainer {
+    align-items: center;
+}

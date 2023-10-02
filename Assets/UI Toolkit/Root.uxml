@@ -1,11 +1,4 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
-    <Style src="project://database/Assets/Resources/Stylesheets/Views/Tasks/TasksView.uss?fileID=7433441132597879392&amp;guid=ca8c20df83964c47bf9327ac623ed1df&amp;type=3#TasksView" />
-    <Style src="project://database/Assets/Resources/Stylesheets/Views/Tasks/Tasks/TaskList.uss?fileID=7433441132597879392&amp;guid=3cf622ffc0354e0c90b7cf293539c9ad&amp;type=3#TaskList" />
-    <Style src="project://database/Assets/Resources/Stylesheets/Views/Tasks/Tasks/TaskListEntry.uss?fileID=7433441132597879392&amp;guid=9bda9f9f558c471f9013437cd56c5bea&amp;type=3#TaskListEntry" />
-    <Style src="project://database/Assets/Resources/Stylesheets/Views/Tasks/Details/TaskDetails.uss?fileID=7433441132597879392&amp;guid=42a7b3f3018d44f9b6012f7483352f63&amp;type=3#TaskDetails" />
-    <Style src="project://database/Assets/Resources/Stylesheets/Views/Tasks/Details/TaskDetailsHeader.uss?fileID=7433441132597879392&amp;guid=43ca780d72674c89aede04014fe6109b&amp;type=3#TaskDetailsHeader" />
-    <Style src="project://database/Assets/Resources/Stylesheets/Views/Tasks/Details/DestinationPanel.uss?fileID=7433441132597879392&amp;guid=0c06f9356453495782538d5d7932c2b4&amp;type=3#DestinationPanel" />
-    <Style src="project://database/Assets/Resources/Stylesheets/Views/Tasks/Details/CurrentLoadPanel.uss?fileID=7433441132597879392&amp;guid=431df04c2d13407ebd7df0348d72bd45&amp;type=3#CurrentLoadPanel" />
-    <Style src="project://database/Assets/Resources/Stylesheets/Views/Tasks/Details/EmptyingLogPanel.uss?fileID=7433441132597879392&amp;guid=0a6250e3ee6c431eb19d2430912e2967&amp;type=3#EmptyingLogPanel" />
+    <Style src="project://database/Assets/Resources/Stylesheets/Views/Status/VehicleInformationPanel.uss?fileID=7433441132597879392&amp;guid=ec5b7d44825f42f2b4f0d4fda044d5f1&amp;type=3#VehicleInformationPanel" />
     <UI.Base.Root class="root" />
 </ui:UXML>
