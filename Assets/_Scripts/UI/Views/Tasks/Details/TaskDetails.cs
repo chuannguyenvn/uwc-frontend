@@ -20,6 +20,8 @@ namespace UI.Views.Tasks.Details
             Add(PanelList);
             
             PanelList.Add(new DestinationPanel());
+            PanelList.Add(new CurrentLoadPanel());
+            PanelList.Add(new EmptyingLogPanel());
         }
     }
 }

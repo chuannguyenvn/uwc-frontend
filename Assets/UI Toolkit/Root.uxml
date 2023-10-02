@@ -5,5 +5,7 @@
     <Style src="project://database/Assets/Resources/Stylesheets/Views/Tasks/Details/TaskDetails.uss?fileID=7433441132597879392&amp;guid=42a7b3f3018d44f9b6012f7483352f63&amp;type=3#TaskDetails" />
     <Style src="project://database/Assets/Resources/Stylesheets/Views/Tasks/Details/TaskDetailsHeader.uss?fileID=7433441132597879392&amp;guid=43ca780d72674c89aede04014fe6109b&amp;type=3#TaskDetailsHeader" />
     <Style src="project://database/Assets/Resources/Stylesheets/Views/Tasks/Details/DestinationPanel.uss?fileID=7433441132597879392&amp;guid=0c06f9356453495782538d5d7932c2b4&amp;type=3#DestinationPanel" />
+    <Style src="project://database/Assets/Resources/Stylesheets/Views/Tasks/Details/CurrentLoadPanel.uss?fileID=7433441132597879392&amp;guid=431df04c2d13407ebd7df0348d72bd45&amp;type=3#CurrentLoadPanel" />
+    <Style src="project://database/Assets/Resources/Stylesheets/Views/Tasks/Details/EmptyingLogPanel.uss?fileID=7433441132597879392&amp;guid=0a6250e3ee6c431eb19d2430912e2967&amp;type=3#EmptyingLogPanel" />
     <UI.Base.Root class="root" />
 </ui:UXML>
