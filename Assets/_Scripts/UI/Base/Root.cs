@@ -2,6 +2,7 @@
 using Constants;
 using UI.Navigation;
 using UI.Views.Messaging;
+using UI.Views.Tasks;
 using UI.Views.Workers;
 using UnityEngine;
 using UnityEngine.UIElements;
@@ -34,6 +35,7 @@ namespace UI.Base
             }
             else
             {
+                ViewsByViewType.Add(ViewType.Tasks, new TasksView());
                 ViewsByViewType.Add(ViewType.Messaging, new MessagingView());
             }
 

@@ -1,6 +1,8 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
-    <Style src="project://database/Assets/Resources/Stylesheets/Common.uss?fileID=7433441132597879392&amp;guid=b143485b20294be4a84594fdfb10686d&amp;type=3#Common" />
-    <Style src="project://database/Assets/Resources/Stylesheets/Base/View.uss?fileID=7433441132597879392&amp;guid=658283e2dc7948d995690ff7b19f7247&amp;type=3#View" />
-    <Style src="project://database/Assets/Resources/Stylesheets/Navigation/NavigationBar.uss?fileID=7433441132597879392&amp;guid=6a46d1b9b97b4e0e9dabfdae687e5635&amp;type=3#NavigationBar" />
+    <Style src="project://database/Assets/Resources/Stylesheets/Views/Tasks/TasksView.uss?fileID=7433441132597879392&amp;guid=ca8c20df83964c47bf9327ac623ed1df&amp;type=3#TasksView" />
+    <Style src="project://database/Assets/Resources/Stylesheets/Views/Tasks/Tasks/TaskList.uss?fileID=7433441132597879392&amp;guid=3cf622ffc0354e0c90b7cf293539c9ad&amp;type=3#TaskList" />
+    <Style src="project://database/Assets/Resources/Stylesheets/Views/Tasks/Tasks/TaskListEntry.uss?fileID=7433441132597879392&amp;guid=9bda9f9f558c471f9013437cd56c5bea&amp;type=3#TaskListEntry" />
+    <Style src="project://database/Assets/Resources/Stylesheets/Views/Tasks/Details/TaskDetails.uss?fileID=7433441132597879392&amp;guid=42a7b3f3018d44f9b6012f7483352f63&amp;type=3#TaskDetails" />
+    <Style src="project://database/Assets/Resources/Stylesheets/Views/Tasks/Details/TaskDetailsHeader.uss?fileID=7433441132597879392&amp;guid=43ca780d72674c89aede04014fe6109b&amp;type=3#TaskDetailsHeader" />
     <UI.Base.Root class="root" />
 </ui:UXML>

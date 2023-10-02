@@ -31,7 +31,6 @@ namespace UI.Views.Messaging.Inbox
                     });
                 });
             }
-
             Add(_backButton);
 
             _avatar = new VisualElement { name = "Avatar" };

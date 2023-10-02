@@ -1,0 +1,11 @@
+﻿.full {
+    background-color: var(--mcp-full-color);
+}
+
+.almost-full {
+    background-color: var(--mcp-almost-full-color);
+}
+
+.not-full {
+    background-color: var(--mcp-not-full-color);
+}

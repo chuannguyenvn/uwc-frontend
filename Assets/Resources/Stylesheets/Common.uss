@@ -1,9 +1,14 @@
 :root {
     --theme-color: rgb(61, 163, 93);
     --grey-color: rgb(213, 213, 213);
+    
     --black-text-color: rgb(0, 0, 0);
     --grey-text-color: rgb(102, 102, 102);
     --white-text-color: rgb(255, 255, 255);
+
+    --mcp-full-color: rgb(225, 27, 13);
+    --mcp-almost-full-color: rgb(241, 209, 2);
+    --mcp-not-full-color: rgb(61, 163, 93);
 }
 
 .title-text {

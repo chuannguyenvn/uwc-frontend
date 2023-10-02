@@ -1,0 +1,13 @@
+#ContentContainer {
+    background-color: var(--grey-color);
+}
+
+#CrossLine {
+    height: 2px;
+    background-color: rgb(91, 91, 91);
+    position: absolute;
+    top: 85%;
+    bottom: 50%;
+    left: 16px;
+    right: 16px;
+}
