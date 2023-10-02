@@ -1,7 +1,8 @@
-.desktop {
+.desktop.navigation-bar {
+    height: 100%;
 }
 
-.mobile {
+.mobile.navigation-bar {
     width: 100%;
     height: 100px;
 }
