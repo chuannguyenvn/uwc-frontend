@@ -2,12 +2,7 @@
     width: 100%;
 }
 
-.messaging .subview-inbox #InboxTitleBar {
-    height: 200px;
-}
-
 .messaging MessagingField {
-    flex-direction: row;
     height: 200px;
     padding-bottom: 10px;
 }
@@ -17,12 +12,12 @@
     height: 75px;
 }
 
-.messaging #ContactEntry {
+.messaging .contact-entry {
     min-height: 150px;
     margin: 10px;
 }
 
-.messaging #Avatar {
+.messaging .avatar {
     width: 75px;
     height: 75px;
     margin: 10px;

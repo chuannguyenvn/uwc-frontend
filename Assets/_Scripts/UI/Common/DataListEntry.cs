@@ -15,6 +15,7 @@ namespace UI.Common
         {
             name = "ContactEntry";
             AddToClassList("list-item");
+            AddToClassList("contact-entry");
 
             ImageContainer = new VisualElement { name = "IconContainer" };
             ImageContainer.AddToClassList("icon-container");

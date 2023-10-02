@@ -14,12 +14,14 @@ namespace UI.Views.Messaging.Contacts
             AddToClassList("contact-entry");
 
             Icon.name = "Avatar";
+            Icon.AddToClassList("avatar");
 
             PrimaryText.name = "Name";
             PrimaryText.text = "Placeholder Name";
 
             SecondaryText.name = "MessagePreview";
             SecondaryText.text = "Placeholder Message Preview";
+            SecondaryText.AddToClassList("message-preview");
 
             RegisterCallback<MouseUpEvent>(MouseUpHandler);
         }
