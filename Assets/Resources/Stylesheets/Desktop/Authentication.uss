@@ -1,4 +1,0 @@
-.authentication .splash-container {
-    flex-grow: 1;
-    width: 100%;
-}

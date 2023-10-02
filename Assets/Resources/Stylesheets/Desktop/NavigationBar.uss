@@ -1,5 +1,0 @@
-.navigation-bar {
-    flex-direction: column;
-    width: auto;
-    height: 100%;
-}

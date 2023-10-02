@@ -1,9 +1,0 @@
-.main {
-    flex-direction: row;
-    flex-grow: 1;
-}
-
-.messaging MessagingField #SendButton {
-    width: 35px;
-    height: 35px;
-}

@@ -1,10 +1,19 @@
 fileFormatVersion: 2
-guid: 31f7a7757c2e47c488198381f00dbe48
+guid: e9d6cd3b087d24248a666aace09ab4bc
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: 3491977448261215664
-    second: filter_0
+      213: 3754075839300227321
+    second: mcp_0
+  - first:
+      213: -420353905177285504
+    second: mcp_1
+  - first:
+      213: 1634908809775844386
+    second: mcp_2
+  - first:
+      213: 2184525111499340975
+    second: mcp_3
   externalObjects: {}
   serializedVersion: 12
   mipmaps:
@@ -122,13 +131,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: filter_0
+      name: mcp_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 66
-        height: 65
+        width: 59
+        height: 75
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -136,8 +145,71 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 0b5e847ecfef57030800000000000000
-      internalID: 3491977448261215664
+      spriteID: 9f0dd5df518291430800000000000000
+      internalID: 3754075839300227321
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: mcp_1
+      rect:
+        serializedVersion: 2
+        x: 43
+        y: 69
+        width: 25
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 08ca5f1b95a9a2af0800000000000000
+      internalID: -420353905177285504
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: mcp_2
+      rect:
+        serializedVersion: 2
+        x: 62
+        y: 58
+        width: 10
+        height: 13
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 22c88de76ec50b610800000000000000
+      internalID: 1634908809775844386
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: mcp_3
+      rect:
+        serializedVersion: 2
+        x: 54
+        y: 47
+        width: 17
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: facb6d9c30ef05e10800000000000000
+      internalID: 2184525111499340975
       vertices: []
       indices: 
       edges: []
