@@ -1,4 +1,5 @@
-﻿using UI.Base;
+﻿using Constants;
+using UI.Base;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -19,6 +20,18 @@ namespace UI.Views.Messaging.Inbox
             styleSheets.Add(Resources.Load<StyleSheet>("Stylesheets/Views/Messaging/Inbox/InboxHeader"));
 
             _backButton = new VisualElement { name = "BackButton" };
+            if (!Configs.IS_DESKTOP)
+            {
+                _backButton.RegisterCallback<MouseUpEvent>(_ =>
+                {
+                    RegisterCallback<MouseUpEvent>(_ =>
+                    {
+                        GetFirstAncestorOfType<MessagingView>().InboxContainer.style.display = DisplayStyle.None;
+                        GetFirstAncestorOfType<MessagingView>().ContactList.style.display = DisplayStyle.Flex;
+                    });
+                });
+            }
+
             Add(_backButton);
 
             _avatar = new VisualElement { name = "Avatar" };
