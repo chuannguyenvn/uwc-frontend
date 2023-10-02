@@ -7,7 +7,7 @@ namespace UI.Base
     {
         private readonly VisualElement _background;
 
-        public Panel() : base(nameof(Panel))
+        public Panel(string name = "Panel") : base(name)
         {
             styleSheets.Add(Resources.Load<StyleSheet>("Stylesheets/Base/Panel"));
             AddToClassList("panel");

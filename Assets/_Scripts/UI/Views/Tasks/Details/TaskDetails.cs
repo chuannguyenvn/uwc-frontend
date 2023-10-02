@@ -7,6 +7,7 @@ namespace UI.Views.Tasks.Details
     public class TaskDetails : View
     {
         public TaskDetailsHeader TaskDetailsHeader;
+        public PanelList PanelList;
         
         public TaskDetails() : base(nameof(TaskDetails))
         {
@@ -14,6 +15,11 @@ namespace UI.Views.Tasks.Details
             
             TaskDetailsHeader = new TaskDetailsHeader();
             Add(TaskDetailsHeader);
+            
+            PanelList = new PanelList();
+            Add(PanelList);
+            
+            PanelList.Add(new DestinationPanel());
         }
     }
 }
