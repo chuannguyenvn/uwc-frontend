@@ -1,0 +1,55 @@
+:root {
+}
+
+#Icon {
+    width: 24px;
+    height: 24px;
+}
+
+#Label {
+}
+
+#Map {
+    background-image: url('project://database/Assets/Graphics/Icons/map.png?fileID=21300000&guid=5d180160485f7ad46a542fedeadcc597&type=3#map');
+    -unity-background-scale-mode: scale-to-fit;
+}
+
+#Workers {
+    background-image: url('project://database/Assets/Graphics/Icons/worker.png?fileID=21300000&guid=73e8441f375f39049ae4cfcf109dd8f2&type=3#worker');
+    -unity-background-scale-mode: scale-to-fit;
+}
+
+#MCPs {
+    background-image: url('project://database/Assets/Graphics/Icons/mcp.png?fileID=21300000&guid=e9d6cd3b087d24248a666aace09ab4bc&type=3#mcp');
+    -unity-background-scale-mode: scale-to-fit;
+}
+
+#Vehicles {
+    background-image: url('project://database/Assets/Graphics/Icons/vehicle.png?fileID=21300000&guid=8c159ad1b097a2245aeaef9aa2015909&type=3#vehicle');
+    -unity-background-scale-mode: scale-to-fit;
+}
+
+#Tasks {
+    background-image: url('project://database/Assets/Graphics/Icons/mcp.png?fileID=21300000&guid=e9d6cd3b087d24248a666aace09ab4bc&type=3#mcp');
+    -unity-background-scale-mode: scale-to-fit;
+}
+
+#Status {
+    background-image: url('project://database/Assets/Graphics/Icons/report.png?fileID=21300000&guid=3e0625416afc0e844b83fed7144359ab&type=3#report');
+    -unity-background-scale-mode: scale-to-fit;
+}
+
+#Reporting {
+    background-image: url('project://database/Assets/Graphics/Icons/report.png?fileID=21300000&guid=3e0625416afc0e844b83fed7144359ab&type=3#report');
+    -unity-background-scale-mode: scale-to-fit;
+}
+
+#Messaging {
+    background-image: url('project://database/Assets/Graphics/Icons/message.png?fileID=21300000&guid=a3cd1a97e9bed0a4c892bf51690a65fd&type=3#message');
+    -unity-background-scale-mode: scale-to-fit;
+}
+
+#Settings {
+    background-image: url('project://database/Assets/Graphics/Icons/settings.png?fileID=21300000&guid=5dc081bb6b25b2a478d1c8cb27147fc8&type=3#settings');
+    -unity-background-scale-mode: scale-to-fit;
+}

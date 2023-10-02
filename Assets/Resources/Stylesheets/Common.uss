@@ -1,0 +1,30 @@
+﻿:root {
+    --theme-color: #3da35d;
+    --black-text-color: #000000;
+    --grey-text-color: #666666;
+    --white-text-color: #ffffff;
+}
+
+.title-text {
+
+}
+
+.normal-text {
+
+}
+
+.sub-text {
+
+}
+
+.black-text {
+    color: var(--black-text-color);
+}
+
+.grey-text {
+    color: var(--grey-text-color);
+}
+
+.white-text {
+    color: var(--white-text-color);
+}
