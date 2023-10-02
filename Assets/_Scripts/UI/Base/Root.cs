@@ -2,6 +2,7 @@
 using Constants;
 using UI.Navigation;
 using UI.Views.Messaging;
+using UI.Views.Workers;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -28,7 +29,7 @@ namespace UI.Base
         {
             if (Configs.IS_DESKTOP)
             {
-                // ViewsByViewType.Add(ViewType.Workers, new WorkersView());
+                ViewsByViewType.Add(ViewType.Workers, new WorkersView());
                 ViewsByViewType.Add(ViewType.Messaging, new MessagingView());
             }
             else
@@ -39,6 +40,15 @@ namespace UI.Base
             foreach (var (viewType, view) in ViewsByViewType)
             {
                 Add(view);
+                view.style.display = DisplayStyle.None;
+            }
+        }
+
+        public void ActivateView(ViewType viewType)
+        {
+            foreach (var (type, view) in ViewsByViewType)
+            {
+                view.style.display = type == viewType ? DisplayStyle.Flex : DisplayStyle.None;
             }
         }
 

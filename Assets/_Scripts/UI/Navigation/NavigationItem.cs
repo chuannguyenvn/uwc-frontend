@@ -17,12 +17,14 @@ namespace UI.Navigation
             _icon = new VisualElement { name = "Icon" };
             _icon.AddToClassList("icon");
             Add(_icon);
-            
+
             _label = new Label { name = "Label" };
             _label.AddToClassList("label");
             _label.AddToClassList("white-text");
             _label.text = viewType.ToString();
             Add(_label);
+
+            RegisterCallback<MouseUpEvent>(_ => { GetFirstAncestorOfType<Root>().ActivateView(viewType); });
         }
     }
 }

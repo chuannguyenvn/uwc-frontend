@@ -4,7 +4,7 @@ namespace Constants
 {
     public static class Configs
     {
-        public const bool IS_DESKTOP = false;
+        public const bool IS_DESKTOP = true;
         
         public static readonly List<ViewType> DesktopViewTypes = new()
         {
