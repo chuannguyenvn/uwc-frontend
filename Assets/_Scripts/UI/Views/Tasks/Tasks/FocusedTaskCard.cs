@@ -95,7 +95,7 @@ namespace UI.Views.Tasks.Tasks
             CurrentLoadContainer.Add(CurrentLoadTitleText);
             
             CurrentLoadValueText = new TextElement { name = "CurrentLoadText" };
-            CurrentLoadValueText.text = "69%";
+            CurrentLoadValueText.text = "90%";
             CurrentLoadValueText.AddToClassList("title-text");
             CurrentLoadValueText.AddToClassList("black-text");
             CurrentLoadContainer.Add(CurrentLoadValueText);
@@ -113,7 +113,7 @@ namespace UI.Views.Tasks.Tasks
             EtaContainer.Add(EtaTitleText);
             
             EtaValueText = new TextElement { name = "EtaValueText" };
-            EtaValueText.text = "4:20";
+            EtaValueText.text = "10:05AM";
             EtaValueText.AddToClassList("title-text");
             EtaValueText.AddToClassList("black-text");
             EtaContainer.Add(EtaValueText);
