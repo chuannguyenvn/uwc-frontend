@@ -19,7 +19,7 @@ namespace UI.Views.Messaging.Contacts
             _scrollView.AddToClassList("list-view");
             Add(_scrollView);
 
-            for (int i = 0; i < 30; i++)
+            for (int i = 0; i < 50; i++)
             {
                 _scrollView.Add(new ContactListEntry(new Message()));
             }

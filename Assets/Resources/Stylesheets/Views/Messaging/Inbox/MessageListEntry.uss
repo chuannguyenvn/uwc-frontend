@@ -6,6 +6,8 @@
 .mobile {
     margin-top: 8px;
     margin-bottom: 8px;
+    margin-left: 16px;
+    margin-right: 24px;
 }
 
 .sent-message {

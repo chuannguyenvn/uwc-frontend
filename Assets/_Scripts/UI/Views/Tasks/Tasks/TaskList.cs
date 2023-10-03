@@ -1,4 +1,4 @@
-﻿using Commons.Models;
+using Commons.Models;
 using UI.Base;
 using UnityEngine;
 using UnityEngine.UIElements;
@@ -7,19 +7,19 @@ namespace UI.Views.Tasks.Tasks
 {
     public class TaskList : View
     {
-        private ScrollView _scrollView;
+        public ScrollView ScrollView;
 
         public TaskList() : base(nameof(TaskList))
         {
             styleSheets.Add(Resources.Load<StyleSheet>("Stylesheets/Views/Tasks/Tasks/TaskList"));
 
-            _scrollView = new ScrollView();
-            _scrollView.AddToClassList("list-view");
-            Add(_scrollView);
+            ScrollView = new ScrollView();
+            ScrollView.AddToClassList("list-view");
+            Add(ScrollView);
 
             for (int i = 0; i < 30; i++)
             {
-                _scrollView.Add(new TaskListEntry(new TaskData()));
+                ScrollView.Add(new TaskListEntry(new TaskData()));
             }
         }
     }

@@ -1,5 +1,3 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
-    <Style src="project://database/Assets/Resources/Stylesheets/Views/Tasks/Tasks/FocusedTaskCard.uss?fileID=7433441132597879392&amp;guid=fc8378ceffdb4324838e9d8ec0bbc137&amp;type=3#FocusedTaskCard" />
-    <Style src="project://database/Assets/Resources/Stylesheets/Common.uss?fileID=7433441132597879392&amp;guid=b143485b20294be4a84594fdfb10686d&amp;type=3#Common" />
     <UI.Base.Root class="root" />
 </ui:UXML>

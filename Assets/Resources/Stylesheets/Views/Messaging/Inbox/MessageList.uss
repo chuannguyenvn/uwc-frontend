@@ -2,13 +2,3 @@
     height: 100%;
     min-width: 0;
 }
-
-.desktop #unity-content-viewport {
-    padding-right: 10px;
-    padding-left: 10px;
-}
-
-.mobile #unity-content-viewport {
-    padding-right: 16px;
-    padding-left: 16px;
-}

@@ -1,5 +1,2 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
-    <ui:VisualElement name="Parent" style="flex-grow: 1; background-image: url(&apos;project://database/Assets/Graphics/Shapes/square-rounded-128px.svg?fileID=7388822144124034973&amp;guid=6387dbdd3d6083845999a7cb977c1c68&amp;type=3#square-rounded-128px&apos;); -unity-slice-left: 128; -unity-slice-top: 128; -unity-slice-right: 128; -unity-slice-bottom: 128; width: 802px; overflow: hidden;">
-        <ui:VisualElement name="Child" style="flex-grow: 1; background-image: url(&apos;project://database/Assets/Graphics/splash.png?fileID=-8030570891474961867&amp;guid=52ac505627ade6e4d8e6b256de57fea5&amp;type=3#splash_0&apos;); -unity-background-scale-mode: scale-and-crop;" />
-    </ui:VisualElement>
 </ui:UXML>
