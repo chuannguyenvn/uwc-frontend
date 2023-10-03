@@ -34,15 +34,15 @@
 }
 
 .mobile .title-text {
-    font-size: 50px;
+    font-size: 60px;
 }
 
 .mobile .normal-text {
-    font-size: 40px;
+    font-size: 50px;
 }
 
 .mobile .sub-text {
-    font-size: 25px;
+    font-size: 40px;
 }
 
 .black-text {
@@ -69,6 +69,6 @@
     border-radius: 16px;
 }
 
-.list-entry:hover {
+.desktop .list-entry:hover {
     background-color: var(--grey-color);
 }

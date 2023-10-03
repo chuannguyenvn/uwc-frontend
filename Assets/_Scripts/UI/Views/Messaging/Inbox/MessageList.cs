@@ -7,19 +7,20 @@ namespace UI.Views.Messaging.Inbox
 {
     public class MessageList : AdaptiveElement
     {
-        private ScrollView _scrollView;
+        private ScrollView ScrollView;
 
         public MessageList() : base(nameof(MessageList))
         {
             styleSheets.Add(Resources.Load<StyleSheet>("Stylesheets/Views/Messaging/Inbox/MessageList"));
 
-            _scrollView = new ScrollView();
-            _scrollView.AddToClassList("list-view");
-            Add(_scrollView);
+            ScrollView = new ScrollView();
+            ScrollView.AddToClassList("list-view");
+            ScrollView.verticalScroller.value = ScrollView.verticalScroller.highValue > 0 ? ScrollView.verticalScroller.highValue : 0;
+            Add(ScrollView);
 
             for (int i = 0; i < 30; i++)
             {
-                _scrollView.Add(new MessageListEntry(new Message()
+                ScrollView.Add(new MessageListEntry(new Message()
                 {
                     Content = Random.Range(0, 2) == 0
                         ? "Text content of the message"

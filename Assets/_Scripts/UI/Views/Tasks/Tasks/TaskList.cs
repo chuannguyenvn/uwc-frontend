@@ -15,6 +15,7 @@ namespace UI.Views.Tasks.Tasks
 
             ScrollView = new ScrollView();
             ScrollView.AddToClassList("list-view");
+            ScrollView.verticalScroller.value = ScrollView.verticalScroller.highValue > 0 ? ScrollView.verticalScroller.highValue : 0;
             Add(ScrollView);
 
             for (int i = 0; i < 30; i++)

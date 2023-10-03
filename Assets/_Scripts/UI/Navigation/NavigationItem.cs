@@ -19,7 +19,7 @@ namespace UI.Navigation
             Add(_icon);
 
             _label = new Label { name = "Label" };
-            _label.AddToClassList("label");
+            _label.AddToClassList("sub-text");
             _label.AddToClassList("white-text");
             _label.text = viewType.ToString();
             Add(_label);
