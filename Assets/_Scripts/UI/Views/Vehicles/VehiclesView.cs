@@ -1,7 +1,6 @@
 ﻿using Commons.Categories;
 using Commons.Models;
 using UI.Base;
-using UI.Views.Workers;
 using UnityEngine;
 using UnityEngine.UIElements;
 

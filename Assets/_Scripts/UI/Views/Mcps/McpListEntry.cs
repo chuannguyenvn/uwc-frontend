@@ -1,6 +1,5 @@
 ﻿using Commons.Models;
 using UI.Base;
-using UI.Views.Workers;
 using UnityEngine.UIElements;
 
 namespace UI.Views.Mcps
