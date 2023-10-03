@@ -1,5 +1,5 @@
 #ContentContainer {
-    background-color: var(--grey-color);
+    background-color: #f2f2f2;
 }
 
 #CrossLine {

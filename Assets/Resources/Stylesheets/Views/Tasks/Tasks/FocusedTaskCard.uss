@@ -1,4 +1,4 @@
-﻿.full {
+.full {
     background-color: var(--mcp-full-color);
 }
 
@@ -8,4 +8,34 @@
 
 .not-full {
     background-color: var(--mcp-not-full-color);
+}
+
+#Mask {
+    overflow: hidden;
+    background-image: url('project://database/Assets/Graphics/Shapes/square-rounded-32px.svg?fileID=7388822144124034973&guid=3d99c8496fcfa484f9b69d31e767a5b3&type=3#square-rounded-32px');
+    -unity-slice-left: 32;
+    -unity-slice-top: 32;
+    -unity-slice-right: 32;
+    -unity-slice-bottom: 32;
+    visibility: visible;
+}
+
+#Panel {
+    background-image: url('project://database/Assets/Graphics/Shapes/square-shadow-rounded-32px.png?fileID=-414892841926334688&guid=d1b1a160b977dbc4c9e716b4ff052a4b&type=3#square-shadow-rounded-32px_0');
+    position: absolute;
+    -unity-slice-left: 32;
+    -unity-slice-top: 32;
+    -unity-slice-right: 32;
+    -unity-slice-bottom: 32;
+    top: -5px;
+    left: -8px;
+    bottom: -10px;
+    right: -8px;
+}
+
+#ContentContainer {
+    padding-top: 0;
+    padding-right: 0;
+    padding-bottom: 0;
+    padding-left: 0;
 }
