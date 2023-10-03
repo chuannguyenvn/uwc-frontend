@@ -2,6 +2,7 @@
     justify-content: space-around;
     align-self: flex-start;
     align-items: center;
+    flex-shrink: 0;
 }
 
 .desktop.navigation-bar {
