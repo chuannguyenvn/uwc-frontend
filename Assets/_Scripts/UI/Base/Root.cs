@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using Constants;
+using UI.Authentication;
 using UI.Navigation;
 using UI.Views.Mcps;
 using UI.Views.Messaging;
@@ -14,6 +15,8 @@ namespace UI.Base
 {
     public class Root : VisualElement
     {
+        public AuthenticationScreen AuthenticationScreen;
+
         public NavigationBar NavigationBar;
         public Dictionary<ViewType, View> ViewsByViewType = new();
 
@@ -23,13 +26,31 @@ namespace UI.Base
             styleSheets.Add(Resources.Load<StyleSheet>("Stylesheets/Base/Root"));
             AddToClassList(Configs.IS_DESKTOP ? "desktop" : "mobile");
 
-            NavigationBar = new NavigationBar();
-            Add(NavigationBar);
-
-            AddViews();
+            CreateAuthenticationScreen();
+            CreateNavigationBar();
+            CreateViews();
         }
 
-        private void AddViews()
+        private void CreateAuthenticationScreen()
+        {
+            AuthenticationScreen = new AuthenticationScreen();
+            Add(AuthenticationScreen);
+        }
+
+        public void CloseAuthenticationScreen()
+        {
+            AuthenticationScreen.style.display = DisplayStyle.None;
+            NavigationBar.style.display = DisplayStyle.Flex;
+        }
+        
+        private void CreateNavigationBar()
+        {
+            NavigationBar = new NavigationBar();
+            Add(NavigationBar);
+            NavigationBar.style.display = DisplayStyle.None;
+        }
+
+        private void CreateViews()
         {
             if (Configs.IS_DESKTOP)
             {
