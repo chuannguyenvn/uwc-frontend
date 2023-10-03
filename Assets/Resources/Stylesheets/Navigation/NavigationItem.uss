@@ -24,8 +24,28 @@
     color: var(--theme-color);
 }
 
+.mobile.active#Map > #Icon {
+    background-image: url('project://database/Assets/Graphics/Icons/map-filled.svg?fileID=7388822144124034973&guid=c8a5c5b9e90d3974bb06da7139c066c1&type=3#map-filled');
+}
+
+.mobile.active#Tasks > #Icon {
+    background-image: url('project://database/Assets/Graphics/Icons/tasks-filled.svg?fileID=7388822144124034973&guid=613d9eb52bf021042a3b4ba8acd246e0&type=3#tasks-filled');
+}
+
+.mobile.active#Status > #Icon {
+    background-image: url('project://database/Assets/Graphics/Icons/report-filled.svg?fileID=7388822144124034973&guid=5520ab769305bc44ea6fd7aa57bd11a5&type=3#report-filled');
+}
+
+.mobile.active#Messaging > #Icon {
+    background-image: url('project://database/Assets/Graphics/Icons/messaging-filled.svg?fileID=7388822144124034973&guid=5c44f5cd3bede7c4e84be4629fc88d48&type=3#messaging-filled');
+}
+
+.mobile.active#Settings > #Icon {
+    background-image: url('project://database/Assets/Graphics/Icons/settings-filled.svg?fileID=7388822144124034973&guid=d60d6a1efaecd6b41b3f603fa135d3e4&type=3#settings-filled');
+}
+
 #Map > #Icon {
-    background-image: url('project://database/Assets/Graphics/Icons/map.png?fileID=21300000&guid=5d180160485f7ad46a542fedeadcc597&type=3#map');
+    background-image: url('project://database/Assets/Graphics/Icons/map-hollow.svg?fileID=7388822144124034973&guid=934883b1200d85849b9f37294a196bed&type=3#map-hollow');
     -unity-background-scale-mode: scale-to-fit;
 }
 
@@ -45,26 +65,26 @@
 }
 
 #Tasks > #Icon {
-    background-image: url('project://database/Assets/Graphics/Icons/mcp.png?fileID=21300000&guid=e9d6cd3b087d24248a666aace09ab4bc&type=3#mcp');
+    background-image: url('project://database/Assets/Graphics/Icons/tasks-hollow.svg?fileID=7388822144124034973&guid=b32b5ebc86c4b6541912495aabeb1d59&type=3#tasks-hollow');
     -unity-background-scale-mode: scale-to-fit;
 }
 
 #Status > #Icon {
-    background-image: url('project://database/Assets/Graphics/Icons/report.png?fileID=21300000&guid=3e0625416afc0e844b83fed7144359ab&type=3#report');
+    background-image: url('project://database/Assets/Graphics/Icons/report-hollow.svg?fileID=7388822144124034973&guid=2dbf9b1a851e24045ac99deba957d170&type=3#report-hollow');
     -unity-background-scale-mode: scale-to-fit;
 }
 
 #Reporting > #Icon {
-    background-image: url('project://database/Assets/Graphics/Icons/report.png?fileID=21300000&guid=3e0625416afc0e844b83fed7144359ab&type=3#report');
+    background-image: url('project://database/Assets/Graphics/Icons/report-hollow.svg?fileID=7388822144124034973&guid=2dbf9b1a851e24045ac99deba957d170&type=3#report-hollow');
     -unity-background-scale-mode: scale-to-fit;
 }
 
 #Messaging > #Icon {
-    background-image: url('project://database/Assets/Graphics/Icons/message.png?fileID=21300000&guid=a3cd1a97e9bed0a4c892bf51690a65fd&type=3#message');
+    background-image: url('project://database/Assets/Graphics/Icons/messaging-hollow.svg?fileID=7388822144124034973&guid=0147a4e621a40fb41b1977e8c8e89705&type=3#messaging-hollow');
     -unity-background-scale-mode: scale-to-fit;
 }
 
 #Settings > #Icon {
-    background-image: url('project://database/Assets/Graphics/Icons/settings.png?fileID=21300000&guid=5dc081bb6b25b2a478d1c8cb27147fc8&type=3#settings');
+    background-image: url('project://database/Assets/Graphics/Icons/settings-hollow.svg?fileID=7388822144124034973&guid=eed7075340f4d3c4ebbe4251e15ed4f4&type=3#settings-hollow');
     -unity-background-scale-mode: scale-to-fit;
 }

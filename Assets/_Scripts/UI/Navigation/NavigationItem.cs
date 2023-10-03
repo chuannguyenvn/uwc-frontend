@@ -26,7 +26,6 @@ namespace UI.Navigation
 
             RegisterCallback<MouseUpEvent>(_ =>
             {
-                GetFirstAncestorOfType<NavigationBar>().ActivateView(viewType);
                 GetFirstAncestorOfType<Root>().ActivateView(viewType);
             });
         }

@@ -1,5 +1,6 @@
 ﻿using Commons.Models;
 using Commons.Types;
+using Constants;
 using UI.Base;
 using UnityEngine;
 using UnityEngine.UIElements;
@@ -15,7 +16,7 @@ namespace UI.Views.Tasks.Tasks
 
         public VisualElement Content;
 
-        public TaskListEntry(TaskData taskData) : base(nameof(TaskListEntry))
+        public TaskListEntry(TaskData taskData, TaskType taskType) : base(nameof(TaskListEntry))
         {
             styleSheets.Add(Resources.Load<StyleSheet>("Stylesheets/Views/Tasks/Tasks/TaskListEntry"));
             AddToClassList("tasks-list-entry");
@@ -30,21 +31,28 @@ namespace UI.Views.Tasks.Tasks
             StatusText = new TextElement { name = "StatusText" };
             StatusText.AddToClassList("sub-text");
             StatusText.AddToClassList("grey-text");
-            StatusText.text = "Status";
             TimelineContainer.Add(StatusText);
 
             DownLine = new VisualElement { name = "DownLine" };
             DownLine.AddToClassList("timeline-line");
             TimelineContainer.Add(DownLine);
 
-            var random = Random.Range(0, 3);
-            Content = random switch
+            switch (taskType)
             {
-                0 => new FocusedTaskCard(Utility.GetRandomEnumValue<McpFillStatus>()),
-                1 => new UnfocusedTaskCard(Utility.GetRandomEnumValue<McpFillStatus>()),
-                2 => new CompletedCard(),
-                _ => Content
-            };
+                case TaskType.Focused:
+                    Content = new FocusedTaskCard(Utility.GetRandomEnumValue<McpFillStatus>());
+                    StatusText.text = "Ongoing";
+                    break;
+                case TaskType.Unfocused:
+                    Content = new UnfocusedTaskCard(Utility.GetRandomEnumValue<McpFillStatus>());
+                    StatusText.text = "Pending";
+                    break;
+                case TaskType.Completed:
+                    Content = new CompletedCard();
+                    StatusText.text = "9:41AM";
+                    break;
+            }
+
             Content.RegisterCallback<MouseUpEvent>(_ =>
             {
                 RegisterCallback<MouseUpEvent>(_ =>

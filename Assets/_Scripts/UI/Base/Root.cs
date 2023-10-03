@@ -29,6 +29,8 @@ namespace UI.Base
             CreateAuthenticationScreen();
             CreateNavigationBar();
             CreateViews();
+
+            ActivateView(ViewType.Map);
         }
 
         private void CreateAuthenticationScreen()
@@ -81,18 +83,21 @@ namespace UI.Base
             {
                 view.style.display = type == viewType ? DisplayStyle.Flex : DisplayStyle.None;
             }
+
+            NavigationBar.ActivateView(viewType);
         }
 
         public void ShowKeyboard()
         {
-            using(AndroidJavaClass UnityClass = new AndroidJavaClass("com.unity3d.player.UnityPlayer"))
+            using (AndroidJavaClass UnityClass = new AndroidJavaClass("com.unity3d.player.UnityPlayer"))
             {
-                AndroidJavaObject View = UnityClass.GetStatic<AndroidJavaObject>("currentActivity").Get<AndroidJavaObject>("mUnityPlayer").Call<AndroidJavaObject>("getView");
+                AndroidJavaObject View = UnityClass.GetStatic<AndroidJavaObject>("currentActivity").Get<AndroidJavaObject>("mUnityPlayer")
+                    .Call<AndroidJavaObject>("getView");
 
-                using(AndroidJavaObject Rct = new AndroidJavaObject("android.graphics.Rect"))
+                using (AndroidJavaObject Rct = new AndroidJavaObject("android.graphics.Rect"))
                 {
                     View.Call("getWindowVisibleDisplayFrame", Rct);
-                    style.height =  Screen.height - Rct.Call<int>("height");
+                    style.height = Screen.height - Rct.Call<int>("height");
                     Debug.Log("Keyboard height: " + Rct.Call<int>("height"));
                 }
             }
