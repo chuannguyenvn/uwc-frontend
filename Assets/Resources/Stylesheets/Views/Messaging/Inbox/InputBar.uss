@@ -1,7 +1,54 @@
 #InputBar {
     flex-direction: row;
+    padding-top: 16px;
+    padding-right: 16px;
+    padding-bottom: 16px;
+    padding-left: 16px;
+    height: 128px;
+    flex-shrink: 0;
+    flex-grow: 1;
 }
 
 #InputBar #TextField {
     flex-grow: 1;
+    border-top-left-radius: 64px;
+    border-top-right-radius: 64px;
+    border-bottom-right-radius: 64px;
+    border-bottom-left-radius: 64px;
+    border-left-color: rgba(0, 0, 0, 0);
+    border-right-color: rgba(0, 0, 0, 0);
+    border-top-color: rgba(0, 0, 0, 0);
+    border-bottom-color: rgba(0, 0, 0, 0);
+}
+
+#SendButton {
+    width: 96px;
+    height: 96px;
+    -unity-background-scale-mode: scale-to-fit;
+    border-top-left-radius: 100%;
+    border-top-right-radius: 100%;
+    border-bottom-right-radius: 100%;
+    border-bottom-left-radius: 100%;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--theme-color);
+    border-left-color: rgba(0, 0, 0, 0);
+    border-right-color: rgba(0, 0, 0, 0);
+    border-top-color: rgba(0, 0, 0, 0);
+    border-bottom-color: rgba(0, 0, 0, 0);
+}
+
+#SendIcon {
+    background-image: url('project://database/Assets/Graphics/Icons/send.png?fileID=21300000&guid=85e7a45670f06314a9beeab5531f512d&type=3#send');
+    width: 69%;
+    height: 69%;
+    -unity-background-scale-mode: scale-to-fit;
+    margin-left: 8px;
+}
+
+#unity-text-input {
+    border-left-color: rgba(0, 0, 0, 0);
+    border-right-color: rgba(0, 0, 0, 0);
+    border-top-color: rgba(0, 0, 0, 0);
+    border-bottom-color: rgba(0, 0, 0, 0);
 }

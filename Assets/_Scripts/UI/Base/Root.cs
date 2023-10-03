@@ -42,7 +42,7 @@ namespace UI.Base
             AuthenticationScreen.style.display = DisplayStyle.None;
             NavigationBar.style.display = DisplayStyle.Flex;
         }
-        
+
         private void CreateNavigationBar()
         {
             NavigationBar = new NavigationBar();
@@ -81,6 +81,26 @@ namespace UI.Base
             {
                 view.style.display = type == viewType ? DisplayStyle.Flex : DisplayStyle.None;
             }
+        }
+
+        public void ShowKeyboard()
+        {
+            using(AndroidJavaClass UnityClass = new AndroidJavaClass("com.unity3d.player.UnityPlayer"))
+            {
+                AndroidJavaObject View = UnityClass.GetStatic<AndroidJavaObject>("currentActivity").Get<AndroidJavaObject>("mUnityPlayer").Call<AndroidJavaObject>("getView");
+
+                using(AndroidJavaObject Rct = new AndroidJavaObject("android.graphics.Rect"))
+                {
+                    View.Call("getWindowVisibleDisplayFrame", Rct);
+                    style.height =  Screen.height - Rct.Call<int>("height");
+                    Debug.Log("Keyboard height: " + Rct.Call<int>("height"));
+                }
+            }
+        }
+
+        public void HideKeyboard()
+        {
+            style.height = Screen.height;
         }
 
         public new class UxmlFactory : UxmlFactory<Root, UxmlTraits>

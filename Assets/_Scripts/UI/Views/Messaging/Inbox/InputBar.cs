@@ -6,20 +6,26 @@ namespace UI.Views.Messaging.Inbox
 {
     public class InputBar : AdaptiveElement
     {
-        private TextField _textField;
-        private Button _sendButton;
+        public TextField TextField;
+        public Button SendButton;
+        public VisualElement SendIcon;
 
         public InputBar() : base(nameof(InputBar))
         {
             styleSheets.Add(Resources.Load<StyleSheet>("Stylesheets/Views/Messaging/Inbox/InputBar"));
 
-            _textField = new TextField { name = "TextField" };
-            _textField.AddToClassList("normal-text");
-            _textField.AddToClassList("black-text");
-            Add(_textField);
+            TextField = new TextField { name = "TextField" };
+            TextField.AddToClassList("normal-text");
+            TextField.AddToClassList("black-text");
+            Add(TextField);
+            // TextField.RegisterCallback<FocusInEvent>(_ => { GetFirstAncestorOfType<Root>().ShowKeyboard(); });
+            // TextField.RegisterCallback<FocusOutEvent>(_ => { GetFirstAncestorOfType<Root>().HideKeyboard(); });
 
-            _sendButton = new Button { name = "SendButton" };
-            Add(_sendButton);
+            SendButton = new Button { name = "SendButton" };
+            Add(SendButton);
+            
+            SendIcon = new VisualElement { name = "SendIcon" };
+            SendButton.Add(SendIcon);
         }
     }
 }
