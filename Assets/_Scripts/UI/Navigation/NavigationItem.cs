@@ -24,7 +24,11 @@ namespace UI.Navigation
             _label.text = viewType.ToString();
             Add(_label);
 
-            RegisterCallback<MouseUpEvent>(_ => { GetFirstAncestorOfType<Root>().ActivateView(viewType); });
+            RegisterCallback<MouseUpEvent>(_ =>
+            {
+                GetFirstAncestorOfType<NavigationBar>().ActivateView(viewType);
+                GetFirstAncestorOfType<Root>().ActivateView(viewType);
+            });
         }
     }
 }

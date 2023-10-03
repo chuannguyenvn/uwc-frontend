@@ -5,7 +5,7 @@
 }
 
 .bottom-bar {
-    -unity-background-image-tint-color: var(--theme-color);
+    -unity-background-image-tint-color: white;
     background-image: url('project://database/Assets/Graphics/bottom-bar.png?fileID=-5910484898260326603&guid=7745308b0a98ab442b7e382b0acc8349&type=3#bottom-bar_0');
 }
 

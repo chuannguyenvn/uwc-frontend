@@ -8,7 +8,20 @@
     height: 64px;
 }
 
-#Label {
+.mobile #Icon {
+    -unity-background-image-tint-color: var(--grey-color);
+}
+
+.mobile #Label {
+    color: var(--grey-color);
+}
+
+.mobile .active #Icon {
+    -unity-background-image-tint-color: var(--theme-color);
+}
+
+.mobile .active #Label {
+    color: var(--theme-color);
 }
 
 #Map > #Icon {
