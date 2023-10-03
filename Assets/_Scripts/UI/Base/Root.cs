@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using Constants;
 using UI.Navigation;
+using UI.Views.Mcps;
 using UI.Views.Messaging;
 using UI.Views.Settings;
 using UI.Views.Status;
@@ -33,6 +34,8 @@ namespace UI.Base
             if (Configs.IS_DESKTOP)
             {
                 ViewsByViewType.Add(ViewType.Workers, new WorkersView());
+                ViewsByViewType.Add(ViewType.Mcps, new McpsView());
+                ViewsByViewType.Add(ViewType.Vehicles, new VehiclesView());
                 ViewsByViewType.Add(ViewType.Messaging, new MessagingView());
                 ViewsByViewType.Add(ViewType.Settings, new SettingsView());
             }

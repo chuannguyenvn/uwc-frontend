@@ -74,3 +74,8 @@
 .list-entry:hover {
     background-color: var(--grey-color);
 }
+
+#unity-content-viewport {
+    padding-right: 10px;
+    padding-left: 10px;
+}

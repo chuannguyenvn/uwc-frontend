@@ -1,4 +1,4 @@
-#WorkerListEntry {
+﻿#VehicleListEntry {
     width: 100%;
     height: 64px;
     flex-direction: row;
@@ -8,12 +8,6 @@
 
 #TextContainer {
     justify-content: center;
-}
-
-#NameText {
-}
-
-#StatusText {
 }
 
 #Avatar {

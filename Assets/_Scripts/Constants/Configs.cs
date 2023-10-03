@@ -10,7 +10,7 @@ namespace Constants
         {
             ViewType.Map,
             ViewType.Workers,
-            ViewType.MCPs,
+            ViewType.Mcps,
             ViewType.Vehicles,
             ViewType.Reporting,
             ViewType.Messaging,

@@ -4,7 +4,7 @@
     {
         Map,
         Workers,
-        MCPs,
+        Mcps,
         Vehicles,
         Tasks,
         Status,

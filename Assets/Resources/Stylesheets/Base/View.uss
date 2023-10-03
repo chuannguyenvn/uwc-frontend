@@ -3,7 +3,7 @@
 }
 
 .side-view {
-    width: 400px;
+    width: 500px;
     height: 100%;
     background-image: url('project://database/Assets/Graphics/left-bar.png?fileID=21300000&guid=79fc5e4deaac13e48aa53ebcdc92f8c8&type=3#left-bar');
     position: relative;
