@@ -29,7 +29,7 @@ namespace UI.Views.Tasks.Tasks
 
             StatusText = new TextElement { name = "StatusText" };
             StatusText.AddToClassList("sub-text");
-            StatusText.AddToClassList("black-text");
+            StatusText.AddToClassList("grey-text");
             StatusText.text = "Status";
             TimelineContainer.Add(StatusText);
 

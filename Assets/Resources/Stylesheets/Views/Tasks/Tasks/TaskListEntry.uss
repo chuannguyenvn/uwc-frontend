@@ -1,6 +1,6 @@
 .timeline-line {
     width: 2px;
-    background-color: rgb(0, 0, 0);
+    background-color: var(--grey-text-color);
     flex-grow: 1;
 }
 
@@ -11,6 +11,7 @@
 
 #TimelineContainer {
     align-items: center;
+    min-width: 12%;
 }
 
 .task-card {

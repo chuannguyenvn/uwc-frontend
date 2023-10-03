@@ -1,10 +1,17 @@
 #InboxHeader {
     background-color: var(--theme-color);
-    height: 150px;
     flex-direction: row;
     align-items: center;
     padding-right: 24px;
     padding-left: 24px;
+}
+
+.desktop #InboxHeader {
+    height: 100px;
+}
+
+.mobile #InboxHeader {
+    height: 150px;
 }
 
 #BackButton {
@@ -13,4 +20,8 @@
     height: 50px;
     margin-right: 24px;
     margin-left: 24px;
+}
+
+.desktop #BackButton {
+    display: none;
 }
