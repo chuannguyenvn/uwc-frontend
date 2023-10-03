@@ -11,10 +11,10 @@
 
 #InputBar #TextField {
     flex-grow: 1;
-    border-top-left-radius: 64px;
-    border-top-right-radius: 64px;
-    border-bottom-right-radius: 64px;
-    border-bottom-left-radius: 64px;
+    border-top-left-radius: 48px;
+    border-top-right-radius: 48px;
+    border-bottom-right-radius: 48px;
+    border-bottom-left-radius: 48px;
     border-left-color: rgba(0, 0, 0, 0);
     border-right-color: rgba(0, 0, 0, 0);
     border-top-color: rgba(0, 0, 0, 0);
@@ -22,8 +22,9 @@
 }
 
 #SendButton {
-    width: 96px;
-    height: 96px;
+    align-self: center;
+    width: 90px;
+    height: 90px;
     -unity-background-scale-mode: scale-to-fit;
     border-top-left-radius: 100%;
     border-top-right-radius: 100%;
