@@ -17,12 +17,22 @@ namespace UI.Views.Settings
 
             SettingNameText = new TextElement();
             SettingNameText.AddToClassList("normal-text");
-            if (Random.Range(0, 2) == 0) SettingNameText.AddToClassList("activated");
-            else SettingNameText.AddToClassList("deactivated");
             SettingNameText.text = name;
             Add(SettingNameText);
 
             RegisterCallback<MouseUpEvent>(_ => callback?.Invoke());
+        }
+        
+        public void Activate()
+        {
+            SettingNameText.RemoveFromClassList("deactivated");
+            SettingNameText.AddToClassList("activated");
+        }
+        
+        public void Deactivate()
+        {
+            SettingNameText.RemoveFromClassList("activated");
+            SettingNameText.AddToClassList("deactivated");
         }
     }
 }
