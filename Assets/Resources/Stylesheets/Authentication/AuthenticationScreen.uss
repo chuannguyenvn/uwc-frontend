@@ -16,6 +16,8 @@
     padding-left: 200px;
     align-items: stretch;
     justify-content: center;
+    background-color: white;
+    height: 100%;
 }
 
 .mobile #LoginElementsContainer {
