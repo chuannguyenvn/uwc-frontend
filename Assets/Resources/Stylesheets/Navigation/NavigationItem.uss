@@ -3,45 +3,45 @@
     width: 20%;
 }
 
-#Icon {
-    width: 64px;
-    height: 64px;
+#Label {
+    -unity-text-align: middle-center;
 }
 
-.mobile #Icon {
-    -unity-background-image-tint-color: var(--grey-color);
+.desktop #Label {
+    font-size: 16px;
+    color: rgba(255, 255, 255, 0.4);
+}
+
+.desktop .active #Label {
+    color: var(--white-text-color);
 }
 
 .mobile #Label {
     color: var(--grey-color);
 }
 
-.mobile .active #Icon {
-    -unity-background-image-tint-color: var(--theme-color);
-}
-
 .mobile .active #Label {
     color: var(--theme-color);
 }
 
-.mobile.active#Map > #Icon {
-    background-image: url('project://database/Assets/Graphics/Icons/map-filled.svg?fileID=7388822144124034973&guid=c8a5c5b9e90d3974bb06da7139c066c1&type=3#map-filled');
+.desktop #Icon {
+    width: 48px;
+    height: 48px;
+    -unity-background-image-tint-color: rgba(255, 255, 255, 0.4);
 }
 
-.mobile.active#Tasks > #Icon {
-    background-image: url('project://database/Assets/Graphics/Icons/tasks-filled.svg?fileID=7388822144124034973&guid=613d9eb52bf021042a3b4ba8acd246e0&type=3#tasks-filled');
+.desktop .active #Icon {
+    -unity-background-image-tint-color: rgb(255, 255, 255);
 }
 
-.mobile.active#Status > #Icon {
-    background-image: url('project://database/Assets/Graphics/Icons/report-filled.svg?fileID=7388822144124034973&guid=5520ab769305bc44ea6fd7aa57bd11a5&type=3#report-filled');
+.mobile #Icon {
+    width: 64px;
+    height: 64px;
+    -unity-background-image-tint-color: var(--grey-color);
 }
 
-.mobile.active#Messaging > #Icon {
-    background-image: url('project://database/Assets/Graphics/Icons/messaging-filled.svg?fileID=7388822144124034973&guid=5c44f5cd3bede7c4e84be4629fc88d48&type=3#messaging-filled');
-}
-
-.mobile.active#Settings > #Icon {
-    background-image: url('project://database/Assets/Graphics/Icons/settings-filled.svg?fileID=7388822144124034973&guid=d60d6a1efaecd6b41b3f603fa135d3e4&type=3#settings-filled');
+.mobile .active #Icon {
+    -unity-background-image-tint-color: var(--theme-color);
 }
 
 #Map > #Icon {
@@ -49,18 +49,38 @@
     -unity-background-scale-mode: scale-to-fit;
 }
 
+.active#Map > #Icon {
+    background-image: url('project://database/Assets/Graphics/Icons/map-filled.svg?fileID=7388822144124034973&guid=c8a5c5b9e90d3974bb06da7139c066c1&type=3#map-filled');
+    -unity-background-scale-mode: scale-to-fit;
+}
+
 #Workers > #Icon {
-    background-image: url('project://database/Assets/Graphics/Icons/worker.png?fileID=21300000&guid=73e8441f375f39049ae4cfcf109dd8f2&type=3#worker');
+    background-image: url('project://database/Assets/Graphics/Icons/workers-hollow.svg?fileID=7388822144124034973&guid=286f97003e84636408c62c6a6d07c6a7&type=3#workers-hollow');
+    -unity-background-scale-mode: scale-to-fit;
+}
+
+.active#Workers > #Icon {
+    background-image: url('project://database/Assets/Graphics/Icons/workers-filled.svg?fileID=7388822144124034973&guid=b288e752ada01794c89ca4044cfab84d&type=3#workers-filled');
     -unity-background-scale-mode: scale-to-fit;
 }
 
 #Mcps > #Icon {
-    background-image: url('project://database/Assets/Graphics/Icons/mcp.png?fileID=21300000&guid=e9d6cd3b087d24248a666aace09ab4bc&type=3#mcp');
+    background-image: url('project://database/Assets/Graphics/Icons/mcps-hollow.svg?fileID=7388822144124034973&guid=90c570bf6fef51546842498004e8c3c0&type=3#mcps-hollow');
+    -unity-background-scale-mode: scale-to-fit;
+}
+
+.active#Mcps > #Icon {
+    background-image: url('project://database/Assets/Graphics/Icons/mcps-filled.svg?fileID=7388822144124034973&guid=6136abe10a3f70648b72ad6aca10021c&type=3#mcps-filled');
     -unity-background-scale-mode: scale-to-fit;
 }
 
 #Vehicles > #Icon {
-    background-image: url('project://database/Assets/Graphics/Icons/vehicle.png?fileID=21300000&guid=8c159ad1b097a2245aeaef9aa2015909&type=3#vehicle');
+    background-image: url('project://database/Assets/Graphics/Icons/vehicles-hollow.svg?fileID=7388822144124034973&guid=705154e486822d1478636c7b9834075e&type=3#vehicles-hollow');
+    -unity-background-scale-mode: scale-to-fit;
+}
+
+.active#Vehicles > #Icon {
+    background-image: url('project://database/Assets/Graphics/Icons/vehicles-filled.svg?fileID=7388822144124034973&guid=08a6dcc038bc32a4993dfc48774428bd&type=3#vehicles-filled');
     -unity-background-scale-mode: scale-to-fit;
 }
 
@@ -69,8 +89,18 @@
     -unity-background-scale-mode: scale-to-fit;
 }
 
+.active#Tasks > #Icon {
+    background-image: url('project://database/Assets/Graphics/Icons/tasks-filled.svg?fileID=7388822144124034973&guid=613d9eb52bf021042a3b4ba8acd246e0&type=3#tasks-filled');
+    -unity-background-scale-mode: scale-to-fit;
+}
+
 #Status > #Icon {
     background-image: url('project://database/Assets/Graphics/Icons/report-hollow.svg?fileID=7388822144124034973&guid=2dbf9b1a851e24045ac99deba957d170&type=3#report-hollow');
+    -unity-background-scale-mode: scale-to-fit;
+}
+
+.active#Status > #Icon {
+    background-image: url('project://database/Assets/Graphics/Icons/report-filled.svg?fileID=7388822144124034973&guid=5520ab769305bc44ea6fd7aa57bd11a5&type=3#report-filled');
     -unity-background-scale-mode: scale-to-fit;
 }
 
@@ -79,12 +109,27 @@
     -unity-background-scale-mode: scale-to-fit;
 }
 
+.active#Reporting > #Icon {
+    background-image: url('project://database/Assets/Graphics/Icons/report-filled.svg?fileID=7388822144124034973&guid=5520ab769305bc44ea6fd7aa57bd11a5&type=3#report-filled');
+    -unity-background-scale-mode: scale-to-fit;
+}
+
 #Messaging > #Icon {
     background-image: url('project://database/Assets/Graphics/Icons/messaging-hollow.svg?fileID=7388822144124034973&guid=0147a4e621a40fb41b1977e8c8e89705&type=3#messaging-hollow');
     -unity-background-scale-mode: scale-to-fit;
 }
 
+.active#Messaging > #Icon {
+    background-image: url('project://database/Assets/Graphics/Icons/messaging-filled.svg?fileID=7388822144124034973&guid=5c44f5cd3bede7c4e84be4629fc88d48&type=3#messaging-filled');
+    -unity-background-scale-mode: scale-to-fit;
+}
+
 #Settings > #Icon {
     background-image: url('project://database/Assets/Graphics/Icons/settings-hollow.svg?fileID=7388822144124034973&guid=eed7075340f4d3c4ebbe4251e15ed4f4&type=3#settings-hollow');
+    -unity-background-scale-mode: scale-to-fit;
+}
+
+.active#Settings > #Icon {
+    background-image: url('project://database/Assets/Graphics/Icons/settings-filled.svg?fileID=7388822144124034973&guid=d60d6a1efaecd6b41b3f603fa135d3e4&type=3#settings-filled');
     -unity-background-scale-mode: scale-to-fit;
 }
