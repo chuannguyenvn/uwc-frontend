@@ -1,7 +1,10 @@
-﻿using Commons.Models;
+﻿using System;
+using Commons.Communications.Mcps;
+using Requests;
 using UI.Base;
 using UnityEngine;
 using UnityEngine.UIElements;
+using Random = UnityEngine.Random;
 
 namespace UI.Views.Mcps
 {
@@ -19,12 +22,17 @@ namespace UI.Views.Mcps
             _scrollView.AddToClassList("list-view");
             Add(_scrollView);
 
-            for (int i = 0; i < 30; i++)
+            DataStore.DataTypeUpdateCallbacks[DataType.McpsViewListData] += UpdateView;
+        }
+
+        private void UpdateView(object response)
+        {
+            _scrollView.Clear();
+            Debug.Log("Updating Mcps view");
+            var results = (response as GetMcpDataResponse).Results;
+            foreach (var mcpData in results)
             {
-                _scrollView.Add(new McpListEntry(new McpData()
-                {
-                    Address = "Address placeholder",
-                }, Random.Range(0f, 100f)));
+                _scrollView.Add(new McpListEntry(mcpData, Random.Range(0f, 100f)));
             }
         }
     }

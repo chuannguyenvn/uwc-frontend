@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using Constants;
+using Requests;
 using UI.Authentication;
 using UI.Navigation;
 using UI.Views.Mcps;
@@ -70,7 +71,7 @@ namespace UI.Base
                 ViewsByViewType.Add(ViewType.Settings, new SettingsView());
             }
 
-            foreach (var (viewType, view) in ViewsByViewType)
+            foreach (var (_, view) in ViewsByViewType)
             {
                 Add(view);
                 view.style.display = DisplayStyle.None;
@@ -85,6 +86,9 @@ namespace UI.Base
             }
 
             NavigationBar.ActivateView(viewType);
+
+            if (viewType == ViewType.Mcps)
+                DataStore.Instance.FocusDataType(DataType.McpsViewListData);
         }
 
         public void ShowKeyboard()
