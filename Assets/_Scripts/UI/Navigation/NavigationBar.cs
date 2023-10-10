@@ -27,33 +27,24 @@ namespace UI.Navigation
 
         private void AddNavigationItems()
         {
-            if (Configs.IS_DESKTOP)
+            var viewTypes = Configs.IS_DESKTOP ? Configs.DesktopViewTypes : Configs.MobileViewTypes;
+            foreach (var viewType in viewTypes)
             {
-                foreach (var viewType in Configs.DesktopViewTypes)
-                {
-                    var navigationItem = new NavigationItem(viewType);
-                    NavigationItemsByViewType.Add(viewType, navigationItem);
-                    Add(navigationItem);
-                }
+                var navigationItem = new NavigationItem(viewType);
+                NavigationItemsByViewType.Add(viewType, navigationItem);
+                Add(navigationItem);
             }
-            else
-            {
-                foreach (var viewType in Configs.MobileViewTypes)
-                {
-                    var navigationItem = new NavigationItem(viewType);
-                    NavigationItemsByViewType.Add(viewType, navigationItem);
-                    Add(navigationItem);
-                }
-            }
+            
+            
         }
-        
+
         public void ActivateView(ViewType viewType)
         {
             foreach (var navigationItem in NavigationItemsByViewType)
             {
                 navigationItem.Value.RemoveFromClassList("active");
             }
-            
+
             NavigationItemsByViewType[viewType].AddToClassList("active");
         }
 

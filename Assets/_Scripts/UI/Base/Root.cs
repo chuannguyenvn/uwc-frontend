@@ -1,5 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Constants;
+using Requests.DataStores;
 using UI.Authentication;
 using UI.Navigation;
 using UI.Views.Mcps;
@@ -70,7 +72,7 @@ namespace UI.Base
                 ViewsByViewType.Add(ViewType.Settings, new SettingsView());
             }
 
-            foreach (var (viewType, view) in ViewsByViewType)
+            foreach (var (_, view) in ViewsByViewType)
             {
                 Add(view);
                 view.style.display = DisplayStyle.None;
@@ -85,27 +87,31 @@ namespace UI.Base
             }
 
             NavigationBar.ActivateView(viewType);
-        }
 
-        public void ShowKeyboard()
-        {
-            using (AndroidJavaClass UnityClass = new AndroidJavaClass("com.unity3d.player.UnityPlayer"))
+            switch (viewType)
             {
-                AndroidJavaObject View = UnityClass.GetStatic<AndroidJavaObject>("currentActivity").Get<AndroidJavaObject>("mUnityPlayer")
-                    .Call<AndroidJavaObject>("getView");
-
-                using (AndroidJavaObject Rct = new AndroidJavaObject("android.graphics.Rect"))
-                {
-                    View.Call("getWindowVisibleDisplayFrame", Rct);
-                    style.height = Screen.height - Rct.Call<int>("height");
-                    Debug.Log("Keyboard height: " + Rct.Call<int>("height"));
-                }
+                case ViewType.Map:
+                    break;
+                case ViewType.Workers:
+                    break;
+                case ViewType.Mcps:
+                    DataWatcherManager.Mcps.ListView.Focus();
+                    break;
+                case ViewType.Vehicles:
+                    break;
+                case ViewType.Tasks:
+                    break;
+                case ViewType.Status:
+                    break;
+                case ViewType.Reporting:
+                    break;
+                case ViewType.Messaging:
+                    break;
+                case ViewType.Settings:
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException(nameof(viewType), viewType, null);
             }
-        }
-
-        public void HideKeyboard()
-        {
-            style.height = Screen.height;
         }
 
         public new class UxmlFactory : UxmlFactory<Root, UxmlTraits>

@@ -1,7 +1,8 @@
-﻿using Commons.Models;
+﻿using Requests.DataStores;
 using UI.Base;
 using UnityEngine;
 using UnityEngine.UIElements;
+using Random = UnityEngine.Random;
 
 namespace UI.Views.Mcps
 {
@@ -19,12 +20,15 @@ namespace UI.Views.Mcps
             _scrollView.AddToClassList("list-view");
             Add(_scrollView);
 
-            for (int i = 0; i < 30; i++)
+            DataWatcherManager.Mcps.ListView.DataRequested += UpdateView;
+        }
+
+        private void UpdateView()
+        {
+            _scrollView.Clear();
+            foreach (var mcpData in DataWatcherManager.Mcps.ListView.Response.Results)
             {
-                _scrollView.Add(new McpListEntry(new McpData()
-                {
-                    Address = "Address placeholder",
-                }, Random.Range(0f, 100f)));
+                _scrollView.Add(new McpListEntry(mcpData, Random.Range(0f, 100f)));
             }
         }
     }
