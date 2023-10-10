@@ -7,26 +7,18 @@ using UnityEngine.Networking;
 
 namespace Requests
 {
-    public static class HttpsClient
+    public static partial class HttpsClient
     {
-        public enum RequestType
-        {
-            GET,
-            POST,
-            PUT,
-            DELETE
-        }
-
-        private static UnityWebRequest ConstructWebRequest(string endpoint, RequestType requestRequestType, string bearerKey,
+        private static UnityWebRequest ConstructWebRequest(string endpoint, RequestType requestType, string bearerKey,
             object objectToSend = null)
         {
-            var requestTypeString = requestRequestType switch
+            var requestTypeString = requestType switch
             {
                 RequestType.GET => "GET",
                 RequestType.POST => "POST",
                 RequestType.PUT => "PUT",
                 RequestType.DELETE => "DELETE",
-                _ => throw new ArgumentOutOfRangeException(nameof(requestRequestType), requestRequestType, null)
+                _ => throw new ArgumentOutOfRangeException(nameof(requestType), requestType, null)
             };
 
             var webRequest = new UnityWebRequest("https://" + endpoint, requestTypeString);
@@ -44,10 +36,10 @@ namespace Requests
             return webRequest;
         }
 
-        public static IEnumerator SendRequest(string endpoint, RequestType requestRequestType, Action<bool> callback, string bearerKey,
+        public static IEnumerator SendRequest(string endpoint, RequestType requestType, Action<bool> callback, string bearerKey,
             object objectToSend = null)
         {
-            var webRequest = ConstructWebRequest(endpoint, requestRequestType, bearerKey, objectToSend);
+            var webRequest = ConstructWebRequest(endpoint, requestType, bearerKey, objectToSend);
 
             yield return webRequest.SendWebRequest();
 
@@ -63,12 +55,10 @@ namespace Requests
             webRequest.Dispose();
         }
 
-        public static IEnumerator SendRequest<T>(string endpoint, RequestType requestRequestType, Action<bool, T> callback,
+        public static IEnumerator SendRequest<T>(string endpoint, RequestType requestType, Action<bool, T> callback,
             string bearerKey, object objectToSend = null) 
         {
-            var webRequest = ConstructWebRequest(endpoint, requestRequestType, bearerKey, objectToSend);
-
-            Debug.Log(webRequest.ToString());
+            var webRequest = ConstructWebRequest(endpoint, requestType, bearerKey, objectToSend);
             
             yield return webRequest.SendWebRequest();
 
