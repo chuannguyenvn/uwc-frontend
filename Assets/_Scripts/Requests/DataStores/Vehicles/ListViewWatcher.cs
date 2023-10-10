@@ -1,28 +1,23 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using System.Threading;
-using Commons.Communications.Mcps;
+﻿using Commons.Communications.Mcps;
 using Commons.Types;
 using UnityEngine;
 
-namespace Requests.DataStores.Mcps
+namespace Requests.DataStores.Vehicles
 {
-    public class ListView : DataStore
+    public class ListViewWatcher : DataWatcher
     {
-        public readonly McpDataQueryParameters QueryParameters = new();
         public GetMcpDataResponse Response = new();
 
-        public ListView()
+        public ListViewWatcher()
         {
-            Request = new ParameterizedRequest<GetMcpDataResponse>(
+            Request = new ParameterizedRequest<>(
                 Endpoints.McpData.GET,
                 RequestType.POST,
-                QueryParameters,
+                null,
                 (success, response) =>
                 {
                     if (success)
                     {
-                        Debug.Log("Got Mcp data");
                         Response = response;
                         DataRequested?.Invoke();
                     }

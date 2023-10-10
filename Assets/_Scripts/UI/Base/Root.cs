@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using Constants;
-using Requests;
 using Requests.DataStores;
 using UI.Authentication;
 using UI.Navigation;
@@ -96,7 +95,7 @@ namespace UI.Base
                 case ViewType.Workers:
                     break;
                 case ViewType.Mcps:
-                    DataStoreManager.Mcps.ListView.Focus();
+                    DataWatcherManager.Mcps.ListView.Focus();
                     break;
                 case ViewType.Vehicles:
                     break;

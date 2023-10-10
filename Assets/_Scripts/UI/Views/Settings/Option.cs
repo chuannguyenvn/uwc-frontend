@@ -2,7 +2,6 @@
 using UI.Base;
 using UnityEngine;
 using UnityEngine.UIElements;
-using Random = UnityEngine.Random;
 
 namespace UI.Views.Settings
 {
