@@ -12,9 +12,7 @@ namespace Requests
 {
     public class DataStore : Singleton<DataStore>
     {
-        public static event Action PendingRequests;
-
-        private Dictionary<DataType, bool> _dataTypeFocusStates = new();
+        private readonly Dictionary<DataType, bool> _dataTypeFocusStates = new();
         public static readonly Dictionary<DataType, Action<object>> DataTypeUpdateCallbacks = new();
 
         static DataStore()
@@ -27,8 +25,6 @@ namespace Requests
 
         private void Start()
         {
-            PendingRequests?.Invoke();
-
             foreach (var value in Enum.GetValues(typeof(DataType)))
             {
                 _dataTypeFocusStates.Add((DataType)value, false);
@@ -52,7 +48,7 @@ namespace Requests
         {
             if (_dataTypeFocusStates.Count == 0) return;
 
-            if (_dataTypeFocusStates[DataType.McpsViewListData])
+            if (_dataTypeFocusStates[DataType.McpsView_ListData])
             {
                 StartCoroutine(HttpsClient.SendRequest<GetMcpDataResponse>(
                     Endpoints.McpData.GET,
@@ -61,7 +57,7 @@ namespace Requests
                         if (success)
                         {
                             Debug.Log(JsonConvert.SerializeObject(response));
-                            DataTypeUpdateCallbacks[DataType.McpsViewListData]?.Invoke(response);
+                            DataTypeUpdateCallbacks[DataType.McpsView_ListData]?.Invoke(response);
                         }
                         else
                         {

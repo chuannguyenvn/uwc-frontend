@@ -22,7 +22,7 @@ namespace UI.Views.Mcps
             _scrollView.AddToClassList("list-view");
             Add(_scrollView);
 
-            DataStore.DataTypeUpdateCallbacks[DataType.McpsViewListData] += UpdateView;
+            DataStore.DataTypeUpdateCallbacks[DataType.McpsView_ListData] += UpdateView;
         }
 
         private void UpdateView(object response)
