@@ -1,14 +1,23 @@
 ﻿using System;
 using System.Collections;
 using System.Text;
+using Managers;
 using Newtonsoft.Json;
 using UnityEngine;
 using UnityEngine.Networking;
 
 namespace Requests
 {
-    public static class HttpsClient
+    public static class RequestHelper
     {
+        private enum RequestType
+        {
+            GET,
+            POST,
+            PUT,
+            DELETE
+        }
+
         private static UnityWebRequest ConstructWebRequest(string endpoint, RequestType requestType, string bearerKey,
             object objectToSend = null)
         {
@@ -36,7 +45,7 @@ namespace Requests
             return webRequest;
         }
 
-        public static IEnumerator SendRequest(string endpoint, RequestType requestType, Action<bool> callback, string bearerKey,
+        private static IEnumerator SendRequest(string endpoint, RequestType requestType, Action<bool> callback, string bearerKey,
             object objectToSend = null)
         {
             var webRequest = ConstructWebRequest(endpoint, requestType, bearerKey, objectToSend);
@@ -55,11 +64,11 @@ namespace Requests
             webRequest.Dispose();
         }
 
-        public static IEnumerator SendRequest<T>(string endpoint, RequestType requestType, Action<bool, T> callback,
-            string bearerKey, object objectToSend = null) 
+        private static IEnumerator SendRequest<T>(string endpoint, RequestType requestType, Action<bool, T> callback,
+            string bearerKey, object objectToSend = null)
         {
             var webRequest = ConstructWebRequest(endpoint, requestType, bearerKey, objectToSend);
-            
+
             yield return webRequest.SendWebRequest();
 
             if (webRequest.result != UnityWebRequest.Result.Success)
@@ -73,6 +82,26 @@ namespace Requests
             var receivedObject = JsonConvert.DeserializeObject<T>(webRequest.downloadHandler.text);
             callback?.Invoke(true, receivedObject);
             webRequest.Dispose();
+        }
+
+        public static IEnumerator SendGetRequest(string endpoint, Action<bool> callback, bool isAuthorized = true)
+        {
+            yield return SendRequest(endpoint, RequestType.GET, callback, isAuthorized ? AuthenticationManager.Instance.JWT : "");
+        }
+
+        public static IEnumerator SendGetRequest<T>(string endpoint, Action<bool, T> callback, bool isAuthorized = true)
+        {
+            yield return SendRequest<T>(endpoint, RequestType.GET, callback, isAuthorized ? AuthenticationManager.Instance.JWT : "");
+        }
+
+        public static IEnumerator SendPostRequest(string endpoint, object objectToSend, Action<bool> callback, bool isAuthorized = true)
+        {
+            yield return SendRequest(endpoint, RequestType.POST, callback, isAuthorized ? AuthenticationManager.Instance.JWT : "", objectToSend);
+        }
+
+        public static IEnumerator SendPostRequest<T>(string endpoint, object objectToSend, Action<bool, T> callback, bool isAuthorized = true)
+        {
+            yield return SendRequest<T>(endpoint, RequestType.POST, callback, isAuthorized ? AuthenticationManager.Instance.JWT : "", objectToSend);
         }
     }
 }

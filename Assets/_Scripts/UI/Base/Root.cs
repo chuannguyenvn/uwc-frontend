@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using Constants;
 using Managers;
+using Requests;
 using Requests.DataStores;
 using UI.Authentication;
 using UI.Navigation;
@@ -38,7 +39,7 @@ namespace UI.Base
             AuthenticationManager.LoggedIn += CloseAuthenticationScreen;
             AuthenticationManager.LoggedOut += OpenAuthenticationScreen;
         }
-        
+
         ~Root()
         {
             AuthenticationManager.LoggedIn -= CloseAuthenticationScreen;
@@ -116,6 +117,7 @@ namespace UI.Base
                 case ViewType.Workers:
                     break;
                 case ViewType.Mcps:
+                    DataStoreManager.Mcps.ListView.Focus();
                     break;
                 case ViewType.Vehicles:
                     break;

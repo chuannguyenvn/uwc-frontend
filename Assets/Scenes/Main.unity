@@ -131,7 +131,7 @@ GameObject:
   - component: {fileID: 164083683}
   - component: {fileID: 164083682}
   m_Layer: 0
-  m_Name: Data Store
+  m_Name: Data Store Manager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -146,7 +146,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 164083681}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6b295be46bd64dd9a65cae4e12f0bb47, type: 3}
+  m_Script: {fileID: 11500000, guid: d93b711419014869a9b4e42da6269985, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!4 &164083683
@@ -543,3 +543,4 @@ SceneRoots:
   - {fileID: 1349940824}
   - {fileID: 164083683}
   - {fileID: 1838766909}
+  - {fileID: 697802598}

@@ -12,15 +12,20 @@ namespace Managers
     {
         public static event Action LoggedIn;
         public static event Action LoggedOut;
-        
+
         public string JWT { get; private set; }
         public HubConnection HubConnection { get; private set; }
 
         public void Login(string username, string password)
         {
-            StartCoroutine(HttpsClient.SendRequest<LoginResponse>(
+            StartCoroutine(RequestHelper.SendPostRequest<LoginResponse>(
                 Endpoints.Authentication.LOGIN,
-                RequestType.POST,
+                new LoginRequest
+                {
+                    Username = username,
+                    Password = password,
+                    IsFromDesktop = Configs.IS_DESKTOP
+                },
                 (success, response) =>
                 {
                     if (success)
@@ -32,13 +37,7 @@ namespace Managers
                         Debug.LogError("Failed to login.");
                     }
                 },
-                "",
-                new LoginRequest
-                {
-                    Username = username,
-                    Password = password,
-                    IsFromDesktop = Configs.IS_DESKTOP
-                }));
+                false));
         }
 
         private async void SuccessfulLoginHandler(string jwt)
@@ -51,9 +50,9 @@ namespace Managers
                 .Build();
 
             await HubConnection.StartAsync();
-            
+
             LoggedIn?.Invoke();
-                        
+
             Debug.Log("Successfully logged in with JWT: " + JWT);
         }
     }
