@@ -116,7 +116,6 @@ namespace UI.Base
                 case ViewType.Workers:
                     break;
                 case ViewType.Mcps:
-                    DataWatcherManager.Mcps.ListView.Focus();
                     break;
                 case ViewType.Vehicles:
                     break;

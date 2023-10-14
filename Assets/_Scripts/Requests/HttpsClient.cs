@@ -7,7 +7,7 @@ using UnityEngine.Networking;
 
 namespace Requests
 {
-    public static partial class HttpsClient
+    public static class HttpsClient
     {
         private static UnityWebRequest ConstructWebRequest(string endpoint, RequestType requestType, string bearerKey,
             object objectToSend = null)
