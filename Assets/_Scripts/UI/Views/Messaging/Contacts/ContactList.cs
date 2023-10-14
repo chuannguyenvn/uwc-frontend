@@ -1,5 +1,7 @@
-﻿using Commons.Models;
+﻿using Commons.Communications.Messages;
 using Constants;
+using Managers;
+using Requests;
 using UI.Base;
 using UnityEngine;
 using UnityEngine.UIElements;
@@ -19,9 +21,36 @@ namespace UI.Views.Messaging.Contacts
             _scrollView.AddToClassList("list-view");
             Add(_scrollView);
 
-            for (int i = 0; i < 50; i++)
+            DataStoreManager.Messaging.ContactList.DataUpdated += DataUpdatedHandler;
+        }
+
+        ~ContactList()
+        {
+            DataStoreManager.Messaging.ContactList.DataUpdated -= DataUpdatedHandler;
+        }
+
+        private void DataUpdatedHandler(GetPreviewMessagesResponse data)
+        {
+            _scrollView.Clear();
+            ContactListEntry firstEntry = null;
+            for (int i = 0; i < data.FullNames.Count; i++)
             {
-                _scrollView.Add(new ContactListEntry(new Message()));
+                var entry = new ContactListEntry(
+                    data.Messages[i].SenderAccountId == AuthenticationManager.Instance.UserAccountId
+                        ? data.Messages[i].ReceiverAccountId
+                        : data.Messages[i].SenderAccountId,
+                    data.FullNames[i],
+                    data.Messages[i].Content,
+                    data.Messages[i].Timestamp,
+                    data.Messages[i].SenderAccountId == AuthenticationManager.Instance.UserAccountId);
+
+                _scrollView.Add(entry);
+                if (i == 0) firstEntry = entry;
+            }
+
+            if (firstEntry != null)
+            {
+                firstEntry.ShowMessages();
             }
         }
     }

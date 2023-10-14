@@ -7,49 +7,49 @@ namespace UI.Views.Messaging.Inbox
 {
     public class InboxHeader : AdaptiveElement
     {
-        private VisualElement _backButton;
+        public VisualElement BackButton;
 
-        private VisualElement _avatar;
+        public VisualElement Avatar;
 
-        private VisualElement _textContainer;
-        private TextElement _nameText;
-        private TextElement _statusText;
+        public VisualElement TextContainer;
+        public TextElement NameText;
+        public TextElement StatusText;
 
         public InboxHeader() : base(nameof(InboxHeader))
         {
             styleSheets.Add(Resources.Load<StyleSheet>("Stylesheets/Views/Messaging/Inbox/InboxHeader"));
 
-            _backButton = new VisualElement { name = "BackButton" };
+            BackButton = new VisualElement { name = "BackButton" };
             if (!Configs.IS_DESKTOP)
             {
-                _backButton.RegisterCallback<MouseUpEvent>(_ =>
+                BackButton.RegisterCallback<ClickEvent>(_ =>
                 {
-                    RegisterCallback<MouseUpEvent>(_ =>
+                    RegisterCallback<ClickEvent>(_ =>
                     {
                         GetFirstAncestorOfType<MessagingView>().InboxContainer.style.display = DisplayStyle.None;
                         GetFirstAncestorOfType<MessagingView>().ContactList.style.display = DisplayStyle.Flex;
                     });
                 });
             }
-            Add(_backButton);
+            Add(BackButton);
 
-            _avatar = new VisualElement { name = "Avatar" };
-            Add(_avatar);
+            Avatar = new VisualElement { name = "Avatar" };
+            Add(Avatar);
 
-            _textContainer = new VisualElement { name = "TextContainer" };
-            Add(_textContainer);
+            TextContainer = new VisualElement { name = "TextContainer" };
+            Add(TextContainer);
 
-            _nameText = new TextElement { name = "NameText" };
-            _nameText.AddToClassList("normal-text");
-            _nameText.AddToClassList("white-text");
-            _nameText.text = "Sender name";
-            _textContainer.Add(_nameText);
+            NameText = new TextElement { name = "NameText" };
+            NameText.AddToClassList("normal-text");
+            NameText.AddToClassList("white-text");
+            NameText.text = "";
+            TextContainer.Add(NameText);
 
-            _statusText = new TextElement { name = "StatusText" };
-            _statusText.AddToClassList("sub-text");
-            _statusText.AddToClassList("white-text");
-            _statusText.text = "Status";
-            _textContainer.Add(_statusText);
+            StatusText = new TextElement { name = "StatusText" };
+            StatusText.AddToClassList("sub-text");
+            StatusText.AddToClassList("white-text");
+            StatusText.text = "Online?";
+            TextContainer.Add(StatusText);
         }
     }
 }

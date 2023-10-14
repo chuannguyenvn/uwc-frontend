@@ -6,23 +6,23 @@ namespace UI.Views.Messaging.Inbox
 {
     public class InboxContainer : AdaptiveElement
     {
-        private InboxHeader _inboxHeader;
-        private MessageList _messageList;
-        private InputBar _inputBar;
+        public InboxHeader InboxHeader;
+        public MessageList MessageList;
+        public InputBar InputBar;
         
         public InboxContainer() : base(nameof(InboxContainer))
         {
             styleSheets.Add(Resources.Load<StyleSheet>("Stylesheets/Views/Messaging/Inbox/InboxContainer"));
             AddToClassList("full-view");
             
-            _inboxHeader = new InboxHeader();
-            Add(_inboxHeader);
+            InboxHeader = new InboxHeader();
+            Add(InboxHeader);
             
-            _messageList = new MessageList();
-            Add(_messageList);
+            MessageList = new MessageList();
+            Add(MessageList);
             
-            _inputBar = new InputBar();
-            Add(_inputBar);
+            InputBar = new InputBar();
+            Add(InputBar);
         }
     }
 }

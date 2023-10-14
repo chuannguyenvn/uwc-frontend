@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using Constants;
 using Managers;
-using Requests.DataStores;
 using UI.Authentication;
 using UI.Navigation;
 using UI.Views.Mcps;
@@ -23,6 +22,14 @@ namespace UI.Base
         public NavigationBar NavigationBar;
         public Dictionary<ViewType, View> ViewsByViewType = new();
 
+        public WorkersView WorkersView { get; private set; }
+        public McpsView McpsView { get; private set; }
+        public VehiclesView VehiclesView { get; private set; }
+        public TasksView TasksView { get; private set; }
+        public StatusView StatusView { get; private set; }
+        public MessagingView MessagingView { get; private set; }
+        public SettingsView SettingsView { get; private set; }
+
         public Root()
         {
             styleSheets.Add(Resources.Load<StyleSheet>("Stylesheets/Common"));
@@ -38,7 +45,7 @@ namespace UI.Base
             AuthenticationManager.LoggedIn += CloseAuthenticationScreen;
             AuthenticationManager.LoggedOut += OpenAuthenticationScreen;
         }
-        
+
         ~Root()
         {
             AuthenticationManager.LoggedIn -= CloseAuthenticationScreen;
@@ -79,18 +86,29 @@ namespace UI.Base
         {
             if (Configs.IS_DESKTOP)
             {
-                ViewsByViewType.Add(ViewType.Workers, new WorkersView());
-                ViewsByViewType.Add(ViewType.Mcps, new McpsView());
-                ViewsByViewType.Add(ViewType.Vehicles, new VehiclesView());
-                ViewsByViewType.Add(ViewType.Messaging, new MessagingView());
-                ViewsByViewType.Add(ViewType.Settings, new SettingsView());
+                WorkersView = new WorkersView();
+                McpsView = new McpsView();
+                VehiclesView = new VehiclesView();
+                MessagingView = new MessagingView();
+                SettingsView = new SettingsView();
+                
+                ViewsByViewType.Add(ViewType.Workers, WorkersView);
+                ViewsByViewType.Add(ViewType.Mcps, McpsView);
+                ViewsByViewType.Add(ViewType.Vehicles, VehiclesView);
+                ViewsByViewType.Add(ViewType.Messaging, MessagingView);
+                ViewsByViewType.Add(ViewType.Settings, SettingsView);
             }
             else
             {
-                ViewsByViewType.Add(ViewType.Tasks, new TasksView());
-                ViewsByViewType.Add(ViewType.Status, new StatusView());
-                ViewsByViewType.Add(ViewType.Messaging, new MessagingView());
-                ViewsByViewType.Add(ViewType.Settings, new SettingsView());
+                TasksView = new TasksView();
+                StatusView = new StatusView();
+                MessagingView = new MessagingView();
+                SettingsView = new SettingsView();
+                
+                ViewsByViewType.Add(ViewType.Tasks, TasksView);
+                ViewsByViewType.Add(ViewType.Status, StatusView);
+                ViewsByViewType.Add(ViewType.Messaging, MessagingView);
+                ViewsByViewType.Add(ViewType.Settings, SettingsView);
             }
 
             foreach (var (_, view) in ViewsByViewType)
@@ -116,7 +134,7 @@ namespace UI.Base
                 case ViewType.Workers:
                     break;
                 case ViewType.Mcps:
-                    DataWatcherManager.Mcps.ListView.Focus();
+                    McpsView.FocusView();
                     break;
                 case ViewType.Vehicles:
                     break;
@@ -127,6 +145,7 @@ namespace UI.Base
                 case ViewType.Reporting:
                     break;
                 case ViewType.Messaging:
+                    MessagingView.FocusView();
                     break;
                 case ViewType.Settings:
                     break;

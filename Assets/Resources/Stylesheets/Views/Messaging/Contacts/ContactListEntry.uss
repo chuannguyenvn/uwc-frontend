@@ -12,6 +12,11 @@
     height: 64px;
 }
 
+#PreviewText {
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
 .desktop {
     height: 64px;
 }

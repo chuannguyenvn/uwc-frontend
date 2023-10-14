@@ -12,38 +12,40 @@ namespace Managers
     {
         public static event Action LoggedIn;
         public static event Action LoggedOut;
-        
+
         public string JWT { get; private set; }
+        public int UserAccountId { get; private set; }
+
         public HubConnection HubConnection { get; private set; }
 
         public void Login(string username, string password)
         {
-            StartCoroutine(HttpsClient.SendRequest<LoginResponse>(
-                Endpoints.Authentication.LOGIN,
-                RequestType.POST,
+            StartCoroutine(RequestHelper.SendPostRequest<LoginResponse>(
+                Endpoints.Authentication.Login,
+                new LoginRequest
+                {
+                    Username = username,
+                    Password = password,
+                    IsFromDesktop = Configs.IS_DESKTOP
+                },
                 (success, response) =>
                 {
                     if (success)
                     {
-                        SuccessfulLoginHandler(response.JwtToken);
+                        SuccessfulLoginHandler(response);
                     }
                     else
                     {
                         Debug.LogError("Failed to login.");
                     }
                 },
-                "",
-                new LoginRequest
-                {
-                    Username = username,
-                    Password = password,
-                    IsFromDesktop = Configs.IS_DESKTOP
-                }));
+                false));
         }
 
-        private async void SuccessfulLoginHandler(string jwt)
+        private async void SuccessfulLoginHandler(LoginResponse response)
         {
-            JWT = jwt;
+            JWT = response.JwtToken;
+            UserAccountId = response.UserId;
 
             HubConnection = new HubConnectionBuilder()
                 .WithUrl("https://" + Endpoints.DOMAIN + "/hub",
@@ -51,10 +53,10 @@ namespace Managers
                 .Build();
 
             await HubConnection.StartAsync();
-            
+
             LoggedIn?.Invoke();
-                        
-            Debug.Log("Successfully logged in with JWT: " + JWT);
+
+            Debug.Log("Successfully logged in with JWT: " + JWT + " and UserAccountId: " + UserAccountId);
         }
     }
 }

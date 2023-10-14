@@ -1,4 +1,6 @@
-﻿using Requests.DataStores;
+﻿using System.Collections.Generic;
+using Commons.Models;
+using Requests;
 using UI.Base;
 using UnityEngine;
 using UnityEngine.UIElements;
@@ -20,16 +22,31 @@ namespace UI.Views.Mcps
             _scrollView.AddToClassList("list-view");
             Add(_scrollView);
 
-            DataWatcherManager.Mcps.ListView.DataRequested += UpdateView;
+            DataStoreManager.Mcps.ListView.DataUpdated += DataUpdatedHandler;
+        }
+        
+        ~McpsView()
+        {
+            DataStoreManager.Mcps.ListView.DataUpdated -= DataUpdatedHandler;
         }
 
-        private void UpdateView()
+        private void DataUpdatedHandler(List<McpData> data)
         {
             _scrollView.Clear();
-            foreach (var mcpData in DataWatcherManager.Mcps.ListView.Response.Results)
+            foreach (var mcpData in data)
             {
                 _scrollView.Add(new McpListEntry(mcpData, Random.Range(0f, 100f)));
             }
+        }
+
+        public override void FocusView()
+        {
+            DataStoreManager.Mcps.ListView.Focus();
+        }
+
+        public override void UnfocusView()
+        {
+            DataStoreManager.Mcps.ListView.Unfocus();
         }
     }
 }
