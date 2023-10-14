@@ -29,6 +29,10 @@ namespace UI.Views.Messaging.Inbox
             SendButton.Add(SendIcon);
 
             SendButton.RegisterCallback<ClickEvent>(_ => { SendMessage(); });
+            TextField.RegisterCallback<KeyDownEvent>(e =>
+            {
+                if (e.keyCode == KeyCode.Return) SendMessage();
+            });
         }
 
         private void SendMessage()

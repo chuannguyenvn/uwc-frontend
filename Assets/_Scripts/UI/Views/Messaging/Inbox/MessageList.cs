@@ -35,6 +35,12 @@ namespace UI.Views.Messaging.Inbox
             {
                 ScrollView.Add(new MessageListEntry(message));
             }
+
+            if (ScrollView.verticalScroller.highValue > 0 &&
+                Mathf.Abs(ScrollView.verticalScroller.value - ScrollView.verticalScroller.highValue) < 200f)
+            {
+                ScrollView.verticalScroller.value = ScrollView.verticalScroller.highValue;
+            }
         }
     }
 }
