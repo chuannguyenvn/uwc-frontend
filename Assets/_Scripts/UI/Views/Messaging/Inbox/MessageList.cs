@@ -20,17 +20,6 @@ namespace UI.Views.Messaging.Inbox
             ScrollView.verticalScroller.value = ScrollView.verticalScroller.highValue > 0 ? ScrollView.verticalScroller.highValue : 0;
             Add(ScrollView);
 
-            for (int i = 0; i < 30; i++)
-            {
-                ScrollView.Add(new MessageListEntry(new Message()
-                {
-                    Content = Random.Range(0, 2) == 0
-                        ? "Text content of the message"
-                        : "Text content of the message lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam",
-                    Timestamp = System.DateTime.Now,
-                }));
-            }
-
             DataStoreManager.Messaging.InboxMessageList.DataUpdated += DataUpdatedHandler;
         }
 
@@ -44,11 +33,7 @@ namespace UI.Views.Messaging.Inbox
             ScrollView.Clear();
             foreach (var message in data.Messages)
             {
-                ScrollView.Add(new MessageListEntry(new Message()
-                {
-                    Content = message.Content,
-                    Timestamp = message.Timestamp,
-                }));
+                ScrollView.Add(new MessageListEntry(message));
             }
         }
     }

@@ -12,7 +12,7 @@ namespace Requests.DataStores.Base
         {
             EstablishHubConnection();
         }
-        
+
         protected async void EstablishHubConnection()
         {
             HubConnection = new HubConnectionBuilder()
@@ -22,10 +22,14 @@ namespace Requests.DataStores.Base
 
             await HubConnection.StartAsync();
         }
-        
+
         protected async void CloseHubConnection()
         {
             await HubConnection.StopAsync();
+        }
+
+        protected virtual void ListenToHub()
+        {
         }
     }
 }

@@ -21,5 +21,10 @@ namespace Requests.DataStores.Base
         {
             DataStoreManager.Instance.StartCoroutine(CreateRequest());
         }
+        
+        public void SendRequest(IEnumerator requestRoutine)
+        {
+            DataStoreManager.Instance.StartCoroutine(requestRoutine);
+        }
     }
 }

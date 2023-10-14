@@ -24,5 +24,10 @@ namespace Requests.DataStores.Implementations.Messaging
                 }
             );
         }
+
+        protected override void ListenToHub()
+        {
+            
+        }
     }
 }

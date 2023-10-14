@@ -1,4 +1,5 @@
-﻿using UI.Base;
+﻿using Requests;
+using UI.Base;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -23,9 +24,17 @@ namespace UI.Views.Messaging.Inbox
 
             SendButton = new Button { name = "SendButton" };
             Add(SendButton);
-            
+
             SendIcon = new VisualElement { name = "SendIcon" };
             SendButton.Add(SendIcon);
+
+            SendButton.RegisterCallback<ClickEvent>(_ => { SendMessage(); });
+        }
+
+        private void SendMessage()
+        {
+            DataStoreManager.Messaging.InboxMessageList.SendMessage(TextField.value);
+            TextField.value = "";
         }
     }
 }

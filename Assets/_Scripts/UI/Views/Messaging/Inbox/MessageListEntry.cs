@@ -1,4 +1,5 @@
 ﻿using Commons.Models;
+using Managers;
 using UI.Base;
 using UnityEngine;
 using UnityEngine.UIElements;
@@ -28,7 +29,7 @@ namespace UI.Views.Messaging.Inbox
             _timestampText.text = message.Timestamp.ToString("dd/MM/yyyy HH:mm");
             Add(_timestampText);
 
-            if (Random.Range(0, 2) == 0)
+            if (message.SenderAccountId == AuthenticationManager.Instance.UserAccountId)
             {
                 _contentText.AddToClassList("white-text");
                 AddToClassList("sent-message");
