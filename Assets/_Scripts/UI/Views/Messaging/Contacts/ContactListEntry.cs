@@ -57,6 +57,7 @@ namespace UI.Views.Messaging.Contacts
 
         public void ShowMessages()
         {
+            GetFirstAncestorOfType<MessagingView>().InboxContainer.InboxHeader.NameText.text = _nameText.text;
             DataStoreManager.Messaging.InboxMessageList.OtherUserAccountId = _otherUserId;
             DataStoreManager.Messaging.InboxMessageList.SendRequest();
         }
