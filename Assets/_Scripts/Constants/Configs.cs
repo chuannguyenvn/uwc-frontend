@@ -12,6 +12,8 @@ namespace Constants
         public const bool IS_DESKTOP = false;
 #endif
 
+        public const bool IS_DEVELOPMENT = true;
+        
         public static readonly List<ViewType> DesktopViewTypes = new()
         {
             ViewType.Map,

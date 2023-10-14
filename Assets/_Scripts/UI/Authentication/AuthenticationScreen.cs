@@ -1,4 +1,5 @@
 ﻿using Constants;
+using Managers;
 using UI.Base;
 using UnityEngine;
 using UnityEngine.UIElements;
@@ -41,6 +42,7 @@ namespace UI.Authentication
             {
                 TitleText.text = "Login";
             }
+
             TitleText.AddToClassList("title-text");
             TitleText.AddToClassList("colored-text");
             LoginElementsContainer.Add(TitleText);
@@ -48,6 +50,7 @@ namespace UI.Authentication
             UsernameTextField = new TextField { name = "UsernameTextField" };
             UsernameTextField.textEdition.placeholder = "Username";
             UsernameTextField.textEdition.hidePlaceholderOnFocus = true;
+            if (Configs.IS_DEVELOPMENT) UsernameTextField.value = Configs.IS_DESKTOP ? "supervisor_supervisor" : "driver_driver";
             UsernameTextField.AddToClassList("normal-text");
             LoginElementsContainer.Add(UsernameTextField);
 
@@ -55,6 +58,7 @@ namespace UI.Authentication
             PasswordTextField.isPasswordField = true;
             PasswordTextField.textEdition.placeholder = "Password";
             PasswordTextField.textEdition.hidePlaceholderOnFocus = true;
+            if (Configs.IS_DEVELOPMENT) PasswordTextField.value = "password";
             PasswordTextField.AddToClassList("normal-text");
             LoginElementsContainer.Add(PasswordTextField);
 
@@ -63,7 +67,14 @@ namespace UI.Authentication
             LoginButton.AddToClassList("title-text");
             LoginButton.AddToClassList("white-text");
             LoginElementsContainer.Add(LoginButton);
-            LoginButton.RegisterCallback<ClickEvent>(_ => { GetFirstAncestorOfType<Root>().CloseAuthenticationScreen(); });
+            LoginButton.RegisterCallback<ClickEvent>(_ =>
+            {
+                AuthenticationManager.Instance.Login(UsernameTextField.value, PasswordTextField.value, success =>
+                {
+                    if (!success) return;
+                    GetFirstAncestorOfType<Root>().CloseAuthenticationScreen();
+                });
+            });
 
             ForgotPasswordButton = new Button { name = "ForgotPasswordButton" };
             ForgotPasswordButton.text = "Forgot password?";
