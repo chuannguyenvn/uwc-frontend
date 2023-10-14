@@ -1,8 +1,6 @@
 ﻿using System;
-using System.Collections;
 using System.Threading.Tasks;
 using Commons.Communications.Authentication;
-using Commons.HubHandlers;
 using Constants;
 using Microsoft.AspNetCore.SignalR.Client;
 using Requests;
@@ -55,10 +53,6 @@ namespace Managers
                 .Build();
 
             await HubConnection.StartAsync();
-
-            Debug.Log(HubConnection.ConnectionId);
-
-            HubConnection.On(MessagingHandlers.PING, () => { Debug.Log("Ping"); });
         }
     }
 }
