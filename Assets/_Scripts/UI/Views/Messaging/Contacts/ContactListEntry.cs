@@ -36,7 +36,6 @@ namespace UI.Views.Messaging.Contacts
             _previewText.AddToClassList("sub-text");
             _previewText.AddToClassList("grey-text");
             _previewText.text = (isFromUser ? "You: " : "") + messageContent + " - " + timestamp.ToString();
-            _previewText.style.overflow = Overflow.Hidden;
             _textContainer.Add(_previewText);
 
             if (!Configs.IS_DESKTOP)
