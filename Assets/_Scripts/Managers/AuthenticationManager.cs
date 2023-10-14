@@ -14,6 +14,8 @@ namespace Managers
         public static event Action LoggedOut;
 
         public string JWT { get; private set; }
+        public int UserId { get; private set; }
+
         public HubConnection HubConnection { get; private set; }
 
         public void Login(string username, string password)
@@ -30,7 +32,7 @@ namespace Managers
                 {
                     if (success)
                     {
-                        SuccessfulLoginHandler(response.JwtToken);
+                        SuccessfulLoginHandler(response);
                     }
                     else
                     {
@@ -40,9 +42,10 @@ namespace Managers
                 false));
         }
 
-        private async void SuccessfulLoginHandler(string jwt)
+        private async void SuccessfulLoginHandler(LoginResponse response)
         {
-            JWT = jwt;
+            JWT = response.JwtToken;
+            UserId = response.UserId;
 
             HubConnection = new HubConnectionBuilder()
                 .WithUrl("https://" + Endpoints.DOMAIN + "/hub",
