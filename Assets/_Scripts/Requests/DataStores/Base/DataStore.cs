@@ -8,28 +8,18 @@ namespace Requests.DataStores.Base
         public event Action<T> DataUpdated;
 
         public T Data { get; set; }
-        
-        public void OnDataUpdated(T data)
+
+        protected void OnDataUpdated(T data)
         {
             Data = data;
             DataUpdated?.Invoke(data);
         }
 
-        public abstract IEnumerator CreateRequest();
+        protected abstract IEnumerator CreateRequest();
 
         public void SendRequest()
         {
             DataStoreManager.Instance.StartCoroutine(CreateRequest());
-        }
-
-        public virtual void Focus()
-        {
-            
-        }
-        
-        public virtual void Unfocus()
-        {
-            
         }
     }
 }

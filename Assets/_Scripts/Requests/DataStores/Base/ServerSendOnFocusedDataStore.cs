@@ -2,13 +2,13 @@
 {
     public abstract class ServerSendOnFocusedDataStore<T> : HubBasedDataStore<T>
     {
-        public override void Focus()
+        public void Focus()
         {
             SendRequest();
             EstablishHubConnection();
         }
         
-        public override void Unfocus()
+        public void Unfocus()
         {
             CloseHubConnection();
         }

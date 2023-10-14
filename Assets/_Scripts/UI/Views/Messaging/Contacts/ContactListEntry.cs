@@ -1,4 +1,5 @@
-﻿using Commons.Models;
+﻿using System;
+using Commons.Models;
 using Constants;
 using UI.Base;
 using UnityEngine;
@@ -14,7 +15,7 @@ namespace UI.Views.Messaging.Contacts
         private TextElement _nameText;
         private TextElement _previewText;
 
-        public ContactListEntry(Message message) : base(nameof(ContactListEntry))
+        public ContactListEntry(string contactName, string messageContent, DateTime timestamp, bool isFromUser) : base(nameof(ContactListEntry))
         {
             styleSheets.Add(Resources.Load<StyleSheet>("Stylesheets/Views/Messaging/Contacts/ContactListEntry"));
             AddToClassList("list-entry");
@@ -28,13 +29,14 @@ namespace UI.Views.Messaging.Contacts
             _nameText = new TextElement { name = "NameText" };
             _nameText.AddToClassList("normal-text");
             _nameText.AddToClassList("black-text");
-            _nameText.text = "Sender name";
+            _nameText.text = contactName;
             _textContainer.Add(_nameText);
 
             _previewText = new TextElement { name = "PreviewText" };
             _previewText.AddToClassList("sub-text");
             _previewText.AddToClassList("grey-text");
-            _previewText.text = "Content - Time";
+            _previewText.text = (isFromUser ? "You: " : "") + messageContent + " - " + timestamp.ToString();
+            _previewText.style.overflow = Overflow.Hidden;
             _textContainer.Add(_previewText);
 
             if (!Configs.IS_DESKTOP)

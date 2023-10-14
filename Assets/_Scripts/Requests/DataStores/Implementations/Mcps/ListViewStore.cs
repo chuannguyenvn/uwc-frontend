@@ -5,14 +5,14 @@ using Commons.Models;
 using Commons.Types;
 using Requests.DataStores.Base;
 
-namespace Requests.DataStores.Mcps
+namespace Requests.DataStores.Implementations.Mcps
 {
     public class ListViewStore : ServerSendOnFocusedDataStore<List<McpData>>
     {
-        public override IEnumerator CreateRequest()
+        protected override IEnumerator CreateRequest()
         {
             yield return RequestHelper.SendPostRequest<GetMcpDataResponse>(
-                Endpoints.McpData.GET,
+                Endpoints.McpData.Get,
                 new McpDataQueryParameters()
                 {
                 },
@@ -22,7 +22,8 @@ namespace Requests.DataStores.Mcps
                     {
                         OnDataUpdated(response.Results);
                     }
-                });
+                }
+            );
         }
     }
 }

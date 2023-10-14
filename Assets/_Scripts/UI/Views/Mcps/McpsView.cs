@@ -25,6 +25,11 @@ namespace UI.Views.Mcps
 
             DataStoreManager.Mcps.ListView.DataUpdated += DataUpdatedHandler;
         }
+        
+        ~McpsView()
+        {
+            DataStoreManager.Mcps.ListView.DataUpdated -= DataUpdatedHandler;
+        }
 
         private void DataUpdatedHandler(List<McpData> data)
         {
@@ -33,6 +38,16 @@ namespace UI.Views.Mcps
             {
                 _scrollView.Add(new McpListEntry(mcpData, Random.Range(0f, 100f)));
             }
+        }
+
+        public override void FocusView()
+        {
+            DataStoreManager.Mcps.ListView.Focus();
+        }
+
+        public override void UnfocusView()
+        {
+            DataStoreManager.Mcps.ListView.Unfocus();
         }
     }
 }

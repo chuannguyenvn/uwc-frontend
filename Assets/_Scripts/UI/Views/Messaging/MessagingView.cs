@@ -1,4 +1,5 @@
 ﻿using Constants;
+using Requests;
 using UI.Base;
 using UI.Views.Messaging.Inbox;
 using UI.Views.Messaging.Contacts;
@@ -24,6 +25,16 @@ namespace UI.Views.Messaging
             Add(InboxContainer);
 
             if (!Configs.IS_DESKTOP) InboxContainer.style.display = DisplayStyle.None;
+        }
+
+        public override void FocusView()
+        {
+            DataStoreManager.Messaging.ContactList.Focus();
+        }
+
+        public override void UnfocusView()
+        {
+            DataStoreManager.Messaging.ContactList.Unfocus();
         }
     }
 }

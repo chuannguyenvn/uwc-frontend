@@ -84,22 +84,22 @@ namespace Requests
             webRequest.Dispose();
         }
 
-        public static IEnumerator SendGetRequest(string endpoint, Action<bool> callback, bool isAuthorized = true)
+        public static IEnumerator SendGetRequest(string endpoint, Action<bool> callback = null, bool isAuthorized = true)
         {
             yield return SendRequest(endpoint, RequestType.GET, callback, isAuthorized ? AuthenticationManager.Instance.JWT : "");
         }
 
-        public static IEnumerator SendGetRequest<T>(string endpoint, Action<bool, T> callback, bool isAuthorized = true)
+        public static IEnumerator SendGetRequest<T>(string endpoint, Action<bool, T> callback = null, bool isAuthorized = true)
         {
             yield return SendRequest<T>(endpoint, RequestType.GET, callback, isAuthorized ? AuthenticationManager.Instance.JWT : "");
         }
 
-        public static IEnumerator SendPostRequest(string endpoint, object objectToSend, Action<bool> callback, bool isAuthorized = true)
+        public static IEnumerator SendPostRequest(string endpoint, object objectToSend, Action<bool> callback = null, bool isAuthorized = true)
         {
             yield return SendRequest(endpoint, RequestType.POST, callback, isAuthorized ? AuthenticationManager.Instance.JWT : "", objectToSend);
         }
 
-        public static IEnumerator SendPostRequest<T>(string endpoint, object objectToSend, Action<bool, T> callback, bool isAuthorized = true)
+        public static IEnumerator SendPostRequest<T>(string endpoint, object objectToSend, Action<bool, T> callback = null, bool isAuthorized = true)
         {
             yield return SendRequest<T>(endpoint, RequestType.POST, callback, isAuthorized ? AuthenticationManager.Instance.JWT : "", objectToSend);
         }

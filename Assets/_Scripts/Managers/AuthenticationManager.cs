@@ -14,14 +14,14 @@ namespace Managers
         public static event Action LoggedOut;
 
         public string JWT { get; private set; }
-        public int UserId { get; private set; }
+        public int UserAccountId { get; private set; }
 
         public HubConnection HubConnection { get; private set; }
 
         public void Login(string username, string password)
         {
             StartCoroutine(RequestHelper.SendPostRequest<LoginResponse>(
-                Endpoints.Authentication.LOGIN,
+                Endpoints.Authentication.Login,
                 new LoginRequest
                 {
                     Username = username,
@@ -45,7 +45,7 @@ namespace Managers
         private async void SuccessfulLoginHandler(LoginResponse response)
         {
             JWT = response.JwtToken;
-            UserId = response.UserId;
+            UserAccountId = response.UserId;
 
             HubConnection = new HubConnectionBuilder()
                 .WithUrl("https://" + Endpoints.DOMAIN + "/hub",
@@ -56,7 +56,7 @@ namespace Managers
 
             LoggedIn?.Invoke();
 
-            Debug.Log("Successfully logged in with JWT: " + JWT);
+            Debug.Log("Successfully logged in with JWT: " + JWT + " and UserAccountId: " + UserAccountId);
         }
     }
 }
