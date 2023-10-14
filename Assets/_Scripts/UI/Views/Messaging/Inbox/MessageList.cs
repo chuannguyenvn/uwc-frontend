@@ -1,4 +1,5 @@
-﻿using Commons.Communications.Messages;
+﻿using System.Linq;
+using Commons.Communications.Messages;
 using Commons.Models;
 using Requests;
 using UI.Base;
@@ -28,19 +29,59 @@ namespace UI.Views.Messaging.Inbox
             DataStoreManager.Messaging.InboxMessageList.DataUpdated -= DataUpdatedHandler;
         }
 
-        private void DataUpdatedHandler(GetMessagesBetweenTwoUsersResponse data)
+         private void DataUpdatedHandler(GetMessagesBetweenTwoUsersResponse data)
         {
             ScrollView.Clear();
+            MessageListEntry lastEntry = null;
             foreach (var message in data.Messages)
             {
-                ScrollView.Add(new MessageListEntry(message));
+                lastEntry = new MessageListEntry(message);
+                ScrollView.Add(lastEntry);
             }
 
-            if (ScrollView.verticalScroller.highValue > 0 &&
-                Mathf.Abs(ScrollView.verticalScroller.value - ScrollView.verticalScroller.highValue) < 200f)
+            ScrollToLastMessage(lastEntry);
+        }
+
+        private void ScrollToLastMessage(VisualElement item)
+        {
+            int remainingIterations = 4;
+
+            void TryScroll()
             {
-                ScrollView.verticalScroller.value = ScrollView.verticalScroller.highValue;
+                if (item.layout.height > 0 && ScrollView.layout.height > 0)
+                {
+                    ScrollView.ScrollTo(item);
+                    return;
+                }
+
+                if (remainingIterations <= 0)
+                {
+                    Debug.LogWarning("Too many layout iterations");
+
+                    ScrollView.ScrollTo(item);
+                    return;
+                }
+
+                if (ScrollView.layout.height > 0)
+                {
+                    item.RegisterCallback<GeometryChangedEvent, VisualElement>(OnGeometryChanged, item);
+                }
+                else
+                {
+                    ScrollView.RegisterCallback<GeometryChangedEvent, VisualElement>(OnGeometryChanged, ScrollView);
+                }
             }
+
+            void OnGeometryChanged(GeometryChangedEvent evt, VisualElement target)
+            {
+                target.UnregisterCallback<GeometryChangedEvent, VisualElement>(OnGeometryChanged);
+
+                remainingIterations--;
+
+                TryScroll();
+            }
+
+            TryScroll();
         }
     }
 }
