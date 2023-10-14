@@ -2,7 +2,7 @@
 {
     public static class Endpoints
     {
-        private const string DOMAIN = "urban-waste-collection.azurewebsites.net";
+        public const string DOMAIN = "localhost:44394";
 
         public static class McpData
         {
