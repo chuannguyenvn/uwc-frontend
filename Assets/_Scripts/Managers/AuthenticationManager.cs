@@ -10,11 +10,13 @@ namespace Managers
 {
     public class AuthenticationManager : PersistentSingleton<AuthenticationManager>
     {
-        public event Action LoggedIn;
+        public static event Action LoggedIn;
+        public static event Action LoggedOut;
+        
         public string JWT { get; private set; }
         public HubConnection HubConnection { get; private set; }
 
-        public void Login(string username, string password, Action<bool> callback)
+        public void Login(string username, string password)
         {
             StartCoroutine(HttpsClient.SendRequest<LoginResponse>(
                 Endpoints.Authentication.LOGIN,
@@ -23,18 +25,12 @@ namespace Managers
                 {
                     if (success)
                     {
-                        JWT = response.JwtToken;
-                        EstablishHubConnections();
-                        LoggedIn?.Invoke();
-                        
-                        Debug.Log("Successfully logged in with JWT: " + JWT);
+                        SuccessfulLoginHandler(response.JwtToken);
                     }
                     else
                     {
                         Debug.LogError("Failed to login.");
                     }
-
-                    callback(success);
                 },
                 "",
                 new LoginRequest
@@ -45,14 +41,20 @@ namespace Managers
                 }));
         }
 
-        private async void EstablishHubConnections()
+        private async void SuccessfulLoginHandler(string jwt)
         {
+            JWT = jwt;
+
             HubConnection = new HubConnectionBuilder()
-                .WithUrl("https://" + Endpoints.DOMAIN + "/messaging",
+                .WithUrl("https://" + Endpoints.DOMAIN + "/hub",
                     options => options.AccessTokenProvider = () => Task.FromResult(JWT))
                 .Build();
 
             await HubConnection.StartAsync();
+            
+            LoggedIn?.Invoke();
+                        
+            Debug.Log("Successfully logged in with JWT: " + JWT);
         }
     }
 }

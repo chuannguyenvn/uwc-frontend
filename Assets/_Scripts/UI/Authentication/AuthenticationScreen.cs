@@ -67,14 +67,7 @@ namespace UI.Authentication
             LoginButton.AddToClassList("title-text");
             LoginButton.AddToClassList("white-text");
             LoginElementsContainer.Add(LoginButton);
-            LoginButton.RegisterCallback<ClickEvent>(_ =>
-            {
-                AuthenticationManager.Instance.Login(UsernameTextField.value, PasswordTextField.value, success =>
-                {
-                    if (!success) return;
-                    GetFirstAncestorOfType<Root>().CloseAuthenticationScreen();
-                });
-            });
+            LoginButton.RegisterCallback<ClickEvent>(_ => AuthenticationManager.Instance.Login(UsernameTextField.value, PasswordTextField.value));
 
             ForgotPasswordButton = new Button { name = "ForgotPasswordButton" };
             ForgotPasswordButton.text = "Forgot password?";
