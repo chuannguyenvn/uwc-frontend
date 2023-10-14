@@ -10,25 +10,19 @@ namespace Requests.DataStores.Base
 
         public HubBasedDataStore()
         {
-            EstablishHubConnection();
         }
-
-        protected async void EstablishHubConnection()
+        
+        ~HubBasedDataStore()
         {
-            HubConnection = new HubConnectionBuilder()
-                .WithUrl("https://" + Endpoints.DOMAIN + "/hub",
-                    options => options.AccessTokenProvider = () => Task.FromResult(AuthenticationManager.Instance.JWT))
-                .Build();
-
-            await HubConnection.StartAsync();
+            CloseHubConnection();
         }
 
-        protected async void CloseHubConnection()
+        protected virtual async void EstablishHubConnection()
         {
-            await HubConnection.StopAsync();
+
         }
 
-        protected virtual void ListenToHub()
+        protected virtual async void CloseHubConnection()
         {
         }
     }

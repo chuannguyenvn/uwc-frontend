@@ -33,9 +33,9 @@ namespace Requests.DataStores.Implementations.Messaging
             );
         }
 
-        protected override void ListenToHub()
+        protected override void EstablishHubConnection()
         {
-            HubConnection.On(HubHandlers.Messaging.SEND_MESSAGE, (SendMessageBroadcastData data) =>
+            AuthenticationManager.Instance.HubConnection.On(HubHandlers.Messaging.SEND_MESSAGE, (SendMessageBroadcastData data) =>
             {
                 Data.Messages.Add(data.NewMessage);
                 OnDataUpdated(Data);
