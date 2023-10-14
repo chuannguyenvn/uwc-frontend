@@ -1,5 +1,8 @@
-﻿using Commons.Models;
+﻿using Commons.Communications.Messages;
+using Commons.Models;
+using Requests;
 using UI.Base;
+using UI.Views.Messaging.Contacts;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -26,6 +29,26 @@ namespace UI.Views.Messaging.Inbox
                         ? "Text content of the message"
                         : "Text content of the message lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam",
                     Timestamp = System.DateTime.Now,
+                }));
+            }
+
+            DataStoreManager.Messaging.InboxMessageList.DataUpdated += DataUpdatedHandler;
+        }
+
+        ~MessageList()
+        {
+            DataStoreManager.Messaging.InboxMessageList.DataUpdated -= DataUpdatedHandler;
+        }
+
+        private void DataUpdatedHandler(GetMessagesBetweenTwoUsersResponse data)
+        {
+            ScrollView.Clear();
+            foreach (var message in data.Messages)
+            {
+                ScrollView.Add(new MessageListEntry(new Message()
+                {
+                    Content = message.Content,
+                    Timestamp = message.Timestamp,
                 }));
             }
         }

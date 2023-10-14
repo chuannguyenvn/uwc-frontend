@@ -1,6 +1,7 @@
 ﻿using System;
 using Commons.Models;
 using Constants;
+using Requests;
 using UI.Base;
 using UnityEngine;
 using UnityEngine.UIElements;
@@ -9,16 +10,20 @@ namespace UI.Views.Messaging.Contacts
 {
     public class ContactListEntry : AdaptiveElement
     {
+        private readonly int _otherUserId;
         private Image _image;
 
         private VisualElement _textContainer;
         private TextElement _nameText;
         private TextElement _previewText;
 
-        public ContactListEntry(string contactName, string messageContent, DateTime timestamp, bool isFromUser) : base(nameof(ContactListEntry))
+        public ContactListEntry(int otherUserId, string contactName, string messageContent, DateTime timestamp, bool isFromUser) : base(
+            nameof(ContactListEntry))
         {
             styleSheets.Add(Resources.Load<StyleSheet>("Stylesheets/Views/Messaging/Contacts/ContactListEntry"));
             AddToClassList("list-entry");
+
+            _otherUserId = otherUserId;
 
             _image = new Image { name = "Avatar" };
             Add(_image);
@@ -46,6 +51,14 @@ namespace UI.Views.Messaging.Contacts
                     GetFirstAncestorOfType<MessagingView>().ContactList.style.display = DisplayStyle.None;
                 });
             }
+
+            RegisterCallback<ClickEvent>(_ => ShowMessages());
+        }
+
+        public void ShowMessages()
+        {
+            DataStoreManager.Messaging.InboxMessageList.OtherUserAccountId = _otherUserId;
+            DataStoreManager.Messaging.InboxMessageList.SendRequest();
         }
     }
 }

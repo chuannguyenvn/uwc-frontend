@@ -13,6 +13,7 @@ namespace Requests
         public static class Messaging
         {
             public static ContactListStore ContactList { get; } = new();
+            public static InboxMessageListStore InboxMessageList { get; } = new();
         }
     }
 }

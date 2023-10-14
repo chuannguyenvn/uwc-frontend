@@ -35,14 +35,25 @@ namespace UI.Views.Messaging.Contacts
         private void DataUpdatedHandler(GetPreviewMessagesResponse data)
         {
             _scrollView.Clear();
-
+            ContactListEntry firstEntry = null;
             for (int i = 0; i < data.FullNames.Count; i++)
             {
-                _scrollView.Add(new ContactListEntry(
+                var entry = new ContactListEntry(
+                    data.Messages[i].SenderAccountId == AuthenticationManager.Instance.UserAccountId
+                        ? data.Messages[i].ReceiverAccountId
+                        : data.Messages[i].SenderAccountId,
                     data.FullNames[i],
                     data.Messages[i].Content,
                     data.Messages[i].Timestamp,
-                    data.Messages[i].SenderAccountId == AuthenticationManager.Instance.UserAccountId));
+                    data.Messages[i].SenderAccountId == AuthenticationManager.Instance.UserAccountId);
+
+                _scrollView.Add(entry);
+                if (i == 0) firstEntry = entry;
+            }
+
+            if (firstEntry != null)
+            {
+                firstEntry.ShowMessages();
             }
         }
     }
