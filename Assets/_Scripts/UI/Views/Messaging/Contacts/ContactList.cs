@@ -1,9 +1,6 @@
-﻿using System.Collections.Generic;
-using Commons.Communications.Messages;
-using Commons.Models;
+﻿using Commons.Communications.Messages;
 using Constants;
 using Managers;
-using Newtonsoft.Json;
 using Requests;
 using UI.Base;
 using UnityEngine;
