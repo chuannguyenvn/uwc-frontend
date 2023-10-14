@@ -1,7 +1,10 @@
 ﻿using System;
 using System.Collections;
+using System.Threading.Tasks;
 using Commons.Communications.Authentication;
+using Commons.HubHandlers;
 using Constants;
+using Microsoft.AspNetCore.SignalR.Client;
 using Requests;
 using UnityEngine;
 
@@ -9,7 +12,9 @@ namespace Managers
 {
     public class AuthenticationManager : PersistentSingleton<AuthenticationManager>
     {
+        public event Action LoggedIn;
         public string JWT { get; private set; }
+        public HubConnection HubConnection { get; private set; }
 
         public void Login(string username, string password, Action<bool> callback)
         {
@@ -21,6 +26,9 @@ namespace Managers
                     if (success)
                     {
                         JWT = response.JwtToken;
+                        EstablishHubConnections();
+                        LoggedIn?.Invoke();
+                        
                         Debug.Log("Successfully logged in with JWT: " + JWT);
                     }
                     else
@@ -37,6 +45,20 @@ namespace Managers
                     Password = password,
                     IsFromDesktop = Configs.IS_DESKTOP
                 }));
+        }
+
+        private async void EstablishHubConnections()
+        {
+            HubConnection = new HubConnectionBuilder()
+                .WithUrl("https://" + Endpoints.DOMAIN + "/messaging",
+                    options => options.AccessTokenProvider = () => Task.FromResult(JWT))
+                .Build();
+
+            await HubConnection.StartAsync();
+
+            Debug.Log(HubConnection.ConnectionId);
+
+            HubConnection.On(MessagingHandlers.PING, () => { Debug.Log("Ping"); });
         }
     }
 }
