@@ -1,8 +1,8 @@
-﻿namespace Requests
+namespace Requests
 {
     public static class Endpoints
     {
-        private const string DOMAIN = "localhost:44394";
+        public const string DOMAIN = "localhost:44394";
         
         public static class Authentication
         {

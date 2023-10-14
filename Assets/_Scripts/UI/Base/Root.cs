@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Constants;
+using Managers;
 using Requests.DataStores;
 using UI.Authentication;
 using UI.Navigation;
@@ -33,12 +34,32 @@ namespace UI.Base
             CreateViews();
 
             ActivateView(ViewType.Map);
+
+            AuthenticationManager.LoggedIn += CloseAuthenticationScreen;
+            AuthenticationManager.LoggedOut += OpenAuthenticationScreen;
+        }
+        
+        ~Root()
+        {
+            AuthenticationManager.LoggedIn -= CloseAuthenticationScreen;
+            AuthenticationManager.LoggedOut -= OpenAuthenticationScreen;
         }
 
         private void CreateAuthenticationScreen()
         {
             AuthenticationScreen = new AuthenticationScreen();
             Add(AuthenticationScreen);
+        }
+
+        public void OpenAuthenticationScreen()
+        {
+            AuthenticationScreen.style.display = DisplayStyle.Flex;
+            NavigationBar.style.display = DisplayStyle.None;
+
+            foreach (var (_, view) in ViewsByViewType)
+            {
+                view.style.display = DisplayStyle.None;
+            }
         }
 
         public void CloseAuthenticationScreen()
