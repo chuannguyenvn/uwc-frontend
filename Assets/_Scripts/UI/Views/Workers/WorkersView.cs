@@ -21,7 +21,7 @@ namespace UI.Views.Workers
             
             for (int i = 0; i < 30; i++)
             {
-                _scrollView.Add(new WorkerListEntry(new UserProfile()
+                _scrollView.Add(new WorkerListEntry(new Account()
                 {
                     FirstName = "Worker name",
                     Address = "Worker address"

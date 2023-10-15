@@ -45,7 +45,7 @@ namespace Managers
         private async void SuccessfulLoginHandler(LoginResponse response)
         {
             JWT = response.JwtToken;
-            UserAccountId = response.UserId;
+            UserAccountId = response.AccountId;
 
             HubConnection = new HubConnectionBuilder()
                 .WithUrl("https://" + Endpoints.DOMAIN + "/hub",
