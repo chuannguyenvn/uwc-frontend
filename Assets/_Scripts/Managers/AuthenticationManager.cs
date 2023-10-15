@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Threading.Tasks;
 using Commons.Communications.Authentication;
-using Constants;
 using Microsoft.AspNetCore.SignalR.Client;
 using Requests;
+using Settings;
 using UnityEngine;
 
 namespace Managers

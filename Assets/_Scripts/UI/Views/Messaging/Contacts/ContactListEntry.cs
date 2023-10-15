@@ -1,6 +1,6 @@
 ﻿using System;
-using Constants;
 using Requests;
+using Settings;
 using UI.Base;
 using UnityEngine;
 using UnityEngine.UIElements;

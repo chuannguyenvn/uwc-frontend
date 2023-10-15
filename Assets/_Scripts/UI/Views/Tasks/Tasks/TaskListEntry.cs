@@ -1,6 +1,6 @@
 ﻿using Commons.Models;
 using Commons.Types;
-using Constants;
+using Settings;
 using UI.Base;
 using UnityEngine;
 using UnityEngine.UIElements;

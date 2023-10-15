@@ -1,4 +1,4 @@
-﻿using Constants;
+﻿using Settings;
 using UI.Base;
 using UI.Views.Tasks.Details;
 using UI.Views.Tasks.Tasks;

@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
-using Constants;
 using Managers;
+using Settings;
 using UI.Authentication;
 using UI.Navigation;
 using UI.Views.Mcps;

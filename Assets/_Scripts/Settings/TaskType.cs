@@ -1,4 +1,4 @@
-﻿namespace Constants
+﻿namespace Settings
 {
     public enum TaskType
     {

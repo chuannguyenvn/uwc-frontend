@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Constants
+namespace Settings
 {
     public static class Configs
     {

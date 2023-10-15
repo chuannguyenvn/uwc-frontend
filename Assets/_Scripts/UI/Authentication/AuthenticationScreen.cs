@@ -1,5 +1,5 @@
-﻿using Constants;
-using Managers;
+﻿using Managers;
+using Settings;
 using UI.Base;
 using UnityEngine;
 using UnityEngine.UIElements;
