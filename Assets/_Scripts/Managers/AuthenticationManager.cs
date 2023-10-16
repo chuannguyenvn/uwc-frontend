@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Threading.Tasks;
 using Commons.Communications.Authentication;
-using Constants;
 using Microsoft.AspNetCore.SignalR.Client;
 using Requests;
+using Settings;
 using UnityEngine;
 
 namespace Managers
@@ -12,6 +12,7 @@ namespace Managers
     {
         public static event Action LoggedIn;
         public static event Action LoggedOut;
+        public static event Action<InitializationData> Initialized;
 
         public string JWT { get; private set; }
         public int UserAccountId { get; private set; }
@@ -44,8 +45,8 @@ namespace Managers
 
         private async void SuccessfulLoginHandler(LoginResponse response)
         {
-            JWT = response.JwtToken;
-            UserAccountId = response.UserId;
+            JWT = response.Credentials.JwtToken;
+            UserAccountId = response.Credentials.AccountId;
 
             HubConnection = new HubConnectionBuilder()
                 .WithUrl("https://" + Endpoints.DOMAIN + "/hub",
@@ -57,6 +58,8 @@ namespace Managers
             LoggedIn?.Invoke();
 
             Debug.Log("Successfully logged in with JWT: " + JWT + " and UserAccountId: " + UserAccountId);
+
+            Initialized?.Invoke(response.InitializationData);
         }
     }
 }

@@ -1,4 +1,4 @@
-﻿using Constants;
+﻿using Settings;
 using UnityEngine.UIElements;
 
 namespace UI.Base

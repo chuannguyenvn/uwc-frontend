@@ -1,5 +1,5 @@
-﻿using Constants;
-using Requests;
+﻿using Requests;
+using Settings;
 using UI.Base;
 using UI.Views.Messaging.Inbox;
 using UI.Views.Messaging.Contacts;

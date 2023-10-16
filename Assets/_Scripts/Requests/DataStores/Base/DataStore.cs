@@ -15,13 +15,16 @@ namespace Requests.DataStores.Base
             DataUpdated?.Invoke(data);
         }
 
-        protected abstract IEnumerator CreateRequest();
+        protected virtual IEnumerator CreateRequest()
+        {
+            yield break;
+        }
 
         public void SendRequest()
         {
             DataStoreManager.Instance.StartCoroutine(CreateRequest());
         }
-        
+
         public void SendRequest(IEnumerator requestRoutine)
         {
             DataStoreManager.Instance.StartCoroutine(requestRoutine);
