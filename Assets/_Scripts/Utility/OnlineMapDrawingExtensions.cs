@@ -1,10 +1,11 @@
 ﻿using System.Collections.Generic;
+using Commons.Types;
 using UnityEngine;
-using Vector2 = System.Numerics.Vector2;
 
 public static class OnlineMapsExtesions
 {
-    public static OnlineMapsDrawingPoly OnlineMapsDrawingCircle(double longCenter, double latCenter, double radius, int segmentCount, float borderWidth,
+    public static OnlineMapsDrawingPoly OnlineMapsDrawingCircle(double longCenter, double latCenter, double radius, int segmentCount,
+        float borderWidth,
         Color borderColor,
         Color fillColor)
     {
@@ -19,5 +20,12 @@ public static class OnlineMapsExtesions
         }
 
         return new OnlineMapsDrawingPoly(points, borderColor, borderWidth, fillColor);
+    }
+
+    public static OnlineMapsDrawingPoly OnlineMapsDrawingCircle(Coordinate coordinate, double radius, int segmentCount, float borderWidth,
+        Color borderColor,
+        Color fillColor)
+    {
+        return OnlineMapsDrawingCircle(coordinate.Longitude, coordinate.Latitude, radius, segmentCount, borderWidth, borderColor, fillColor);
     }
 }

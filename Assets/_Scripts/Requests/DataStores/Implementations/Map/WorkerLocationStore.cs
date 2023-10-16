@@ -6,12 +6,12 @@ using Requests.DataStores.Base;
 
 namespace Requests.DataStores.Implementations.Map
 {
-    public class LocationStore : ServerSendInBackgroundDataStore<LocationBroadcastData>
+    public class WorkerLocationStore : ServerSendInBackgroundDataStore<WorkerLocationBroadcastData>
     {
         protected override void EstablishHubConnection()
         {
-            AuthenticationManager.Instance.HubConnection.On(HubHandlers.Location.BROADCAST_LOCATION,
-                (LocationBroadcastData data) => { OnDataUpdated(data); });
+            AuthenticationManager.Instance.HubConnection.On(HubHandlers.WorkerLocation.BROADCAST_LOCATION,
+                (WorkerLocationBroadcastData data) => { OnDataUpdated(data); });
         }
     }
 }

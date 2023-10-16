@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Commons.Communications.Authentication;
+using Commons.Communications.Map;
 using Requests;
 using UnityEngine;
 using Vector2 = System.Numerics.Vector2;
@@ -9,37 +11,63 @@ namespace Managers
 {
     public class MapManager : PersistentSingleton<MapManager>
     {
+        public Dictionary<int, OnlineMapsDrawingElement> WorkerMarkers = new Dictionary<int, OnlineMapsDrawingElement>();
+        public Dictionary<int, OnlineMapsDrawingElement> McpMarkers = new Dictionary<int, OnlineMapsDrawingElement>();
+
         private void Start()
         {
-            var linePoints = new List<float>
+            AuthenticationManager.Initialized += DrawMcps;
+        }
+
+        private void OnEnable()
+        {
+            DataStoreManager.Map.WorkerLocation.DataUpdated += DrawWorkers;
+            DataStoreManager.Map.McpLocation.DataUpdated += DrawMcps;
+        }
+
+        private void OnDisable()
+        {
+            DataStoreManager.Map.WorkerLocation.DataUpdated -= DrawWorkers;
+            DataStoreManager.Map.McpLocation.DataUpdated -= DrawMcps;
+        }
+
+        private void DrawWorkers(WorkerLocationBroadcastData data)
+        {
+            WorkerMarkers.Values.ToList().ForEach(element => OnlineMapsDrawingElementManager.instance.Remove(element));
+            WorkerMarkers.Clear();
+            
+            foreach (var (id, coordinate) in data.LocationByIds.ToList())
             {
-                106.656326f, 10.767055f, 106.68f, 10.78f,
-            };
+                var marker = OnlineMapsExtesions.OnlineMapsDrawingCircle(coordinate, 0.0001, 32, 0.0001f, Color.magenta, Color.red);
+                OnlineMapsDrawingElementManager.instance.Add(marker);
+                WorkerMarkers.Add(id, marker);
+            }
+        }
 
-            List<Vector2> polyPoints = new List<Vector2>
+        private void DrawMcps(McpLocationBroadcastData data)
+        {
+            McpMarkers.Values.ToList().ForEach(element => OnlineMapsDrawingElementManager.instance.Remove(element));
+            McpMarkers.Clear();
+            
+            foreach (var (id, coordinate) in data.LocationByIds.ToList())
             {
-                //Geographic coordinates
-                new Vector2(0, 0),
-                new Vector2(1, 0),
-                new Vector2(2, 2),
-                new Vector2(0, 1)
-            };
-
-            // // Draw line
-            // OnlineMapsDrawingLine line = new OnlineMapsDrawingLine(linePoints, Color.green, 5);
-            // OnlineMapsDrawingElementManager.instance.Add(line);
-
-            DataStoreManager.Map.Location.DataUpdated += data =>
+                var marker = OnlineMapsExtesions.OnlineMapsDrawingCircle(coordinate, 0.0001, 32, 0.0001f, Color.magenta, Color.green);
+                OnlineMapsDrawingElementManager.instance.Add(marker);
+                McpMarkers.Add(id, marker);
+            }
+        }
+        
+        private void DrawMcps(InitializationData data)
+        {
+            McpMarkers.Values.ToList().ForEach(element => OnlineMapsDrawingElementManager.instance.Remove(element));
+            McpMarkers.Clear();
+            
+            foreach (var (id, coordinate) in data.McpLocationByIds.ToList())
             {
-                OnlineMapsDrawingElementManager.instance.RemoveAll();
-
-                foreach (var (id, coordinate) in data.LocationByIds.ToList())
-                {
-                    OnlineMapsDrawingElementManager.instance.Add(
-                        OnlineMapsExtesions.OnlineMapsDrawingCircle(coordinate.Longitude, coordinate.Latitude, 0.001, 8, 0.0001f, Color.magenta,
-                            Color.green));
-                }
-            };
+                var marker = OnlineMapsExtesions.OnlineMapsDrawingCircle(coordinate, 0.0001, 32, 0.0001f, Color.magenta, Color.green);
+                OnlineMapsDrawingElementManager.instance.Add(marker);
+                McpMarkers.Add(id, marker);
+            }
         }
     }
 }
