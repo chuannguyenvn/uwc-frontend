@@ -1,7 +1,9 @@
 ﻿using System;
 using System.Threading.Tasks;
 using Commons.Communications.Authentication;
+using Leguar.TotalJSON;
 using Microsoft.AspNetCore.SignalR.Client;
+using Newtonsoft.Json;
 using Requests;
 using Settings;
 using UnityEngine;

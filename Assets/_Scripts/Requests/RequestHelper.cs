@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Text;
+using Leguar.TotalJSON;
 using Managers;
 using Newtonsoft.Json;
 using UnityEngine;
@@ -34,7 +35,8 @@ namespace Requests
 
             if (objectToSend != null)
             {
-                var jsonToSend = new UTF8Encoding().GetBytes(JsonConvert.SerializeObject(objectToSend));
+                Debug.Log(JSON.Serialize(objectToSend).CreateString());
+                var jsonToSend = new UTF8Encoding().GetBytes(JSON.Serialize(objectToSend).CreateString());
                 webRequest.uploadHandler = new UploadHandlerRaw(jsonToSend);
             }
 
