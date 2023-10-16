@@ -1,4 +1,5 @@
-﻿using Requests.DataStores.Implementations.Mcps;
+﻿using Requests.DataStores.Implementations.Map;
+using Requests.DataStores.Implementations.Mcps;
 using Requests.DataStores.Implementations.Messaging;
 
 namespace Requests
@@ -14,6 +15,11 @@ namespace Requests
         {
             public static ContactListStore ContactList { get; } = new();
             public static InboxMessageListStore InboxMessageList { get; } = new();
+        }
+        
+        public static class Map
+        {
+            public static LocationStore Location { get; } = new();
         }
     }
 }
