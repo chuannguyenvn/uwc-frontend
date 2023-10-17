@@ -5,6 +5,7 @@ using Commons.HubHandlers;
 using Commons.Models;
 using Managers;
 using Microsoft.AspNetCore.SignalR.Client;
+using Newtonsoft.Json;
 using Requests.DataStores.Base;
 using UnityEngine;
 
@@ -27,7 +28,9 @@ namespace Requests.DataStores.Implementations.Messaging
                 {
                     if (success)
                     {
-                        OnDataUpdated(response);
+                        var getMessagesBetweenTwoUsersResponse = new GetMessagesBetweenTwoUsersResponse();
+                        JsonConvert.PopulateObject(response, getMessagesBetweenTwoUsersResponse);
+                        OnDataUpdated(getMessagesBetweenTwoUsersResponse);
                     }
                 }
             );

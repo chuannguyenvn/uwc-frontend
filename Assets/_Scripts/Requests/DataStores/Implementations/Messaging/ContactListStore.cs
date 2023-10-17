@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using Commons.Communications.Messages;
 using Managers;
+using Newtonsoft.Json;
 using Requests.DataStores.Base;
 
 namespace Requests.DataStores.Implementations.Messaging
@@ -19,7 +20,9 @@ namespace Requests.DataStores.Implementations.Messaging
                 {
                     if (success)
                     {
-                        OnDataUpdated(response);
+                        GetPreviewMessagesResponse getPreviewMessagesResponse = new GetPreviewMessagesResponse();
+                        JsonConvert.PopulateObject(response, getPreviewMessagesResponse);
+                        OnDataUpdated(getPreviewMessagesResponse);
                     }
                 }
             );

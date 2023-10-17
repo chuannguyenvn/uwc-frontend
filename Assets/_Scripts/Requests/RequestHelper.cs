@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections;
 using System.Text;
 using Leguar.TotalJSON;
@@ -66,7 +66,7 @@ namespace Requests
             webRequest.Dispose();
         }
 
-        private static IEnumerator SendRequest<T>(string endpoint, RequestType requestType, Action<bool, T> callback,
+        private static IEnumerator SendRequest<T>(string endpoint, RequestType requestType, Action<bool, string> callback,
             string bearerKey, object objectToSend = null)
         {
             var webRequest = ConstructWebRequest(endpoint, requestType, bearerKey, objectToSend);
@@ -81,7 +81,7 @@ namespace Requests
                 yield break;
             }
 
-            var receivedObject = JsonConvert.DeserializeObject<T>(webRequest.downloadHandler.text);
+            var receivedObject = webRequest.downloadHandler.text;
             callback?.Invoke(true, receivedObject);
             webRequest.Dispose();
         }
@@ -91,7 +91,7 @@ namespace Requests
             yield return SendRequest(endpoint, RequestType.GET, callback, isAuthorized ? AuthenticationManager.Instance.JWT : "");
         }
 
-        public static IEnumerator SendGetRequest<T>(string endpoint, Action<bool, T> callback = null, bool isAuthorized = true)
+        public static IEnumerator SendGetRequest<T>(string endpoint, Action<bool, string> callback = null, bool isAuthorized = true)
         {
             yield return SendRequest<T>(endpoint, RequestType.GET, callback, isAuthorized ? AuthenticationManager.Instance.JWT : "");
         }
@@ -101,7 +101,7 @@ namespace Requests
             yield return SendRequest(endpoint, RequestType.POST, callback, isAuthorized ? AuthenticationManager.Instance.JWT : "", objectToSend);
         }
 
-        public static IEnumerator SendPostRequest<T>(string endpoint, object objectToSend, Action<bool, T> callback = null, bool isAuthorized = true)
+        public static IEnumerator SendPostRequest<T>(string endpoint, object objectToSend, Action<bool, string> callback = null, bool isAuthorized = true)
         {
             yield return SendRequest<T>(endpoint, RequestType.POST, callback, isAuthorized ? AuthenticationManager.Instance.JWT : "", objectToSend);
         }

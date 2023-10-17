@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Commons.Communications.Mcps;
 using Commons.Models;
 using Commons.Types;
+using Newtonsoft.Json;
 using Requests.DataStores.Base;
 
 namespace Requests.DataStores.Implementations.Mcps
@@ -20,7 +21,9 @@ namespace Requests.DataStores.Implementations.Mcps
                 {
                     if (success)
                     {
-                        OnDataUpdated(response.Results);
+                        var getMcpDataResponse = new GetMcpDataResponse();
+                        JsonConvert.PopulateObject(response, getMcpDataResponse);
+                        OnDataUpdated(getMcpDataResponse.Results);
                     }
                 }
             );

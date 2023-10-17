@@ -1,0 +1,8 @@
+<linker>
+    <assembly fullname="Microsoft.AspNetCore.SignalR.Common"/>
+    <assembly fullname="Microsoft.Extensions.DependencyInjection"/>
+    <assembly fullname="Microsoft.Extensions.Options"/>
+    <assembly fullname="Newtonsoft.Json"/>
+    <assembly fullname="SharedLibrary"/>
+    <assembly fullname="WhatTheFuckIsThis"/>
+</linker>
