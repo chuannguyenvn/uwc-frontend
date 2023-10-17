@@ -13,5 +13,10 @@ namespace Requests.DataStores.Implementations.Map
             AuthenticationManager.Instance.HubConnection.On(HubHandlers.WorkerLocation.BROADCAST_LOCATION,
                 (WorkerLocationBroadcastData data) => { OnDataUpdated(data); });
         }
+
+        protected override void CloseHubConnection()
+        {
+            AuthenticationManager.Instance.HubConnection.Remove(HubHandlers.WorkerLocation.BROADCAST_LOCATION);
+        }
     }
 }
