@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Text;
-using Managers;
+using Authentication;
 using Newtonsoft.Json;
 using UnityEngine;
 using UnityEngine.Networking;

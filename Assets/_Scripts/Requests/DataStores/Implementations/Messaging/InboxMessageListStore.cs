@@ -1,9 +1,9 @@
 ﻿using System;
 using System.Collections;
+using Authentication;
 using Commons.Communications.Messages;
 using Commons.HubHandlers;
 using Commons.Models;
-using Managers;
 using Microsoft.AspNetCore.SignalR.Client;
 using Requests.DataStores.Base;
 using UnityEngine;

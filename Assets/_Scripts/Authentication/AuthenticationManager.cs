@@ -6,7 +6,7 @@ using Requests;
 using Settings;
 using UnityEngine;
 
-namespace Managers
+namespace Authentication
 {
     public class AuthenticationManager : PersistentSingleton<AuthenticationManager>
     {

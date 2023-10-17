@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using Managers;
+using Authentication;
 using Settings;
 using UI.Authentication;
 using UI.Navigation;

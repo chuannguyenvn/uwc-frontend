@@ -1,6 +1,6 @@
-﻿using Commons.Communications.Map;
+﻿using Authentication;
+using Commons.Communications.Map;
 using Commons.HubHandlers;
-using Managers;
 using Microsoft.AspNetCore.SignalR.Client;
 using Requests.DataStores.Base;
 
