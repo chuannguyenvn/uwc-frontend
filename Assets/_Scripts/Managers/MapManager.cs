@@ -1,11 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using Commons.Communications.Authentication;
 using Commons.Communications.Map;
 using Requests;
 using UnityEngine;
-using Vector2 = System.Numerics.Vector2;
 
 namespace Managers
 {

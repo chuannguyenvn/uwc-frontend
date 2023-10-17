@@ -1,6 +1,4 @@
-﻿using System.Threading.Tasks;
-using Managers;
-using Microsoft.AspNetCore.SignalR.Client;
+﻿using Microsoft.AspNetCore.SignalR.Client;
 
 namespace Requests.DataStores.Base
 {
