@@ -61,5 +61,11 @@ namespace Authentication
 
             Initialized?.Invoke(response.InitializationData);
         }
+
+        protected override void OnApplicationQuit()
+        {
+            HubConnection?.DisposeAsync();
+            base.OnApplicationQuit();
+        }
     }
 }
