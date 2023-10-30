@@ -147,6 +147,7 @@ namespace UI.Base
                 case ViewType.Status:
                     break;
                 case ViewType.Reporting:
+                    ReportingView.FocusView();
                     break;
                 case ViewType.Messaging:
                     MessagingView.FocusView();

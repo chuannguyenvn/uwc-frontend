@@ -1,6 +1,7 @@
 ﻿using Requests.DataStores.Implementations.Map;
 using Requests.DataStores.Implementations.Mcps;
 using Requests.DataStores.Implementations.Messaging;
+using Requests.DataStores.Implementations.Reports;
 
 namespace Requests
 {
@@ -21,6 +22,11 @@ namespace Requests
         {
             public static WorkerLocationStore WorkerLocation { get; } = new();
             public static McpLocationStore McpLocation { get; } = new();
+        }
+
+        public static class Reporting
+        {
+            public static ReportingViewStore ReportingView { get; } = new();
         }
     }
 }

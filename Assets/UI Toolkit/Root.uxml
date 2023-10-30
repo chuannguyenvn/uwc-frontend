@@ -4,6 +4,6 @@
     <Style src="project://database/Assets/Resources/Stylesheets/Views/Reports/Cards/McpCollectedCard.uss?fileID=7433441132597879392&amp;guid=a82e4804bcd241f4ad8a913aa48579d1&amp;type=3#McpCollectedCard" />
     <Style src="project://database/Assets/Resources/Stylesheets/Views/Reports/Cards/ReportCard.uss?fileID=7433441132597879392&amp;guid=0ab5bccfe37140c487d3719cde2c18d4&amp;type=3#ReportCard" />
     <Style src="project://database/Assets/Resources/Stylesheets/Views/Reports/Cards/WeatherCard.uss?fileID=7433441132597879392&amp;guid=0cd3803630db44e6bb961b7764da7c6a&amp;type=3#WeatherCard" />
-    <UI.Base.Root class="root" style="display: none;" />
-    <UI.Views.Reports.ReportingView />
+    <UI.Base.Root class="root" style="display: flex;" />
+    <UI.Views.Reports.ReportingView style="display: none;" />
 </ui:UXML>

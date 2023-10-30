@@ -1,4 +1,5 @@
-﻿using UI.Base;
+﻿using Commons.Communications.Reports;
+using UI.Base;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -9,6 +10,11 @@ namespace UI.Views.Reports.Cards
         public WorkerCard() : base(nameof(WorkerCard))
         {
             styleSheets.Add(Resources.Load<StyleSheet>("Stylesheets/Views/Reports/Cards/WorkerCard"));
+        }
+
+        public override void UpdateData(GetDashboardReportResponse response)
+        {
+            
         }
     }
 }
