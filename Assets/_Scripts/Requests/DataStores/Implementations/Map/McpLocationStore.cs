@@ -1,6 +1,6 @@
-﻿using Commons.Communications.Map;
+﻿using Authentication;
+using Commons.Communications.Map;
 using Commons.HubHandlers;
-using Managers;
 using Requests.DataStores.Base;
 using Microsoft.AspNetCore.SignalR.Client;
 
@@ -12,6 +12,11 @@ namespace Requests.DataStores.Implementations.Map
         {
             AuthenticationManager.Instance.HubConnection.On(HubHandlers.McpLocation.BROADCAST_LOCATION,
                 (McpLocationBroadcastData data) => { OnDataUpdated(data); });
+        }
+        
+        protected override void CloseHubConnection()
+        {
+            AuthenticationManager.Instance.HubConnection.Remove(HubHandlers.McpLocation.BROADCAST_LOCATION);
         }
     }
 }

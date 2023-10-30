@@ -12,7 +12,7 @@ namespace UI.Views.Workers
         private TextElement _nameText;
         private TextElement _statusText;
 
-        public WorkerListEntry(Account account) : base(nameof(WorkerListEntry))
+        public WorkerListEntry(UserProfile profile) : base(nameof(WorkerListEntry))
         {
             AddToClassList("list-entry");
 
@@ -25,13 +25,13 @@ namespace UI.Views.Workers
             _nameText = new TextElement { name = "NameText" };
             _nameText.AddToClassList("normal-text");
             _nameText.AddToClassList("black-text");
-            _nameText.text = account.FirstName + " " + account.LastName;
+            _nameText.text = profile.FirstName + " " + profile.LastName;
             _textContainer.Add(_nameText);
 
             _statusText = new TextElement { name = "StatusText" };
             _statusText.AddToClassList("sub-text");
             _statusText.AddToClassList("grey-text");
-            _statusText.text = account.Address;
+            _statusText.text = profile.Address;
             _textContainer.Add(_statusText);
         }
     }

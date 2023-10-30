@@ -11,7 +11,7 @@ public abstract class StaticInstance<T> : MonoBehaviour where T : MonoBehaviour
         Instance = this as T;
     }
 
-    protected void OnApplicationQuit()
+    protected virtual void OnApplicationQuit()
     {
         Instance = null;
         Destroy(gameObject);
