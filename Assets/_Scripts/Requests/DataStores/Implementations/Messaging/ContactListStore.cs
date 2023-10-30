@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using Authentication;
 using Commons.Communications.Messages;
+using Commons.Endpoints;
 using Requests.DataStores.Base;
 
 namespace Requests.DataStores.Implementations.Messaging

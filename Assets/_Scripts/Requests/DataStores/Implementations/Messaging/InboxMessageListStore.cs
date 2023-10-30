@@ -2,6 +2,7 @@
 using System.Collections;
 using Authentication;
 using Commons.Communications.Messages;
+using Commons.Endpoints;
 using Commons.HubHandlers;
 using Commons.Models;
 using Microsoft.AspNetCore.SignalR.Client;
