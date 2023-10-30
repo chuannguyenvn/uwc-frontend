@@ -1,0 +1,5 @@
+#McpCollectedCard {
+    align-items: center;
+    align-self: auto;
+    justify-content: center;
+}

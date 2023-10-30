@@ -6,14 +6,19 @@ namespace UI.Views.Reports.Cards
 {
     public class McpCollectedCard : ReportCard
     {
+        public DataUnit McpCollectedDataUnit;
+
         public McpCollectedCard() : base(nameof(McpCollectedCard))
         {
             styleSheets.Add(Resources.Load<StyleSheet>("Stylesheets/Views/Reports/Cards/McpCollectedCard"));
+            
+            McpCollectedDataUnit = new DataUnit("MCPs collected", RelativeChange.Mode.HigherIsBetter);
+            Add(McpCollectedDataUnit);
         }
 
         public override void UpdateData(GetDashboardReportResponse response)
         {
-            Debug.Log(response.CurrentTemperature);
+            McpCollectedDataUnit.UpdateValue(response.TotalTasksCompleted, 1f);
         }
     }
 }

@@ -1,0 +1,14 @@
+#RelativeChange {
+    flex-direction: row;
+}
+
+#ArrowIcon {
+    background-image: url('project://database/Assets/Graphics/Shapes/right-triangle.svg?fileID=7388822144124034973&guid=4c03b9bf2ee0a4449a311679872df9b7&type=3#right-triangle');
+    -unity-background-image-tint-color: rgb(255, 37, 37);
+    width: 20px;
+    height: 20px;
+}
+
+#ChangeValue {
+    font-size: 16px;
+}
