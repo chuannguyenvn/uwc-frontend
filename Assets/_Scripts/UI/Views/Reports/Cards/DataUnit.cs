@@ -34,7 +34,7 @@ namespace UI.Views.Reports.Cards
             Add(Value);
 
             RelativeChange = new RelativeChange(mode);
-            if (mode != RelativeChange.Mode.None) RelativeChange.UpdateChange(1f);
+            if (mode != RelativeChange.Mode.None) RelativeChange.UpdateChange(-1f);
             Add(RelativeChange);
         }
 

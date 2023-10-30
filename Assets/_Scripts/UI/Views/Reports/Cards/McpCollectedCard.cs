@@ -18,7 +18,7 @@ namespace UI.Views.Reports.Cards
 
         public override void UpdateData(GetDashboardReportResponse response)
         {
-            McpCollectedDataUnit.UpdateValue(response.TotalTasksCompleted, 1f);
+            McpCollectedDataUnit.UpdateValue(response.TotalTasksCompleted, -1f);
         }
     }
 }

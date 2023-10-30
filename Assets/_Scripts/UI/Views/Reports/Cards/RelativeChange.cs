@@ -34,15 +34,27 @@ namespace UI.Views.Reports.Cards
         public void UpdateChange(float percentage)
         {
             ChangeValue.text = $"{Math.Abs(percentage)}%";
+
             if (percentage > 0 && _mode == Mode.HigherIsBetter || percentage < 0 && _mode == Mode.LowerIsBetter)
             {
-                AddToClassList("positive-change");
-                RemoveFromClassList("negative-change");
+                AddToClassList("good-change");
+                RemoveFromClassList("bad-change");
             }
             else
             {
-                AddToClassList("negative-change");
-                RemoveFromClassList("positive-change");
+                AddToClassList("bad-change");
+                RemoveFromClassList("good-change");
+            }
+
+            if (percentage > 0)
+            {
+                AddToClassList("increase-change");
+                RemoveFromClassList("decrease-change");
+            }
+            else
+            {
+                AddToClassList("decrease-change");
+                RemoveFromClassList("increase-change");
             }
         }
 
