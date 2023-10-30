@@ -1,0 +1,10 @@
+.report-card-row-container {
+    width: 100%;
+    height: 25%;
+    flex-direction: row;
+}
+
+.graph-container {
+    width: 100%;
+    height: 50%;
+}

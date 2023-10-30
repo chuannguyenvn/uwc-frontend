@@ -1,0 +1,13 @@
+.report-card {
+    background-image: url('project://database/Assets/Graphics/Shapes/square-shadow-rounded-32px.png?fileID=-414892841926334688&guid=d1b1a160b977dbc4c9e716b4ff052a4b&type=3#square-shadow-rounded-32px_0');
+    position: relative;
+    -unity-slice-left: 32;
+    -unity-slice-top: 32;
+    -unity-slice-right: 32;
+    -unity-slice-bottom: 32;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    flex-grow: 1;
+}
