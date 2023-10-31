@@ -22,13 +22,18 @@ namespace UI.Views.Reports.Cards
         private const int HOUR_COUNT = 24;
         private static readonly Padding GraphPadding = new(96, 96, 64, 128);
         private static readonly Padding LabelPadding = new(64, 64, 64, 128);
+        private static readonly Color TotalMcpFillLevelColor = new(121f / 255, 225f / 255, 153f / 255, 1);
+        private static readonly Color McpEmptiedColor = new(90f / 255, 145f / 255, 254f / 255, 1);
         private Rect _graphRect;
 
         public GraphCard() : base(nameof(GraphCard))
         {
             styleSheets.Add(Resources.Load<StyleSheet>("Stylesheets/Views/Reports/Cards/GraphCard"));
+
             GenerateMockData();
             CreateLabels();
+            CreateLegends();
+
             generateVisualContent += GenerateVisualContent;
             RegisterCallback<GeometryChangedEvent>(OnGeometryChanged);
         }
@@ -101,6 +106,28 @@ namespace UI.Views.Reports.Cards
             }
         }
 
+        private void CreateLegends()
+        {
+            var legendContainer = new VisualElement { name = "LegendContainer" };
+            Add(legendContainer);
+
+            var mcpFillLevelLegendIcon = new VisualElement { name = "McpFillLevelLegend" };
+            mcpFillLevelLegendIcon.AddToClassList("legend-icon");
+            mcpFillLevelLegendIcon.style.backgroundColor = TotalMcpFillLevelColor;
+            legendContainer.Add(mcpFillLevelLegendIcon);
+
+            var mcpFillLevelTitle = new TextElement { text = "Hourly aggregated MCPs fill level", name = "McpFillLevelTitle" };
+            legendContainer.Add(mcpFillLevelTitle);
+
+            var mcpEmptiedLegendIcon = new VisualElement { name = "McpEmptiedLegend" };
+            mcpEmptiedLegendIcon.AddToClassList("legend-icon");
+            mcpEmptiedLegendIcon.style.backgroundColor = McpEmptiedColor;
+            legendContainer.Add(mcpEmptiedLegendIcon);
+
+            var mcpEmptiedTitle = new TextElement { text = "Hourly MCPs Emptied", name = "McpEmptiedTitle" };
+            legendContainer.Add(mcpEmptiedTitle);
+        }
+
         private void GenerateVisualContent(MeshGenerationContext ctx)
         {
             var painter = ctx.painter2D;
@@ -108,7 +135,6 @@ namespace UI.Views.Reports.Cards
             DrawGraphLines(painter);
             DrawMcpFillLevelGraph(painter);
             DrawMcpEmptiedGraph(painter);
-            CreateLegends(painter);
         }
 
         private void DrawGraphLines(Painter2D painter)
@@ -183,8 +209,8 @@ namespace UI.Views.Reports.Cards
             painter.lineCap = LineCap.Round;
             painter.lineJoin = LineJoin.Round;
             painter.lineWidth = 2;
-            painter.fillColor = new Color(121f / 255, 225f / 255, 153f / 255, 1);
-            painter.strokeColor = new Color(121f / 255, 225f / 255, 153f / 255, 1);
+            painter.fillColor = TotalMcpFillLevelColor;
+            painter.strokeColor = TotalMcpFillLevelColor;
 
             painter.BeginPath();
             painter.MoveTo(_graphRect.position + new Vector2(0, _graphRect.height));
@@ -224,7 +250,7 @@ namespace UI.Views.Reports.Cards
             painter.lineCap = LineCap.Round;
             painter.lineJoin = LineJoin.Round;
             painter.lineWidth = 3;
-            painter.strokeColor = new Color(90f / 255, 145f / 255, 254f / 255, 1);
+            painter.strokeColor = McpEmptiedColor;
 
             painter.BeginPath();
             painter.MoveTo(_graphRect.position + new Vector2(0, _graphRect.height));
@@ -239,9 +265,6 @@ namespace UI.Views.Reports.Cards
             painter.Stroke();
         }
 
-        private void CreateLegends(Painter2D painter)
-        {
-        }
 
         private Vector2 GetGraphPoint(float value, float minValue, float maxValue, DateTime hour, DateTime minHour, DateTime maxHour)
         {
