@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using Commons.Communications.Reports;
 using UnityEngine;
 using UnityEngine.UIElements;
@@ -44,14 +45,14 @@ namespace UI.Views.Reports.Cards
             _totalMcpFillLevelValues = new List<float>();
             _mcpEmptiedTimestamps = new List<DateTime>();
 
-            for (int i = 0; i < 24; i++)
+            for (int i = 0; i < HOUR_COUNT; i++)
             {
-                _totalMcpFillLevelTimestamps.Add(DateTime.Now.AddHours(24 - i));
+                _totalMcpFillLevelTimestamps.Add(DateTime.Now.AddHours(i - HOUR_COUNT));
                 _totalMcpFillLevelValues.Add(Random.Range(0f, 1f));
                 var emptyTimes = Random.Range(1, 9);
                 for (int j = 0; j < emptyTimes; j++)
                 {
-                    _mcpEmptiedTimestamps.Add(DateTime.Now.AddHours(24 - i));
+                    _mcpEmptiedTimestamps.Add(DateTime.Now.AddHours(i - HOUR_COUNT));
                 }
             }
         }
@@ -119,7 +120,6 @@ namespace UI.Views.Reports.Cards
             var startX = GraphPadding.Left;
             var endX = resolvedStyle.width - GraphPadding.Right;
             var graphHeight = resolvedStyle.height - (LabelPadding.Top + LabelPadding.Bottom);
-            _graphRect = new Rect(startX, LabelPadding.Top, endX - startX, graphHeight);
             for (var i = 0; i < VALUE_COUNT; i++)
             {
                 painter.strokeColor = Color.gray;
@@ -128,6 +128,8 @@ namespace UI.Views.Reports.Cards
                 painter.LineTo(new Vector2(endX, graphHeight / (VALUE_COUNT - 1) * i + LabelPadding.Top));
                 painter.Stroke();
             }
+
+            _graphRect = new Rect(startX, LabelPadding.Top, endX - startX, graphHeight);
         }
 
         private void ModifyGraphValues()
@@ -178,49 +180,79 @@ namespace UI.Views.Reports.Cards
 
         private void DrawMcpFillLevelGraph(Painter2D painter)
         {
-            // painter.lineWidth = 3;
-            // painter.fillColor = _graphColor;
-            //
-            // painter.BeginPath();
-            // painter.lineWidth = 3;
-            //
-            // for (var i = 0; i < _statGroups.Count; i++)
-            // {
-            //     if (_isSmooth)
-            //     {
-            //         // Work this out at some stage
-            //         painter.LineTo(_statGroups[(i + 1) % _statGroups.Count].Point);
-            //     }
-            //     else
-            //     {
-            //         painter.LineTo(_statGroups[(i + 1) % _statGroups.Count].Point);
-            //     }
-            // }
-            //
-            // if (!_isSmooth) painter.ClosePath();
-            // painter.Fill();
+            painter.lineCap = LineCap.Round;
+            painter.lineJoin = LineJoin.Round;
+            painter.lineWidth = 2;
+            painter.fillColor = new Color(121f / 255, 225f / 255, 153f / 255, 1);
+            painter.strokeColor = new Color(121f / 255, 225f / 255, 153f / 255, 1);
+
+            painter.BeginPath();
+            painter.MoveTo(_graphRect.position + new Vector2(0, _graphRect.height));
+            for (int i = 0; i < _totalMcpFillLevelValues.Count; i++)
+            {
+                var point = GetGraphPoint(
+                    _totalMcpFillLevelValues[i],
+                    0,
+                    _totalMcpFillLevelValues.Max(),
+                    _totalMcpFillLevelTimestamps[i],
+                    DateTime.Now.AddHours(-24),
+                    DateTime.Now);
+                painter.LineTo(point);
+            }
+
+            painter.LineTo(_graphRect.position + new Vector2(_graphRect.width, _graphRect.height));
+            painter.Fill();
+            painter.Stroke();
         }
 
         private void DrawMcpEmptiedGraph(Painter2D painter)
         {
-            for (int i = 0; i < _mcpEmptiedTimestamps.Count; i++)
+            var _mcpEmptiedPerHour = new Dictionary<int, int>();
+            foreach (var emptyTimestamp in _mcpEmptiedTimestamps)
             {
+                var offsetHours = (DateTime.Now.Hour - emptyTimestamp.Hour);
+                if (_mcpEmptiedPerHour.ContainsKey(offsetHours))
+                {
+                    _mcpEmptiedPerHour[offsetHours]++;
+                }
+                else
+                {
+                    _mcpEmptiedPerHour.Add(offsetHours, 1);
+                }
             }
+
+            painter.lineCap = LineCap.Round;
+            painter.lineJoin = LineJoin.Round;
+            painter.lineWidth = 3;
+            painter.strokeColor = new Color(90f / 255, 145f / 255, 254f / 255, 1);
+
+            painter.BeginPath();
+            painter.MoveTo(_graphRect.position + new Vector2(0, _graphRect.height));
+            for (int i = HOUR_COUNT - 1; i >= 0; i--)
+            {
+                if (!_mcpEmptiedPerHour.ContainsKey(i)) continue;
+
+                var point = GetGraphPoint(_mcpEmptiedPerHour[i], 0, 8, DateTime.Now.AddHours(-i), DateTime.Now.AddHours(-24), DateTime.Now);
+                painter.LineTo(point);
+            }
+
+            painter.Stroke();
         }
 
         private void CreateLegends(Painter2D painter)
         {
         }
 
-        private Vector2 GetHourlyMcpEmptiedPoint(int count, int minCount, int maxCount, DateTime hour)
+        private Vector2 GetGraphPoint(float value, float minValue, float maxValue, DateTime hour, DateTime minHour, DateTime maxHour)
         {
-            var startX = LabelPadding.Left;
-            var endX = resolvedStyle.width - LabelPadding.Right;
-            var graphHeight = resolvedStyle.height - (LabelPadding.Top + LabelPadding.Bottom);
-            var graphWidth = resolvedStyle.width - (LabelPadding.Left + LabelPadding.Right);
-            var x = (float)(graphWidth / HOUR_COUNT * (hour.Hour + hour.Minute / 60f)) + startX;
-            var y = (float)(graphHeight / (maxCount - minCount) * (count - minCount)) + LabelPadding.Top;
-            return new Vector2(x, y);
+            var minX = _graphRect.position.x;
+            var maxX = _graphRect.position.x + _graphRect.size.x;
+            var minY = _graphRect.position.y;
+            var maxY = _graphRect.position.y + _graphRect.size.y;
+
+            var x = minX + (maxX - minX) / (maxHour - minHour).TotalHours * (hour - minHour).TotalHours;
+            var y = minY + (maxY - minY) / (maxValue - minValue) * (value - minValue);
+            return new Vector2((float)x, y);
         }
     }
 }
