@@ -6,6 +6,7 @@ using UI.Authentication;
 using UI.Navigation;
 using UI.Views.Mcps;
 using UI.Views.Messaging;
+using UI.Views.Reports;
 using UI.Views.Settings;
 using UI.Views.Status;
 using UI.Views.Tasks;
@@ -28,6 +29,7 @@ namespace UI.Base
         public TasksView TasksView { get; private set; }
         public StatusView StatusView { get; private set; }
         public MessagingView MessagingView { get; private set; }
+        public ReportingView ReportingView { get; private set; }
         public SettingsView SettingsView { get; private set; }
 
         public Root()
@@ -89,12 +91,14 @@ namespace UI.Base
                 WorkersView = new WorkersView();
                 McpsView = new McpsView();
                 VehiclesView = new VehiclesView();
+                ReportingView = new ReportingView();
                 MessagingView = new MessagingView();
                 SettingsView = new SettingsView();
                 
                 ViewsByViewType.Add(ViewType.Workers, WorkersView);
                 ViewsByViewType.Add(ViewType.Mcps, McpsView);
                 ViewsByViewType.Add(ViewType.Vehicles, VehiclesView);
+                ViewsByViewType.Add(ViewType.Reporting, ReportingView);
                 ViewsByViewType.Add(ViewType.Messaging, MessagingView);
                 ViewsByViewType.Add(ViewType.Settings, SettingsView);
             }
@@ -143,6 +147,7 @@ namespace UI.Base
                 case ViewType.Status:
                     break;
                 case ViewType.Reporting:
+                    ReportingView.FocusView();
                     break;
                 case ViewType.Messaging:
                     MessagingView.FocusView();

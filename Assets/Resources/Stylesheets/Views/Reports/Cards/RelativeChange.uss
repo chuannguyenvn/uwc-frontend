@@ -1,0 +1,39 @@
+#RelativeChange {
+    flex-direction: row;
+    align-items: center;
+}
+
+#ArrowIcon {
+    background-image: url('project://database/Assets/Graphics/Shapes/right-triangle.svg?fileID=7388822144124034973&guid=4c03b9bf2ee0a4449a311679872df9b7&type=3#right-triangle');
+    -unity-background-image-tint-color: rgb(255, 37, 37);
+    width: 18px;
+    height: 12px;
+    margin-right: 4px;
+}
+
+.good-change #ArrowIcon {
+    -unity-background-image-tint-color: var(--mcp-not-full-color);
+}
+
+.bad-change #ArrowIcon {
+    -unity-background-image-tint-color: var(--mcp-full-color);
+}
+
+.increase-change #ArrowIcon {
+}
+
+.decrease-change #ArrowIcon {
+    rotate: 180deg;
+}
+
+#ChangeValue {
+    font-size: 16px;
+}
+
+.good-change #ChangeValue {
+    color: var(--mcp-not-full-color);
+}
+
+.bad-change #ChangeValue {
+    color: var(--mcp-full-color);
+}
