@@ -7,6 +7,7 @@
     <Style src="project://database/Assets/Resources/Stylesheets/Common.uss?fileID=7433441132597879392&amp;guid=b143485b20294be4a84594fdfb10686d&amp;type=3#Common" />
     <Style src="project://database/Assets/Resources/Stylesheets/Views/Reports/Cards/DataUnit.uss?fileID=7433441132597879392&amp;guid=610da09eb3d3443faad271f351d87fbf&amp;type=3#DataUnit" />
     <Style src="project://database/Assets/Resources/Stylesheets/Views/Reports/Cards/RelativeChange.uss?fileID=7433441132597879392&amp;guid=1ca14d9ff02d48638f49e937abc4fc5b&amp;type=3#RelativeChange" />
+    <Style src="project://database/Assets/Resources/Stylesheets/Views/Reports/Cards/GraphCard.uss?fileID=7433441132597879392&amp;guid=b54b15bdcbb74ca79b2fdcafc6145ff5&amp;type=3#GraphCard" />
     <UI.Base.Root class="root" style="display: none;" />
     <UI.Views.Reports.ReportingView style="display: flex;" />
 </ui:UXML>
