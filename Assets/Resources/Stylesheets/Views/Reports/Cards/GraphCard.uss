@@ -9,3 +9,13 @@
     align-self: center;
     -unity-text-align: middle-right;
 }
+
+#McpEmptiedLabel {
+    position: absolute;
+}
+
+#TimestampLabel {
+    position: absolute;
+    align-items: center;
+    -unity-text-align: upper-center;
+}
