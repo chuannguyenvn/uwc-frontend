@@ -1,13 +1,3 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
-    <Style src="project://database/Assets/Resources/Stylesheets/Views/Reports/ReportingView.uss?fileID=7433441132597879392&amp;guid=cb9d4bf3568543eaa2382e81d6ec1b23&amp;type=3#ReportingView" />
-    <Style src="project://database/Assets/Resources/Stylesheets/Views/Reports/Cards/LogisticCard.uss?fileID=7433441132597879392&amp;guid=34c57aa83c69436b8258ebe4e05940c0&amp;type=3#LogisticCard" />
-    <Style src="project://database/Assets/Resources/Stylesheets/Views/Reports/Cards/McpCollectedCard.uss?fileID=7433441132597879392&amp;guid=a82e4804bcd241f4ad8a913aa48579d1&amp;type=3#McpCollectedCard" />
-    <Style src="project://database/Assets/Resources/Stylesheets/Views/Reports/Cards/ReportCard.uss?fileID=7433441132597879392&amp;guid=0ab5bccfe37140c487d3719cde2c18d4&amp;type=3#ReportCard" />
-    <Style src="project://database/Assets/Resources/Stylesheets/Views/Reports/Cards/WeatherCard.uss?fileID=7433441132597879392&amp;guid=0cd3803630db44e6bb961b7764da7c6a&amp;type=3#WeatherCard" />
-    <Style src="project://database/Assets/Resources/Stylesheets/Common.uss?fileID=7433441132597879392&amp;guid=b143485b20294be4a84594fdfb10686d&amp;type=3#Common" />
-    <Style src="project://database/Assets/Resources/Stylesheets/Views/Reports/Cards/DataUnit.uss?fileID=7433441132597879392&amp;guid=610da09eb3d3443faad271f351d87fbf&amp;type=3#DataUnit" />
-    <Style src="project://database/Assets/Resources/Stylesheets/Views/Reports/Cards/RelativeChange.uss?fileID=7433441132597879392&amp;guid=1ca14d9ff02d48638f49e937abc4fc5b&amp;type=3#RelativeChange" />
-    <Style src="project://database/Assets/Resources/Stylesheets/Views/Reports/Cards/GraphCard.uss?fileID=7433441132597879392&amp;guid=b54b15bdcbb74ca79b2fdcafc6145ff5&amp;type=3#GraphCard" />
-    <UI.Base.Root class="root" style="display: none;" />
-    <UI.Views.Reports.ReportingView style="display: flex;" />
+    <UI.Base.Root class="root" style="display: flex;" />
 </ui:UXML>

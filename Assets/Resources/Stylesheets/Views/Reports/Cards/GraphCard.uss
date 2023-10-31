@@ -23,7 +23,7 @@
 #LegendContainer {
     flex-direction: row;
     position: absolute;
-    bottom: 46px;
+    bottom: 39px;
     left: 0;
     right: 0;
     align-items: center;

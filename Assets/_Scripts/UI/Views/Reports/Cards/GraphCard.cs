@@ -18,10 +18,11 @@ namespace UI.Views.Reports.Cards
         private List<TextElement> _mcpEmptiedLabels;
         private List<TextElement> _timestamps;
 
-        private const int VALUE_COUNT = 8;
+        private const int VALUE_COUNT = 9;
         private const int HOUR_COUNT = 24;
         private static readonly Padding GraphPadding = new(96, 96, 64, 128);
         private static readonly Padding LabelPadding = new(64, 64, 64, 128);
+        private static readonly Color GraphLineColor = new(217f / 255, 217f / 255, 217f / 255, 1);
         private static readonly Color TotalMcpFillLevelColor = new(121f / 255, 225f / 255, 153f / 255, 1);
         private static readonly Color McpEmptiedColor = new(90f / 255, 145f / 255, 254f / 255, 1);
         private Rect _graphRect;
@@ -79,18 +80,20 @@ namespace UI.Views.Reports.Cards
             {
                 var mcpFillLevelLabel = new TextElement
                 {
-                    text = $"{i}%",
                     name = "McpFillLevelLabel"
                 };
                 _totalMcpFillLevelLabels.Add(mcpFillLevelLabel);
+                mcpFillLevelLabel.AddToClassList("grey-text");
+                mcpFillLevelLabel.AddToClassList("graph-text");
                 Add(mcpFillLevelLabel);
 
                 var mcpEmptiedLabel = new TextElement
                 {
-                    text = $"{i}",
                     name = "McpEmptiedLabel"
                 };
                 _mcpEmptiedLabels.Add(mcpEmptiedLabel);
+                mcpEmptiedLabel.AddToClassList("grey-text");
+                mcpEmptiedLabel.AddToClassList("graph-text");
                 Add(mcpEmptiedLabel);
             }
 
@@ -98,10 +101,11 @@ namespace UI.Views.Reports.Cards
             {
                 var timestamp = new TextElement
                 {
-                    text = $"{i}%",
                     name = "TimestampLabel"
                 };
                 _timestamps.Add(timestamp);
+                timestamp.AddToClassList("grey-text");
+                timestamp.AddToClassList("graph-text");
                 Add(timestamp);
             }
         }
@@ -117,6 +121,8 @@ namespace UI.Views.Reports.Cards
             legendContainer.Add(mcpFillLevelLegendIcon);
 
             var mcpFillLevelTitle = new TextElement { text = "Hourly aggregated MCPs fill level", name = "McpFillLevelTitle" };
+            mcpFillLevelTitle.AddToClassList("sub-text");
+            mcpFillLevelTitle.AddToClassList("grey-text");
             legendContainer.Add(mcpFillLevelTitle);
 
             var mcpEmptiedLegendIcon = new VisualElement { name = "McpEmptiedLegend" };
@@ -125,6 +131,8 @@ namespace UI.Views.Reports.Cards
             legendContainer.Add(mcpEmptiedLegendIcon);
 
             var mcpEmptiedTitle = new TextElement { text = "Hourly MCPs Emptied", name = "McpEmptiedTitle" };
+            mcpEmptiedTitle.AddToClassList("sub-text");
+            mcpEmptiedTitle.AddToClassList("grey-text");
             legendContainer.Add(mcpEmptiedTitle);
         }
 
@@ -139,16 +147,14 @@ namespace UI.Views.Reports.Cards
 
         private void DrawGraphLines(Painter2D painter)
         {
-            painter.lineJoin = LineJoin.Round;
-            painter.lineCap = LineCap.Round;
             painter.lineWidth = 1;
+            painter.strokeColor = GraphLineColor;
 
             var startX = GraphPadding.Left;
             var endX = resolvedStyle.width - GraphPadding.Right;
             var graphHeight = resolvedStyle.height - (LabelPadding.Top + LabelPadding.Bottom);
-            for (var i = 0; i < VALUE_COUNT; i++)
+            for (var i = 0; i < VALUE_COUNT - 1; i++)
             {
-                painter.strokeColor = Color.gray;
                 painter.BeginPath();
                 painter.MoveTo(new Vector2(startX, graphHeight / (VALUE_COUNT - 1) * i + LabelPadding.Top));
                 painter.LineTo(new Vector2(endX, graphHeight / (VALUE_COUNT - 1) * i + LabelPadding.Top));
@@ -173,6 +179,7 @@ namespace UI.Views.Reports.Cards
                 mcpFillLevelLabel.style.right = resolvedStyle.width - (mcpFillLevelLabelPosition.x + size.x / 2);
                 mcpFillLevelLabel.style.top = mcpFillLevelLabelPosition.y - size.y / 2;
                 mcpFillLevelLabel.style.bottom = resolvedStyle.height - (mcpFillLevelLabelPosition.y + size.y / 2);
+                mcpFillLevelLabel.text = $"{(VALUE_COUNT - 1 - i) * 100 / (VALUE_COUNT - 1)}%";
 
                 var mcpEmptiedLabel = _mcpEmptiedLabels[VALUE_COUNT - 1 - i];
                 var mcpEmptiedLabelPosition = new Vector2(endX, graphHeight / (VALUE_COUNT - 1) * i + LabelPadding.Top);
@@ -180,6 +187,7 @@ namespace UI.Views.Reports.Cards
                 mcpEmptiedLabel.style.right = resolvedStyle.width - (mcpEmptiedLabelPosition.x + size.x / 2);
                 mcpEmptiedLabel.style.top = mcpEmptiedLabelPosition.y - size.y / 2;
                 mcpEmptiedLabel.style.bottom = resolvedStyle.height - (mcpEmptiedLabelPosition.y + size.y / 2);
+                mcpEmptiedLabel.text = $"{VALUE_COUNT - 1 - i}";
             }
         }
 
@@ -206,11 +214,7 @@ namespace UI.Views.Reports.Cards
 
         private void DrawMcpFillLevelGraph(Painter2D painter)
         {
-            painter.lineCap = LineCap.Round;
-            painter.lineJoin = LineJoin.Round;
-            painter.lineWidth = 2;
             painter.fillColor = TotalMcpFillLevelColor;
-            painter.strokeColor = TotalMcpFillLevelColor;
 
             painter.BeginPath();
             painter.MoveTo(_graphRect.position + new Vector2(0, _graphRect.height));
@@ -228,27 +232,26 @@ namespace UI.Views.Reports.Cards
 
             painter.LineTo(_graphRect.position + new Vector2(_graphRect.width, _graphRect.height));
             painter.Fill();
-            painter.Stroke();
         }
 
         private void DrawMcpEmptiedGraph(Painter2D painter)
         {
-            var _mcpEmptiedPerHour = new Dictionary<int, int>();
+            var mcpEmptiedPerHour = new Dictionary<int, int>();
             foreach (var emptyTimestamp in _mcpEmptiedTimestamps)
             {
-                var offsetHours = (DateTime.Now.Hour - emptyTimestamp.Hour);
-                if (_mcpEmptiedPerHour.ContainsKey(offsetHours))
+                var offsetHours = DateTime.Now.Hour - emptyTimestamp.Hour;
+                if (mcpEmptiedPerHour.ContainsKey(offsetHours))
                 {
-                    _mcpEmptiedPerHour[offsetHours]++;
+                    mcpEmptiedPerHour[offsetHours]++;
                 }
                 else
                 {
-                    _mcpEmptiedPerHour.Add(offsetHours, 1);
+                    mcpEmptiedPerHour.Add(offsetHours, 1);
                 }
             }
 
             painter.lineCap = LineCap.Round;
-            painter.lineJoin = LineJoin.Round;
+            painter.lineJoin = LineJoin.Bevel;
             painter.lineWidth = 3;
             painter.strokeColor = McpEmptiedColor;
 
@@ -256,15 +259,14 @@ namespace UI.Views.Reports.Cards
             painter.MoveTo(_graphRect.position + new Vector2(0, _graphRect.height));
             for (int i = HOUR_COUNT - 1; i >= 0; i--)
             {
-                if (!_mcpEmptiedPerHour.ContainsKey(i)) continue;
+                if (!mcpEmptiedPerHour.ContainsKey(i)) continue;
 
-                var point = GetGraphPoint(_mcpEmptiedPerHour[i], 0, 8, DateTime.Now.AddHours(-i), DateTime.Now.AddHours(-24), DateTime.Now);
+                var point = GetGraphPoint(mcpEmptiedPerHour[i], 0, 8, DateTime.Now.AddHours(-i), DateTime.Now.AddHours(-24), DateTime.Now);
                 painter.LineTo(point);
             }
 
             painter.Stroke();
         }
-
 
         private Vector2 GetGraphPoint(float value, float minValue, float maxValue, DateTime hour, DateTime minHour, DateTime maxHour)
         {
