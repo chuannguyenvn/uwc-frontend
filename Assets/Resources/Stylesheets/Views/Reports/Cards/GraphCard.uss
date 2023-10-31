@@ -4,4 +4,8 @@
     left: 0;
     right: 0;
     bottom: 0;
+    align-items: center;
+    justify-content: center;
+    align-self: center;
+    -unity-text-align: middle-right;
 }

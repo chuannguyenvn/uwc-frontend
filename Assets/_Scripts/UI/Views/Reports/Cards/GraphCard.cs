@@ -16,6 +16,10 @@ namespace UI.Views.Reports.Cards
         private List<TextElement> _totalMcpFillLevelLabels;
         private List<TextElement> _mcpEmptiedLabels;
 
+        private static readonly Padding GraphPadding = new(96, 96, 64, 128);
+        private static readonly Padding LabelPadding = new(64, 64, 64, 128);
+        private const int LINE_COUNT = 8;
+
         public GraphCard() : base(nameof(GraphCard))
         {
             styleSheets.Add(Resources.Load<StyleSheet>("Stylesheets/Views/Reports/Cards/GraphCard"));
@@ -61,7 +65,7 @@ namespace UI.Views.Reports.Cards
             _mcpEmptiedLabels = new List<TextElement>();
 
 
-            for (var i = 0; i < 8; i++)
+            for (var i = 0; i < LINE_COUNT; i++)
             {
                 var mcpFillLevelLabel = new TextElement
                 {
@@ -101,46 +105,39 @@ namespace UI.Views.Reports.Cards
             painter.lineCap = LineCap.Round;
             painter.lineWidth = 1;
 
-            var leftPadding = 96;
-            var rightPadding = 96;
-            var topPadding = 64;
-            var bottomPadding = 128;
-            var startX = leftPadding;
-            var endX = resolvedStyle.width - rightPadding;
-            var graphHeight = resolvedStyle.height - (topPadding + bottomPadding);
-            for (var i = 0; i < 8; i++)
+
+            var startX = GraphPadding.Left;
+            var endX = resolvedStyle.width - GraphPadding.Right;
+            var graphHeight = resolvedStyle.height - (LabelPadding.Top + LabelPadding.Bottom);
+            for (var i = 0; i < LINE_COUNT; i++)
             {
                 painter.strokeColor = Color.gray;
                 painter.BeginPath();
-                painter.MoveTo(new Vector2(startX, graphHeight / 7 * i + topPadding));
-                painter.LineTo(new Vector2(endX, graphHeight / 7 * i + +topPadding));
+                painter.MoveTo(new Vector2(startX, graphHeight / (LINE_COUNT - 1) * i + LabelPadding.Top));
+                painter.LineTo(new Vector2(endX, graphHeight / (LINE_COUNT - 1) * i + LabelPadding.Top));
                 painter.Stroke();
             }
         }
 
         private void ModifyGraphValues()
         {
-            var leftPadding = 64;
-            var rightPadding = 64;
-            var topPadding = 64;
-            var bottomPadding = 128;
-            var startX = leftPadding;
-            var endX = resolvedStyle.width - rightPadding;
-            var graphHeight = resolvedStyle.height - (topPadding + bottomPadding);
+            var startX = LabelPadding.Left;
+            var endX = resolvedStyle.width - LabelPadding.Right;
+            var graphHeight = resolvedStyle.height - (LabelPadding.Top + LabelPadding.Bottom);
 
-            for (var i = 0; i < 8; i++)
+            for (var i = 0; i < LINE_COUNT; i++)
             {
                 var size = new Vector2(50, 20);
 
-                var mcpFillLevelLabelPosition = new Vector2(startX, graphHeight / 7 * i + topPadding);
-                var mcpFillLevelLabel = _totalMcpFillLevelLabels[7 - i];
+                var mcpFillLevelLabelPosition = new Vector2(startX, graphHeight / (LINE_COUNT - 1) * i + LabelPadding.Top);
+                var mcpFillLevelLabel = _totalMcpFillLevelLabels[LINE_COUNT - 1 - i];
                 mcpFillLevelLabel.style.left = mcpFillLevelLabelPosition.x - size.x / 2;
                 mcpFillLevelLabel.style.right = resolvedStyle.width - (mcpFillLevelLabelPosition.x + size.x / 2);
                 mcpFillLevelLabel.style.top = mcpFillLevelLabelPosition.y - size.y / 2;
                 mcpFillLevelLabel.style.bottom = resolvedStyle.height - (mcpFillLevelLabelPosition.y + size.y / 2);
 
-                var mcpEmptiedLabel = _mcpEmptiedLabels[7 - i];
-                var mcpEmptiedLabelPosition = new Vector2(endX, graphHeight / 7 * i + topPadding);
+                var mcpEmptiedLabel = _mcpEmptiedLabels[LINE_COUNT - 1 - i];
+                var mcpEmptiedLabelPosition = new Vector2(endX, graphHeight / (LINE_COUNT - 1) * i + LabelPadding.Top);
                 mcpEmptiedLabel.style.left = mcpEmptiedLabelPosition.x - size.x / 2;
                 mcpEmptiedLabel.style.right = resolvedStyle.width - (mcpEmptiedLabelPosition.x + size.x / 2);
                 mcpEmptiedLabel.style.top = mcpEmptiedLabelPosition.y - size.y / 2;
