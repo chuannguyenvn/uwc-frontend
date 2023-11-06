@@ -1,6 +1,7 @@
 ﻿using Requests.DataStores.Implementations.Map;
 using Requests.DataStores.Implementations.Mcps;
 using Requests.DataStores.Implementations.Messaging;
+using Requests.DataStores.Implementations.OnlineStatus;
 using Requests.DataStores.Implementations.Reports;
 
 namespace Requests
@@ -27,6 +28,11 @@ namespace Requests
         public static class Reporting
         {
             public static ReportingViewStore ReportingView { get; } = new();
+        }
+
+        public static class OnlineStatus
+        {
+            public static OnlineStatusStore Status { get; } = new();
         }
     }
 }

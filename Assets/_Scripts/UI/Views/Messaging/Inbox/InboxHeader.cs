@@ -1,4 +1,6 @@
-﻿using Settings;
+﻿using Requests;
+using Settings;
+using SharedLibrary.Communications.OnlineStatus;
 using UI.Base;
 using UnityEngine;
 using UnityEngine.UIElements;
@@ -31,6 +33,7 @@ namespace UI.Views.Messaging.Inbox
                     });
                 });
             }
+
             Add(BackButton);
 
             Avatar = new VisualElement { name = "Avatar" };
@@ -48,8 +51,29 @@ namespace UI.Views.Messaging.Inbox
             StatusText = new TextElement { name = "StatusText" };
             StatusText.AddToClassList("sub-text");
             StatusText.AddToClassList("white-text");
-            StatusText.text = "Online?";
+            StatusText.text = "Offline";
             TextContainer.Add(StatusText);
+
+            DataStoreManager.OnlineStatus.Status.DataUpdated += DataUpdatedHandler;
+        }
+
+        ~InboxHeader()
+        {
+            DataStoreManager.OnlineStatus.Status.DataUpdated -= DataUpdatedHandler;
+        }
+
+        private void DataUpdatedHandler(OnlineStatusBroadcastData data)
+        {
+            Debug.Log("AAAAAAAAAAAAAAAAAAA");
+            UpdateStatus();
+        }
+
+        public void UpdateStatus()
+        {
+            var otherUserAccountId = DataStoreManager.Messaging.InboxMessageList.OtherUserAccountId;
+
+            if (DataStoreManager.OnlineStatus.Status.Data.OnlineAccountIds.Contains(otherUserAccountId)) StatusText.text = "Online";
+            else StatusText.text = "Offline";
         }
     }
 }

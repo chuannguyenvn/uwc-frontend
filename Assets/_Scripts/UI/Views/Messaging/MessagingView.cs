@@ -30,6 +30,7 @@ namespace UI.Views.Messaging
         public override void FocusView()
         {
             DataStoreManager.Messaging.ContactList.Focus();
+            InboxContainer.InboxHeader.UpdateStatus();
         }
 
         public override void UnfocusView()
