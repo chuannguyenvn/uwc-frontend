@@ -18,6 +18,9 @@ namespace UI.Base
 {
     public class Root : VisualElement
     {
+        public static bool IsMouseOverElement;
+        public static bool IsMouseDownElement;
+
         public AuthenticationScreen AuthenticationScreen;
 
         public NavigationBar NavigationBar;
@@ -46,6 +49,9 @@ namespace UI.Base
 
             AuthenticationManager.LoggedIn += CloseAuthenticationScreen;
             AuthenticationManager.LoggedOut += OpenAuthenticationScreen;
+
+            RegisterCallback<MouseUpEvent>(evt => { IsMouseDownElement = false; });
+            RegisterCallback<MouseOutEvent>(evt => { IsMouseOverElement = false; });
         }
 
         ~Root()
@@ -94,7 +100,7 @@ namespace UI.Base
                 ReportingView = new ReportingView();
                 MessagingView = new MessagingView();
                 SettingsView = new SettingsView();
-                
+
                 ViewsByViewType.Add(ViewType.Workers, WorkersView);
                 ViewsByViewType.Add(ViewType.Mcps, McpsView);
                 ViewsByViewType.Add(ViewType.Vehicles, VehiclesView);
@@ -108,7 +114,7 @@ namespace UI.Base
                 StatusView = new StatusView();
                 MessagingView = new MessagingView();
                 SettingsView = new SettingsView();
-                
+
                 ViewsByViewType.Add(ViewType.Tasks, TasksView);
                 ViewsByViewType.Add(ViewType.Status, StatusView);
                 ViewsByViewType.Add(ViewType.Messaging, MessagingView);
