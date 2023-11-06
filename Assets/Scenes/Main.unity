@@ -249,15 +249,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e647aef79998b6740a728a33d59d61ec, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  map: {fileID: 0}
-  duration: 0.3
-  fromZoom: 0
-  toZoom: 0
-  progress: 0
-  isAnim: 0
-  control: {fileID: 0}
-  inputPosition: {x: 0, y: 0}
-  lastUpdateTime: 0
 --- !u!114 &268021860
 MonoBehaviour:
   m_ObjectHideFlags: 0

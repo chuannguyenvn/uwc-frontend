@@ -1,15 +1,13 @@
-﻿using System.Collections.Generic;
-using System.Linq;
-using Authentication;
-using Commons.Communications.Authentication;
-using Commons.Communications.Map;
-using Requests;
-using UnityEngine;
+﻿using UI.Base;
 
 namespace Maps
 {
     public class MapManager : PersistentSingleton<MapManager>
     {
-
+        private void Update()
+        {
+            OnlineMaps.instance.control.allowZoom =
+                OnlineMaps.instance.control.allowUserControl = !Root.IsMouseOverElement && !Root.IsMouseDownElement;
+        }
     }
 }
