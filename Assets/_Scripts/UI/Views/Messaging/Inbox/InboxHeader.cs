@@ -64,7 +64,6 @@ namespace UI.Views.Messaging.Inbox
 
         private void DataUpdatedHandler(OnlineStatusBroadcastData data)
         {
-            Debug.Log("AAAAAAAAAAAAAAAAAAA");
             UpdateStatus();
         }
 
