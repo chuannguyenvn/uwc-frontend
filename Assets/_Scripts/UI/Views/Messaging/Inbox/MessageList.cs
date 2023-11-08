@@ -42,7 +42,9 @@ namespace UI.Views.Messaging.Inbox
 
         private void ScrollToLastMessage(VisualElement item)
         {
-            int remainingIterations = 4;
+            if (item == null) return;
+            
+            var remainingIterations = 4;
 
             void TryScroll()
             {

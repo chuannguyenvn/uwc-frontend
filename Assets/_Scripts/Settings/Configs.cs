@@ -11,7 +11,7 @@ namespace Settings
 #endif
 
         public const bool IS_DEVELOPMENT = true;
-        
+
         public static readonly List<ViewType> DesktopViewTypes = new()
         {
             ViewType.Map,

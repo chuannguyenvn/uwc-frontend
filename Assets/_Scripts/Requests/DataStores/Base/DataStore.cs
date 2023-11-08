@@ -9,7 +9,7 @@ namespace Requests.DataStores.Base
 
         public T Data { get; set; }
 
-        protected void OnDataUpdated(T data)
+        protected virtual void OnDataUpdated(T data)
         {
             Data = data;
             DataUpdated?.Invoke(data);
