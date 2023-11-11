@@ -1,0 +1,12 @@
+.mcps-view {
+    flex-direction: column;
+}
+
+.mcps-view #ControlsContainer {
+    height: 100px;
+    flex-shrink: 0;
+}
+
+.mcps-view #ScrollView {
+    flex-grow: 1;
+}

@@ -2,6 +2,7 @@
 using Commons.Models;
 using Requests;
 using UI.Base;
+using UI.Reusables;
 using UnityEngine;
 using UnityEngine.UIElements;
 using Random = UnityEngine.Random;
@@ -11,17 +12,24 @@ namespace UI.Views.Mcps
     public class McpsView : View
     {
         private VisualElement _controlsContainer;
+        private SearchBar _searchBar;
         private ScrollView _scrollView;
+        
+        private Dictionary<string, McpListEntry> _mcpListEntriesByAddress = new ();
 
         public McpsView() : base(nameof(McpsView))
         {
             styleSheets.Add(Resources.Load<StyleSheet>("Stylesheets/Views/Mcps/McpsView"));
             AddToClassList("side-view");
+            AddToClassList("mcps-view");
 
             _controlsContainer = new VisualElement { name = "ControlsContainer" };
             Add(_controlsContainer);
             
-            _scrollView = new ScrollView();
+            _searchBar = new SearchBar(SearchHandler);
+            _controlsContainer.Add(_searchBar);
+            
+            _scrollView = new ScrollView() {name = "ScrollView"};
             _scrollView.AddToClassList("list-view");
             Add(_scrollView);
 
@@ -38,7 +46,9 @@ namespace UI.Views.Mcps
             _scrollView.Clear();
             foreach (var mcpData in data)
             {
-                _scrollView.Add(new McpListEntry(mcpData, Random.Range(0f, 100f)));
+                var entry = new McpListEntry(mcpData, Random.Range(0f, 100f));
+                _scrollView.Add(entry);
+                _mcpListEntriesByAddress[mcpData.Address] = entry;
             }
         }
 
@@ -50,6 +60,22 @@ namespace UI.Views.Mcps
         public override void UnfocusView()
         {
             DataStoreManager.Mcps.ListView.Unfocus();
+        }
+        
+        private void SearchHandler(string text)
+        {
+            text = Utility.RemoveDiacritics(text).ToLower();
+            foreach (var (address, entry) in _mcpListEntriesByAddress)
+            {
+                if (Utility.RemoveDiacritics(address).ToLower().Contains(text) || text == "")
+                {
+                    entry.style.display = DisplayStyle.Flex;
+                }
+                else
+                {
+                    entry.style.display = DisplayStyle.None;
+                }
+            }
         }
         
         public new class UxmlFactory : UxmlFactory<McpsView, UxmlTraits>
