@@ -51,6 +51,19 @@ namespace UI.Views.Mcps
             CurrentLoadPercentageText.AddToClassList("grey-text");
             CurrentLoadPercentageText.text = currentLoadPercentage.ToString("F2") + "%";
             TextContainer.Add(CurrentLoadPercentageText);
+
+            if (currentLoadPercentage < 90)
+            {
+                AvatarContainer.AddToClassList("not-full");
+            }
+            else if (currentLoadPercentage < 100)
+            {
+                AvatarContainer.AddToClassList("almost-full");
+            }
+            else
+            {
+                AvatarContainer.AddToClassList("full");
+            }
         }
 
         private void CreateLogs()

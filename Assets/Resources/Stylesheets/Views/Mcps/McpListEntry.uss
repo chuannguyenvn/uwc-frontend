@@ -29,12 +29,22 @@
     width: 64px;
     height: 64px;
     margin-right: 12px;
-    background-color: aqua;
     border-radius: 12px;
     align-items: center;
     justify-content: center;
 }
 
+.not-full#AvatarContainer{
+    background-color: var(--mcp-not-full-color);
+}
+
+.almost-full#AvatarContainer{
+    background-color: var(--mcp-almost-full-color);
+}
+
+.full#AvatarContainer{
+    background-color: var(--mcp-full-color);
+}
 #Avatar {
     width: 70%;
     height: 70%;
