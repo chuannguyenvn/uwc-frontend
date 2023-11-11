@@ -23,7 +23,7 @@ namespace UI.Views.Mcps
             AddToClassList("log-entry");
 
             TextElement = new TextElement { name = "TextElement" };
-            TextElement.AddToClassList("sub-text");
+            TextElement.AddToClassList("sub-sub-text");
             TextElement.AddToClassList("white-text");
             Add(TextElement);
             
