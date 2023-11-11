@@ -15,7 +15,6 @@ namespace UI.Views.Mcps
         public McpsView() : base(nameof(McpsView))
         {
             styleSheets.Add(Resources.Load<StyleSheet>("Stylesheets/Views/Mcps/McpsView"));
-            styleSheets.Add(Resources.Load<StyleSheet>("Stylesheets/Views/Mcps/McpListEntry"));
             AddToClassList("side-view");
 
             _scrollView = new ScrollView();
@@ -47,6 +46,10 @@ namespace UI.Views.Mcps
         public override void UnfocusView()
         {
             DataStoreManager.Mcps.ListView.Unfocus();
+        }
+        
+        public new class UxmlFactory : UxmlFactory<McpsView, UxmlTraits>
+        {
         }
     }
 }

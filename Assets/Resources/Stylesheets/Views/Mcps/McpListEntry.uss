@@ -1,13 +1,28 @@
 ﻿#McpListEntry {
     width: 100%;
-    height: 64px;
-    flex-direction: row;
+    flex-direction: column;
     margin-top: 4px;
     margin-bottom: 4px;
 }
 
+#InformationContainer{
+    width: 100%;
+    height: 64px;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+}
+
 #TextContainer {
     justify-content: center;
+}
+
+#LogsContainer {
+    margin-left: 64px;
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+    flex-wrap: wrap;
 }
 
 #Avatar {
