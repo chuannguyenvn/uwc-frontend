@@ -1,6 +1,6 @@
 .search-bar {
     height: 48px;
-    margin: 8px;
+    margin: 16px;
 }
 
 .search-bar #SearchField {

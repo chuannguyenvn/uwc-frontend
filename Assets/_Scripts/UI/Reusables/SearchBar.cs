@@ -30,19 +30,13 @@ namespace UI.Reusables
             _searchIcon = new VisualElement { name = "SearchIcon" };
             _searchButton.Add(_searchIcon);
 
-            _searchButton.clicked += SearchButtonHandler;
             _searchField.RegisterCallback<ChangeEvent<string>>(e =>
             {
-                SearchButtonHandler();
+                Search();
             });
         }
 
-        ~SearchBar()
-        {
-            _searchButton.clicked -= SearchButtonHandler;
-        }
-
-        private void SearchButtonHandler()
+        private void Search()
         {
             _searched?.Invoke(_searchField.text);
         }
