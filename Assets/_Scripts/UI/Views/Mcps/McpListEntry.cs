@@ -39,7 +39,7 @@ namespace UI.Views.Mcps
             AddressText = new TextElement { name = "AddressText" };
             AddressText.AddToClassList("normal-text");
             AddressText.AddToClassList("black-text");
-            AddressText.text = mcpData.Address;
+            AddressText.text = Utility.RemoveDiacritics(mcpData.Address);
             TextContainer.Add(AddressText);
 
             CurrentLoadPercentageText = new TextElement { name = "CurrentLoadPercentageText" };

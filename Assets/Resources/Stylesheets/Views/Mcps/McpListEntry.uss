@@ -1,8 +1,7 @@
 ﻿#McpListEntry {
-    width: 100%;
     flex-direction: column;
-    margin-top: 4px;
-    margin-bottom: 4px;
+    margin: 8px;
+    padding: 8px;
 }
 
 #InformationContainer{
