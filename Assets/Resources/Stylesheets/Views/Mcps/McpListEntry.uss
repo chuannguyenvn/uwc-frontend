@@ -1,10 +1,10 @@
-﻿#McpListEntry {
+#McpListEntry {
     flex-direction: column;
     margin: 8px;
     padding: 8px;
 }
 
-#InformationContainer{
+#InformationContainer {
     width: 100%;
     height: 64px;
     flex-direction: row;
@@ -18,13 +18,26 @@
 
 #LogsContainer {
     margin-left: 64px;
+    margin-top: 8px;
     flex-direction: row;
     justify-content: flex-start;
     align-items: center;
     flex-wrap: wrap;
 }
 
-#Avatar {
+#AvatarContainer {
     width: 64px;
     height: 64px;
+    margin-right: 12px;
+    background-color: aqua;
+    border-radius: 12px;
+    align-items: center;
+    justify-content: center;
+}
+
+#Avatar {
+    width: 70%;
+    height: 70%;
+    background-image: url('project://database/Assets/Graphics/Icons/recycling.svg?fileID=7388822144124034973&guid=c4f880610e7f77b4cb11f67415f4d3bd&type=3#recycling');
+    -unity-background-image-tint-color: white;
 }

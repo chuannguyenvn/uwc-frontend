@@ -9,11 +9,12 @@ namespace UI.Views.Mcps
     public class McpListEntry : AdaptiveElement
     {
         public VisualElement InformationContainer;
-        public Image Image;
+        public VisualElement AvatarContainer;
+        public Image Avatar;
         public VisualElement TextContainer;
         public TextElement AddressText;
         public TextElement CurrentLoadPercentageText;
-        
+
         public VisualElement LogsContainer;
 
         public McpListEntry(McpData mcpData, float currentLoadPercentage) : base(nameof(McpListEntry))
@@ -29,9 +30,12 @@ namespace UI.Views.Mcps
         {
             InformationContainer = new VisualElement { name = "InformationContainer" };
             Add(InformationContainer);
-            
-            Image = new Image { name = "Avatar" };
-            InformationContainer.Add(Image);
+
+            AvatarContainer = new VisualElement { name = "AvatarContainer" };
+            InformationContainer.Add(AvatarContainer);
+
+            Avatar = new Image { name = "Avatar" };
+            AvatarContainer.Add(Avatar);
 
             TextContainer = new VisualElement { name = "TextContainer" };
             InformationContainer.Add(TextContainer);
