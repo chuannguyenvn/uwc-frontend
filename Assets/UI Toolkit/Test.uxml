@@ -1,3 +1,3 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
-    <ui:VisualElement style="flex-grow: 1; background-image: url(&apos;project://database/Assets/Graphics/Icons/map-hollow.svg?fileID=7388822144124034973&amp;guid=934883b1200d85849b9f37294a196bed&amp;type=3#map-hollow&apos;); background-color: rgba(255, 255, 255, 0);" />
+    <UI.Reusables.SearchBar />
 </ui:UXML>

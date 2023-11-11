@@ -10,6 +10,7 @@ namespace UI.Views.Mcps
 {
     public class McpsView : View
     {
+        private VisualElement _controlsContainer;
         private ScrollView _scrollView;
 
         public McpsView() : base(nameof(McpsView))
@@ -17,6 +18,9 @@ namespace UI.Views.Mcps
             styleSheets.Add(Resources.Load<StyleSheet>("Stylesheets/Views/Mcps/McpsView"));
             AddToClassList("side-view");
 
+            _controlsContainer = new VisualElement { name = "ControlsContainer" };
+            Add(_controlsContainer);
+            
             _scrollView = new ScrollView();
             _scrollView.AddToClassList("list-view");
             Add(_scrollView);
