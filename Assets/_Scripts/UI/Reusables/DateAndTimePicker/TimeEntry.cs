@@ -15,6 +15,7 @@ namespace UI.Reusables.DateAndTimePicker
 
             _timeText = new TextElement { name = "DateText" };
             _timeText.AddToClassList("normal-text");
+            _timeText.AddToClassList("grey-text");
             Add(_timeText);
             
             _amPmText = new TextElement { name = "AmPmText" };
@@ -27,6 +28,18 @@ namespace UI.Reusables.DateAndTimePicker
         {
             _timeText.text = time.ToString("hh:mm");
             _amPmText.text = time.ToString("tt");
+        }
+        
+        public void SetSelected(bool selected)
+        {
+            if (selected)
+            {
+                AddToClassList("selected");
+            }
+            else
+            {
+                RemoveFromClassList("selected");
+            }
         }
     }
 }

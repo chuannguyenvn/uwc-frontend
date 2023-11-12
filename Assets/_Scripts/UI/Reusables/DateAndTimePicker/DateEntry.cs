@@ -19,12 +19,25 @@ namespace UI.Reusables.DateAndTimePicker
 
             _dateText = new TextElement { name = "DateText" };
             _dateText.AddToClassList("normal-text");
+            _dateText.AddToClassList("grey-text");
             Add(_dateText);
         }
 
         public void SetDate(DateTime date)
         {
             _dateText.text = date.ToString("dd");
+        }
+        
+        public void SetSelected(bool selected)
+        {
+            if (selected)
+            {
+                AddToClassList("selected");
+            }
+            else
+            {
+                RemoveFromClassList("selected");
+            }
         }
     }
 }

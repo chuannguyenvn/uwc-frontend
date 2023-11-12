@@ -17,6 +17,8 @@ namespace UI.Reusables.DateAndTimePicker
             CreatePreviousDateButton();
             CreateDateEntries();
             CreateNextDateButton();
+
+            Refresh();
         }
 
         private void CreateDateEntries()
@@ -30,7 +32,6 @@ namespace UI.Reusables.DateAndTimePicker
             for (var i = 0; i < 7; i++)
             {
                 var dateEntry = new DateEntry(daysInWeek[i]);
-                dateEntry.SetDate(DateTime.Today.AddDays(i));
                 _dateEntries.Add(dateEntry);
                 _dateEntriesContainer.Add(dateEntry);
             }
@@ -50,6 +51,18 @@ namespace UI.Reusables.DateAndTimePicker
             _nextDateButton.AddToClassList("picker-button");
             _nextDateButton.AddToClassList("next-picker-button");
             Add(_nextDateButton);
+        }
+
+        public void Refresh()
+        {
+            var now = DateTime.Now;
+            var firstDayOfWeek = now.AddDays(-(int)now.DayOfWeek - 6);
+            for (var i = 0; i < 7; i++)
+            {
+                var date = firstDayOfWeek.AddDays(i);
+                _dateEntries[i].SetDate(date);
+                _dateEntries[i].SetSelected(date.Day == now.Day);
+            }
         }
     }
 }

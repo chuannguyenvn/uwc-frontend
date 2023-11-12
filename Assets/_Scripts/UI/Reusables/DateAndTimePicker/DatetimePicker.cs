@@ -10,7 +10,6 @@ namespace UI.Reusables.DateAndTimePicker
         private DateContainer _dateContainer;
         private TimeContainer _timeContainer;
 
-
         public DatetimePicker() : base(nameof(DatetimePicker))
         {
             styleSheets.Add(Resources.Load<StyleSheet>("Stylesheets/Reusables/DatetimePicker"));
@@ -39,6 +38,13 @@ namespace UI.Reusables.DateAndTimePicker
             Add(_timeContainer);
         }
 
+        public void Show()
+        {
+            _monthAndYearContainer.Refresh();
+            _dateContainer.Refresh();
+            _timeContainer.Refresh();
+        }
+        
         public new class UxmlFactory : UxmlFactory<DatetimePicker, UxmlTraits>
         {
         }
