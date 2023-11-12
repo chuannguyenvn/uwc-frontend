@@ -80,3 +80,23 @@
 .desktop .list-entry:hover {
     background-color: var(--grey-color);
 }
+
+.white-button {
+    background-color: var(--white-text-color);
+}
+
+.colored-button {
+    background-color: var(--theme-color);
+}
+
+.active-button.white-button:hover {
+    background-color: var(--grey-color);
+}
+
+.active-button.colored-button:hover {
+    background-color: rgb(40, 90, 56);
+}
+
+.inactive-button {
+    background-color: var(--grey-color);
+}

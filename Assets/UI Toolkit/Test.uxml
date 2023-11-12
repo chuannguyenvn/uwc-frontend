@@ -1,7 +1,7 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="project://database/Assets/Resources/Stylesheets/Common.uss?fileID=7433441132597879392&amp;guid=b143485b20294be4a84594fdfb10686d&amp;type=3#Common" />
     <Style src="project://database/Assets/Resources/Stylesheets/Reusables/Flow.uss?fileID=7433441132597879392&amp;guid=8ce5339f556141589a604be1a0a5f4ce&amp;type=3#Flow" />
     <Style src="project://database/Assets/Resources/Stylesheets/Views/Workers/WorkerListEntry.uss?fileID=7433441132597879392&amp;guid=cd8f33a9ece44a07b29766217a9b31e8&amp;type=3#WorkerListEntry" />
     <Style src="project://database/Assets/Resources/Stylesheets/Views/Mcps/McpListEntry.uss?fileID=7433441132597879392&amp;guid=39c427f2d67c49689e7182f552456b19&amp;type=3#McpListEntry" />
-    <Style src="project://database/Assets/Resources/Stylesheets/Common.uss?fileID=7433441132597879392&amp;guid=b143485b20294be4a84594fdfb10686d&amp;type=3#Common" />
     <UI.Views.Mcps.AssignTaskProcedure.AssignTaskFlow />
 </ui:UXML>

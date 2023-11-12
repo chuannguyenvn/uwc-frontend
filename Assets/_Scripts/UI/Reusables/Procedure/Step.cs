@@ -105,7 +105,6 @@ namespace UI.Reusables.Procedure
 
         private void Deactivate()
         {
-            
             StepContainer.style.display = DisplayStyle.None;
             _stepTitleText.AddToClassList("black-text");
             _stepTitleText.RemoveFromClassList("white-text");
@@ -113,10 +112,11 @@ namespace UI.Reusables.Procedure
             RemoveFromClassList("active");
             _isActive = false;
 
-            if (_isInteracted && (CheckCompletion() || (_completeImmediately && !IsCompleted))) MarkComplete(true);
+            if (_isInteracted && (CheckStepCompletion() || (_completeImmediately && !IsCompleted))) MarkComplete(true);
+            _flow.CheckFlowCompletion();
         }
 
-        protected abstract bool CheckCompletion();
+        protected abstract bool CheckStepCompletion();
 
         public void MarkComplete(bool isCompleted)
         {

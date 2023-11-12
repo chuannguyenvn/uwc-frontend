@@ -26,7 +26,7 @@ namespace UI.Views.Mcps.AssignTaskProcedure
             }
         }
 
-        protected override bool CheckCompletion()
+        protected override bool CheckStepCompletion()
         {
             return true;
         }
