@@ -6,6 +6,7 @@ namespace UI.Views.Mcps.AssignTaskProcedure
     public sealed class AssignTaskFlow : Flow
     {
         private ChooseMcpsStep _chooseMcpsStep;
+        private ChooseWorkerStep _chooseWorkerStep;
 
         public AssignTaskFlow() : base(nameof(AssignTaskFlow))
         {
@@ -13,8 +14,11 @@ namespace UI.Views.Mcps.AssignTaskProcedure
 
         protected override void CreateSteps()
         {
-            _chooseMcpsStep = new ChooseMcpsStep(this);
-            Add(_chooseMcpsStep);
+            _chooseMcpsStep = new ChooseMcpsStep(this, 1);
+            AddStep(_chooseMcpsStep);
+
+            _chooseWorkerStep = new ChooseWorkerStep(this, 2);
+            AddStep(_chooseWorkerStep);
         }
 
         public override void SubmitResult()

@@ -1,21 +1,27 @@
 ﻿using Commons.Models;
 using UI.Reusables.Procedure;
-using UnityEngine;
+using UI.Views.Workers;
 using UnityEngine.UIElements;
 
 namespace UI.Views.Mcps.AssignTaskProcedure
 {
-    public class ChooseMcpsStep : Step
+    public class ChooseWorkerStep : Step
     {
         private ScrollView _scrollView;
 
-        public ChooseMcpsStep(Flow flow, int stepIndex) : base(flow, stepIndex, false, "Choose the MCPs that you want to be collected.")
+        public ChooseWorkerStep(Flow flow, int stepIndex) : base(flow, stepIndex, true, "Choose the workers to assign.",
+            "Leave this step empty if you want to use smart assignment.")
         {
             _scrollView = new ScrollView();
             AddToContainer(_scrollView);
             for (int i = 0; i < 5; i++)
             {
-                var entry = new McpListEntry(new McpData() { Address = "Test" }, Random.Range(0f, 100f));
+                var entry = new WorkerListEntry(new UserProfile()
+                {
+                    FirstName = "Test",
+                    LastName = "Test",
+                    Address = "Test"
+                });
                 _scrollView.Add(entry);
             }
         }

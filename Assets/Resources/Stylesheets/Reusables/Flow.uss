@@ -1,16 +1,27 @@
 .flow {
+    flex-grow: 1;
 }
 
 .step {
-    flex-grow: 1;
+    flex-grow: 0;
     background-color: rgb(255, 255, 255);
+    flex-shrink: 0;
 }
 
-.step #StepTitleText {
+.step #StepTitleContainer {
+    flex-shrink: 0;
     padding-top: 12px;
     padding-right: 12px;
     padding-bottom: 12px;
     padding-left: 12px;
+}
+
+.step #StepTitleText {
+    flex-shrink: 0;
+}
+
+.step #StepSubTitleText {
+    padding-left: 26px;
     flex-shrink: 0;
 }
 
@@ -22,13 +33,18 @@
     padding-bottom: 12px;
     padding-left: 12px;
     flex-shrink: 0;
+    margin-top: 0;
+    margin-right: 0;
+    margin-bottom: 0;
+    margin-left: 0;
 }
 
 .step #StepContainer {
-    padding-top: -12px;
-    padding-right: -12px;
-    padding-bottom: -12px;
-    padding-left: -12px;
+    padding-top: 0;
+    padding-right: 0;
+    padding-bottom: 0;
+    padding-left: 0;
+    flex-grow: 1;
 }
 
 .step #StepContainerShadow {
@@ -44,6 +60,19 @@
     right: 0;
 }
 
-.step .active {
+.step.active {
+    flex-shrink: 1;
+}
+
+.step.active #StepTitleContainer {
     background-color: var(--theme-color);
+    flex-shrink: 1;
+}
+
+.step #TickIcon {
+    background-image: url('project://database/Assets/Graphics/Icons/done.svg?fileID=7388822144124034973&guid=a9359151c502f634a90d52d4f6ecd3de&type=3#done');
+    -unity-background-scale-mode: scale-to-fit;
+    width: 16px;
+    height: 16px;
+    -unity-background-image-tint-color: rgb(255, 0, 0);
 }

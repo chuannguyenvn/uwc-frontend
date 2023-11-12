@@ -19,6 +19,12 @@ namespace UI.Reusables.Procedure
             CreateConfirmButton();
         }
 
+        protected void AddStep(Step step)
+        {
+            Steps.Add(step);
+            Add(step);
+        }
+
         protected abstract void CreateSteps();
 
         protected void CreateConfirmButton()
@@ -26,6 +32,8 @@ namespace UI.Reusables.Procedure
             _confirmButton = new TextElement() { name = "ConfirmButton" };
             _confirmButton.RegisterCallback<ClickEvent>(evt => SubmitResult());
             _confirmButton.text = "Confirm";
+            _confirmButton.AddToClassList("normal-text");
+            _confirmButton.AddToClassList("black-text");
             Add(_confirmButton);
         }
 
