@@ -3,9 +3,9 @@ using Commons.Models;
 using Requests;
 using UI.Base;
 using UI.Reusables;
-using UnityEngine;
+using UI.Views.Mcps.AssignTaskProcedure;
 using UnityEngine.UIElements;
-using Random = UnityEngine.Random;
+using UnityEngine;
 
 namespace UI.Views.Mcps
 {
@@ -13,12 +13,12 @@ namespace UI.Views.Mcps
     {
         private VisualElement _controlsContainer;
         private SearchBar _searchBar;
-        private ScrollView _scrollView;
+        private AssignTaskFlow _assignTaskFlow;
+
+        private McpList _mcpList;
 
         private VisualElement _assigningButton;
         private VisualElement _assigningButtonIcon;
-        
-        private Dictionary<string, McpListEntry> _mcpListEntriesByAddress = new ();
 
         public McpsView() : base(nameof(McpsView))
         {
@@ -27,7 +27,7 @@ namespace UI.Views.Mcps
             AddToClassList("mcps-view");
 
             CreateSearchBar();
-            CreateScrollView();
+            CreateMcpList();
             CreateAssigningButton();
         }
 
@@ -38,17 +38,17 @@ namespace UI.Views.Mcps
 
             _searchBar = new SearchBar(SearchHandler);
             _controlsContainer.Add(_searchBar);
+
+            _assignTaskFlow = new AssignTaskFlow();
+            _controlsContainer.Add(_assignTaskFlow);
         }
 
-        private void CreateScrollView()
+        private void CreateMcpList()
         {
-            _scrollView = new ScrollView() { name = "ScrollView" };
-            _scrollView.AddToClassList("list-view");
-            Add(_scrollView);
-
-            DataStoreManager.Mcps.ListView.DataUpdated += DataUpdatedHandler;
+            _mcpList = new McpList();
+            Add(_mcpList);
         }
-        
+
         private void CreateAssigningButton()
         {
             _assigningButton = new VisualElement { name = "AssigningButton" };
@@ -57,22 +57,6 @@ namespace UI.Views.Mcps
 
             _assigningButtonIcon = new VisualElement { name = "AssigningButtonIcon" };
             _assigningButton.Add(_assigningButtonIcon);
-        }
-
-        ~McpsView()
-        {
-            DataStoreManager.Mcps.ListView.DataUpdated -= DataUpdatedHandler;
-        }
-
-        private void DataUpdatedHandler(List<McpData> data)
-        {
-            _scrollView.Clear();
-            foreach (var mcpData in data)
-            {
-                var entry = new McpListEntry(mcpData, Random.Range(0f, 100f));
-                _scrollView.Add(entry);
-                _mcpListEntriesByAddress[mcpData.Address] = entry;
-            }
         }
 
         public override void FocusView()
@@ -84,11 +68,11 @@ namespace UI.Views.Mcps
         {
             DataStoreManager.Mcps.ListView.Unfocus();
         }
-        
+
         private void SearchHandler(string text)
         {
             text = Utility.RemoveDiacritics(text).ToLower();
-            foreach (var (address, entry) in _mcpListEntriesByAddress)
+            foreach (var (address, entry) in _mcpList.McpListEntriesByAddress)
             {
                 if (Utility.RemoveDiacritics(address).ToLower().Contains(text) || text == "")
                 {
@@ -100,10 +84,9 @@ namespace UI.Views.Mcps
                 }
             }
         }
-        
+
         public void ToggleAssigningMode(bool isAssigning)
         {
-            
         }
     }
 }

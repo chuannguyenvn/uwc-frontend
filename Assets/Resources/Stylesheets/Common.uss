@@ -22,19 +22,19 @@
 }
 
 .desktop .title-text {
-    font-size: 30px;
-}
-
-.desktop .normal-text {
     font-size: 25px;
 }
 
-.desktop .sub-text {
+.desktop .normal-text {
     font-size: 20px;
 }
 
+.desktop .sub-text {
+    font-size: 16px;
+}
+
 .desktop .sub-sub-text {
-    font-size: 12px;
+    font-size: 10px;
 }
 
 .mobile .title-text {
@@ -69,6 +69,10 @@
     color: var(--theme-color);
 }
 
+.list-view {
+    flex-grow: 1;
+}
+
 .desktop .list-entry {
     border-radius: 8px;
 }
@@ -100,3 +104,4 @@
 .inactive-button {
     background-color: var(--grey-color);
 }
+

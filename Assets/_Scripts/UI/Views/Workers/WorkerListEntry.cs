@@ -1,5 +1,6 @@
 ﻿using Commons.Models;
 using UI.Base;
+using UnityEngine;
 using UnityEngine.UIElements;
 
 namespace UI.Views.Workers
@@ -14,6 +15,7 @@ namespace UI.Views.Workers
 
         public WorkerListEntry(UserProfile profile) : base(nameof(WorkerListEntry))
         {
+            styleSheets.Add(Resources.Load<StyleSheet>("Stylesheets/Views/Workers/WorkerListEntry"));
             AddToClassList("list-entry");
 
             _image = new Image { name = "Avatar" };

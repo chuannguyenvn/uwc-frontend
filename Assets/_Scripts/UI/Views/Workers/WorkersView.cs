@@ -12,7 +12,6 @@ namespace UI.Views.Workers
         public WorkersView() : base(nameof(WorkersView))
         {
             styleSheets.Add(Resources.Load<StyleSheet>("Stylesheets/Views/Workers/WorkersView"));
-            styleSheets.Add(Resources.Load<StyleSheet>("Stylesheets/Views/Workers/WorkerListEntry"));
             AddToClassList("side-view");
             
             _scrollView = new ScrollView();
