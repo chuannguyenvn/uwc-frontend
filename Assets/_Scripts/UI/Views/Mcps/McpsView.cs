@@ -14,6 +14,9 @@ namespace UI.Views.Mcps
         private VisualElement _controlsContainer;
         private SearchBar _searchBar;
         private ScrollView _scrollView;
+
+        private VisualElement _assigningButton;
+        private VisualElement _assigningButtonIcon;
         
         private Dictionary<string, McpListEntry> _mcpListEntriesByAddress = new ();
 
@@ -23,19 +26,39 @@ namespace UI.Views.Mcps
             AddToClassList("side-view");
             AddToClassList("mcps-view");
 
+            CreateSearchBar();
+            CreateScrollView();
+            CreateAssigningButton();
+        }
+
+        private void CreateSearchBar()
+        {
             _controlsContainer = new VisualElement { name = "ControlsContainer" };
             Add(_controlsContainer);
-            
+
             _searchBar = new SearchBar(SearchHandler);
             _controlsContainer.Add(_searchBar);
-            
-            _scrollView = new ScrollView() {name = "ScrollView"};
+        }
+
+        private void CreateScrollView()
+        {
+            _scrollView = new ScrollView() { name = "ScrollView" };
             _scrollView.AddToClassList("list-view");
             Add(_scrollView);
 
             DataStoreManager.Mcps.ListView.DataUpdated += DataUpdatedHandler;
         }
         
+        private void CreateAssigningButton()
+        {
+            _assigningButton = new VisualElement { name = "AssigningButton" };
+            _assigningButton.RegisterCallback<ClickEvent>(ev => ToggleAssigningMode(true));
+            Add(_assigningButton);
+
+            _assigningButtonIcon = new VisualElement { name = "AssigningButtonIcon" };
+            _assigningButton.Add(_assigningButtonIcon);
+        }
+
         ~McpsView()
         {
             DataStoreManager.Mcps.ListView.DataUpdated -= DataUpdatedHandler;
@@ -78,8 +101,9 @@ namespace UI.Views.Mcps
             }
         }
         
-        public new class UxmlFactory : UxmlFactory<McpsView, UxmlTraits>
+        public void ToggleAssigningMode(bool isAssigning)
         {
+            
         }
     }
 }
