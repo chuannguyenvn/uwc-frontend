@@ -25,13 +25,13 @@ namespace UI.Reusables.DateAndTimePicker
 
         private void CreateTimeEntries()
         {
-            _previousTimeText = new TimeEntry() { name = "PreviousTimeText" };
+            _previousTimeText = new TimeEntry(false) { name = "PreviousTimeText" };
             Add(_previousTimeText);
 
-            _currentTimeText = new TimeEntry() { name = "CurrentTimeText" };
+            _currentTimeText = new TimeEntry(true) { name = "CurrentTimeText" };
             Add(_currentTimeText);
 
-            _nextTimeText = new TimeEntry() { name = "NextTimeText" };
+            _nextTimeText = new TimeEntry(false) { name = "NextTimeText" };
             Add(_nextTimeText);
         }
 

@@ -51,3 +51,7 @@
 .datetime-picker .time-text {
     align-items: center;
 }
+
+.datetime-picker .selected {
+    color: var(--theme-color);
+}

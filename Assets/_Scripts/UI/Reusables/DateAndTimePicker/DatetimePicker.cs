@@ -1,4 +1,5 @@
-﻿using UI.Base;
+﻿using System;
+using UI.Base;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -9,6 +10,7 @@ namespace UI.Reusables.DateAndTimePicker
         private MonthAndYearContainer _monthAndYearContainer;
         private DateContainer _dateContainer;
         private TimeContainer _timeContainer;
+        public DateTime SelectedDateTime;
 
         public DatetimePicker() : base(nameof(DatetimePicker))
         {
@@ -40,11 +42,12 @@ namespace UI.Reusables.DateAndTimePicker
 
         public void Show()
         {
+            SelectedDateTime = DateTime.Now;
             _monthAndYearContainer.Refresh();
             _dateContainer.Refresh();
             _timeContainer.Refresh();
         }
-        
+
         public new class UxmlFactory : UxmlFactory<DatetimePicker, UxmlTraits>
         {
         }

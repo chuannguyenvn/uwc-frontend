@@ -9,7 +9,7 @@ namespace UI.Reusables.DateAndTimePicker
         private TextElement _timeText;
         private TextElement _amPmText;
 
-        public TimeEntry() : base(nameof(TimeEntry))
+        public TimeEntry(bool isMiddle) : base(nameof(TimeEntry))
         {
             AddToClassList("time-text");
 
@@ -17,29 +17,23 @@ namespace UI.Reusables.DateAndTimePicker
             _timeText.AddToClassList("normal-text");
             _timeText.AddToClassList("grey-text");
             Add(_timeText);
-            
+
             _amPmText = new TextElement { name = "AmPmText" };
             _amPmText.AddToClassList("sub-sub-text");
             _amPmText.AddToClassList("grey-text");
             Add(_amPmText);
+
+            if (isMiddle)
+            {
+                _timeText.AddToClassList("selected");
+                _amPmText.AddToClassList("selected");
+            }
         }
 
         public void SetTime(DateTime time)
         {
             _timeText.text = time.ToString("hh:mm");
             _amPmText.text = time.ToString("tt");
-        }
-        
-        public void SetSelected(bool selected)
-        {
-            if (selected)
-            {
-                AddToClassList("selected");
-            }
-            else
-            {
-                RemoveFromClassList("selected");
-            }
         }
     }
 }

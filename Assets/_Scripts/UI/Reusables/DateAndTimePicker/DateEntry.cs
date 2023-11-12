@@ -32,11 +32,13 @@ namespace UI.Reusables.DateAndTimePicker
         {
             if (selected)
             {
-                AddToClassList("selected");
+                _dayInWeekText.AddToClassList("selected");
+                _dateText.AddToClassList("selected");
             }
             else
             {
-                RemoveFromClassList("selected");
+                _dayInWeekText.RemoveFromClassList("selected");
+                _dateText.RemoveFromClassList("selected");
             }
         }
     }

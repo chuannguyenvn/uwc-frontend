@@ -12,7 +12,7 @@ namespace UI.Reusables.DateAndTimePicker
         {
             _monthAndYearText = new TextElement { name = "MonthAndYearText" };
             _monthAndYearText.AddToClassList("sub-text");
-            _monthAndYearText.AddToClassList("grey-text");
+            _monthAndYearText.AddToClassList("colored-text");
             Add(_monthAndYearText);
             
             Refresh();
