@@ -23,7 +23,10 @@ namespace UI.Reusables.DateAndTimePicker
 
         private void CreateDateEntries()
         {
-            var daysInWeek = new List<string> { "M", "T", "W", "T", "F", "S", "S" };
+            var daysInWeek = new List<DayOfWeek>
+            {
+                DayOfWeek.Monday, DayOfWeek.Tuesday, DayOfWeek.Wednesday, DayOfWeek.Thursday, DayOfWeek.Friday, DayOfWeek.Saturday, DayOfWeek.Sunday
+            };
 
             _dateEntriesContainer = new VisualElement { name = "DateEntriesContainer" };
             Add(_dateEntriesContainer);
@@ -43,6 +46,8 @@ namespace UI.Reusables.DateAndTimePicker
             _previousDateButton.AddToClassList("picker-button");
             _previousDateButton.AddToClassList("previous-picker-button");
             Add(_previousDateButton);
+
+            _previousDateButton.RegisterCallback<ClickEvent>(ev => DatetimePicker.SelectedDateTime = DatetimePicker.SelectedDateTime.AddDays(-1));
         }
 
         private void CreateNextDateButton()
@@ -51,17 +56,15 @@ namespace UI.Reusables.DateAndTimePicker
             _nextDateButton.AddToClassList("picker-button");
             _nextDateButton.AddToClassList("next-picker-button");
             Add(_nextDateButton);
+
+            _nextDateButton.RegisterCallback<ClickEvent>(ev => DatetimePicker.SelectedDateTime = DatetimePicker.SelectedDateTime.AddDays(1));
         }
 
         public void Refresh()
         {
-            var now = DateTime.Now;
-            var firstDayOfWeek = now.AddDays(-(int)now.DayOfWeek - 6);
             for (var i = 0; i < 7; i++)
             {
-                var date = firstDayOfWeek.AddDays(i);
-                _dateEntries[i].SetDate(date);
-                _dateEntries[i].SetSelected(date.Day == now.Day);
+                _dateEntries[i].Refresh();
             }
         }
     }

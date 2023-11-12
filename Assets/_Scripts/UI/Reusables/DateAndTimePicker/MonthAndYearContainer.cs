@@ -20,7 +20,7 @@ namespace UI.Reusables.DateAndTimePicker
         
         public void Refresh()
         {
-            _monthAndYearText.text = DateTime.Now.ToString("MMMM");
+            _monthAndYearText.text = DatetimePicker.SelectedDateTime.ToString("MMMM");
         }
     }
 }

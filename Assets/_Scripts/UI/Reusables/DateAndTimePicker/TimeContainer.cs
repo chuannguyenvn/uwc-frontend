@@ -33,6 +33,9 @@ namespace UI.Reusables.DateAndTimePicker
 
             _nextTimeText = new TimeEntry(false) { name = "NextTimeText" };
             Add(_nextTimeText);
+            
+            _previousTimeText.RegisterCallback<ClickEvent>(ev => DatetimePicker.SelectedDateTime = DatetimePicker.SelectedDateTime.AddMinutes(-15));
+            _nextTimeText.RegisterCallback<ClickEvent>(ev => DatetimePicker.SelectedDateTime = DatetimePicker.SelectedDateTime.AddMinutes(15));
         }
 
         private void CreatePreviousTimeButton()
@@ -41,6 +44,8 @@ namespace UI.Reusables.DateAndTimePicker
             _previousDateButton.AddToClassList("picker-button");
             _previousDateButton.AddToClassList("previous-picker-button");
             Add(_previousDateButton);
+
+            _previousDateButton.RegisterCallback<ClickEvent>(ev => DatetimePicker.SelectedDateTime = DatetimePicker.SelectedDateTime.AddMinutes(-15));
         }
 
         private void CreateNextTimeButton()
@@ -49,11 +54,13 @@ namespace UI.Reusables.DateAndTimePicker
             _nextDateButton.AddToClassList("picker-button");
             _nextDateButton.AddToClassList("next-picker-button");
             Add(_nextDateButton);
+
+            _nextDateButton.RegisterCallback<ClickEvent>(ev => DatetimePicker.SelectedDateTime = DatetimePicker.SelectedDateTime.AddMinutes(15));
         }
 
         public void Refresh()
         {
-            var now = DateTime.Now;
+            var now = DatetimePicker.SelectedDateTime;
             var roundedTime = new DateTime(now.Year, now.Month, now.Day, now.Hour, 0, 0);
             roundedTime = roundedTime.AddMinutes(Mathf.CeilToInt(now.Minute / 15f) * 15);
 

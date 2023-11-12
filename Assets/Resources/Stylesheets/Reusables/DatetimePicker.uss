@@ -27,6 +27,7 @@
     justify-content: center;
     align-self: center;
     align-items: center;
+    width: 10%;
 }
 
 .datetime-picker .picker-button {
@@ -45,13 +46,15 @@
 
 .datetime-picker #TimeContainer {
     flex-direction: row;
-    justify-content: space-around;
+    justify-content: space-between;
 }
 
 .datetime-picker .time-text {
     align-items: center;
+    width: 25%;
 }
 
 .datetime-picker .selected {
     color: var(--theme-color);
+    -unity-font-definition: url('project://database/Assets/Graphics/Fonts/Segoe%20UI%20Semibold.ttf?fileID=12800000&guid=723807d3d8e26e3449d4983f4b454432&type=3#Segoe UI Semibold');
 }

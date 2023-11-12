@@ -10,7 +10,19 @@ namespace UI.Reusables.DateAndTimePicker
         private MonthAndYearContainer _monthAndYearContainer;
         private DateContainer _dateContainer;
         private TimeContainer _timeContainer;
-        public DateTime SelectedDateTime;
+
+        public static event Action SelectedDateTimeChanged;
+        private static DateTime _selectedDateTime = DateTime.Now;
+
+        public static DateTime SelectedDateTime
+        {
+            get => _selectedDateTime;
+            set
+            {
+                _selectedDateTime = value;
+                SelectedDateTimeChanged?.Invoke();
+            }
+        }
 
         public DatetimePicker() : base(nameof(DatetimePicker))
         {
@@ -20,6 +32,13 @@ namespace UI.Reusables.DateAndTimePicker
             CreateMonthAndYear();
             CreateDate();
             CreateTime();
+
+            SelectedDateTimeChanged += () =>
+            {
+                _monthAndYearContainer.Refresh();
+                _dateContainer.Refresh();
+                _timeContainer.Refresh();
+            };
         }
 
         private void CreateMonthAndYear()
