@@ -9,8 +9,10 @@ namespace UI.Reusables.Procedure
         private readonly int _stepIndex;
         private readonly string _stepTitle;
 
+        private bool _isActive;
         private readonly TextElement _stepTitleText;
         protected readonly VisualElement StepContainer;
+        private readonly VisualElement _stepContainerShadow;
 
         public Step(Flow flow, int stepIndex, string stepTitle) : base(stepTitle)
         {
@@ -30,7 +32,22 @@ namespace UI.Reusables.Procedure
             StepContainer = new VisualElement() { name = "StepContainer" };
             Add(StepContainer);
 
-            RegisterCallback<ClickEvent>(evt => Activate());
+            _stepContainerShadow = new VisualElement() { name = "StepContainerShadow" };
+            _stepContainerShadow.pickingMode = PickingMode.Ignore;
+            StepContainer.Add(_stepContainerShadow);
+
+            _stepTitleText.RegisterCallback<ClickEvent>(evt =>
+            {
+                if (_isActive) Deactivate();
+                else Activate();
+            });
+            Deactivate();
+        }
+
+        protected void AddStep(VisualElement element)
+        {
+            StepContainer.Add(element);
+            _stepContainerShadow.PlaceInFront(element);
         }
 
         private void Activate()
@@ -42,12 +59,14 @@ namespace UI.Reusables.Procedure
 
             StepContainer.style.display = DisplayStyle.Flex;
             AddToClassList("active");
+            _isActive = true;
         }
 
         private void Deactivate()
         {
             StepContainer.style.display = DisplayStyle.None;
             RemoveFromClassList("active");
+            _isActive = false;
         }
     }
 }

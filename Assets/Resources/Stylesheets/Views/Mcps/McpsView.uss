@@ -3,7 +3,6 @@
 }
 
 .mcps-view #ControlsContainer {
-    height: 100px;
     flex-shrink: 0;
 }
 

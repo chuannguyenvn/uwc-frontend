@@ -3,15 +3,15 @@
 
 .step {
     flex-grow: 1;
+    background-color: rgb(255, 255, 255);
+}
+
+.step #StepTitleText {
     padding-top: 12px;
     padding-right: 12px;
     padding-bottom: 12px;
     padding-left: 12px;
-    background-color: rgb(255, 255, 255);
-}
-
-.step .active {
-    background-color: var(--theme-color);
+    flex-shrink: 0;
 }
 
 .flow #ConfirmButton {
@@ -21,7 +21,29 @@
     padding-right: 12px;
     padding-bottom: 12px;
     padding-left: 12px;
+    flex-shrink: 0;
 }
 
 .step #StepContainer {
+    padding-top: -12px;
+    padding-right: -12px;
+    padding-bottom: -12px;
+    padding-left: -12px;
+}
+
+.step #StepContainerShadow {
+    background-image: url('project://database/Assets/Graphics/inner-shadow.png?fileID=-6171994710779600724&guid=6e4a77ed66f6a684caf2a4c399894cb6&type=3#inner-shadow_0');
+    -unity-slice-left: 32;
+    -unity-slice-top: 32;
+    -unity-slice-right: 32;
+    -unity-slice-bottom: 32;
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+}
+
+.step .active {
+    background-color: var(--theme-color);
 }
