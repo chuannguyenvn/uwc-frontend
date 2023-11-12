@@ -1,4 +1,5 @@
-﻿using UI.Base;
+﻿using System.Linq;
+using UI.Base;
 using UnityEngine.UIElements;
 
 namespace UI.Reusables.Procedure
@@ -86,10 +87,14 @@ namespace UI.Reusables.Procedure
 
         private void Activate()
         {
-            foreach (var flowStep in _flow.Steps)
+            foreach (var flowStep in _flow.Steps.Except(new[] { this }))
             {
                 flowStep.Deactivate();
             }
+
+            RegisterCallback<MouseMoveEvent>(TriggerCheckFlowCompletion);
+            RegisterCallback<MouseUpEvent>(TriggerCheckFlowCompletion);
+            RegisterCallback<KeyDownEvent>(TriggerCheckFlowCompletion);
 
             StepContainer.style.display = DisplayStyle.Flex;
             _stepTitleText.AddToClassList("white-text");
@@ -97,14 +102,19 @@ namespace UI.Reusables.Procedure
             if (_stepSubTitle != "") _stepSubTitleText.style.display = DisplayStyle.Flex;
             AddToClassList("active");
             _isActive = true;
+            _isInteracted = true;
 
             if (IsCompleted && !_completeImmediately) MarkComplete(false);
-
-            _isInteracted = true;
+            else if (_completeImmediately) MarkComplete(true);
+            _flow.CheckFlowCompletion();
         }
 
         private void Deactivate()
         {
+            UnregisterCallback<MouseMoveEvent>(TriggerCheckFlowCompletion);
+            UnregisterCallback<MouseUpEvent>(TriggerCheckFlowCompletion);
+            UnregisterCallback<KeyDownEvent>(TriggerCheckFlowCompletion);
+
             StepContainer.style.display = DisplayStyle.None;
             _stepTitleText.AddToClassList("black-text");
             _stepTitleText.RemoveFromClassList("white-text");
@@ -117,6 +127,11 @@ namespace UI.Reusables.Procedure
         }
 
         protected abstract bool CheckStepCompletion();
+
+        private void TriggerCheckFlowCompletion(EventBase evt)
+        {
+            _flow.CheckFlowCompletion();
+        }
 
         public void MarkComplete(bool isCompleted)
         {
