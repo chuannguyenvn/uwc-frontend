@@ -99,4 +99,5 @@
 
 .inactive-button {
     background-color: var(--grey-color);
+    color: rgb(128, 128, 128);
 }
