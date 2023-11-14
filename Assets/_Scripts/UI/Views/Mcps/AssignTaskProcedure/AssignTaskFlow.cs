@@ -7,6 +7,7 @@ namespace UI.Views.Mcps.AssignTaskProcedure
     {
         private ChooseMcpsStep _chooseMcpsStep;
         private ChooseWorkerStep _chooseWorkerStep;
+        private ChooseDatetimeStep _chooseDatetimeStep;
 
         public AssignTaskFlow() : base(nameof(AssignTaskFlow))
         {
@@ -19,6 +20,9 @@ namespace UI.Views.Mcps.AssignTaskProcedure
 
             _chooseWorkerStep = new ChooseWorkerStep(this, 2);
             AddStep(_chooseWorkerStep);
+            
+            _chooseDatetimeStep = new ChooseDatetimeStep(this, 3);
+            AddStep(_chooseDatetimeStep);
         }
 
         public override void SubmitResult()

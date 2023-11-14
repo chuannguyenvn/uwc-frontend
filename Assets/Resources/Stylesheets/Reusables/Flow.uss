@@ -25,6 +25,10 @@
     flex-shrink: 0;
 }
 
+.flow #Expander {
+    flex-grow: 1;
+}
+
 .flow .confirm-button {
     -unity-text-align: upper-center;
     padding-top: 12px;
@@ -74,4 +78,17 @@
     width: 16px;
     height: 16px;
     -unity-background-image-tint-color: rgb(255, 0, 0);
+}
+
+.step #Separator {
+    background-color: rgb(128, 128, 128);
+    flex-grow: 1;
+    flex-shrink: 0;
+    height: 1px;
+    max-height: 1px;
+    min-height: 1px;
+}
+
+.step.active #Separator {
+    display: none;
 }

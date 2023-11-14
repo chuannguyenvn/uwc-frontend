@@ -15,6 +15,7 @@ namespace Settings
         public static readonly List<ViewType> DesktopViewTypes = new()
         {
             ViewType.Map,
+            ViewType.Tasks,
             ViewType.Workers,
             ViewType.Mcps,
             ViewType.Vehicles,

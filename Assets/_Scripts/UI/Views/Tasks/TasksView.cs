@@ -1,5 +1,6 @@
 ﻿using Settings;
 using UI.Base;
+using UI.Views.Mcps.AssignTaskProcedure;
 using UI.Views.Tasks.Details;
 using UI.Views.Tasks.Tasks;
 using UnityEngine;
@@ -11,19 +12,30 @@ namespace UI.Views.Tasks
     {
         public TaskList TaskList;
         public TaskDetails TaskDetails;
+        public AssignTaskFlow AssignTaskFlow;
 
         public TasksView() : base(nameof(TasksView))
         {
             styleSheets.Add(Resources.Load<StyleSheet>("Stylesheets/Views/Tasks/TasksView"));
-            AddToClassList("full-view");
+            
+            if (Configs.IS_DESKTOP)
+            {
+                AddToClassList("side-view");
 
-            TaskList = new TaskList();
-            Add(TaskList);
-            
-            TaskDetails = new TaskDetails();
-            Add(TaskDetails);
-            
-            if (!Configs.IS_DESKTOP) TaskDetails.style.display = DisplayStyle.None;
+                AssignTaskFlow = new AssignTaskFlow();
+                Add(AssignTaskFlow);
+            }
+            else
+            {
+                AddToClassList("full-view");
+
+                TaskList = new TaskList();
+                Add(TaskList);
+
+                TaskDetails = new TaskDetails();
+                TaskDetails.style.display = DisplayStyle.None;
+                Add(TaskDetails);
+            }
         }
     }
 }

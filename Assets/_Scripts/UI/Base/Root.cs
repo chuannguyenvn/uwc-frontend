@@ -94,6 +94,7 @@ namespace UI.Base
         {
             if (Configs.IS_DESKTOP)
             {
+                TasksView = new TasksView();
                 WorkersView = new WorkersView();
                 McpsView = new McpsView();
                 VehiclesView = new VehiclesView();
@@ -101,6 +102,7 @@ namespace UI.Base
                 MessagingView = new MessagingView();
                 SettingsView = new SettingsView();
 
+                ViewsByViewType.Add(ViewType.Tasks, TasksView);
                 ViewsByViewType.Add(ViewType.Workers, WorkersView);
                 ViewsByViewType.Add(ViewType.Mcps, McpsView);
                 ViewsByViewType.Add(ViewType.Vehicles, VehiclesView);
@@ -139,18 +141,20 @@ namespace UI.Base
 
             switch (viewType)
             {
-                case ViewType.Map:
-                    break;
                 case ViewType.Workers:
+                    WorkersView.FocusView();
                     break;
                 case ViewType.Mcps:
                     McpsView.FocusView();
                     break;
                 case ViewType.Vehicles:
+                    VehiclesView.FocusView();
                     break;
                 case ViewType.Tasks:
+                    TasksView.FocusView();
                     break;
                 case ViewType.Status:
+                    StatusView.FocusView();
                     break;
                 case ViewType.Reporting:
                     ReportingView.FocusView();
@@ -159,9 +163,8 @@ namespace UI.Base
                     MessagingView.FocusView();
                     break;
                 case ViewType.Settings:
+                    SettingsView.FocusView();
                     break;
-                default:
-                    throw new ArgumentOutOfRangeException(nameof(viewType), viewType, null);
             }
         }
 

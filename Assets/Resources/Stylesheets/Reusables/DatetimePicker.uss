@@ -38,10 +38,12 @@
 
 .datetime-picker .previous-picker-button {
     background-image: url('project://database/Assets/Graphics/Icons/chevron-left.svg?fileID=7388822144124034973&guid=6d61e19621b2d0c4da81860a757b1f75&type=3#chevron-left');
+    -unity-background-image-tint-color: var(--theme-color);
 }
 
 .datetime-picker .next-picker-button {
     background-image: url('project://database/Assets/Graphics/Icons/chevron-right.svg?fileID=7388822144124034973&guid=113765864e2698343b99cceb2fb440bc&type=3#chevron-right');
+    -unity-background-image-tint-color: var(--theme-color);
 }
 
 .datetime-picker #TimeContainer {

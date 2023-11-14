@@ -24,7 +24,7 @@ namespace UI.Views.Mcps
 
             TextElement = new TextElement { name = "TextElement" };
             TextElement.AddToClassList("sub-sub-text");
-            TextElement.AddToClassList("white-text");
+            TextElement.AddToClassList("black-text");
             Add(TextElement);
             
             var timestampText = timestamp.ToString("dd/MM");

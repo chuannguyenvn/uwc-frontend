@@ -19,6 +19,7 @@ namespace UI.Reusables.Procedure
         private VisualElement _stepTitleContainer;
         private TextElement _stepTitleText;
         private TextElement _stepSubTitleText;
+        private VisualElement _separator;
 
         protected VisualElement StepContainer;
         private VisualElement _stepContainerShadow;
@@ -67,6 +68,9 @@ namespace UI.Reusables.Procedure
                 if (_isActive) Deactivate();
                 else Activate();
             });
+            
+            _separator = new VisualElement() { name = "Separator" };
+            Add(_separator);
         }
 
         private void CreateSteps()
@@ -104,8 +108,7 @@ namespace UI.Reusables.Procedure
             _isActive = true;
             _isInteracted = true;
 
-            if (IsCompleted && !_completeImmediately) MarkComplete(false);
-            else if (_completeImmediately) MarkComplete(true);
+            MarkComplete(false);
             _flow.CheckFlowCompletion();
         }
 

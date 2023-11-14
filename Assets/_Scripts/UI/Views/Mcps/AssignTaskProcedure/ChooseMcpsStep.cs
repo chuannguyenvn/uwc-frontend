@@ -15,7 +15,7 @@ namespace UI.Views.Mcps.AssignTaskProcedure
             AddToContainer(_scrollView);
             for (int i = 0; i < 5; i++)
             {
-                var entry = new McpListEntry(new McpData() { Address = "Test" }, Random.Range(0f, 100f));
+                var entry = new McpListEntry(new McpData() { Address = "Test MCP" }, Random.Range(0f, 100f));
                 _scrollView.Add(entry);
             }
         }

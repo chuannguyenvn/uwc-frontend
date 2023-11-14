@@ -3,6 +3,7 @@ using Commons.Models;
 using UI.Base;
 using UnityEngine;
 using UnityEngine.UIElements;
+using Random = UnityEngine.Random;
 
 namespace UI.Views.Mcps
 {
@@ -71,9 +72,9 @@ namespace UI.Views.Mcps
             LogsContainer = new VisualElement { name = "LogsContainer" };
             Add(LogsContainer);
 
-            for (int i = 0; i < 10; i++)
+            for (int i = 0; i < Random.Range(1, 8); i++)
             {
-                LogsContainer.Add(new LogEntry(DateTime.Today));
+                LogsContainer.Add(new LogEntry(DateTime.Today.AddDays(i)));
             }
         }
     }

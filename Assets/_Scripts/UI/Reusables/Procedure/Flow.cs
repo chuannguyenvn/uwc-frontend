@@ -9,6 +9,7 @@ namespace UI.Reusables.Procedure
     public abstract class Flow : AdaptiveElement
     {
         public List<Step> Steps = new();
+        private VisualElement _expander;
         private TextElement _confirmButton;
 
         public Flow(string name) : base(name)
@@ -32,6 +33,9 @@ namespace UI.Reusables.Procedure
 
         protected void CreateConfirmButton()
         {
+            _expander = new VisualElement() { name = "Expander" };
+            Add(_expander);
+            
             _confirmButton = new TextElement() { name = "ConfirmButton" };
             _confirmButton.RegisterCallback<ClickEvent>(evt => SubmitResult());
             _confirmButton.text = "Confirm";
