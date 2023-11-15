@@ -26,6 +26,8 @@ namespace UI.Base
         public NavigationBar NavigationBar;
         public Dictionary<ViewType, View> ViewsByViewType = new();
 
+        private ViewType _mainActiveViewType;
+
         public WorkersView WorkersView { get; private set; }
         public McpsView McpsView { get; private set; }
         public VehiclesView VehiclesView { get; private set; }
@@ -130,11 +132,24 @@ namespace UI.Base
             }
         }
 
-        public void ActivateView(ViewType viewType)
+        public void ActivateView(ViewType viewType, bool asExtension = false)
         {
             foreach (var (type, view) in ViewsByViewType)
             {
-                view.style.display = type == viewType ? DisplayStyle.Flex : DisplayStyle.None;
+                if (!asExtension || type != _mainActiveViewType) view.style.display = DisplayStyle.None;
+            }
+
+            if (viewType != ViewType.Map)
+            {
+                if (viewType == _mainActiveViewType)
+                {
+                    ViewsByViewType[viewType].style.display = DisplayStyle.None;
+                    viewType = ViewType.Map;
+                }
+                else
+                {
+                    ViewsByViewType[viewType].style.display = DisplayStyle.Flex;
+                }
             }
 
             NavigationBar.ActivateView(viewType);
@@ -166,6 +181,8 @@ namespace UI.Base
                     SettingsView.FocusView();
                     break;
             }
+
+            if (!asExtension) _mainActiveViewType = viewType;
         }
 
         public new class UxmlFactory : UxmlFactory<Root, UxmlTraits>

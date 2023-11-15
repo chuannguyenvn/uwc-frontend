@@ -34,8 +34,6 @@ namespace UI.Navigation
                 NavigationItemsByViewType.Add(viewType, navigationItem);
                 Add(navigationItem);
             }
-            
-            
         }
 
         public void ActivateView(ViewType viewType)
@@ -47,19 +45,5 @@ namespace UI.Navigation
 
             NavigationItemsByViewType[viewType].AddToClassList("active");
         }
-
-        #region UXML
-
-        [Preserve]
-        public new class UxmlFactory : UxmlFactory<NavigationBar, UxmlTraits>
-        {
-        }
-
-        [Preserve]
-        public new class UxmlTraits : VisualElement.UxmlTraits
-        {
-        }
-
-        #endregion
     }
 }
