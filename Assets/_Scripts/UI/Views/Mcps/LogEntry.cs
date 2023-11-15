@@ -27,10 +27,10 @@ namespace UI.Views.Mcps
             TextElement.AddToClassList("black-text");
             Add(TextElement);
             
-            var timestampText = timestamp.ToString("dd/MM");
+            var timestampText = timestamp.ToString("hh:mmtt dd/MM");
             if (timestamp.Date == DateTime.Today.Date)
             {
-                timestampText = "Today";
+                timestampText = timestamp.ToString("hh:mmtt") + " today";
             }
             
             if (workerId != -1)

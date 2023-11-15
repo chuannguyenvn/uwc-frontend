@@ -74,7 +74,7 @@ namespace UI.Views.Mcps
 
             for (int i = 0; i < Random.Range(1, 8); i++)
             {
-                LogsContainer.Add(new LogEntry(DateTime.Today.AddDays(i)));
+                LogsContainer.Add(new LogEntry(DateTime.Now.AddDays(i).AddHours(Random.Range(0, 10)).AddMinutes(Random.Range(0, 10) * 15)));
             }
         }
     }
