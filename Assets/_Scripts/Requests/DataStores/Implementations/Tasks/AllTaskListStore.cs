@@ -10,7 +10,7 @@ namespace Requests.DataStores.Implementations.Tasks
         protected override IEnumerator CreateRequest()
         {
             yield return RequestHelper.SendPostRequest<GetAllTasksResponse>(
-                Endpoints.TaskData.GetTasksOfWorker,
+                Endpoints.TaskData.GetAllTasks,
                 null,
                 (success, response) =>
                 {

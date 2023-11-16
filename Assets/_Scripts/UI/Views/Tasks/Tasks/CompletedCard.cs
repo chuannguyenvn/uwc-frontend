@@ -1,4 +1,5 @@
-﻿using UI.Base;
+﻿using Commons.Models;
+using UI.Base;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -10,7 +11,7 @@ namespace UI.Views.Tasks.Tasks
         public TextElement AddressText;
         public VisualElement CrossLine;
 
-        public CompletedCard() : base(nameof(CompletedCard))
+        public CompletedCard(TaskData taskData) : base(nameof(CompletedCard))
         {
             styleSheets.Add(Resources.Load<StyleSheet>("Stylesheets/Views/Tasks/Tasks/CompletedCard"));
             AddToClassList("task-card");
@@ -19,7 +20,7 @@ namespace UI.Views.Tasks.Tasks
             Add(ContentContainer);
 
             AddressText = new TextElement { name = "AddressText" };
-            AddressText.text = "Address";
+            AddressText.text = taskData.McpData.Address;
             AddressText.AddToClassList("normal-text");
             AddressText.AddToClassList("grey-text");
             ContentContainer.Add(AddressText);

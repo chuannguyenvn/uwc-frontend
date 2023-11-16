@@ -20,6 +20,11 @@ namespace UI.Views.Mcps
         
         private Dictionary<string, McpListEntry> _mcpListEntriesByAddress = new ();
 
+        ~McpsView()
+        {
+            DataStoreManager.Mcps.ListView.DataUpdated -= DataUpdatedHandler;
+        }
+
         public McpsView() : base(nameof(McpsView))
         {
             styleSheets.Add(Resources.Load<StyleSheet>("Stylesheets/Views/Mcps/McpsView"));
@@ -48,7 +53,7 @@ namespace UI.Views.Mcps
 
             DataStoreManager.Mcps.ListView.DataUpdated += DataUpdatedHandler;
         }
-        
+
         private void CreateAssigningButton()
         {
             _assigningButton = new VisualElement { name = "AssigningButton" };
@@ -57,11 +62,6 @@ namespace UI.Views.Mcps
 
             _assigningButtonIcon = new VisualElement { name = "AssigningButtonIcon" };
             _assigningButton.Add(_assigningButtonIcon);
-        }
-
-        ~McpsView()
-        {
-            DataStoreManager.Mcps.ListView.DataUpdated -= DataUpdatedHandler;
         }
 
         private void DataUpdatedHandler(List<McpData> data)

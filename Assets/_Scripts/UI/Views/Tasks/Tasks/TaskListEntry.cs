@@ -40,15 +40,15 @@ namespace UI.Views.Tasks.Tasks
             switch (taskType)
             {
                 case TaskType.Focused:
-                    Content = new FocusedTaskCard(Utility.GetRandomEnumValue<McpFillStatus>());
+                    Content = new FocusedTaskCard(taskData, Utility.GetRandomEnumValue<McpFillStatus>());
                     StatusText.text = "Ongoing";
                     break;
                 case TaskType.Unfocused:
-                    Content = new UnfocusedTaskCard(Utility.GetRandomEnumValue<McpFillStatus>());
+                    Content = new UnfocusedTaskCard(taskData, Utility.GetRandomEnumValue<McpFillStatus>());
                     StatusText.text = "Pending";
                     break;
                 case TaskType.Completed:
-                    Content = new CompletedCard();
+                    Content = new CompletedCard(taskData);
                     StatusText.text = "9:41AM";
                     break;
             }

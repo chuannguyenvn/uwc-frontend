@@ -1,4 +1,5 @@
 ﻿using System;
+using Commons.Models;
 using Commons.Types;
 using UI.Base;
 using UnityEngine;
@@ -11,7 +12,7 @@ namespace UI.Views.Tasks.Tasks
         public VisualElement ContentContainer;
         public TextElement AddressText;
 
-        public UnfocusedTaskCard(McpFillStatus mcpFillStatus) : base(nameof(UnfocusedTaskCard))
+        public UnfocusedTaskCard(TaskData taskData, McpFillStatus mcpFillStatus) : base(nameof(UnfocusedTaskCard))
         {
             styleSheets.Add(Resources.Load<StyleSheet>("Stylesheets/Views/Tasks/Tasks/UnfocusedTaskCard"));
             AddToClassList("task-card");
@@ -20,7 +21,7 @@ namespace UI.Views.Tasks.Tasks
             Add(ContentContainer);
 
             AddressText = new TextElement { name = "AddressText" };
-            AddressText.text = "Address";
+            AddressText.text = taskData.McpData.Address;
             AddressText.AddToClassList("normal-text");
             AddressText.AddToClassList("white-text");
             ContentContainer.Add(AddressText);

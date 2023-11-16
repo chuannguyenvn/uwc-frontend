@@ -1,4 +1,5 @@
 ﻿using System;
+using Commons.Models;
 using Commons.Types;
 using UI.Base;
 using UnityEngine;
@@ -8,6 +9,7 @@ namespace UI.Views.Tasks.Tasks
 {
     public class FocusedTaskCard : View
     {
+        private readonly TaskData _taskData;
         public VisualElement ContentContainer;
         public VisualElement Panel;
         public VisualElement Mask;
@@ -23,8 +25,9 @@ namespace UI.Views.Tasks.Tasks
         public TextElement EtaTitleText;
         public TextElement EtaValueText;
 
-        public FocusedTaskCard(McpFillStatus mcpFillStatus) : base(nameof(FocusedTaskCard))
+        public FocusedTaskCard(TaskData taskData, McpFillStatus mcpFillStatus) : base(nameof(FocusedTaskCard))
         {
+            _taskData = taskData;
             styleSheets.Add(Resources.Load<StyleSheet>("Stylesheets/Views/Tasks/Tasks/FocusedTaskCard"));
             AddToClassList("task-card");
 
@@ -67,7 +70,7 @@ namespace UI.Views.Tasks.Tasks
             Mask.Add(AddressContainer);
 
             AddressText = new TextElement { name = "AddressText" };
-            AddressText.text = "Address";
+            AddressText.text = _taskData.McpData.Address;
             AddressText.AddToClassList("title-text");
             AddressText.AddToClassList("white-text");
             AddressContainer.Add(AddressText);

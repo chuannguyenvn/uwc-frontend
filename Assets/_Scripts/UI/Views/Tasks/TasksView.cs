@@ -1,4 +1,5 @@
-﻿using Settings;
+﻿using Requests;
+using Settings;
 using UI.Base;
 using UI.Views.Mcps.AssignTaskProcedure;
 using UI.Views.Tasks.Details;
@@ -17,13 +18,16 @@ namespace UI.Views.Tasks
         public TasksView() : base(nameof(TasksView))
         {
             styleSheets.Add(Resources.Load<StyleSheet>("Stylesheets/Views/Tasks/TasksView"));
-            
+
             if (Configs.IS_DESKTOP)
             {
                 AddToClassList("side-view");
 
-                AssignTaskFlow = new AssignTaskFlow();
-                Add(AssignTaskFlow);
+                TaskList = new TaskList();
+                Add(TaskList);
+
+                // AssignTaskFlow = new AssignTaskFlow();
+                // Add(AssignTaskFlow);
             }
             else
             {
@@ -36,6 +40,18 @@ namespace UI.Views.Tasks
                 TaskDetails.style.display = DisplayStyle.None;
                 Add(TaskDetails);
             }
+        }
+
+        public override void FocusView()
+        {
+            if (Configs.IS_DESKTOP) DataStoreManager.Tasks.AllTaskList.Focus();
+            else DataStoreManager.Tasks.PersonalTaskList.Focus();
+        }
+
+        public override void UnfocusView()
+        {
+            if (Configs.IS_DESKTOP) DataStoreManager.Tasks.AllTaskList.Unfocus();
+            else DataStoreManager.Tasks.PersonalTaskList.Unfocus();
         }
     }
 }
