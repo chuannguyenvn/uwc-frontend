@@ -8,6 +8,7 @@ namespace UI.Authentication
 {
     public class AuthenticationScreen : AdaptiveElement
     {
+        // Login
         private VisualElement _loginElementsContainer;
         private VisualElement _logo;
         private TextElement _titleText;
@@ -16,11 +17,13 @@ namespace UI.Authentication
         private Button _loginButton;
         private Button _forgotPasswordButton;
 
+        // Splash
         private VisualElement _splashContainer;
 
         public AuthenticationScreen() : base(nameof(AuthenticationScreen))
         {
             styleSheets.Add(Resources.Load<StyleSheet>("Stylesheets/Authentication/AuthenticationScreen"));
+            AddToClassList("authentication-screen");
 
             CreateLogin();
             CreateSplash();
