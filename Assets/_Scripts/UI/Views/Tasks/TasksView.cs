@@ -39,7 +39,12 @@ namespace UI.Views.Tasks
                 AssignTaskButtonIcon = new VisualElement() { name = "AssignTaskButtonIcon" };
                 AssignTaskButton.Add(AssignTaskButtonIcon);
 
-                AssignTaskButton.RegisterCallback<ClickEvent>(evt => AssignTaskFlow.style.display = DisplayStyle.Flex);
+                AssignTaskButton.RegisterCallback<ClickEvent>(evt =>
+                {
+                    AssignTaskFlow.style.display = DisplayStyle.Flex;
+                    AssignTaskButton.style.display = DisplayStyle.None;
+                    TaskList.style.display = DisplayStyle.None;
+                });
             }
             else
             {

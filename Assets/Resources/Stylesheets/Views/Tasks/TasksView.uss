@@ -8,8 +8,8 @@
     position: absolute;
     bottom: 17px;
     right: 37px;
-    width: 64px;
-    height: 64px;
+    width: 96px;
+    height: 96px;
     border-top-left-radius: 160px;
     border-top-right-radius: 160px;
     border-bottom-right-radius: 160px;
@@ -20,7 +20,7 @@
 
 .tasks-view #AssignTaskButtonIcon {
     background-image: url('project://database/Assets/Graphics/Icons/add-task.svg?fileID=7388822144124034973&guid=d6a86019d6553734b8611c1efe3feddc&type=3#add-task');
-    width: 32px;
-    height: 32px;
+    width: 48px;
+    height: 48px;
     -unity-background-scale-mode: scale-to-fit;
 }
