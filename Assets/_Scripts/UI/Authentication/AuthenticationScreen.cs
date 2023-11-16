@@ -8,72 +8,82 @@ namespace UI.Authentication
 {
     public class AuthenticationScreen : AdaptiveElement
     {
-        public VisualElement LoginElementsContainer;
-        public VisualElement Image;
-        public TextElement TitleText;
-        public TextField UsernameTextField;
-        public TextField PasswordTextField;
-        public Button LoginButton;
-        public Button ForgotPasswordButton;
-        public VisualElement SplashContainer;
+        private VisualElement _loginElementsContainer;
+        private VisualElement _logo;
+        private TextElement _titleText;
+        private TextField _usernameTextField;
+        private TextField _passwordTextField;
+        private Button _loginButton;
+        private Button _forgotPasswordButton;
+
+        private VisualElement _splashContainer;
 
         public AuthenticationScreen() : base(nameof(AuthenticationScreen))
         {
             styleSheets.Add(Resources.Load<StyleSheet>("Stylesheets/Authentication/AuthenticationScreen"));
 
-            LoginElementsContainer = new VisualElement { name = "LoginElementsContainer" };
-            Add(LoginElementsContainer);
+            CreateLogin();
+            CreateSplash();
+        }
 
-            SplashContainer = new VisualElement { name = "SplashContainer" };
-            Add(SplashContainer);
+        private void CreateLogin()
+        {
+            _loginElementsContainer = new VisualElement { name = "LoginElementsContainer" };
+            Add(_loginElementsContainer);
+
+            _titleText = new TextElement { name = "TitleText" };
+            _titleText.AddToClassList("title-text");
+            _titleText.AddToClassList("colored-text");
 
             if (Configs.IS_DESKTOP)
             {
-                Image = new VisualElement { name = "Image" };
-                LoginElementsContainer.Add(Image);
-            }
+                _titleText.text = "Urban Waste Collection";
 
-            TitleText = new TextElement { name = "TitleText" };
-            if (Configs.IS_DESKTOP)
-            {
-                TitleText.text = "Urban Waste Collection";
+                _logo = new VisualElement { name = "Logo" };
+                _loginElementsContainer.Add(_logo);
             }
             else
             {
-                TitleText.text = "Login";
+                _titleText.text = "Login";
             }
 
-            TitleText.AddToClassList("title-text");
-            TitleText.AddToClassList("colored-text");
-            LoginElementsContainer.Add(TitleText);
+            _loginElementsContainer.Add(_titleText);
 
-            UsernameTextField = new TextField { name = "UsernameTextField" };
-            UsernameTextField.textEdition.placeholder = "Username";
-            UsernameTextField.textEdition.hidePlaceholderOnFocus = true;
-            if (Configs.IS_DEVELOPMENT) UsernameTextField.value = Configs.IS_DESKTOP ? "supervisor_supervisor" : "driver_driver";
-            UsernameTextField.AddToClassList("normal-text");
-            LoginElementsContainer.Add(UsernameTextField);
+            _usernameTextField = new TextField { name = "UsernameTextField" };
+            _usernameTextField.AddToClassList("normal-text");
+            _usernameTextField.AddToClassList("black-text");
+            _usernameTextField.textEdition.placeholder = "Username";
+            _usernameTextField.textEdition.hidePlaceholderOnFocus = true;
+            if (Configs.IS_DEVELOPMENT) _usernameTextField.value = Configs.IS_DESKTOP ? "supervisor_supervisor" : "driver_driver";
+            _loginElementsContainer.Add(_usernameTextField);
 
-            PasswordTextField = new TextField { name = "PasswordTextField" };
-            PasswordTextField.isPasswordField = true;
-            PasswordTextField.textEdition.placeholder = "Password";
-            PasswordTextField.textEdition.hidePlaceholderOnFocus = true;
-            if (Configs.IS_DEVELOPMENT) PasswordTextField.value = "password";
-            PasswordTextField.AddToClassList("normal-text");
-            LoginElementsContainer.Add(PasswordTextField);
+            _passwordTextField = new TextField { name = "PasswordTextField" };
+            _passwordTextField.AddToClassList("normal-text");
+            _passwordTextField.AddToClassList("black-text");
+            _passwordTextField.isPasswordField = true;
+            _passwordTextField.textEdition.placeholder = "Password";
+            _passwordTextField.textEdition.hidePlaceholderOnFocus = true;
+            if (Configs.IS_DEVELOPMENT) _passwordTextField.value = "password";
+            _loginElementsContainer.Add(_passwordTextField);
 
-            LoginButton = new Button { name = "LoginButton" };
-            LoginButton.text = "Login";
-            LoginButton.AddToClassList("title-text");
-            LoginButton.AddToClassList("white-text");
-            LoginElementsContainer.Add(LoginButton);
-            LoginButton.RegisterCallback<ClickEvent>(_ => AuthenticationManager.Instance.Login(UsernameTextField.value, PasswordTextField.value));
+            _loginButton = new Button { name = "LoginButton" };
+            _loginButton.AddToClassList("title-text");
+            _loginButton.AddToClassList("white-text");
+            _loginButton.text = "Login";
+            _loginElementsContainer.Add(_loginButton);
+            _loginButton.RegisterCallback<ClickEvent>(_ => AuthenticationManager.Instance.Login(_usernameTextField.value, _passwordTextField.value));
 
-            ForgotPasswordButton = new Button { name = "ForgotPasswordButton" };
-            ForgotPasswordButton.text = "Forgot password?";
-            ForgotPasswordButton.AddToClassList("sub-text");
-            ForgotPasswordButton.AddToClassList("grey-text");
-            LoginElementsContainer.Add(ForgotPasswordButton);
+            _forgotPasswordButton = new Button { name = "ForgotPasswordButton" };
+            _forgotPasswordButton.AddToClassList("sub-text");
+            _forgotPasswordButton.AddToClassList("grey-text");
+            _forgotPasswordButton.text = "Forgot password?";
+            _loginElementsContainer.Add(_forgotPasswordButton);
+        }
+
+        private void CreateSplash()
+        {
+            _splashContainer = new VisualElement { name = "SplashContainer" };
+            Add(_splashContainer);
         }
     }
 }

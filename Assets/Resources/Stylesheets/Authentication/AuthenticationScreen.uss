@@ -105,7 +105,7 @@
     background-color: rgba(0, 0, 0, 0);
 }
 
-#Image {
+#Logo {
     background-image: url('project://database/Assets/Graphics/Icons/recycling.png?fileID=21300000&guid=739723c54932fb4439c22430ff309b75&type=3#recycling');
     width: 200px;
     height: 200px;
