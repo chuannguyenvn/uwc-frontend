@@ -5,10 +5,9 @@ namespace UI.Base
 {
     public abstract class View : AdaptiveElement
     {
-        public View(string name) : base(name)
+        protected View(string name) : base(name)
         {
             styleSheets.Add(Resources.Load<StyleSheet>("Stylesheets/Base/View"));
-
             AddToClassList("view");
         }
 
