@@ -9,33 +9,33 @@ namespace UI.Views.Tasks.Tasks
 {
     public class UnfocusedTaskCard : View
     {
-        public VisualElement ContentContainer;
-        public TextElement AddressText;
+        private VisualElement _contentContainer;
+        private TextElement _addressText;
 
         public UnfocusedTaskCard(TaskData taskData, McpFillStatus mcpFillStatus) : base(nameof(UnfocusedTaskCard))
         {
             styleSheets.Add(Resources.Load<StyleSheet>("Stylesheets/Views/Tasks/Tasks/UnfocusedTaskCard"));
             AddToClassList("task-card");
 
-            ContentContainer = new VisualElement { name = "ContentContainer" };
-            Add(ContentContainer);
+            _contentContainer = new VisualElement { name = "ContentContainer" };
+            Add(_contentContainer);
 
-            AddressText = new TextElement { name = "AddressText" };
-            AddressText.text = taskData.McpData.Address;
-            AddressText.AddToClassList("normal-text");
-            AddressText.AddToClassList("white-text");
-            ContentContainer.Add(AddressText);
+            _addressText = new TextElement { name = "AddressText" };
+            _addressText.text = taskData.McpData.Address;
+            _addressText.AddToClassList("normal-text");
+            _addressText.AddToClassList("white-text");
+            _contentContainer.Add(_addressText);
 
             switch (mcpFillStatus)
             {
                 case McpFillStatus.Full:
-                    ContentContainer.AddToClassList("full");
+                    _contentContainer.AddToClassList("full");
                     break;
                 case McpFillStatus.AlmostFull:
-                    ContentContainer.AddToClassList("almost-full");
+                    _contentContainer.AddToClassList("almost-full");
                     break;
                 case McpFillStatus.NotFull:
-                    ContentContainer.AddToClassList("not-full");
+                    _contentContainer.AddToClassList("not-full");
                     break;
                 default:
                     throw new ArgumentOutOfRangeException(nameof(mcpFillStatus), mcpFillStatus, null);

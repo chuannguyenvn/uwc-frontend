@@ -11,52 +11,68 @@ namespace UI.Views.Tasks
 {
     public class TasksView : View
     {
-        public TaskList TaskList;
-        public TaskDetails TaskDetails;
-        public AssignTaskFlow AssignTaskFlow;
-        public VisualElement AssignTaskButton;
-        public VisualElement AssignTaskButtonIcon;
+        private TaskList _taskList;
+        private TaskDetails _taskDetails;
+        private AssignTaskFlow _assignTaskFlow;
+        private VisualElement _assignTaskButton;
+        private VisualElement _assignTaskButtonIcon;
 
         public TasksView() : base(nameof(TasksView))
         {
             styleSheets.Add(Resources.Load<StyleSheet>("Stylesheets/Views/Tasks/TasksView"));
             AddToClassList("tasks-view");
 
-            if (Configs.IS_DESKTOP)
+            if (Configs.IS_DESKTOP) CreateForDesktop();
+            else CreateForMobile();
+        }
+
+        private void CreateForDesktop()
+        {
+            AddToClassList("side-view");
+
+            _taskList = new TaskList();
+            Add(_taskList);
+
+            _assignTaskFlow = new AssignTaskFlow();
+            _assignTaskFlow.style.display = DisplayStyle.None;
+            Add(_assignTaskFlow);
+
+            _assignTaskButton = new Button() { name = "AssignTaskButton" };
+            Add(_assignTaskButton);
+
+            _assignTaskButtonIcon = new VisualElement() { name = "AssignTaskButtonIcon" };
+            _assignTaskButton.Add(_assignTaskButtonIcon);
+
+            _assignTaskButton.RegisterCallback<ClickEvent>(evt =>
             {
-                AddToClassList("side-view");
+                _assignTaskFlow.style.display = DisplayStyle.Flex;
+                _assignTaskButton.style.display = DisplayStyle.None;
+                _taskList.style.display = DisplayStyle.None;
+            });
+        }
 
-                TaskList = new TaskList();
-                Add(TaskList);
+        private void CreateForMobile()
+        {
+            AddToClassList("full-view");
 
-                AssignTaskFlow = new AssignTaskFlow();
-                AssignTaskFlow.style.display = DisplayStyle.None;
-                Add(AssignTaskFlow);
+            _taskList = new TaskList();
+            Add(_taskList);
 
-                AssignTaskButton = new Button() { name = "AssignTaskButton" };
-                Add(AssignTaskButton);
+            _taskDetails = new TaskDetails();
+            _taskDetails.style.display = DisplayStyle.None;
+            Add(_taskDetails);
+        }
 
-                AssignTaskButtonIcon = new VisualElement() { name = "AssignTaskButtonIcon" };
-                AssignTaskButton.Add(AssignTaskButtonIcon);
+        public void ShowTaskDetails()
+        {
+            _taskList.style.display = DisplayStyle.None;
+            _taskDetails.style.display = DisplayStyle.Flex;
+        }
 
-                AssignTaskButton.RegisterCallback<ClickEvent>(evt =>
-                {
-                    AssignTaskFlow.style.display = DisplayStyle.Flex;
-                    AssignTaskButton.style.display = DisplayStyle.None;
-                    TaskList.style.display = DisplayStyle.None;
-                });
-            }
-            else
-            {
-                AddToClassList("full-view");
-
-                TaskList = new TaskList();
-                Add(TaskList);
-
-                TaskDetails = new TaskDetails();
-                TaskDetails.style.display = DisplayStyle.None;
-                Add(TaskDetails);
-            }
+        public void ShowTaskList()
+        {
+            _taskDetails.style.display = DisplayStyle.None;
+            _taskList.style.display = DisplayStyle.Flex;
         }
 
         public override void FocusView()
@@ -69,10 +85,6 @@ namespace UI.Views.Tasks
         {
             if (Configs.IS_DESKTOP) DataStoreManager.Tasks.AllTaskList.Unfocus();
             else DataStoreManager.Tasks.PersonalTaskList.Unfocus();
-        }
-
-        public new class UxmlFactory : UxmlFactory<TasksView, UxmlTraits>
-        {
         }
     }
 }

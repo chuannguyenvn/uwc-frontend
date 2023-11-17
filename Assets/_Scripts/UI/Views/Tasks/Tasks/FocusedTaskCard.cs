@@ -10,20 +10,24 @@ namespace UI.Views.Tasks.Tasks
     public class FocusedTaskCard : View
     {
         private readonly TaskData _taskData;
-        public VisualElement ContentContainer;
-        public VisualElement Panel;
-        public VisualElement Mask;
+        
+        // Panel
+        private VisualElement _contentContainer;
+        private VisualElement _panel;
+        private VisualElement _mask;
 
-        public VisualElement AddressContainer;
-        public TextElement AddressText;
+        // Address
+        private VisualElement _addressContainer;
+        private TextElement _addressText;
 
-        public VisualElement DetailsContainer;
-        public VisualElement CurrentLoadContainer;
-        public TextElement CurrentLoadTitleText;
-        public TextElement CurrentLoadValueText;
-        public VisualElement EtaContainer;
-        public TextElement EtaTitleText;
-        public TextElement EtaValueText;
+        // Details
+        private VisualElement _detailsContainer;
+        private VisualElement _currentLoadContainer;
+        private TextElement _currentLoadTitleText;
+        private TextElement _currentLoadValueText;
+        private VisualElement _etaContainer;
+        private TextElement _etaTitleText;
+        private TextElement _etaValueText;
 
         public FocusedTaskCard(TaskData taskData, McpFillStatus mcpFillStatus) : base(nameof(FocusedTaskCard))
         {
@@ -34,53 +38,39 @@ namespace UI.Views.Tasks.Tasks
             CreateMask();
             CreateAddress();
             CreateDetails();
-
-            switch (mcpFillStatus)
-            {
-                case McpFillStatus.Full:
-                    AddressContainer.AddToClassList("full");
-                    break;
-                case McpFillStatus.AlmostFull:
-                    AddressContainer.AddToClassList("almost-full");
-                    break;
-                case McpFillStatus.NotFull:
-                    AddressContainer.AddToClassList("not-full");
-                    break;
-                default:
-                    throw new ArgumentOutOfRangeException(nameof(mcpFillStatus), mcpFillStatus, null);
-            }
+            ModifyBasedOnFillStatus(mcpFillStatus);
         }
 
         private void CreateMask()
         {
-            ContentContainer = new VisualElement { name = "ContentContainer" };
-            Add(ContentContainer);
+            _contentContainer = new VisualElement { name = "ContentContainer" };
+            Add(_contentContainer);
 
-            Panel = new VisualElement { name = "Panel" };
-            ContentContainer.Add(Panel);
+            _panel = new VisualElement { name = "Panel" };
+            _contentContainer.Add(_panel);
 
-            Mask = new VisualElement { name = "Mask" };
-            ContentContainer.Add(Mask);
+            _mask = new VisualElement { name = "Mask" };
+            _contentContainer.Add(_mask);
         }
 
         private void CreateAddress()
         {
-            AddressContainer = new VisualElement { name = "AddressContainer" };
-            AddressContainer.AddToClassList("sub-container");
-            Mask.Add(AddressContainer);
+            _addressContainer = new VisualElement { name = "AddressContainer" };
+            _addressContainer.AddToClassList("sub-container");
+            _mask.Add(_addressContainer);
 
-            AddressText = new TextElement { name = "AddressText" };
-            AddressText.text = _taskData.McpData.Address;
-            AddressText.AddToClassList("title-text");
-            AddressText.AddToClassList("white-text");
-            AddressContainer.Add(AddressText);
+            _addressText = new TextElement { name = "AddressText" };
+            _addressText.text = _taskData.McpData.Address;
+            _addressText.AddToClassList("title-text");
+            _addressText.AddToClassList("white-text");
+            _addressContainer.Add(_addressText);
         }
 
         private void CreateDetails()
         {
-            DetailsContainer = new VisualElement { name = "DetailsContainer" };
-            DetailsContainer.AddToClassList("sub-container");
-            Mask.Add(DetailsContainer);
+            _detailsContainer = new VisualElement { name = "DetailsContainer" };
+            _detailsContainer.AddToClassList("sub-container");
+            _mask.Add(_detailsContainer);
 
             CreateCurrentLoad();
             CreateEta();
@@ -88,38 +78,56 @@ namespace UI.Views.Tasks.Tasks
 
         private void CreateCurrentLoad()
         {
-            CurrentLoadContainer = new VisualElement { name = "CurrentLoadContainer" };
-            DetailsContainer.Add(CurrentLoadContainer);
-            
-            CurrentLoadTitleText = new TextElement { name = "CurrentLoadTitleText" };
-            CurrentLoadTitleText.text = "Current load:";
-            CurrentLoadTitleText.AddToClassList("normal-text");
-            CurrentLoadTitleText.AddToClassList("black-text");
-            CurrentLoadContainer.Add(CurrentLoadTitleText);
-            
-            CurrentLoadValueText = new TextElement { name = "CurrentLoadText" };
-            CurrentLoadValueText.text = "90%";
-            CurrentLoadValueText.AddToClassList("title-text");
-            CurrentLoadValueText.AddToClassList("black-text");
-            CurrentLoadContainer.Add(CurrentLoadValueText);
+            _currentLoadContainer = new VisualElement { name = "CurrentLoadContainer" };
+            _detailsContainer.Add(_currentLoadContainer);
+
+            _currentLoadTitleText = new TextElement { name = "CurrentLoadTitleText" };
+            _currentLoadTitleText.text = "Current load:";
+            _currentLoadTitleText.AddToClassList("normal-text");
+            _currentLoadTitleText.AddToClassList("black-text");
+            _currentLoadContainer.Add(_currentLoadTitleText);
+
+            _currentLoadValueText = new TextElement { name = "CurrentLoadText" };
+            _currentLoadValueText.text = "90%";
+            _currentLoadValueText.AddToClassList("title-text");
+            _currentLoadValueText.AddToClassList("black-text");
+            _currentLoadContainer.Add(_currentLoadValueText);
         }
 
         private void CreateEta()
         {
-            EtaContainer = new VisualElement { name = "EtaContainer" };
-            DetailsContainer.Add(EtaContainer);
-            
-            EtaTitleText = new TextElement { name = "EtaTitleText" };
-            EtaTitleText.text = "ETA:";
-            EtaTitleText.AddToClassList("normal-text");
-            EtaTitleText.AddToClassList("black-text");
-            EtaContainer.Add(EtaTitleText);
-            
-            EtaValueText = new TextElement { name = "EtaValueText" };
-            EtaValueText.text = "10:05AM";
-            EtaValueText.AddToClassList("title-text");
-            EtaValueText.AddToClassList("black-text");
-            EtaContainer.Add(EtaValueText);
+            _etaContainer = new VisualElement { name = "EtaContainer" };
+            _detailsContainer.Add(_etaContainer);
+
+            _etaTitleText = new TextElement { name = "EtaTitleText" };
+            _etaTitleText.text = "ETA:";
+            _etaTitleText.AddToClassList("normal-text");
+            _etaTitleText.AddToClassList("black-text");
+            _etaContainer.Add(_etaTitleText);
+
+            _etaValueText = new TextElement { name = "EtaValueText" };
+            _etaValueText.text = "10:05AM";
+            _etaValueText.AddToClassList("title-text");
+            _etaValueText.AddToClassList("black-text");
+            _etaContainer.Add(_etaValueText);
+        }
+
+        private void ModifyBasedOnFillStatus(McpFillStatus mcpFillStatus)
+        {
+            switch (mcpFillStatus)
+            {
+                case McpFillStatus.Full:
+                    _addressContainer.AddToClassList("full");
+                    break;
+                case McpFillStatus.AlmostFull:
+                    _addressContainer.AddToClassList("almost-full");
+                    break;
+                case McpFillStatus.NotFull:
+                    _addressContainer.AddToClassList("not-full");
+                    break;
+                default:
+                    throw new ArgumentOutOfRangeException(nameof(mcpFillStatus), mcpFillStatus, null);
+            }
         }
     }
 }

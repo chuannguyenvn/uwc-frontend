@@ -7,26 +7,26 @@ namespace UI.Views.Tasks.Tasks
 {
     public class CompletedCard : View
     {
-        public VisualElement ContentContainer;
-        public TextElement AddressText;
-        public VisualElement CrossLine;
+        private VisualElement _contentContainer;
+        private TextElement _addressText;
+        private VisualElement _crossLine;
 
         public CompletedCard(TaskData taskData) : base(nameof(CompletedCard))
         {
             styleSheets.Add(Resources.Load<StyleSheet>("Stylesheets/Views/Tasks/Tasks/CompletedCard"));
             AddToClassList("task-card");
 
-            ContentContainer = new VisualElement { name = "ContentContainer" };
-            Add(ContentContainer);
+            _contentContainer = new VisualElement { name = "ContentContainer" };
+            Add(_contentContainer);
 
-            AddressText = new TextElement { name = "AddressText" };
-            AddressText.text = taskData.McpData.Address;
-            AddressText.AddToClassList("normal-text");
-            AddressText.AddToClassList("grey-text");
-            ContentContainer.Add(AddressText);
+            _addressText = new TextElement { name = "AddressText" };
+            _addressText.text = taskData.McpData.Address;
+            _addressText.AddToClassList("normal-text");
+            _addressText.AddToClassList("grey-text");
+            _contentContainer.Add(_addressText);
             
-            CrossLine = new VisualElement { name = "CrossLine" };
-            ContentContainer.Add(CrossLine);
+            _crossLine = new VisualElement { name = "CrossLine" };
+            _contentContainer.Add(_crossLine);
         }
     }
 }

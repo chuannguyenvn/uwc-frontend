@@ -6,48 +6,50 @@ namespace UI.Views.Tasks.Details
 {
     public class DestinationPanel : Panel
     {
-        public VisualElement AddressContainer;
-        public TextElement AddressTitle;
-        public TextElement AddressText;
+        private VisualElement _addressContainer;
+        private TextElement _addressTitle;
+        private TextElement _addressText;
 
-        public VisualElement DistanceAndEtaContainer;
-        public VisualElement DistanceContainer;
-        public TextElement DistanceTitle;
-        public TextElement DistanceText;
-        public VisualElement EtaContainer;
-        public TextElement EtaTitle;
-        public TextElement EtaText;
+        private VisualElement _distanceAndEtaContainer;
+        private VisualElement _distanceContainer;
+        private TextElement _distanceTitle;
+        private TextElement _distanceText;
+        private VisualElement _etaContainer;
+        private TextElement _etaTitle;
+        private TextElement _etaText;
 
         public DestinationPanel() : base(nameof(DestinationPanel))
         {
             styleSheets.Add(Resources.Load<StyleSheet>("Stylesheets/Views/Tasks/Details/DestinationPanel"));
+            AddToClassList("destination-panel");
             AddToClassList("rounded-32px");
+
             CreateAddress();
             CreateDistanceAndEta();
         }
 
         private void CreateAddress()
         {
-            AddressContainer = new VisualElement { name = "AddressContainer" };
-            Add(AddressContainer);
+            _addressContainer = new VisualElement { name = "AddressContainer" };
+            Add(_addressContainer);
 
-            AddressTitle = new TextElement { name = "AddressTitle" };
-            AddressTitle.AddToClassList("sub-text");
-            AddressTitle.AddToClassList("grey-text");
-            AddressTitle.text = "Address";
-            AddressContainer.Add(AddressTitle);
+            _addressTitle = new TextElement { name = "AddressTitle" };
+            _addressTitle.AddToClassList("sub-text");
+            _addressTitle.AddToClassList("grey-text");
+            _addressTitle.text = "Address";
+            _addressContainer.Add(_addressTitle);
 
-            AddressText = new TextElement { name = "AddressText" };
-            AddressText.AddToClassList("normal-text");
-            AddressText.AddToClassList("black-text");
-            AddressText.text = "Address placeholder";
-            AddressContainer.Add(AddressText);
+            _addressText = new TextElement { name = "AddressText" };
+            _addressText.AddToClassList("normal-text");
+            _addressText.AddToClassList("black-text");
+            _addressText.text = "Address placeholder";
+            _addressContainer.Add(_addressText);
         }
 
         private void CreateDistanceAndEta()
         {
-            DistanceAndEtaContainer = new VisualElement { name = "DistanceAndEtaContainer" };
-            Add(DistanceAndEtaContainer);
+            _distanceAndEtaContainer = new VisualElement { name = "DistanceAndEtaContainer" };
+            Add(_distanceAndEtaContainer);
 
             CreateDistance();
             CreateEta();
@@ -55,38 +57,38 @@ namespace UI.Views.Tasks.Details
 
         private void CreateDistance()
         {
-            DistanceContainer = new VisualElement { name = "DistanceContainer" };
-            DistanceAndEtaContainer.Add(DistanceContainer);
+            _distanceContainer = new VisualElement { name = "DistanceContainer" };
+            _distanceAndEtaContainer.Add(_distanceContainer);
 
-            DistanceTitle = new TextElement { name = "DistanceTitle" };
-            DistanceTitle.AddToClassList("sub-text");
-            DistanceTitle.AddToClassList("grey-text");
-            DistanceTitle.text = "Distance";
-            DistanceContainer.Add(DistanceTitle);
+            _distanceTitle = new TextElement { name = "DistanceTitle" };
+            _distanceTitle.AddToClassList("sub-text");
+            _distanceTitle.AddToClassList("grey-text");
+            _distanceTitle.text = "Distance";
+            _distanceContainer.Add(_distanceTitle);
 
-            DistanceText = new TextElement { name = "DistanceText" };
-            DistanceText.AddToClassList("normal-text");
-            DistanceText.AddToClassList("black-text");
-            DistanceText.text = "Distance placeholder";
-            DistanceContainer.Add(DistanceText);
+            _distanceText = new TextElement { name = "DistanceText" };
+            _distanceText.AddToClassList("normal-text");
+            _distanceText.AddToClassList("black-text");
+            _distanceText.text = "Distance placeholder";
+            _distanceContainer.Add(_distanceText);
         }
 
         private void CreateEta()
         {
-            EtaContainer = new VisualElement { name = "EtaContainer" };
-            DistanceAndEtaContainer.Add(EtaContainer);
+            _etaContainer = new VisualElement { name = "EtaContainer" };
+            _distanceAndEtaContainer.Add(_etaContainer);
 
-            EtaTitle = new TextElement { name = "EtaTitle" };
-            EtaTitle.AddToClassList("sub-text");
-            EtaTitle.AddToClassList("grey-text");
-            EtaTitle.text = "ETA";
-            EtaContainer.Add(EtaTitle);
+            _etaTitle = new TextElement { name = "EtaTitle" };
+            _etaTitle.AddToClassList("sub-text");
+            _etaTitle.AddToClassList("grey-text");
+            _etaTitle.text = "ETA";
+            _etaContainer.Add(_etaTitle);
 
-            EtaText = new TextElement { name = "EtaText" };
-            EtaText.AddToClassList("normal-text");
-            EtaText.AddToClassList("black-text");
-            EtaText.text = "ETA placeholder";
-            EtaContainer.Add(EtaText);
+            _etaText = new TextElement { name = "EtaText" };
+            _etaText.AddToClassList("normal-text");
+            _etaText.AddToClassList("black-text");
+            _etaText.text = "ETA placeholder";
+            _etaContainer.Add(_etaText);
         }
     }
 }
