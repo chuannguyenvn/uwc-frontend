@@ -1,5 +1,6 @@
 ﻿using System;
 using UI.Base;
+using UnityEngine;
 using UnityEngine.UIElements;
 
 namespace UI.Reusables
@@ -8,6 +9,7 @@ namespace UI.Reusables
     {
         private readonly Action<string> _searched;
 
+        private Shadow _searchFieldShadow;
         private TextField _searchField;
         private Button _searchButton;
         private VisualElement _searchIcon;
@@ -28,7 +30,8 @@ namespace UI.Reusables
             _searchField.AddToClassList("normal-text");
             _searchField.AddToClassList("black-text");
             _searchField.textEdition.placeholder = "Search...";
-            Add(_searchField);
+            _searchFieldShadow = new Shadow(_searchField, new Color(0.6f, 0.6f, 0.6f)) { name = "SearchFieldShadow" };
+            Add(_searchFieldShadow);
 
             _searchField.RegisterCallback<ChangeEvent<string>>(e => Search());
         }

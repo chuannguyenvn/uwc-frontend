@@ -11,6 +11,7 @@ using UI.Views.Status;
 using UI.Views.Tasks;
 using UI.Views.Vehicles;
 using UI.Views.Workers;
+using UnityEngine;
 using UnityEngine.UIElements;
 using Utilities;
 
@@ -128,8 +129,9 @@ namespace UI.Base
 
             foreach (var (_, view) in _viewsByViewType)
             {
-                Add(view);
-                view.style.display = DisplayStyle.None;
+                var shadow = new Shadow(view, Color.gray, cornerRadius: 10, offsetX: 6) { name = "Shadow" };
+                Add(shadow);
+                view.parent.style.display = DisplayStyle.None;
             }
         }
 
@@ -137,19 +139,19 @@ namespace UI.Base
         {
             foreach (var (type, view) in _viewsByViewType)
             {
-                if (!asExtension || type != _mainActiveViewType) view.style.display = DisplayStyle.None;
+                if (!asExtension || type != _mainActiveViewType) view.parent.style.display = DisplayStyle.None;
             }
 
             if (viewType != ViewType.Map)
             {
                 if (viewType == _mainActiveViewType)
                 {
-                    _viewsByViewType[viewType].style.display = DisplayStyle.None;
+                    _viewsByViewType[viewType].parent.style.display = DisplayStyle.None;
                     viewType = ViewType.Map;
                 }
                 else
                 {
-                    _viewsByViewType[viewType].style.display = DisplayStyle.Flex;
+                    _viewsByViewType[viewType].parent.style.display = DisplayStyle.Flex;
                 }
             }
 

@@ -10,10 +10,10 @@
     right: 37px;
     width: 96px;
     height: 96px;
-    border-top-left-radius: 160px;
-    border-top-right-radius: 160px;
-    border-bottom-right-radius: 160px;
-    border-bottom-left-radius: 160px;
+    border-top-left-radius: 48px;
+    border-top-right-radius: 48px;
+    border-bottom-right-radius: 48px;
+    border-bottom-left-radius: 48px;
     justify-content: center;
     align-items: center;
 }
