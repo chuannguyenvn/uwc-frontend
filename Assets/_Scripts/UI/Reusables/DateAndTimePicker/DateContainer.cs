@@ -7,18 +7,20 @@ namespace UI.Reusables.DateAndTimePicker
 {
     public class DateContainer : AdaptiveElement
     {
+        private readonly DateTimePicker _dateTimePicker;
+
         private VisualElement _dateEntriesContainer;
         private List<DateEntry> _dateEntries;
         private VisualElement _previousDateButton;
         private VisualElement _nextDateButton;
 
-        public DateContainer() : base(nameof(DateContainer))
+        public DateContainer(DateTimePicker dateTimePicker) : base(nameof(DateContainer))
         {
+            _dateTimePicker = dateTimePicker;
+
             CreatePreviousDateButton();
             CreateDateEntries();
             CreateNextDateButton();
-
-            Refresh();
         }
 
         private void CreateDateEntries()
@@ -34,7 +36,7 @@ namespace UI.Reusables.DateAndTimePicker
             _dateEntries = new List<DateEntry>();
             for (var i = 0; i < 7; i++)
             {
-                var dateEntry = new DateEntry(daysInWeek[i]);
+                var dateEntry = new DateEntry(_dateTimePicker, daysInWeek[i]);
                 _dateEntries.Add(dateEntry);
                 _dateEntriesContainer.Add(dateEntry);
             }
@@ -47,7 +49,7 @@ namespace UI.Reusables.DateAndTimePicker
             _previousDateButton.AddToClassList("previous-picker-button");
             Add(_previousDateButton);
 
-            _previousDateButton.RegisterCallback<ClickEvent>(ev => DatetimePicker.SelectedDateTime = DatetimePicker.SelectedDateTime.AddDays(-1));
+            _previousDateButton.RegisterCallback<ClickEvent>(ev => _dateTimePicker.SelectedDateTime = _dateTimePicker.SelectedDateTime.AddDays(-1));
         }
 
         private void CreateNextDateButton()
@@ -57,7 +59,7 @@ namespace UI.Reusables.DateAndTimePicker
             _nextDateButton.AddToClassList("next-picker-button");
             Add(_nextDateButton);
 
-            _nextDateButton.RegisterCallback<ClickEvent>(ev => DatetimePicker.SelectedDateTime = DatetimePicker.SelectedDateTime.AddDays(1));
+            _nextDateButton.RegisterCallback<ClickEvent>(ev => _dateTimePicker.SelectedDateTime = _dateTimePicker.SelectedDateTime.AddDays(1));
         }
 
         public void Refresh()

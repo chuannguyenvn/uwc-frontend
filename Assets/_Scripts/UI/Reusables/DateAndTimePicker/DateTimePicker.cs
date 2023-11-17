@@ -5,16 +5,16 @@ using UnityEngine.UIElements;
 
 namespace UI.Reusables.DateAndTimePicker
 {
-    public class DatetimePicker : AdaptiveElement
+    public class DateTimePicker : AdaptiveElement
     {
         private MonthAndYearContainer _monthAndYearContainer;
         private DateContainer _dateContainer;
         private TimeContainer _timeContainer;
 
-        public static event Action SelectedDateTimeChanged;
-        private static DateTime _selectedDateTime = DateTime.Now;
+        public event Action SelectedDateTimeChanged;
+        private DateTime _selectedDateTime = DateTime.Now;
 
-        public static DateTime SelectedDateTime
+        public DateTime SelectedDateTime
         {
             get => _selectedDateTime;
             set
@@ -24,7 +24,7 @@ namespace UI.Reusables.DateAndTimePicker
             }
         }
 
-        public DatetimePicker() : base(nameof(DatetimePicker))
+        public DateTimePicker() : base(nameof(DateTimePicker))
         {
             styleSheets.Add(Resources.Load<StyleSheet>("Stylesheets/Reusables/DatetimePicker"));
             AddToClassList("datetime-picker");
@@ -33,42 +33,42 @@ namespace UI.Reusables.DateAndTimePicker
             CreateDate();
             CreateTime();
 
-            SelectedDateTimeChanged += () =>
-            {
-                _monthAndYearContainer.Refresh();
-                _dateContainer.Refresh();
-                _timeContainer.Refresh();
-            };
+            SelectedDateTimeChanged += Refresh;
+        }
+
+        ~DateTimePicker()
+        {
+            SelectedDateTimeChanged -= Refresh;
         }
 
         private void CreateMonthAndYear()
         {
-            _monthAndYearContainer = new MonthAndYearContainer();
+            _monthAndYearContainer = new MonthAndYearContainer(this);
             Add(_monthAndYearContainer);
         }
 
         private void CreateDate()
         {
-            _dateContainer = new DateContainer();
+            _dateContainer = new DateContainer(this);
             Add(_dateContainer);
         }
 
         private void CreateTime()
         {
-            _timeContainer = new TimeContainer();
+            _timeContainer = new TimeContainer(this);
             Add(_timeContainer);
         }
 
-        public void Show()
+        public void Refresh()
         {
-            SelectedDateTime = DateTime.Now;
             _monthAndYearContainer.Refresh();
             _dateContainer.Refresh();
             _timeContainer.Refresh();
         }
 
-        public new class UxmlFactory : UxmlFactory<DatetimePicker, UxmlTraits>
+        public void ResetDateTime()
         {
+            SelectedDateTime = DateTime.Now;
         }
     }
 }

@@ -92,7 +92,7 @@ namespace UI.Reusables.Procedure
             _stepContainerShadow.PlaceInFront(element);
         }
 
-        private void Activate()
+        protected virtual void Activate()
         {
             foreach (var flowStep in _flow.Steps.Except(new[] { this }))
             {
@@ -110,7 +110,7 @@ namespace UI.Reusables.Procedure
             _flow.CheckFlowCompletion();
         }
 
-        private void Deactivate()
+        protected virtual void Deactivate()
         {
             UnregisterCallback<MouseMoveEvent>(TriggerCheckFlowCompletion);
             UnregisterCallback<MouseUpEvent>(TriggerCheckFlowCompletion);

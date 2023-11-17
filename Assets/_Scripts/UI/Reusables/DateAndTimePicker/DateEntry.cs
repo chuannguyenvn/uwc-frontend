@@ -6,39 +6,56 @@ namespace UI.Reusables.DateAndTimePicker
 {
     public class DateEntry : AdaptiveElement
     {
-        private readonly DayOfWeek _dayInWeek;
-        private TextElement _dayInWeekText;
+        private readonly DateTimePicker _dateTimePicker;
+
+        private DayOfWeek _dayOfWeek;
+        private TextElement _dayOfWeekText;
         private TextElement _dateText;
 
-        public DateEntry(DayOfWeek dayInWeek) : base(nameof(DateEntry))
+        public DateEntry(DateTimePicker dateTimePicker, DayOfWeek dayOfWeek) : base(nameof(DateEntry))
         {
-            _dayInWeek = dayInWeek;
-            _dayInWeekText = new TextElement { name = "DayInWeekText" };
-            _dayInWeekText.AddToClassList("sub-sub-text");
-            _dayInWeekText.AddToClassList("grey-text");
-            _dayInWeekText.text = dayInWeek.ToString()[0].ToString();
-            Add(_dayInWeekText);
+            _dateTimePicker = dateTimePicker;
 
+            CreateDayOfWeek(dayOfWeek);
+            CreateDate();
+            RegisterClickCallback();
+        }
+
+        private void CreateDayOfWeek(DayOfWeek dayOfWeek)
+        {
+            _dayOfWeek = dayOfWeek;
+            _dayOfWeekText = new TextElement { name = "DayInWeekText" };
+            _dayOfWeekText.AddToClassList("sub-sub-text");
+            _dayOfWeekText.AddToClassList("grey-text");
+            _dayOfWeekText.text = dayOfWeek.ToString()[0].ToString();
+            Add(_dayOfWeekText);
+        }
+
+        private void CreateDate()
+        {
             _dateText = new TextElement { name = "DateText" };
             _dateText.AddToClassList("normal-text");
             _dateText.AddToClassList("grey-text");
             Add(_dateText);
+        }
 
+        private void RegisterClickCallback()
+        {
             RegisterCallback<ClickEvent>(ev =>
             {
-                var now = DatetimePicker.SelectedDateTime;
-                var thisIndex = ((int)_dayInWeek + 6) % 7;
+                var now = _dateTimePicker.SelectedDateTime;
+                var thisIndex = ((int)_dayOfWeek + 6) % 7;
                 var nowIndex = ((int)now.DayOfWeek + 6) % 7;
                 var diff = thisIndex - nowIndex;
                 var date = now.AddDays(diff);
-                DatetimePicker.SelectedDateTime = date;
+                _dateTimePicker.SelectedDateTime = date;
             });
         }
 
         public void Refresh()
         {
-            var now = DatetimePicker.SelectedDateTime;
-            var thisIndex = ((int)_dayInWeek + 6) % 7;
+            var now = _dateTimePicker.SelectedDateTime;
+            var thisIndex = ((int)_dayOfWeek + 6) % 7;
             var nowIndex = ((int)now.DayOfWeek + 6) % 7;
             var diff = thisIndex - nowIndex;
             var date = now.AddDays(diff);
@@ -46,12 +63,12 @@ namespace UI.Reusables.DateAndTimePicker
 
             if (date.Day == now.Day)
             {
-                _dayInWeekText.AddToClassList("selected");
+                _dayOfWeekText.AddToClassList("selected");
                 _dateText.AddToClassList("selected");
             }
             else
             {
-                _dayInWeekText.RemoveFromClassList("selected");
+                _dayOfWeekText.RemoveFromClassList("selected");
                 _dateText.RemoveFromClassList("selected");
             }
         }
