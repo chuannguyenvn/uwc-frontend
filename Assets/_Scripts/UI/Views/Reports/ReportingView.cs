@@ -2,8 +2,6 @@
 using Requests;
 using UI.Base;
 using UI.Views.Reports.Cards;
-using UnityEngine;
-using UnityEngine.Scripting;
 using UnityEngine.UIElements;
 
 namespace UI.Views.Reports

@@ -1,6 +1,4 @@
-﻿using Utilities;
-
-namespace UI.Base
+﻿namespace UI.Base
 {
     public abstract class View : AdaptiveElement
     {

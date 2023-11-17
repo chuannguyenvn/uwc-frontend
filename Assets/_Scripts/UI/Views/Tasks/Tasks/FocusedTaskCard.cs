@@ -1,8 +1,6 @@
 ﻿using System;
 using Commons.Models;
 using Commons.Types;
-using UI.Base;
-using UnityEngine;
 using UnityEngine.UIElements;
 
 namespace UI.Views.Tasks.Tasks

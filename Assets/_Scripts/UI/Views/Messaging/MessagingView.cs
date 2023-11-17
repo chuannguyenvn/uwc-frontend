@@ -3,7 +3,6 @@ using Settings;
 using UI.Base;
 using UI.Views.Messaging.Inbox;
 using UI.Views.Messaging.Contacts;
-using UnityEngine;
 using UnityEngine.UIElements;
 
 namespace UI.Views.Messaging

@@ -1,7 +1,6 @@
 ﻿using System;
 using Commons.Models;
 using UI.Base;
-using UnityEngine;
 using UnityEngine.UIElements;
 using Utilities;
 using Random = UnityEngine.Random;

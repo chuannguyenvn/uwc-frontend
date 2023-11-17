@@ -1,10 +1,6 @@
 ﻿using System.Collections.Generic;
 using Settings;
 using UI.Base;
-using UnityEngine;
-using UnityEngine.UIElements;
-using UnityEngine.Scripting;
-using Utilities;
 
 namespace UI.Navigation
 {

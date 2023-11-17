@@ -1,6 +1,5 @@
 ﻿using Commons.Models;
 using UI.Base;
-using UnityEngine;
 using UnityEngine.UIElements;
 
 namespace UI.Views.Workers

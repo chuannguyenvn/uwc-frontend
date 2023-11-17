@@ -2,7 +2,6 @@
 using Settings;
 using UI.Base;
 using UnityEngine.UIElements;
-using Utilities;
 
 namespace UI.Authentication
 {

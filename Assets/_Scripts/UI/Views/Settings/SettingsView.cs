@@ -2,8 +2,6 @@
 using System.Collections.Generic;
 using Settings;
 using UI.Base;
-using UnityEngine;
-using UnityEngine.UIElements;
 
 namespace UI.Views.Settings
 {

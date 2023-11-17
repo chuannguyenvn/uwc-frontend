@@ -3,7 +3,6 @@ using Commons.Communications.Messages;
 using Requests;
 using Settings;
 using UI.Base;
-using UnityEngine;
 using UnityEngine.UIElements;
 
 namespace UI.Views.Messaging.Contacts

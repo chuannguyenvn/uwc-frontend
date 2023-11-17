@@ -1,5 +1,4 @@
-﻿using System;
-using UI.Base;
+﻿using UI.Base;
 using UnityEngine.UIElements;
 
 namespace UI.Reusables.DateAndTimePicker

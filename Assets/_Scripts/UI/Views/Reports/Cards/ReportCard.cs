@@ -1,6 +1,5 @@
 ﻿using Commons.Communications.Reports;
 using UI.Base;
-using Utilities;
 
 namespace UI.Views.Reports.Cards
 {

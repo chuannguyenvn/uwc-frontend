@@ -4,7 +4,6 @@ using UI.Base;
 using UI.Views.Mcps.AssignTaskProcedure;
 using UI.Views.Tasks.Details;
 using UI.Views.Tasks.Tasks;
-using UnityEngine;
 using UnityEngine.UIElements;
 
 namespace UI.Views.Tasks

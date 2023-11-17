@@ -1,6 +1,5 @@
 ﻿using System;
 using UI.Base;
-using UnityEngine;
 using UnityEngine.UIElements;
 
 namespace UI.Views.Settings

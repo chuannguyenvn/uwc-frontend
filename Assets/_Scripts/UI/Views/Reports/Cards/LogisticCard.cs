@@ -1,6 +1,4 @@
 ﻿using Commons.Communications.Reports;
-using UnityEngine;
-using UnityEngine.UIElements;
 
 namespace UI.Views.Reports.Cards
 {

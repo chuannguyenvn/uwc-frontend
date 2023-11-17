@@ -1,6 +1,4 @@
-﻿using UnityEngine;
-using UnityEngine.UIElements;
-using Utilities;
+﻿using UnityEngine.UIElements;
 
 namespace UI.Base
 {
