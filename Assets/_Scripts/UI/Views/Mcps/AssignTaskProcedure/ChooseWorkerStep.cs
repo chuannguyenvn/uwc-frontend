@@ -13,9 +13,14 @@ namespace UI.Views.Mcps.AssignTaskProcedure
         public ChooseWorkerStep(Flow flow, int stepIndex) : base(flow, stepIndex, true, "Choose the workers to assign.",
             "Leave this step empty if you want to use smart assignment.")
         {
+            CreateWorkerList();
+        }
+
+        private void CreateWorkerList()
+        {
             styleSheets.Add(Resources.Load<StyleSheet>("Stylesheets/Views/Workers/WorkersView"));
             styleSheets.Add(Resources.Load<StyleSheet>("Stylesheets/Views/Workers/WorkerListEntry"));
-            
+
             _scrollView = new ScrollView();
             AddToContainer(_scrollView);
             for (int i = 0; i < 5; i++)

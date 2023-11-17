@@ -11,19 +11,12 @@ namespace UI.Views.Mcps
 {
     public class McpsView : View
     {
+        // Controls
         private VisualElement _controlsContainer;
         private SearchBar _searchBar;
         private ScrollView _scrollView;
 
-        private VisualElement _assigningButton;
-        private VisualElement _assigningButtonIcon;
-        
-        private Dictionary<string, McpListEntry> _mcpListEntriesByAddress = new ();
-
-        ~McpsView()
-        {
-            DataStoreManager.Mcps.ListView.DataUpdated -= DataUpdatedHandler;
-        }
+        private readonly Dictionary<string, McpListEntry> _mcpListEntriesByAddress = new();
 
         public McpsView() : base(nameof(McpsView))
         {
@@ -31,12 +24,18 @@ namespace UI.Views.Mcps
             AddToClassList("side-view");
             AddToClassList("mcps-view");
 
-            CreateSearchBar();
+            CreateControls();
             CreateScrollView();
-            CreateAssigningButton();
+
+            DataStoreManager.Mcps.ListView.DataUpdated += DataUpdatedHandler;
         }
 
-        private void CreateSearchBar()
+        ~McpsView()
+        {
+            DataStoreManager.Mcps.ListView.DataUpdated -= DataUpdatedHandler;
+        }
+
+        private void CreateControls()
         {
             _controlsContainer = new VisualElement { name = "ControlsContainer" };
             Add(_controlsContainer);
@@ -52,16 +51,6 @@ namespace UI.Views.Mcps
             Add(_scrollView);
 
             DataStoreManager.Mcps.ListView.DataUpdated += DataUpdatedHandler;
-        }
-
-        private void CreateAssigningButton()
-        {
-            _assigningButton = new VisualElement { name = "AssigningButton" };
-            _assigningButton.RegisterCallback<ClickEvent>(ev => ToggleAssigningMode(true));
-            Add(_assigningButton);
-
-            _assigningButtonIcon = new VisualElement { name = "AssigningButtonIcon" };
-            _assigningButton.Add(_assigningButtonIcon);
         }
 
         private void DataUpdatedHandler(List<McpData> data)
@@ -84,7 +73,7 @@ namespace UI.Views.Mcps
         {
             DataStoreManager.Mcps.ListView.Unfocus();
         }
-        
+
         private void SearchHandler(string text)
         {
             text = Utility.RemoveDiacritics(text).ToLower();
@@ -99,11 +88,6 @@ namespace UI.Views.Mcps
                     entry.style.display = DisplayStyle.None;
                 }
             }
-        }
-        
-        public void ToggleAssigningMode(bool isAssigning)
-        {
-            
         }
     }
 }

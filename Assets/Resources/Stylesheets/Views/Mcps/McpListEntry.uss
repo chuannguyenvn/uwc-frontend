@@ -25,7 +25,7 @@
     flex-wrap: wrap;
 }
 
-#AvatarContainer {
+#IconContainer {
     width: 64px;
     height: 64px;
     margin-right: 12px;
@@ -34,18 +34,18 @@
     justify-content: center;
 }
 
-.not-full#AvatarContainer{
+.not-full#IconContainer{
     background-color: var(--mcp-not-full-color);
 }
 
-.almost-full#AvatarContainer{
+.almost-full#IconContainer{
     background-color: var(--mcp-almost-full-color);
 }
 
-.full#AvatarContainer{
+.full#IconContainer{
     background-color: var(--mcp-full-color);
 }
-#Avatar {
+#Icon {
     width: 70%;
     height: 70%;
     background-image: url('project://database/Assets/Graphics/Icons/recycling.svg?fileID=7388822144124034973&guid=c4f880610e7f77b4cb11f67415f4d3bd&type=3#recycling');

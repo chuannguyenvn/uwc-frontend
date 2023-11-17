@@ -12,7 +12,7 @@ namespace UI.Reusables.Procedure
         private VisualElement _expander;
         private TextElement _confirmButton;
 
-        protected Flow(string name) : base(name)
+        protected Flow() : base(nameof(Flow))
         {
             styleSheets.Add(Resources.Load<StyleSheet>("Stylesheets/Reusables/Flow"));
             AddToClassList("flow");

@@ -9,10 +9,6 @@ namespace UI.Views.Mcps.AssignTaskProcedure
         private ChooseWorkerStep _chooseWorkerStep;
         private ChooseDatetimeStep _chooseDatetimeStep;
 
-        public AssignTaskFlow() : base(nameof(AssignTaskFlow))
-        {
-        }
-
         protected override void CreateSteps()
         {
             _chooseMcpsStep = new ChooseMcpsStep(this, 1);
@@ -26,10 +22,6 @@ namespace UI.Views.Mcps.AssignTaskProcedure
         }
 
         protected override void SubmitResult(ClickEvent evt)
-        {
-        }
-
-        public new class UxmlFactory : UxmlFactory<AssignTaskFlow, UxmlTraits>
         {
         }
     }

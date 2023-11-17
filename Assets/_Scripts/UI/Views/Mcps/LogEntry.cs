@@ -11,7 +11,7 @@ namespace UI.Views.Mcps
         private readonly int _workerId;
         private readonly string _workerName;
 
-        public TextElement TextElement;
+        private TextElement _logText;
 
         public LogEntry(DateTime timestamp, int workerId = -1, string workerName = "") : base(nameof(LogEntry))
         {
@@ -22,24 +22,29 @@ namespace UI.Views.Mcps
             styleSheets.Add(Resources.Load<StyleSheet>("Stylesheets/Views/Mcps/LogEntry"));
             AddToClassList("log-entry");
 
-            TextElement = new TextElement { name = "TextElement" };
-            TextElement.AddToClassList("sub-sub-text");
-            TextElement.AddToClassList("black-text");
-            Add(TextElement);
-            
+            CreateLogText(timestamp, workerId);
+        }
+
+        private void CreateLogText(DateTime timestamp, int workerId)
+        {
+            _logText = new TextElement { name = "TextElement" };
+            _logText.AddToClassList("sub-sub-text");
+            _logText.AddToClassList("black-text");
+            Add(_logText);
+
             var timestampText = timestamp.ToString("hh:mmtt dd/MM");
             if (timestamp.Date == DateTime.Today.Date)
             {
                 timestampText = timestamp.ToString("hh:mmtt") + " today";
             }
-            
+
             if (workerId != -1)
             {
-                TextElement.text = $"{_workerName}|{timestampText}";
+                _logText.text = $"{_workerName}|{timestampText}";
             }
             else
             {
-                TextElement.text = $"{timestampText}";
+                _logText.text = $"{timestampText}";
             }
         }
     }

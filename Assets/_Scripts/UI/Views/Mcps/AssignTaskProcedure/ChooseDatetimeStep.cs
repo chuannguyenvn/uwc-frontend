@@ -9,6 +9,11 @@ namespace UI.Views.Mcps.AssignTaskProcedure
 
         public ChooseDatetimeStep(Flow flow, int stepIndex) : base(flow, stepIndex, false, "Choose the date and time to collect the selected MCPs.")
         {
+            CreateDateTimePicker();
+        }
+
+        private void CreateDateTimePicker()
+        {
             _dateTimePicker = new DateTimePicker();
             AddToContainer(_dateTimePicker);
         }

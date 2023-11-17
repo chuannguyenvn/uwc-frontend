@@ -11,6 +11,11 @@ namespace UI.Views.Mcps.AssignTaskProcedure
 
         public ChooseMcpsStep(Flow flow, int stepIndex) : base(flow, stepIndex, false, "Choose the MCPs that you want to be collected.")
         {
+            CreateMcpList();
+        }
+
+        private void CreateMcpList()
+        {
             _scrollView = new ScrollView();
             AddToContainer(_scrollView);
             for (int i = 0; i < 5; i++)
