@@ -15,8 +15,7 @@ namespace UI.Views.Messaging.Inbox
 
         public MessageListEntry(Message message) : base(nameof(MessageListEntry))
         {
-            styleSheets.Add(Resources.Load<StyleSheet>("Stylesheets/Views/Messaging/Inbox/MessageListEntry"));
-            AddToClassList("message-list-entry");
+            ConfigureUss(nameof(MessageListEntry));
 
             CreateContent(message);
             CreateTimestamp(message);

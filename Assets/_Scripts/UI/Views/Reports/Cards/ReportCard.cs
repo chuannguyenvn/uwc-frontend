@@ -1,7 +1,6 @@
 ﻿using Commons.Communications.Reports;
 using UI.Base;
-using UnityEngine;
-using UnityEngine.UIElements;
+using Utilities;
 
 namespace UI.Views.Reports.Cards
 {
@@ -9,8 +8,7 @@ namespace UI.Views.Reports.Cards
     {
         protected ReportCard(string name) : base(name)
         {
-            styleSheets.Add(Resources.Load<StyleSheet>("Stylesheets/Views/Reports/Cards/ReportCard"));
-            AddToClassList("report-card");
+            ConfigureUss(nameof(ReportCard));
         }
 
         public abstract void UpdateData(GetDashboardReportResponse response);

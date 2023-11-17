@@ -13,8 +13,7 @@ namespace UI.Views.Settings
 
         public ChoiceSettingListEntry(string name, Dictionary<string, Action> options) : base(name)
         {
-            styleSheets.Add(Resources.Load<StyleSheet>("Stylesheets/Views/Settings/ChoiceSettingListEntry"));
-            AddToClassList("choice-setting-list-entry");
+            ConfigureUss(nameof(ChoiceSettingListEntry));
 
             CreateOptionsContainer();
             CreateOptions(options);

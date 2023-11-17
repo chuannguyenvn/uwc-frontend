@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Authentication;
 using Settings;
 using UI.Authentication;
@@ -11,12 +10,12 @@ using UI.Views.Settings;
 using UI.Views.Status;
 using UI.Views.Tasks;
 using UI.Views.Workers;
-using UnityEngine;
 using UnityEngine.UIElements;
+using Utilities;
 
 namespace UI.Base
 {
-    public class Root : VisualElement
+    public class Root : AdaptiveElement
     {
         // Flags to prevent maps from being dragged under UI elements
         public static bool IsMouseOverElement;
@@ -42,11 +41,10 @@ namespace UI.Base
         private ReportingView _reportingView;
         private SettingsView _settingsView;
 
-        public Root()
+        public Root() : base(nameof(Root))
         {
-            styleSheets.Add(Resources.Load<StyleSheet>("Stylesheets/Common"));
-            styleSheets.Add(Resources.Load<StyleSheet>("Stylesheets/Base/Root"));
-            AddToClassList(Configs.IS_DESKTOP ? "desktop" : "mobile");
+            styleSheets.AddByName("Common");
+            styleSheets.AddByName(nameof(Root));
 
             CreateAuthenticationScreen();
             CreateNavigationBar();

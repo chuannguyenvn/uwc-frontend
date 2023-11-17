@@ -11,7 +11,7 @@ namespace UI.Views.Reports.Cards
 
         public TaskCard() : base(nameof(TaskCard))
         {
-            styleSheets.Add(Resources.Load<StyleSheet>("Stylesheets/Views/Reports/Cards/TaskCard"));
+            ConfigureUss(nameof(TaskCard));
 
             CreateTasksLeft();
             CreateTasksCreated();

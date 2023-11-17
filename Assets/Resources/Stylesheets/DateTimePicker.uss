@@ -1,0 +1,62 @@
+.date-time-picker {
+    flex-grow: 1;
+    padding-top: 8px;
+    padding-right: 8px;
+    padding-bottom: 8px;
+    padding-left: 8px;
+}
+
+.date-time-picker #MonthAndYearContainer {
+    align-items: center;
+    padding-bottom: 8px;
+}
+
+.date-time-picker #DateContainer {
+    flex-direction: row;
+    align-items: center;
+    padding-bottom: 8px;
+}
+
+.date-time-picker #DateEntriesContainer {
+    flex-direction: row;
+    justify-content: space-around;
+    flex-grow: 1;
+}
+
+.date-time-picker #DateEntry {
+    justify-content: center;
+    align-self: center;
+    align-items: center;
+    width: 10%;
+}
+
+.date-time-picker .picker-button {
+    -unity-background-scale-mode: scale-to-fit;
+    width: 16px;
+    height: 16px;
+}
+
+.date-time-picker .previous-picker-button {
+    background-image: url('project://database/Assets/Graphics/Icons/chevron-left.svg?fileID=7388822144124034973&guid=6d61e19621b2d0c4da81860a757b1f75&type=3#chevron-left');
+    -unity-background-image-tint-color: var(--theme-color);
+}
+
+.date-time-picker .next-picker-button {
+    background-image: url('project://database/Assets/Graphics/Icons/chevron-right.svg?fileID=7388822144124034973&guid=113765864e2698343b99cceb2fb440bc&type=3#chevron-right');
+    -unity-background-image-tint-color: var(--theme-color);
+}
+
+.date-time-picker #TimeContainer {
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.date-time-picker .time-text {
+    align-items: center;
+    width: 25%;
+}
+
+.date-time-picker .selected {
+    color: var(--theme-color);
+    -unity-font-definition: url('project://database/Assets/Graphics/Fonts/Segoe%20UI%20Semibold.ttf?fileID=12800000&guid=723807d3d8e26e3449d4983f4b454432&type=3#Segoe UI Semibold');
+}

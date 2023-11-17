@@ -7,15 +7,14 @@ using UnityEngine.UIElements;
 
 namespace UI.Views.Tasks.Tasks
 {
-    public class UnfocusedTaskCard : View
+    public class UnfocusedTaskCard : TaskCard
     {
         private VisualElement _contentContainer;
         private TextElement _addressText;
 
         public UnfocusedTaskCard(TaskData taskData, McpFillStatus mcpFillStatus) : base(nameof(UnfocusedTaskCard))
         {
-            styleSheets.Add(Resources.Load<StyleSheet>("Stylesheets/Views/Tasks/Tasks/UnfocusedTaskCard"));
-            AddToClassList("task-card");
+            ConfigureUss(nameof(UnfocusedTaskCard));
 
             _contentContainer = new VisualElement { name = "ContentContainer" };
             Add(_contentContainer);

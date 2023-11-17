@@ -12,7 +12,8 @@ namespace UI.Views.Messaging.Inbox
 
         public InboxContainer() : base(nameof(InboxContainer))
         {
-            styleSheets.Add(Resources.Load<StyleSheet>("Stylesheets/Views/Messaging/Inbox/InboxContainer"));
+            ConfigureUss(nameof(InboxContainer));
+
             AddToClassList("full-view");
 
             CreateInboxHeader();

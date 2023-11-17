@@ -12,8 +12,8 @@ namespace UI.Views.Mcps
 
         public VehiclesView() : base(nameof(VehiclesView))
         {
-            styleSheets.Add(Resources.Load<StyleSheet>("Stylesheets/Views/Vehicles/VehiclesView"));
-            styleSheets.Add(Resources.Load<StyleSheet>("Stylesheets/Views/Vehicles/VehicleListEntry"));
+            ConfigureUss(nameof(VehiclesView));
+
             AddToClassList("side-view");
 
             _scrollView = new ScrollView();

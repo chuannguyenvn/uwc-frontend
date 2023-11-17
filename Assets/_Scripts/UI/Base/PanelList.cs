@@ -1,4 +1,5 @@
 ﻿using UnityEngine.UIElements;
+using Utilities;
 
 namespace UI.Base
 {
@@ -8,10 +9,17 @@ namespace UI.Base
 
         public PanelList() : base(nameof(PanelList))
         {
+            ConfigureUss(nameof(PanelList));
+
+            CreateScrollView();
+        }
+
+        private void CreateScrollView()
+        {
             _scrollView = new ScrollView();
             Add(_scrollView);
         }
-        
+
         public void AddPanel(Panel panel)
         {
             _scrollView.Add(panel);

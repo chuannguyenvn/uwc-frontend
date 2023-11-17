@@ -13,9 +13,9 @@ namespace UI.Views.Status
 
         public StatusView() : base(nameof(StatusView))
         {
-            styleSheets.Add(Resources.Load<StyleSheet>("Stylesheets/Views/Status/StatusView"));
+            ConfigureUss(nameof(StatusView));
+
             AddToClassList("full-view");
-            AddToClassList("status-view");
 
             CreatePanels();
         }

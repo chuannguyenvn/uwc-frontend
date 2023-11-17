@@ -5,6 +5,7 @@ using UI.Base;
 using UI.Reusables;
 using UnityEngine;
 using UnityEngine.UIElements;
+using Utilities;
 using Random = UnityEngine.Random;
 
 namespace UI.Views.Mcps
@@ -20,9 +21,9 @@ namespace UI.Views.Mcps
 
         public McpsView() : base(nameof(McpsView))
         {
-            styleSheets.Add(Resources.Load<StyleSheet>("Stylesheets/Views/Mcps/McpsView"));
+            ConfigureUss(nameof(McpsView));
+
             AddToClassList("side-view");
-            AddToClassList("mcps-view");
 
             CreateControls();
             CreateScrollView();

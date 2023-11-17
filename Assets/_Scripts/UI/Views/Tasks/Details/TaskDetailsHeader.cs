@@ -11,8 +11,7 @@ namespace UI.Views.Tasks.Details
 
         public TaskDetailsHeader() : base(nameof(TaskDetailsHeader))
         {
-            styleSheets.Add(Resources.Load<StyleSheet>("Stylesheets/Views/Tasks/Details/TaskDetailsHeader"));
-            AddToClassList("task-details-header");
+            ConfigureUss(nameof(TaskDetailsHeader));
 
             CreateBackButton();
             CreateTitleText();

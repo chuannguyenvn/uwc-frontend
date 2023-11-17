@@ -35,7 +35,7 @@ namespace UI.Reusables.Procedure
             _stepTitle = stepTitle;
             _stepSubTitle = stepSubTitle;
 
-            AddToClassList("step");
+            ConfigureUss(nameof(Step));
 
             CreateTitle();
             CreateSteps();

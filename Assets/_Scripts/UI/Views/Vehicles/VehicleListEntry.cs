@@ -14,6 +14,8 @@ namespace UI.Views.Mcps
 
         public VehicleListEntry(VehicleData vehicleData) : base(nameof(VehicleListEntry))
         {
+            ConfigureUss(nameof(VehicleListEntry));
+
             AddToClassList("list-entry");
 
             Image = new Image { name = "Avatar" };

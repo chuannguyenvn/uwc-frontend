@@ -10,8 +10,8 @@ namespace UI.Views.Tasks.Details
 
         public EmptyingLogPanel() : base(nameof(EmptyingLogPanel))
         {
-            styleSheets.Add(Resources.Load<StyleSheet>("Stylesheets/Views/Tasks/Details/EmptyingLogPanel"));
-            AddToClassList("emptying-log-panel");
+            ConfigureUss(nameof(EmptyingLogPanel));
+
             AddToClassList("rounded-32px");
 
             CreateTitleText();

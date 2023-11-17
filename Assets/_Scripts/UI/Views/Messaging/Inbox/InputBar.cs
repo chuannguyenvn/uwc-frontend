@@ -13,8 +13,7 @@ namespace UI.Views.Messaging.Inbox
 
         public InputBar() : base(nameof(InputBar))
         {
-            styleSheets.Add(Resources.Load<StyleSheet>("Stylesheets/Views/Messaging/Inbox/InputBar"));
-            AddToClassList("input-bar");
+            ConfigureUss(nameof(InputBar));
 
             CreateTextField();
             CreateSendButton();

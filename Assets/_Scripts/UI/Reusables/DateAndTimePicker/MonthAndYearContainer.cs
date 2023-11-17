@@ -14,6 +14,8 @@ namespace UI.Reusables.DateAndTimePicker
         {
             _dateTimePicker = dateTimePicker;
 
+            ConfigureUss(nameof(MonthAndYearContainer));
+
             CreateMonthAndYear();
         }
 

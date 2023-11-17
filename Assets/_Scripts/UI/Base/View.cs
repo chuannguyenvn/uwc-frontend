@@ -1,5 +1,4 @@
-﻿using UnityEngine;
-using UnityEngine.UIElements;
+﻿using Utilities;
 
 namespace UI.Base
 {
@@ -7,8 +6,7 @@ namespace UI.Base
     {
         protected View(string name) : base(name)
         {
-            styleSheets.Add(Resources.Load<StyleSheet>("Stylesheets/Base/View"));
-            AddToClassList("view");
+            ConfigureUss(nameof(View));
         }
 
         public virtual void FocusView()

@@ -25,9 +25,9 @@ namespace UI.Views.Messaging.Contacts
         {
             _otherUserId = otherUserId;
 
-            styleSheets.Add(Resources.Load<StyleSheet>("Stylesheets/Views/Messaging/Contacts/ContactListEntry"));
+            ConfigureUss(nameof(ContactListEntry));
+
             AddToClassList("list-entry");
-            AddToClassList("contact-list-entry");
 
             CreateAvatar();
             CreateDetails(contactName, messageContent, timestamp, isFromUser);

@@ -11,7 +11,7 @@ namespace UI.Views.Reports.Cards
 
         public LogisticCard() : base(nameof(LogisticCard))
         {
-            styleSheets.Add(Resources.Load<StyleSheet>("Stylesheets/Views/Reports/Cards/LogisticCard"));
+            ConfigureUss(nameof(LogisticCard));
 
             CreateDistanceTraveled();
             CreateFuelConsumption();

@@ -20,7 +20,7 @@ namespace UI.Views.Reports.Cards
                 return;
             }
 
-            styleSheets.Add(Resources.Load<StyleSheet>("Stylesheets/Views/Reports/Cards/RelativeChange"));
+            ConfigureUss(nameof(RelativeChange));
 
             CreateArrowIcon();
             CreateChangeValue();

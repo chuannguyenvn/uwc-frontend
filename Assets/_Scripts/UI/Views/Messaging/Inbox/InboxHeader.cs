@@ -23,7 +23,7 @@ namespace UI.Views.Messaging.Inbox
 
         public InboxHeader() : base(nameof(InboxHeader))
         {
-            styleSheets.Add(Resources.Load<StyleSheet>("Stylesheets/Views/Messaging/Inbox/InboxHeader"));
+            ConfigureUss(nameof(InboxHeader));
 
             CreateBackButton();
             CreateAvatar();

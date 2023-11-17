@@ -7,10 +7,10 @@ namespace UI.Views.Reports.Cards
     public class McpCapacityCard : ReportCard
     {
         private DataUnit _mcpCapacityDataUnit;
-        
+
         public McpCapacityCard() : base(nameof(McpCapacityCard))
         {
-            styleSheets.Add(Resources.Load<StyleSheet>("Stylesheets/Views/Reports/Cards/McpCapacityCard"));
+            ConfigureUss(nameof(McpCapacityCard));
 
             CreateMcpCapacity();
         }

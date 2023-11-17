@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.SignalR.Client;
 using Requests;
 using Settings;
 using UnityEngine;
+using Utilities;
 
 namespace Authentication
 {

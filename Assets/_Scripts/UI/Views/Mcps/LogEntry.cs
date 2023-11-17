@@ -19,8 +19,7 @@ namespace UI.Views.Mcps
             _workerId = workerId;
             _workerName = workerName;
 
-            styleSheets.Add(Resources.Load<StyleSheet>("Stylesheets/Views/Mcps/LogEntry"));
-            AddToClassList("log-entry");
+            ConfigureUss(nameof(LogEntry));
 
             CreateLogText(timestamp, workerId);
         }

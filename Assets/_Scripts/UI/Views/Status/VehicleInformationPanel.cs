@@ -22,8 +22,8 @@ namespace UI.Views.Status
 
         public VehicleInformationPanel() : base(nameof(VehicleInformationPanel))
         {
-            styleSheets.Add(Resources.Load<StyleSheet>("Stylesheets/Views/Status/VehicleInformationPanel"));
-            AddToClassList("vehicle-information-panel");
+            ConfigureUss(nameof(VehicleInformationPanel));
+
             AddToClassList("rounded-32px");
 
             CreateLicensePlate();

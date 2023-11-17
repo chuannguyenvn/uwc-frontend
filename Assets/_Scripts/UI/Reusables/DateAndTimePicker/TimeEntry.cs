@@ -14,7 +14,7 @@ namespace UI.Reusables.DateAndTimePicker
         {
             _isMiddle = isMiddle;
 
-            AddToClassList("time-text");
+            ConfigureUss(nameof(TimeEntry));
 
             CreateTimeText();
             CreateAmPmText();

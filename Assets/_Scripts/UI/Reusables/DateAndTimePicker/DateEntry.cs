@@ -16,6 +16,8 @@ namespace UI.Reusables.DateAndTimePicker
         {
             _dateTimePicker = dateTimePicker;
 
+            ConfigureUss(nameof(DateEntry));
+            
             CreateDayOfWeek(dayOfWeek);
             CreateDate();
             RegisterClickCallback();

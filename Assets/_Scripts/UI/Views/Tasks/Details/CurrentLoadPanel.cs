@@ -14,8 +14,8 @@ namespace UI.Views.Tasks.Details
 
         public CurrentLoadPanel() : base(nameof(CurrentLoadPanel))
         {
-            styleSheets.Add(Resources.Load<StyleSheet>("Stylesheets/Views/Tasks/Details/CurrentLoadPanel"));
-            AddToClassList("current-load-panel");
+            ConfigureUss(nameof(CurrentLoadPanel));
+
             AddToClassList("rounded-32px");
 
             CreateNumericalLoad();

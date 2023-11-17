@@ -11,8 +11,7 @@ namespace UI.Views.Settings
 
         public SectionHeader(string name) : base(name)
         {
-            styleSheets.Add(Resources.Load<StyleSheet>("Stylesheets/Views/Settings/SectionHeader"));
-            AddToClassList("section-header");
+            ConfigureUss(nameof(SectionHeader));
 
             CreateTitleText(name);
             CreateHeaderLine();

@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using UnityEngine.UIElements;
+using Utilities;
 
 namespace UI.Base
 {
@@ -10,8 +11,7 @@ namespace UI.Base
 
         public Panel(string name = "Panel") : base(name)
         {
-            styleSheets.Add(Resources.Load<StyleSheet>("Stylesheets/Base/Panel"));
-            AddToClassList("panel");
+            ConfigureUss(nameof(Panel));
 
             CreateBackground();
         }

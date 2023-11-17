@@ -14,8 +14,7 @@ namespace UI.Reusables.Procedure
 
         protected Flow() : base(nameof(Flow))
         {
-            styleSheets.Add(Resources.Load<StyleSheet>("Stylesheets/Reusables/Flow"));
-            AddToClassList("flow");
+            ConfigureUss(nameof(Flow));
 
             CreateSteps();
             CreateConfirmButton();

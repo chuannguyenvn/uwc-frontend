@@ -14,9 +14,9 @@ namespace UI.Views.Messaging.Contacts
 
         public ContactList() : base(nameof(ContactList))
         {
-            styleSheets.Add(Resources.Load<StyleSheet>("Stylesheets/Views/Messaging/Contacts/ContactList"));
+            ConfigureUss(nameof(ContactList));
+
             AddToClassList(Configs.IS_DESKTOP ? "side-view" : "full-view");
-            AddToClassList("contact-list");
 
             CreateScrollView();
 

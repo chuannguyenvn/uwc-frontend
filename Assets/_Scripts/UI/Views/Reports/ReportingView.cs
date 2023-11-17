@@ -28,7 +28,8 @@ namespace UI.Views.Reports
 
         public ReportingView() : base(nameof(ReportingView))
         {
-            styleSheets.Add(Resources.Load<StyleSheet>("Stylesheets/Views/Reports/ReportingView"));
+            ConfigureUss(nameof(ReportingView));
+
             AddToClassList("full-view");
 
             CreateFirstRow();

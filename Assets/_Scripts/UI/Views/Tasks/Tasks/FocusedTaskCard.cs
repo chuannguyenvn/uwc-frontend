@@ -7,10 +7,10 @@ using UnityEngine.UIElements;
 
 namespace UI.Views.Tasks.Tasks
 {
-    public class FocusedTaskCard : View
+    public class FocusedTaskCard : TaskCard
     {
         private readonly TaskData _taskData;
-        
+
         // Panel
         private VisualElement _contentContainer;
         private VisualElement _panel;
@@ -32,8 +32,8 @@ namespace UI.Views.Tasks.Tasks
         public FocusedTaskCard(TaskData taskData, McpFillStatus mcpFillStatus) : base(nameof(FocusedTaskCard))
         {
             _taskData = taskData;
-            styleSheets.Add(Resources.Load<StyleSheet>("Stylesheets/Views/Tasks/Tasks/FocusedTaskCard"));
-            AddToClassList("task-card");
+
+            ConfigureUss(nameof(FocusedTaskCard));
 
             CreateMask();
             CreateAddress();

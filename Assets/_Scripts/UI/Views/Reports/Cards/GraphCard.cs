@@ -4,6 +4,7 @@ using System.Linq;
 using Commons.Communications.Reports;
 using UnityEngine;
 using UnityEngine.UIElements;
+using Utilities;
 using Random = UnityEngine.Random;
 
 namespace UI.Views.Reports.Cards
@@ -29,7 +30,7 @@ namespace UI.Views.Reports.Cards
 
         public GraphCard() : base(nameof(GraphCard))
         {
-            styleSheets.Add(Resources.Load<StyleSheet>("Stylesheets/Views/Reports/Cards/GraphCard"));
+            ConfigureUss(nameof(GraphCard));
 
             GenerateMockData();
             CreateLabels();

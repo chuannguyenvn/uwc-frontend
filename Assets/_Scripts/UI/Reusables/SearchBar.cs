@@ -8,7 +8,7 @@ namespace UI.Reusables
     public class SearchBar : AdaptiveElement
     {
         private readonly Action<string> _searched;
-        
+
         private TextField _searchField;
         private Button _searchButton;
         private VisualElement _searchIcon;
@@ -17,8 +17,7 @@ namespace UI.Reusables
         {
             _searched = searched;
 
-            styleSheets.Add(Resources.Load<StyleSheet>("Stylesheets/Reusables/SearchBar"));
-            AddToClassList("search-bar");
+            ConfigureUss(nameof(SearchBar));
 
             CreateSearchField();
             CreateSearchIcon();

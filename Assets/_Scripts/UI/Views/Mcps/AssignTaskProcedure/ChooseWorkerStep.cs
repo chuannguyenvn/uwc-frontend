@@ -1,8 +1,8 @@
 ﻿using Commons.Models;
 using UI.Reusables.Procedure;
 using UI.Views.Workers;
-using UnityEngine;
 using UnityEngine.UIElements;
+using Utilities;
 
 namespace UI.Views.Mcps.AssignTaskProcedure
 {
@@ -18,8 +18,8 @@ namespace UI.Views.Mcps.AssignTaskProcedure
 
         private void CreateWorkerList()
         {
-            styleSheets.Add(Resources.Load<StyleSheet>("Stylesheets/Views/Workers/WorkersView"));
-            styleSheets.Add(Resources.Load<StyleSheet>("Stylesheets/Views/Workers/WorkerListEntry"));
+            styleSheets.AddByName(nameof(WorkersView));
+            styleSheets.AddByName(nameof(WorkerListEntry));
 
             _scrollView = new ScrollView();
             AddToContainer(_scrollView);

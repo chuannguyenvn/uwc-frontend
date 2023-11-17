@@ -10,8 +10,7 @@ namespace UI.Views.Settings
 
         protected SettingListEntry(string name) : base(name)
         {
-            styleSheets.Add(Resources.Load<StyleSheet>("Stylesheets/Views/Settings/SettingListEntry"));
-            AddToClassList("setting-list-entry");
+            ConfigureUss(nameof(SettingListEntry));
 
             CreateSettingNameText(name);
         }

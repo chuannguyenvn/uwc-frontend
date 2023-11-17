@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UI.Base;
 using UnityEngine.UIElements;
+using Utilities;
 
 namespace UI.Reusables.DateAndTimePicker
 {
@@ -17,6 +18,8 @@ namespace UI.Reusables.DateAndTimePicker
         public DateContainer(DateTimePicker dateTimePicker) : base(nameof(DateContainer))
         {
             _dateTimePicker = dateTimePicker;
+
+            ConfigureUss(nameof(DateContainer));
 
             CreatePreviousDateButton();
             CreateDateEntries();

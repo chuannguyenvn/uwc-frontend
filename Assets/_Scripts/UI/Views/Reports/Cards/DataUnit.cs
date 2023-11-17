@@ -18,8 +18,7 @@ namespace UI.Views.Reports.Cards
             _suffix = suffix;
             _format = format;
 
-            styleSheets.Add(Resources.Load<StyleSheet>("Stylesheets/Views/Reports/Cards/DataUnit"));
-            AddToClassList("data-unit");
+            ConfigureUss(nameof(DataUnit));
 
             CreateTitle(name);
             CreateValue();

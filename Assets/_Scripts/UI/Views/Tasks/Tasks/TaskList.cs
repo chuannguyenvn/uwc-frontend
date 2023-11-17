@@ -5,6 +5,7 @@ using Settings;
 using UI.Base;
 using UnityEngine;
 using UnityEngine.UIElements;
+using Utilities;
 
 namespace UI.Views.Tasks.Tasks
 {
@@ -14,12 +15,9 @@ namespace UI.Views.Tasks.Tasks
 
         public TaskList() : base(nameof(TaskList))
         {
-            styleSheets.Add(Resources.Load<StyleSheet>("Stylesheets/Views/Tasks/Tasks/TaskList"));
+            ConfigureUss(nameof(TaskList));
 
-            ScrollView = new ScrollView();
-            ScrollView.AddToClassList("list-view");
-            Add(ScrollView);
-            
+            CreateScrollView();
 
             if (Configs.IS_DESKTOP) DataStoreManager.Tasks.AllTaskList.DataUpdated += AllTaskListDataUpdatedHandler;
             else DataStoreManager.Tasks.PersonalTaskList.DataUpdated += PersonalTaskListDataUpdatedHandler;
@@ -31,6 +29,13 @@ namespace UI.Views.Tasks.Tasks
         {
             if (Configs.IS_DESKTOP) DataStoreManager.Tasks.AllTaskList.DataUpdated -= AllTaskListDataUpdatedHandler;
             else DataStoreManager.Tasks.PersonalTaskList.DataUpdated -= PersonalTaskListDataUpdatedHandler;
+        }
+
+        private void CreateScrollView()
+        {
+            ScrollView = new ScrollView();
+            ScrollView.AddToClassList("list-view");
+            Add(ScrollView);
         }
 
         private void AllTaskListDataUpdatedHandler(GetAllTasksResponse getAllTasksResponse)

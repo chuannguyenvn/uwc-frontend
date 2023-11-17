@@ -11,8 +11,8 @@ namespace UI.Views.Status
 
         public PersonalInformationPanel() : base(nameof(PersonalInformationPanel))
         {
-            styleSheets.Add(Resources.Load<StyleSheet>("Stylesheets/Views/Status/PersonalInformationPanel"));
-            AddToClassList("personal-information-panel");
+            ConfigureUss(nameof(PersonalInformationPanel));
+
             AddToClassList("rounded-32px");
 
             CreateRoleText();

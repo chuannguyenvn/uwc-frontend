@@ -2,6 +2,7 @@
 using UI.Base;
 using UnityEngine;
 using UnityEngine.UIElements;
+using Utilities;
 
 namespace UI.Navigation
 {
@@ -12,8 +13,8 @@ namespace UI.Navigation
 
         public NavigationItem(ViewType viewType) : base(nameof(NavigationItem))
         {
-            styleSheets.Add(Resources.Load<StyleSheet>("Stylesheets/Navigation/NavigationItem"));
-            AddToClassList("navigation-item");
+            ConfigureUss(nameof(NavigationItem));
+
             name = viewType.ToString();
 
             CreateIcon();

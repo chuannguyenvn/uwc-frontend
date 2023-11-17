@@ -1,8 +1,8 @@
 ﻿using Authentication;
 using Settings;
 using UI.Base;
-using UnityEngine;
 using UnityEngine.UIElements;
+using Utilities;
 
 namespace UI.Authentication
 {
@@ -22,8 +22,7 @@ namespace UI.Authentication
 
         public AuthenticationScreen() : base(nameof(AuthenticationScreen))
         {
-            styleSheets.Add(Resources.Load<StyleSheet>("Stylesheets/Authentication/AuthenticationScreen"));
-            AddToClassList("authentication-screen");
+            ConfigureUss(nameof(AuthenticationScreen));
 
             CreateLogin();
             CreateSplash();

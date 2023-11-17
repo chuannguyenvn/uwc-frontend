@@ -10,7 +10,7 @@ namespace UI.Views.Reports.Cards
 
         public McpCollectedCard() : base(nameof(McpCollectedCard))
         {
-            styleSheets.Add(Resources.Load<StyleSheet>("Stylesheets/Views/Reports/Cards/McpCollectedCard"));
+            ConfigureUss(nameof(McpCollectedCard));
 
             CreateMcpCollected();
         }

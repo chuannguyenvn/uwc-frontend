@@ -11,8 +11,7 @@ namespace UI.Views.Settings
 
         public Option(string name, Action callback) : base(name)
         {
-            styleSheets.Add(Resources.Load<StyleSheet>("Stylesheets/Views/Settings/Option"));
-            AddToClassList("option");
+            ConfigureUss(nameof(Option));
 
             CreateOptionNameText(name);
 

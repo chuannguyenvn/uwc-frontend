@@ -4,6 +4,7 @@ using Settings;
 using UI.Base;
 using UnityEngine;
 using UnityEngine.UIElements;
+using Utilities;
 
 namespace UI.Views.Tasks.Tasks
 {
@@ -18,8 +19,7 @@ namespace UI.Views.Tasks.Tasks
 
         public TaskListEntry(TaskData taskData, TaskType taskType) : base(nameof(TaskListEntry))
         {
-            styleSheets.Add(Resources.Load<StyleSheet>("Stylesheets/Views/Tasks/Tasks/TaskListEntry"));
-            AddToClassList("tasks-list-entry");
+            ConfigureUss(nameof(TaskListEntry));
 
             CreateTimeline();
             CreateCard(taskData, taskType);
@@ -57,11 +57,11 @@ namespace UI.Views.Tasks.Tasks
                     _statusText.text = "Pending";
                     break;
                 case TaskType.Completed:
-                    _content = new CompletedCard(taskData);
+                    _content = new CompletedTaskCard(taskData);
                     _statusText.text = "9:41AM";
                     break;
             }
-            
+
             _content.RegisterCallback<MouseUpEvent>(_ => { GetFirstAncestorOfType<TasksView>().ShowTaskDetails(); });
 
             Add(_content);

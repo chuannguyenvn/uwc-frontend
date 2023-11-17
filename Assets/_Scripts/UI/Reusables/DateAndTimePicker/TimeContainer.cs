@@ -8,7 +8,7 @@ namespace UI.Reusables.DateAndTimePicker
     public class TimeContainer : AdaptiveElement
     {
         private readonly DateTimePicker _dateTimePicker;
-        
+
         private TimeEntry _previousTimeText;
         private TimeEntry _currentTimeText;
         private TimeEntry _nextTimeText;
@@ -19,7 +19,9 @@ namespace UI.Reusables.DateAndTimePicker
         public TimeContainer(DateTimePicker dateTimePicker) : base(nameof(TimeContainer))
         {
             _dateTimePicker = dateTimePicker;
-            
+
+            ConfigureUss(nameof(TimeContainer));
+
             CreatePreviousTimeButton();
             CreateTimeEntries();
             CreateNextTimeButton();
@@ -35,7 +37,7 @@ namespace UI.Reusables.DateAndTimePicker
 
             _nextTimeText = new TimeEntry(false) { name = "NextTimeText" };
             Add(_nextTimeText);
-            
+
             _previousTimeText.RegisterCallback<ClickEvent>(ev => _dateTimePicker.SelectedDateTime = _dateTimePicker.SelectedDateTime.AddMinutes(-15));
             _nextTimeText.RegisterCallback<ClickEvent>(ev => _dateTimePicker.SelectedDateTime = _dateTimePicker.SelectedDateTime.AddMinutes(15));
         }
@@ -47,7 +49,8 @@ namespace UI.Reusables.DateAndTimePicker
             _previousDateButton.AddToClassList("previous-picker-button");
             Add(_previousDateButton);
 
-            _previousDateButton.RegisterCallback<ClickEvent>(ev => _dateTimePicker.SelectedDateTime = _dateTimePicker.SelectedDateTime.AddMinutes(-15));
+            _previousDateButton.RegisterCallback<ClickEvent>(
+                ev => _dateTimePicker.SelectedDateTime = _dateTimePicker.SelectedDateTime.AddMinutes(-15));
         }
 
         private void CreateNextTimeButton()

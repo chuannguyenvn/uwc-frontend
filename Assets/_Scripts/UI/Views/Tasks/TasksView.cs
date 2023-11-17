@@ -19,8 +19,7 @@ namespace UI.Views.Tasks
 
         public TasksView() : base(nameof(TasksView))
         {
-            styleSheets.Add(Resources.Load<StyleSheet>("Stylesheets/Views/Tasks/TasksView"));
-            AddToClassList("tasks-view");
+            ConfigureUss(nameof(TasksView));
 
             if (Configs.IS_DESKTOP) CreateForDesktop();
             else CreateForMobile();

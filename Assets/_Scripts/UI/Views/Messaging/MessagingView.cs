@@ -15,7 +15,8 @@ namespace UI.Views.Messaging
 
         public MessagingView() : base(nameof(MessagingView))
         {
-            styleSheets.Add(Resources.Load<StyleSheet>("Stylesheets/Views/Messaging/MessagingView"));
+            ConfigureUss(nameof(MessagingView));
+
             if (Configs.IS_DESKTOP) AddToClassList("full-view");
 
             CreateContactList();

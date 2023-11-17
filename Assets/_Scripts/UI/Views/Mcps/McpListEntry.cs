@@ -3,6 +3,7 @@ using Commons.Models;
 using UI.Base;
 using UnityEngine;
 using UnityEngine.UIElements;
+using Utilities;
 using Random = UnityEngine.Random;
 
 namespace UI.Views.Mcps
@@ -22,8 +23,7 @@ namespace UI.Views.Mcps
 
         public McpListEntry(McpData mcpData, float currentLoadPercentage) : base(nameof(McpListEntry))
         {
-            styleSheets.Add(Resources.Load<StyleSheet>("Stylesheets/Views/Mcps/McpListEntry"));
-            AddToClassList("list-entry");
+            ConfigureUss(nameof(McpListEntry));
 
             CreateInformation(mcpData, currentLoadPercentage);
             CreateLogs();

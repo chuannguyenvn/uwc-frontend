@@ -13,7 +13,8 @@ namespace UI.Views.Settings
 
         public SettingsView() : base(nameof(SettingsView))
         {
-            styleSheets.Add(Resources.Load<StyleSheet>("Stylesheets/Views/Settings/SettingsView"));
+            ConfigureUss(nameof(SettingsView));
+
             AddToClassList(Configs.IS_DESKTOP ? "side-view" : "full-view");
 
             CreateSettings();

@@ -11,14 +11,14 @@ namespace UI.Views.Workers
 
         public WorkersView() : base(nameof(WorkersView))
         {
-            styleSheets.Add(Resources.Load<StyleSheet>("Stylesheets/Views/Workers/WorkersView"));
-            styleSheets.Add(Resources.Load<StyleSheet>("Stylesheets/Views/Workers/WorkerListEntry"));
+            ConfigureUss(nameof(WorkersView));
+
             AddToClassList("side-view");
-            
+
             _scrollView = new ScrollView();
             _scrollView.AddToClassList("list-view");
             Add(_scrollView);
-            
+
             for (int i = 0; i < 30; i++)
             {
                 _scrollView.Add(new WorkerListEntry(new UserProfile()

@@ -20,8 +20,8 @@ namespace UI.Views.Tasks.Details
 
         public DestinationPanel() : base(nameof(DestinationPanel))
         {
-            styleSheets.Add(Resources.Load<StyleSheet>("Stylesheets/Views/Tasks/Details/DestinationPanel"));
-            AddToClassList("destination-panel");
+            ConfigureUss(nameof(DestinationPanel));
+
             AddToClassList("rounded-32px");
 
             CreateAddress();

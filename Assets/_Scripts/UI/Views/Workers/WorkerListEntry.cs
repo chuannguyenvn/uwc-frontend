@@ -14,6 +14,8 @@ namespace UI.Views.Workers
 
         public WorkerListEntry(UserProfile profile) : base(nameof(WorkerListEntry))
         {
+            ConfigureUss(nameof(WorkerListEntry));
+
             AddToClassList("list-entry");
 
             _image = new Image { name = "Avatar" };

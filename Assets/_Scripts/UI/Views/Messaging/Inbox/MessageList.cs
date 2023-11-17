@@ -12,7 +12,7 @@ namespace UI.Views.Messaging.Inbox
 
         public MessageList() : base(nameof(MessageList))
         {
-            styleSheets.Add(Resources.Load<StyleSheet>("Stylesheets/Views/Messaging/Inbox/MessageList"));
+            ConfigureUss(nameof(MessageList));
 
             CreateScrollView();
 

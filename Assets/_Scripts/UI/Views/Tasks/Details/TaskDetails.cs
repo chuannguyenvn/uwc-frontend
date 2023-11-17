@@ -17,8 +17,7 @@ namespace UI.Views.Tasks.Details
 
         public TaskDetails() : base(nameof(TaskDetails))
         {
-            styleSheets.Add(Resources.Load<StyleSheet>("Stylesheets/Views/Tasks/Details/TaskDetails"));
-            AddToClassList("task-details-view");
+            ConfigureUss(nameof(TaskDetails));
 
             CreateHeader();
             CreatePanels();

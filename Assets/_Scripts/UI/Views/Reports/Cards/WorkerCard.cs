@@ -11,8 +11,7 @@ namespace UI.Views.Reports.Cards
 
         public WorkerCard() : base(nameof(WorkerCard))
         {
-            styleSheets.Add(Resources.Load<StyleSheet>("Stylesheets/Views/Reports/Cards/WorkerCard"));
-            AddToClassList("worker-card");
+            ConfigureUss(nameof(WorkerCard));
 
             CreateOnlineWorkers();
             CreateTotalWorkers();

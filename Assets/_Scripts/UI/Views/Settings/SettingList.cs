@@ -10,7 +10,7 @@ namespace UI.Views.Settings
 
         public SettingList() : base(nameof(SettingList))
         {
-            styleSheets.Add(Resources.Load<StyleSheet>("Stylesheets/Views/Settings/SettingList"));
+            ConfigureUss(nameof(SettingList));
 
             CreateScrollView();
         }

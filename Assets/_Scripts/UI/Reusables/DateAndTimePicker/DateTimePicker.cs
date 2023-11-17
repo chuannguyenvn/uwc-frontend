@@ -26,8 +26,7 @@ namespace UI.Reusables.DateAndTimePicker
 
         public DateTimePicker() : base(nameof(DateTimePicker))
         {
-            styleSheets.Add(Resources.Load<StyleSheet>("Stylesheets/Reusables/DatetimePicker"));
-            AddToClassList("datetime-picker");
+            ConfigureUss(nameof(DateTimePicker));
 
             CreateMonthAndYear();
             CreateDate();

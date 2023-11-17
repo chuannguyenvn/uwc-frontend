@@ -4,6 +4,7 @@ using UI.Base;
 using UnityEngine;
 using UnityEngine.UIElements;
 using UnityEngine.Scripting;
+using Utilities;
 
 namespace UI.Navigation
 {
@@ -14,8 +15,7 @@ namespace UI.Navigation
 
         public NavigationBar() : base(nameof(NavigationBar))
         {
-            styleSheets.Add(Resources.Load<StyleSheet>("Stylesheets/Navigation/NavigationBar"));
-            AddToClassList("navigation-bar");
+            ConfigureUss(nameof(NavigationBar));
 
             CreateBackground();
             CreateNavigationItems();
