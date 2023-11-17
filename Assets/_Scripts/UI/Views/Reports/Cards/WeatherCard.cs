@@ -6,18 +6,27 @@ namespace UI.Views.Reports.Cards
 {
     public class WeatherCard : ReportCard
     {
-        public DataUnit CurrentTemperatureDataUnit;
-        public DataUnit ChanceOfPrecipitationDataUnit;
+        private DataUnit _currentTemperatureDataUnit;
+        private DataUnit _chanceOfPrecipitationDataUnit;
 
         public WeatherCard() : base(nameof(WeatherCard))
         {
             styleSheets.Add(Resources.Load<StyleSheet>("Stylesheets/Views/Reports/Cards/WeatherCard"));
 
-            CurrentTemperatureDataUnit = new DataUnit("Current temperature", RelativeChange.Mode.None, "°C");
-            Add(CurrentTemperatureDataUnit);
+            CreateCurrentTemperature();
+            CreateChanceOfPrecipitation();
+        }
 
-            ChanceOfPrecipitationDataUnit = new DataUnit("Chance of precipitation", RelativeChange.Mode.None);
-            Add(ChanceOfPrecipitationDataUnit);
+        private void CreateCurrentTemperature()
+        {
+            _currentTemperatureDataUnit = new DataUnit("Current temperature", RelativeChange.Mode.None, "°C");
+            Add(_currentTemperatureDataUnit);
+        }
+
+        private void CreateChanceOfPrecipitation()
+        {
+            _chanceOfPrecipitationDataUnit = new DataUnit("Chance of precipitation", RelativeChange.Mode.None);
+            Add(_chanceOfPrecipitationDataUnit);
         }
 
         public override void UpdateData(GetDashboardReportResponse response)

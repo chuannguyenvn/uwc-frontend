@@ -7,7 +7,7 @@ namespace UI.Views.Reports.Cards
 {
     public abstract class ReportCard : View
     {
-        public ReportCard(string name) : base(name)
+        protected ReportCard(string name) : base(name)
         {
             styleSheets.Add(Resources.Load<StyleSheet>("Stylesheets/Views/Reports/Cards/ReportCard"));
             AddToClassList("report-card");

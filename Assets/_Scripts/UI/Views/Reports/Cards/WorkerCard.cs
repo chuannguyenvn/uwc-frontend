@@ -6,23 +6,34 @@ namespace UI.Views.Reports.Cards
 {
     public class WorkerCard : ReportCard
     {
-        public DataUnit OnlineWorkersDataUnit;
-        public DataUnit TotalWorkersDataUnit;
+        private DataUnit _onlineWorkersDataUnit;
+        private DataUnit _totalWorkersDataUnit;
+
         public WorkerCard() : base(nameof(WorkerCard))
         {
             styleSheets.Add(Resources.Load<StyleSheet>("Stylesheets/Views/Reports/Cards/WorkerCard"));
-            
-            OnlineWorkersDataUnit = new DataUnit("Workers online", RelativeChange.Mode.None);
-            Add(OnlineWorkersDataUnit);
-            
-            TotalWorkersDataUnit = new DataUnit("Total workers", RelativeChange.Mode.None);
-            Add(TotalWorkersDataUnit);
+            AddToClassList("worker-card");
+
+            CreateOnlineWorkers();
+            CreateTotalWorkers();
+        }
+
+        private void CreateTotalWorkers()
+        {
+            _totalWorkersDataUnit = new DataUnit("Total workers", RelativeChange.Mode.None);
+            Add(_totalWorkersDataUnit);
+        }
+
+        private void CreateOnlineWorkers()
+        {
+            _onlineWorkersDataUnit = new DataUnit("Workers online", RelativeChange.Mode.None);
+            Add(_onlineWorkersDataUnit);
         }
 
         public override void UpdateData(GetDashboardReportResponse response)
         {
-            OnlineWorkersDataUnit.UpdateValue(response.OnlineWorkers, -1f);
-            TotalWorkersDataUnit.UpdateValue(response.TotalWorkers, -1f);
+            _onlineWorkersDataUnit.UpdateValue(response.OnlineWorkers, -1f);
+            _totalWorkersDataUnit.UpdateValue(response.TotalWorkers, -1f);
         }
     }
 }

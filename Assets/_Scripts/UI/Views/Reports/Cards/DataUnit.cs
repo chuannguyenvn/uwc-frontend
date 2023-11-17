@@ -9,9 +9,9 @@ namespace UI.Views.Reports.Cards
         private readonly string _suffix;
         private readonly string _format;
 
-        public TextElement Title;
-        public TextElement Value;
-        public RelativeChange RelativeChange;
+        private TextElement _title;
+        private TextElement _value;
+        private RelativeChange _relativeChange;
 
         public DataUnit(string name, RelativeChange.Mode mode, string suffix = "", string format = "") : base(name)
         {
@@ -21,32 +21,45 @@ namespace UI.Views.Reports.Cards
             styleSheets.Add(Resources.Load<StyleSheet>("Stylesheets/Views/Reports/Cards/DataUnit"));
             AddToClassList("data-unit");
 
-            Title = new TextElement() { name = "McpCollectedTitle" };
-            Title.AddToClassList("sub-text");
-            Title.AddToClassList("grey-text");
-            Title.text = name;
-            Add(Title);
+            CreateTitle(name);
+            CreateValue();
+            CreateRelativeChange(mode);
+        }
 
-            Value = new TextElement() { name = "McpCollectedValue" };
-            Value.AddToClassList("report-value-text");
-            Value.AddToClassList("black-text");
-            Value.text = "Value" + _suffix;
-            Add(Value);
+        private void CreateTitle(string name)
+        {
+            _title = new TextElement() { name = "McpCollectedTitle" };
+            _title.AddToClassList("sub-text");
+            _title.AddToClassList("grey-text");
+            _title.text = name;
+            Add(_title);
+        }
 
-            RelativeChange = new RelativeChange(mode);
-            if (mode != RelativeChange.Mode.None) RelativeChange.UpdateChange(-1f);
-            Add(RelativeChange);
+        private void CreateValue()
+        {
+            _value = new TextElement() { name = "McpCollectedValue" };
+            _value.AddToClassList("report-value-text");
+            _value.AddToClassList("black-text");
+            _value.text = "Value" + _suffix;
+            Add(_value);
+        }
+
+        private void CreateRelativeChange(RelativeChange.Mode mode)
+        {
+            _relativeChange = new RelativeChange(mode);
+            if (mode != RelativeChange.Mode.None) _relativeChange.UpdateChange(-1f);
+            Add(_relativeChange);
         }
 
         public void UpdateValue(float value, float percentage)
         {
-            Value.text = value.ToString(_format) + _suffix;
-            RelativeChange.UpdateChange(percentage);
+            _value.text = value.ToString(_format) + _suffix;
+            _relativeChange.UpdateChange(percentage);
         }
 
         public void UpdateValue(string value)
         {
-            Value.text = value;
+            _value.text = value;
         }
     }
 }

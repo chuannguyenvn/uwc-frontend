@@ -6,24 +6,33 @@ namespace UI.Views.Reports.Cards
 {
     public class TaskCard : ReportCard
     {
-        public DataUnit TasksLeftDataUnit;
-        public DataUnit TasksCreatedDataUnit;
+        private DataUnit _tasksLeftDataUnit;
+        private DataUnit _tasksCreatedDataUnit;
 
         public TaskCard() : base(nameof(TaskCard))
         {
             styleSheets.Add(Resources.Load<StyleSheet>("Stylesheets/Views/Reports/Cards/TaskCard"));
 
-            TasksLeftDataUnit = new DataUnit("Tasks left", RelativeChange.Mode.None);
-            Add(TasksLeftDataUnit);
+            CreateTasksLeft();
+            CreateTasksCreated();
+        }
 
-            TasksCreatedDataUnit = new DataUnit("Tasks created", RelativeChange.Mode.HigherIsBetter);
-            Add(TasksCreatedDataUnit);
+        private void CreateTasksLeft()
+        {
+            _tasksLeftDataUnit = new DataUnit("Tasks left", RelativeChange.Mode.None);
+            Add(_tasksLeftDataUnit);
+        }
+
+        private void CreateTasksCreated()
+        {
+            _tasksCreatedDataUnit = new DataUnit("Tasks created", RelativeChange.Mode.HigherIsBetter);
+            Add(_tasksCreatedDataUnit);
         }
 
         public override void UpdateData(GetDashboardReportResponse response)
         {
-            TasksLeftDataUnit.UpdateValue(response.TotalTasksCompleted - response.TotalTasksCreated, -1f);
-            TasksCreatedDataUnit.UpdateValue(response.TotalTasksCreated, -1f);
+            _tasksLeftDataUnit.UpdateValue(response.TotalTasksCompleted - response.TotalTasksCreated, -1f);
+            _tasksCreatedDataUnit.UpdateValue(response.TotalTasksCreated, -1f);
         }
     }
 }
