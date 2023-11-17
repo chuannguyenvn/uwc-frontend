@@ -16,23 +16,26 @@ namespace UI.Reusables.Procedure
 
         private bool _isActive;
         private bool _isInteracted;
+
+        // Title
         private VisualElement _stepTitleContainer;
         private TextElement _stepTitleText;
         private TextElement _stepSubTitleText;
         private VisualElement _separator;
 
-        protected VisualElement StepContainer;
+        // Steps
+        private VisualElement _stepContainer;
         private VisualElement _stepContainerShadow;
 
-        public Step(Flow flow, int stepIndex, bool completeImmediately, string stepTitle, string stepSubTitle = "") : base(stepTitle)
+        protected Step(Flow flow, int stepIndex, bool completeImmediately, string stepTitle, string stepSubTitle = "") : base(stepTitle)
         {
-            AddToClassList("step");
-
             _flow = flow;
             _stepIndex = stepIndex;
             _completeImmediately = completeImmediately;
             _stepTitle = stepTitle;
             _stepSubTitle = stepSubTitle;
+
+            AddToClassList("step");
 
             CreateTitle();
             CreateSteps();
@@ -68,24 +71,24 @@ namespace UI.Reusables.Procedure
                 if (_isActive) Deactivate();
                 else Activate();
             });
-            
+
             _separator = new VisualElement() { name = "Separator" };
             Add(_separator);
         }
 
         private void CreateSteps()
         {
-            StepContainer = new VisualElement() { name = "StepContainer" };
-            Add(StepContainer);
+            _stepContainer = new VisualElement() { name = "StepContainer" };
+            Add(_stepContainer);
 
             _stepContainerShadow = new VisualElement() { name = "StepContainerShadow" };
             _stepContainerShadow.pickingMode = PickingMode.Ignore;
-            StepContainer.Add(_stepContainerShadow);
+            _stepContainer.Add(_stepContainerShadow);
         }
 
         protected void AddToContainer(VisualElement element)
         {
-            StepContainer.Add(element);
+            _stepContainer.Add(element);
             _stepContainerShadow.PlaceInFront(element);
         }
 
@@ -100,15 +103,10 @@ namespace UI.Reusables.Procedure
             RegisterCallback<MouseUpEvent>(TriggerCheckFlowCompletion);
             RegisterCallback<KeyDownEvent>(TriggerCheckFlowCompletion);
 
-            StepContainer.style.display = DisplayStyle.Flex;
-            _stepTitleText.AddToClassList("white-text");
-            _stepTitleText.RemoveFromClassList("black-text");
-            if (_stepSubTitle != "") _stepSubTitleText.style.display = DisplayStyle.Flex;
-            AddToClassList("active");
-            _isActive = true;
             _isInteracted = true;
-
+            MarkActive(true);
             MarkComplete(false);
+
             _flow.CheckFlowCompletion();
         }
 
@@ -118,14 +116,9 @@ namespace UI.Reusables.Procedure
             UnregisterCallback<MouseUpEvent>(TriggerCheckFlowCompletion);
             UnregisterCallback<KeyDownEvent>(TriggerCheckFlowCompletion);
 
-            StepContainer.style.display = DisplayStyle.None;
-            _stepTitleText.AddToClassList("black-text");
-            _stepTitleText.RemoveFromClassList("white-text");
-            if (_stepSubTitle != "") _stepSubTitleText.style.display = DisplayStyle.None;
-            RemoveFromClassList("active");
-            _isActive = false;
-
+            MarkActive(false);
             if (_isInteracted && (CheckStepCompletion() || (_completeImmediately && !IsCompleted))) MarkComplete(true);
+
             _flow.CheckFlowCompletion();
         }
 
@@ -136,7 +129,29 @@ namespace UI.Reusables.Procedure
             _flow.CheckFlowCompletion();
         }
 
-        public void MarkComplete(bool isCompleted)
+        private void MarkActive(bool isActive)
+        {
+            _isActive = isActive;
+
+            if (isActive)
+            {
+                _stepContainer.style.display = DisplayStyle.Flex;
+                _stepTitleText.AddToClassList("white-text");
+                _stepTitleText.RemoveFromClassList("black-text");
+                if (_stepSubTitle != "") _stepSubTitleText.style.display = DisplayStyle.Flex;
+                AddToClassList("active");
+            }
+            else
+            {
+                _stepContainer.style.display = DisplayStyle.None;
+                _stepTitleText.AddToClassList("black-text");
+                _stepTitleText.RemoveFromClassList("white-text");
+                if (_stepSubTitle != "") _stepSubTitleText.style.display = DisplayStyle.None;
+                RemoveFromClassList("active");
+            }
+        }
+
+        private void MarkComplete(bool isCompleted)
         {
             IsCompleted = isCompleted;
 

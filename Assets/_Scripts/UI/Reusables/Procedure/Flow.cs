@@ -8,11 +8,11 @@ namespace UI.Reusables.Procedure
 {
     public abstract class Flow : AdaptiveElement
     {
-        public List<Step> Steps = new();
+        public readonly List<Step> Steps = new();
         private VisualElement _expander;
         private TextElement _confirmButton;
 
-        public Flow(string name) : base(name)
+        protected Flow(string name) : base(name)
         {
             styleSheets.Add(Resources.Load<StyleSheet>("Stylesheets/Reusables/Flow"));
             AddToClassList("flow");
@@ -31,18 +31,17 @@ namespace UI.Reusables.Procedure
 
         protected abstract void CreateSteps();
 
-        protected void CreateConfirmButton()
+        private void CreateConfirmButton()
         {
             _expander = new VisualElement() { name = "Expander" };
             Add(_expander);
-            
+
             _confirmButton = new TextElement() { name = "ConfirmButton" };
-            _confirmButton.RegisterCallback<ClickEvent>(evt => SubmitResult());
-            _confirmButton.text = "Confirm";
             _confirmButton.AddToClassList("white-button");
             _confirmButton.AddToClassList("confirm-button");
             _confirmButton.AddToClassList("normal-text");
             _confirmButton.AddToClassList("black-text");
+            _confirmButton.text = "Confirm";
             Add(_confirmButton);
         }
 
@@ -60,6 +59,8 @@ namespace UI.Reusables.Procedure
                 _confirmButton.RemoveFromClassList("inactive-button");
                 _confirmButton.RemoveFromClassList("white-button");
                 _confirmButton.RemoveFromClassList("black-text");
+
+                _confirmButton.RegisterCallback<ClickEvent>(SubmitResult);
             }
             else
             {
@@ -69,9 +70,11 @@ namespace UI.Reusables.Procedure
                 _confirmButton.RemoveFromClassList("active-button");
                 _confirmButton.RemoveFromClassList("colored-button");
                 _confirmButton.RemoveFromClassList("white-text");
+
+                _confirmButton.UnregisterCallback<ClickEvent>(SubmitResult);
             }
         }
 
-        public abstract void SubmitResult();
+        protected abstract void SubmitResult(ClickEvent evt);
     }
 }

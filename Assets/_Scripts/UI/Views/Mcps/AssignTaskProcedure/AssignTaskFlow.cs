@@ -20,12 +20,12 @@ namespace UI.Views.Mcps.AssignTaskProcedure
 
             _chooseWorkerStep = new ChooseWorkerStep(this, 2);
             AddStep(_chooseWorkerStep);
-            
+
             _chooseDatetimeStep = new ChooseDatetimeStep(this, 3);
             AddStep(_chooseDatetimeStep);
         }
 
-        public override void SubmitResult()
+        protected override void SubmitResult(ClickEvent evt)
         {
         }
 
