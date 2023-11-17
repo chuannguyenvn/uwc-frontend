@@ -6,25 +6,35 @@ namespace UI.Views.Status
 {
     public class PersonalInformationPanel : Panel
     {
-        public TextElement RoleText;
-        public TextElement NameText;
+        private TextElement _roleText;
+        private TextElement _nameText;
 
         public PersonalInformationPanel() : base(nameof(PersonalInformationPanel))
         {
             styleSheets.Add(Resources.Load<StyleSheet>("Stylesheets/Views/Status/PersonalInformationPanel"));
+            AddToClassList("personal-information-panel");
             AddToClassList("rounded-32px");
 
-            RoleText = new TextElement { name = "RoleText" };
-            RoleText.AddToClassList("sub-text");
-            RoleText.AddToClassList("grey-text");
-            RoleText.text = "Driver";
-            Add(RoleText);
+            CreateRoleText();
+            CreateNameText();
+        }
 
-            NameText = new TextElement { name = "NameText" };
-            NameText.AddToClassList("normal-text");
-            NameText.AddToClassList("black-text");
-            NameText.text = "Placeholder Name";
-            Add(NameText);
+        private void CreateRoleText()
+        {
+            _roleText = new TextElement { name = "RoleText" };
+            _roleText.AddToClassList("sub-text");
+            _roleText.AddToClassList("grey-text");
+            _roleText.text = "Driver";
+            Add(_roleText);
+        }
+
+        private void CreateNameText()
+        {
+            _nameText = new TextElement { name = "NameText" };
+            _nameText.AddToClassList("normal-text");
+            _nameText.AddToClassList("black-text");
+            _nameText.text = "Placeholder Name";
+            Add(_nameText);
         }
     }
 }

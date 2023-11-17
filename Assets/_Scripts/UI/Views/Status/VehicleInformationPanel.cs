@@ -6,23 +6,24 @@ namespace UI.Views.Status
 {
     public class VehicleInformationPanel : Panel
     {
-        public VisualElement LicensePlateContainer;
-        public TextElement LicensePlateTitleText;
-        public TextElement LicensePlateText;
+        private VisualElement _licensePlateContainer;
+        private TextElement _licensePlateTitleText;
+        private TextElement _licensePlateText;
 
-        public VisualElement ClassAndModelContainer;
-        public VisualElement ClassContainer;
-        public TextElement ClassTitleText;
-        public TextElement ClassText;
+        private VisualElement _classAndModelContainer;
+        private VisualElement _classContainer;
+        private TextElement _classTitleText;
+        private TextElement _classText;
 
-        public VisualElement ModelContainer;
-        public TextElement ModelTitleText;
-        public TextElement ModelText;
+        private VisualElement _modelContainer;
+        private TextElement _modelTitleText;
+        private TextElement _modelText;
 
 
         public VehicleInformationPanel() : base(nameof(VehicleInformationPanel))
         {
             styleSheets.Add(Resources.Load<StyleSheet>("Stylesheets/Views/Status/VehicleInformationPanel"));
+            AddToClassList("vehicle-information-panel");
             AddToClassList("rounded-32px");
 
             CreateLicensePlate();
@@ -31,26 +32,26 @@ namespace UI.Views.Status
 
         private void CreateLicensePlate()
         {
-            LicensePlateContainer = new VisualElement { name = "LicensePlateContainer" };
-            Add(LicensePlateContainer);
+            _licensePlateContainer = new VisualElement { name = "LicensePlateContainer" };
+            Add(_licensePlateContainer);
 
-            LicensePlateTitleText = new TextElement { name = "RoleText" };
-            LicensePlateTitleText.AddToClassList("sub-text");
-            LicensePlateTitleText.AddToClassList("grey-text");
-            LicensePlateTitleText.text = "Vehicle";
-            LicensePlateContainer.Add(LicensePlateTitleText);
+            _licensePlateTitleText = new TextElement { name = "RoleText" };
+            _licensePlateTitleText.AddToClassList("sub-text");
+            _licensePlateTitleText.AddToClassList("grey-text");
+            _licensePlateTitleText.text = "Vehicle";
+            _licensePlateContainer.Add(_licensePlateTitleText);
 
-            LicensePlateText = new TextElement { name = "NameText" };
-            LicensePlateText.AddToClassList("normal-text");
-            LicensePlateText.AddToClassList("black-text");
-            LicensePlateText.text = "51F-3R4-5T6";
-            LicensePlateContainer.Add(LicensePlateText);
+            _licensePlateText = new TextElement { name = "NameText" };
+            _licensePlateText.AddToClassList("normal-text");
+            _licensePlateText.AddToClassList("black-text");
+            _licensePlateText.text = "51F-3R4-5T6";
+            _licensePlateContainer.Add(_licensePlateText);
         }
 
         private void CreateClassAndModel()
         {
-            ClassAndModelContainer = new VisualElement { name = "ClassAndModelContainer" };
-            Add(ClassAndModelContainer);
+            _classAndModelContainer = new VisualElement { name = "ClassAndModelContainer" };
+            Add(_classAndModelContainer);
 
             CreateClass();
             CreateModel();
@@ -58,38 +59,38 @@ namespace UI.Views.Status
 
         private void CreateClass()
         {
-            ClassContainer = new VisualElement { name = "ClassContainer" };
-            ClassAndModelContainer.Add(ClassContainer);
+            _classContainer = new VisualElement { name = "ClassContainer" };
+            _classAndModelContainer.Add(_classContainer);
 
-            ClassTitleText = new TextElement { name = "ClassTitleText" };
-            ClassTitleText.AddToClassList("sub-text");
-            ClassTitleText.AddToClassList("grey-text");
-            ClassTitleText.text = "Class";
-            ClassContainer.Add(ClassTitleText);
+            _classTitleText = new TextElement { name = "ClassTitleText" };
+            _classTitleText.AddToClassList("sub-text");
+            _classTitleText.AddToClassList("grey-text");
+            _classTitleText.text = "Class";
+            _classContainer.Add(_classTitleText);
 
-            ClassText = new TextElement { name = "ClassText" };
-            ClassText.AddToClassList("normal-text");
-            ClassText.AddToClassList("black-text");
-            ClassText.text = "Sideloader";
-            ClassContainer.Add(ClassText);
+            _classText = new TextElement { name = "ClassText" };
+            _classText.AddToClassList("normal-text");
+            _classText.AddToClassList("black-text");
+            _classText.text = "Sideloader";
+            _classContainer.Add(_classText);
         }
-        
+
         private void CreateModel()
         {
-            ModelContainer = new VisualElement { name = "ModelContainer" };
-            ClassAndModelContainer.Add(ModelContainer);
+            _modelContainer = new VisualElement { name = "ModelContainer" };
+            _classAndModelContainer.Add(_modelContainer);
 
-            ModelTitleText = new TextElement { name = "ModelTitleText" };
-            ModelTitleText.AddToClassList("sub-text");
-            ModelTitleText.AddToClassList("grey-text");
-            ModelTitleText.text = "Model";
-            ModelContainer.Add(ModelTitleText);
+            _modelTitleText = new TextElement { name = "ModelTitleText" };
+            _modelTitleText.AddToClassList("sub-text");
+            _modelTitleText.AddToClassList("grey-text");
+            _modelTitleText.text = "Model";
+            _modelContainer.Add(_modelTitleText);
 
-            ModelText = new TextElement { name = "ModelText" };
-            ModelText.AddToClassList("normal-text");
-            ModelText.AddToClassList("black-text");
-            ModelText.text = "LMAO-420";
-            ModelContainer.Add(ModelText);
+            _modelText = new TextElement { name = "ModelText" };
+            _modelText.AddToClassList("normal-text");
+            _modelText.AddToClassList("black-text");
+            _modelText.text = "LMAO-420";
+            _modelContainer.Add(_modelText);
         }
     }
 }
