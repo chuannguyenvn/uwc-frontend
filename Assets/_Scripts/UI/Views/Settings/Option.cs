@@ -7,31 +7,36 @@ namespace UI.Views.Settings
 {
     public class Option : AdaptiveElement
     {
-        public TextElement SettingNameText;
+        private TextElement _optionNameText;
 
         public Option(string name, Action callback) : base(name)
         {
             styleSheets.Add(Resources.Load<StyleSheet>("Stylesheets/Views/Settings/Option"));
             AddToClassList("option");
 
-            SettingNameText = new TextElement();
-            SettingNameText.AddToClassList("normal-text");
-            SettingNameText.text = name;
-            Add(SettingNameText);
+            CreateOptionNameText(name);
 
             RegisterCallback<MouseUpEvent>(_ => callback?.Invoke());
         }
-        
+
+        private void CreateOptionNameText(string name)
+        {
+            _optionNameText = new TextElement() { name = "OptionNameText" };
+            _optionNameText.AddToClassList("normal-text");
+            _optionNameText.text = name;
+            Add(_optionNameText);
+        }
+
         public void Activate()
         {
-            SettingNameText.RemoveFromClassList("deactivated");
-            SettingNameText.AddToClassList("activated");
+            _optionNameText.RemoveFromClassList("deactivated");
+            _optionNameText.AddToClassList("activated");
         }
-        
+
         public void Deactivate()
         {
-            SettingNameText.RemoveFromClassList("activated");
-            SettingNameText.AddToClassList("deactivated");
+            _optionNameText.RemoveFromClassList("activated");
+            _optionNameText.AddToClassList("deactivated");
         }
     }
 }

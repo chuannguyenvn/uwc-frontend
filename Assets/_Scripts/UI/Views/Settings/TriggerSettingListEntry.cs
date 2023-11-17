@@ -10,7 +10,10 @@ namespace UI.Views.Settings
         {
             styleSheets.Add(Resources.Load<StyleSheet>("Stylesheets/Views/Settings/TriggerSettingListEntry"));
             AddToClassList("trigger-setting-list-entry");
+
             if (isDangerous) AddToClassList("dangerous");
+
+            RegisterCallback<ClickEvent>(_ => callback?.Invoke());
         }
     }
 }

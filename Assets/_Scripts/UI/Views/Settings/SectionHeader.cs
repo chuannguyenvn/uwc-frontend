@@ -6,22 +6,31 @@ namespace UI.Views.Settings
 {
     public class SectionHeader : AdaptiveElement
     {
-        public TextElement TitleText;
-        public VisualElement HeaderLine;
+        private TextElement _titleText;
+        private VisualElement _headerLine;
 
         public SectionHeader(string name) : base(name)
         {
             styleSheets.Add(Resources.Load<StyleSheet>("Stylesheets/Views/Settings/SectionHeader"));
             AddToClassList("section-header");
 
-            TitleText = new TextElement { name = "TitleText" };
-            TitleText.AddToClassList("sub-text");
-            TitleText.AddToClassList("grey-text");
-            TitleText.text = name;
-            Add(TitleText);
+            CreateTitleText(name);
+            CreateHeaderLine();
+        }
 
-            HeaderLine = new VisualElement { name = "HeaderLine" };
-            Add(HeaderLine);
+        private void CreateTitleText(string name)
+        {
+            _titleText = new TextElement { name = "TitleText" };
+            _titleText.AddToClassList("sub-text");
+            _titleText.AddToClassList("grey-text");
+            _titleText.text = name;
+            Add(_titleText);
+        }
+
+        private void CreateHeaderLine()
+        {
+            _headerLine = new VisualElement { name = "HeaderLine" };
+            Add(_headerLine);
         }
     }
 }

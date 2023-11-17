@@ -6,16 +6,21 @@ namespace UI.Views.Settings
 {
     public class SettingListEntry : AdaptiveElement
     {
-        public TextElement SettingNameText;
-        
-        public SettingListEntry(string name) : base(name)
+        protected TextElement SettingNameText;
+
+        protected SettingListEntry(string name) : base(name)
         {
             styleSheets.Add(Resources.Load<StyleSheet>("Stylesheets/Views/Settings/SettingListEntry"));
             AddToClassList("setting-list-entry");
 
+            CreateSettingNameText(name);
+        }
+
+        private void CreateSettingNameText(string name)
+        {
             SettingNameText = new TextElement { name = "SettingNameText" };
-            SettingNameText.text = name;
             SettingNameText.AddToClassList("normal-text");
+            SettingNameText.text = name;
             Add(SettingNameText);
         }
     }

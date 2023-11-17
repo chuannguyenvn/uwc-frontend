@@ -6,25 +6,30 @@ namespace UI.Views.Settings
 {
     public class SettingList : AdaptiveElement
     {
-        public ScrollView ScrollView;
+        private ScrollView _scrollView;
 
         public SettingList() : base(nameof(SettingList))
         {
             styleSheets.Add(Resources.Load<StyleSheet>("Stylesheets/Views/Settings/SettingList"));
 
-            ScrollView = new ScrollView();
-            ScrollView.AddToClassList("list-view");
-            Add(ScrollView);
+            CreateScrollView();
+        }
+
+        private void CreateScrollView()
+        {
+            _scrollView = new ScrollView();
+            _scrollView.AddToClassList("list-view");
+            Add(_scrollView);
         }
 
         public void Add(SettingListEntry entry)
         {
-            ScrollView.Add(entry);
+            _scrollView.Add(entry);
         }
-        
+
         public void Add(SectionHeader header)
         {
-            ScrollView.Add(header);
+            _scrollView.Add(header);
         }
     }
 }
