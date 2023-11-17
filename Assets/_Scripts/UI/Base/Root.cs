@@ -9,6 +9,7 @@ using UI.Views.Reports;
 using UI.Views.Settings;
 using UI.Views.Status;
 using UI.Views.Tasks;
+using UI.Views.Vehicles;
 using UI.Views.Workers;
 using UnityEngine.UIElements;
 using Utilities;

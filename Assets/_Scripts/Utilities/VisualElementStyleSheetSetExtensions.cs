@@ -8,7 +8,7 @@ namespace Utilities
         public static void AddByName(this VisualElementStyleSheetSet visualElementStyleSheet, string stylesheetName)
         {
             var styleSheet = Resources.Load<StyleSheet>($"Stylesheets/{stylesheetName}");
-            if (styleSheet == null) Debug.LogError($"StyleSheet {stylesheetName} not found");
+            if (styleSheet == null) Debug.LogWarning($"StyleSheet {stylesheetName} not found");
             else visualElementStyleSheet.Add(styleSheet);
         }
     }

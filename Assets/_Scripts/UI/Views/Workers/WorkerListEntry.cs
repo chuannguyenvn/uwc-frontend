@@ -18,9 +18,18 @@ namespace UI.Views.Workers
 
             AddToClassList("list-entry");
 
+            CreateImage();
+            CreateDetails(profile);
+        }
+
+        private void CreateImage()
+        {
             _image = new Image { name = "Avatar" };
             Add(_image);
+        }
 
+        private void CreateDetails(UserProfile profile)
+        {
             _textContainer = new VisualElement { name = "TextContainer" };
             Add(_textContainer);
 

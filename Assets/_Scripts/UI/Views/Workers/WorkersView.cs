@@ -15,10 +15,19 @@ namespace UI.Views.Workers
 
             AddToClassList("side-view");
 
+            CreateScrollView();
+            CreateEntries();
+        }
+
+        private void CreateScrollView()
+        {
             _scrollView = new ScrollView();
             _scrollView.AddToClassList("list-view");
             Add(_scrollView);
+        }
 
+        private void CreateEntries()
+        {
             for (int i = 0; i < 30; i++)
             {
                 _scrollView.Add(new WorkerListEntry(new UserProfile()
