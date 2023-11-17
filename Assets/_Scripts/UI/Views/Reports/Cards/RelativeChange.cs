@@ -42,7 +42,7 @@ namespace UI.Views.Reports.Cards
 
         public void UpdateChange(float percentage)
         {
-            _changeValue.text = $"{Math.Abs(percentage)}%";
+            if (_changeValue != null) _changeValue.text = $"{Math.Abs(percentage)}%";
 
             if (percentage > 0 && _mode == Mode.HigherIsBetter || percentage < 0 && _mode == Mode.LowerIsBetter)
             {
