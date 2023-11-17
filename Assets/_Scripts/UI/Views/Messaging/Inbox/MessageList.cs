@@ -8,16 +8,13 @@ namespace UI.Views.Messaging.Inbox
 {
     public class MessageList : AdaptiveElement
     {
-        private ScrollView ScrollView;
+        private ScrollView _scrollView;
 
         public MessageList() : base(nameof(MessageList))
         {
             styleSheets.Add(Resources.Load<StyleSheet>("Stylesheets/Views/Messaging/Inbox/MessageList"));
 
-            ScrollView = new ScrollView();
-            ScrollView.AddToClassList("list-view");
-            ScrollView.verticalScroller.value = ScrollView.verticalScroller.highValue > 0 ? ScrollView.verticalScroller.highValue : 0;
-            Add(ScrollView);
+            CreateScrollView();
 
             DataStoreManager.Messaging.InboxMessageList.DataUpdated += DataUpdatedHandler;
         }
@@ -27,30 +24,38 @@ namespace UI.Views.Messaging.Inbox
             DataStoreManager.Messaging.InboxMessageList.DataUpdated -= DataUpdatedHandler;
         }
 
-         private void DataUpdatedHandler(GetMessagesBetweenTwoUsersResponse data)
+        private void DataUpdatedHandler(GetMessagesBetweenTwoUsersResponse data)
         {
-            ScrollView.Clear();
+            _scrollView.Clear();
             MessageListEntry lastEntry = null;
             foreach (var message in data.Messages)
             {
                 lastEntry = new MessageListEntry(message);
-                ScrollView.Add(lastEntry);
+                _scrollView.Add(lastEntry);
             }
 
             ScrollToLastMessage(lastEntry);
         }
 
+        private void CreateScrollView()
+        {
+            _scrollView = new ScrollView();
+            _scrollView.AddToClassList("list-view");
+            _scrollView.verticalScroller.value = _scrollView.verticalScroller.highValue > 0 ? _scrollView.verticalScroller.highValue : 0;
+            Add(_scrollView);
+        }
+
         private void ScrollToLastMessage(VisualElement item)
         {
             if (item == null) return;
-            
+
             var remainingIterations = 4;
 
             void TryScroll()
             {
-                if (item.layout.height > 0 && ScrollView.layout.height > 0)
+                if (item.layout.height > 0 && _scrollView.layout.height > 0)
                 {
-                    ScrollView.ScrollTo(item);
+                    _scrollView.ScrollTo(item);
                     return;
                 }
 
@@ -58,17 +63,17 @@ namespace UI.Views.Messaging.Inbox
                 {
                     Debug.LogWarning("Too many layout iterations");
 
-                    ScrollView.ScrollTo(item);
+                    _scrollView.ScrollTo(item);
                     return;
                 }
 
-                if (ScrollView.layout.height > 0)
+                if (_scrollView.layout.height > 0)
                 {
                     item.RegisterCallback<GeometryChangedEvent, VisualElement>(OnGeometryChanged, item);
                 }
                 else
                 {
-                    ScrollView.RegisterCallback<GeometryChangedEvent, VisualElement>(OnGeometryChanged, ScrollView);
+                    _scrollView.RegisterCallback<GeometryChangedEvent, VisualElement>(OnGeometryChanged, _scrollView);
                 }
             }
 

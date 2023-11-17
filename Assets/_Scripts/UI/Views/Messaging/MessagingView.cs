@@ -10,27 +10,36 @@ namespace UI.Views.Messaging
 {
     public class MessagingView : View
     {
-        public ContactList ContactList;
-        public InboxContainer InboxContainer;
+        private ContactList _contactList;
+        private InboxContainer _inboxContainer;
 
         public MessagingView() : base(nameof(MessagingView))
         {
             styleSheets.Add(Resources.Load<StyleSheet>("Stylesheets/Views/Messaging/MessagingView"));
             if (Configs.IS_DESKTOP) AddToClassList("full-view");
 
-            ContactList = new ContactList();
-            Add(ContactList);
+            CreateContactList();
+            CreateInbox();
+        }
 
-            InboxContainer = new InboxContainer();
-            Add(InboxContainer);
+        private void CreateInbox()
+        {
+            _inboxContainer = new InboxContainer();
+            Add(_inboxContainer);
+        }
 
-            if (!Configs.IS_DESKTOP) InboxContainer.style.display = DisplayStyle.None;
+        private void CreateContactList()
+        {
+            _contactList = new ContactList();
+            Add(_contactList);
+
+            if (!Configs.IS_DESKTOP) _inboxContainer.style.display = DisplayStyle.None;
         }
 
         public override void FocusView()
         {
             DataStoreManager.Messaging.ContactList.Focus();
-            InboxContainer.InboxHeader.UpdateStatus();
+            _inboxContainer.Q<InboxHeader>().UpdateStatus();
         }
 
         public override void UnfocusView()

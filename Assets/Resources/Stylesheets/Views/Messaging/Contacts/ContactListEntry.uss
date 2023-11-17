@@ -3,7 +3,7 @@
     flex-direction: row;
 }
 
-#TextContainer {
+#DetailsContainer {
     justify-content: center;
 }
 

@@ -16,10 +16,9 @@ namespace UI.Views.Messaging.Contacts
         {
             styleSheets.Add(Resources.Load<StyleSheet>("Stylesheets/Views/Messaging/Contacts/ContactList"));
             AddToClassList(Configs.IS_DESKTOP ? "side-view" : "full-view");
+            AddToClassList("contact-list");
 
-            _scrollView = new ScrollView();
-            _scrollView.AddToClassList("list-view");
-            Add(_scrollView);
+            CreateScrollView();
 
             DataStoreManager.Messaging.ContactList.DataUpdated += DataUpdatedHandler;
         }
@@ -27,6 +26,13 @@ namespace UI.Views.Messaging.Contacts
         ~ContactList()
         {
             DataStoreManager.Messaging.ContactList.DataUpdated -= DataUpdatedHandler;
+        }
+
+        private void CreateScrollView()
+        {
+            _scrollView = new ScrollView();
+            _scrollView.AddToClassList("list-view");
+            Add(_scrollView);
         }
 
         private void DataUpdatedHandler(GetPreviewMessagesResponse data)
