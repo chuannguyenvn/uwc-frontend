@@ -1,4 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using Commons.Communications.Mcps;
+using Commons.Endpoints;
 using Commons.Models;
 using Requests;
 using UI.Base;
@@ -58,7 +61,6 @@ namespace UI.Views.Mcps
         private void CreateFullscreenPopup()
         {
             _mcpInformationPopup = new McpInformationPopup();
-            _mcpInformationPopup.AddToClassList("mcp-fullscreen-popup");
             Root.Instance.AddPopup(_mcpInformationPopup);
         }
 
@@ -72,8 +74,24 @@ namespace UI.Views.Mcps
                 _mcpListEntriesByAddress[mcpData.Address] = entry;
                 entry.Clicked += () =>
                 {
-                    _mcpInformationPopup.SetContent(mcpData);
-                    _mcpInformationPopup.Show();
+                    DataStoreManager.Instance.StartCoroutine(RequestHelper.SendPostRequest<GetSingleMcpDataResponse>(
+                        Endpoints.McpData.GetSingle,
+                        new GetSingleMcpDataRequest
+                        {
+                            McpId = mcpData.Id,
+                            HistoryCountLimit = 100,
+                            HistoryDateTimeLimit = DateTime.Now.AddDays(-1),
+                        },
+                        (success, result) =>
+                        {
+                            if (success)
+                            {
+                                mcpData.McpEmptyRecords = result.Result.McpEmptyRecords;
+                                mcpData.McpFillLevelLogs = result.Result.McpFillLevelLogs;
+                                _mcpInformationPopup.SetContent(mcpData);
+                                _mcpInformationPopup.Show();
+                            }
+                        }));
                 };
             }
         }

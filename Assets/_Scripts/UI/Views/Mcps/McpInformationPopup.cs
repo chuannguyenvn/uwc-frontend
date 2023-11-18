@@ -1,6 +1,8 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using Commons.Models;
+using Requests;
 using UI.Base;
 using UI.Reusables;
 using UnityEngine;
@@ -10,27 +12,69 @@ namespace UI.Views.Mcps
 {
     public class McpInformationPopup : DataBasedFullscreenPopup<McpData>
     {
+        private PopupInformationEntry _addressEntry;
+        private PopupInformationEntry _latitudeEntry;
+        private PopupInformationEntry _longitudeEntry;
+        private PopupInformationEntry _fillLevelEntry;
+        private PopupInformationEntry _lastEmptiedEntry;
+
         private Graph _fillLevelGraph;
 
         public McpInformationPopup()
         {
             ConfigureUss(nameof(McpInformationPopup));
+
+            Title.text = "Major collection point";
+
+            CreateDetails();
+            CreateGraph();
         }
 
-        public override void SetContent(McpData data)
+        private void CreateDetails()
+        {
+            _addressEntry = new PopupInformationEntry("Address");
+            AddContent(_addressEntry);
+
+            _latitudeEntry = new PopupInformationEntry("Latitude");
+            AddContent(_latitudeEntry);
+
+            _longitudeEntry = new PopupInformationEntry("Longitude");
+            AddContent(_longitudeEntry);
+
+            _fillLevelEntry = new PopupInformationEntry("Fill level");
+            AddContent(_fillLevelEntry);
+
+            _lastEmptiedEntry = new PopupInformationEntry("Last emptied");
+            AddContent(_lastEmptiedEntry);
+        }
+
+        private void CreateGraph()
         {
             _fillLevelGraph = new Graph();
             AddContent(_fillLevelGraph);
 
-            var randomDateTimes = new List<DateTime>();
-            var randomValues = new List<float>();
-            for (int i = 47; i >= 0; i--)
+            _fillLevelGraph.AddLineGraph("Mcp fill level", Color.red, true);
+        }
+
+        public override void SetContent(McpData data)
+        {
+            _addressEntry.SetValue(data.Address);
+            _latitudeEntry.SetValue(data.Latitude.ToString());
+            _longitudeEntry.SetValue(data.Longitude.ToString());
+            _fillLevelEntry.SetValue(DataStoreManager.Mcps.FillLevel.Data.FillLevelsById[data.Id].ToString() + " %");
+            _lastEmptiedEntry.SetValue(data.McpEmptyRecords.Count > 0
+                ? data.McpEmptyRecords.Last().Timestamp.ToString("hh:mm tt dd/MM")
+                : "Never");
+
+            var timestamps = new List<DateTime>();
+            var values = new List<float>();
+            foreach (var fillLevelLog in data.McpFillLevelLogs)
             {
-                randomDateTimes.Add(DateTime.Now.AddMinutes(-30 * i));
-                randomValues.Add(Random.Range(0f, 1f));
+                timestamps.Add(fillLevelLog.Timestamp);
+                values.Add(fillLevelLog.McpFillLevel);
             }
 
-            _fillLevelGraph.AddLineGraph("Mcp fill level", Color.red, randomDateTimes, randomValues, true);
+            _fillLevelGraph.UpdateLineGraph(timestamps, values);
         }
     }
 }

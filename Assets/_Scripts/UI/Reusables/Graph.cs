@@ -39,41 +39,35 @@ namespace UI.Reusables
         private static readonly Padding GraphPadding = new(96, 96, 64, 128);
         private static readonly Padding LabelPadding = new(64, 64, 64, 128);
         private static readonly Color GraphLineColor = new(217f / 255, 217f / 255, 217f / 255, 1);
-        private static readonly Color AreaGraphColor = new(121f / 255, 225f / 255, 153f / 255, 1);
-        private static readonly Color LineGraphColor = new(90f / 255, 145f / 255, 254f / 255, 1);
         private Rect _graphRect;
 
         public Graph() : base(nameof(Graph))
         {
             ConfigureUss(nameof(Graph));
 
+            CreateLabels();
+
             _legendsContainer = new VisualElement { name = "LegendContainer" };
             Add(_legendsContainer);
-
-            CreateLabels();
 
             generateVisualContent += GenerateVisualContent;
             RegisterCallback<GeometryChangedEvent>(OnGeometryChanged);
         }
 
-        public void AddLineGraph(string name, Color color, List<DateTime> timestamps, List<float> values, bool isPercentage)
+        public void AddLineGraph(string name, Color color, bool isPercentage)
         {
             _useLineGraph = true;
             _lineGraphName = name;
             _lineGraphColor = color;
-            _lineGraphTimestamps = timestamps;
-            _lineGraphValues = values;
             _isLineGraphPercentage = isPercentage;
             CreateLegend(name, color);
         }
 
-        public void AddAreaGraph(string name, Color color, List<DateTime> timestamps, List<float> values, bool isPercentage)
+        public void AddAreaGraph(string name, Color color, bool isPercentage)
         {
             _useAreaGraph = true;
             _areaGraphName = name;
             _areaGraphColor = color;
-            _areaGraphTimestamps = timestamps;
-            _areaGraphValues = values;
             _isAreaGraphPercentage = isPercentage;
             CreateLegend(name, color);
         }
@@ -190,7 +184,7 @@ namespace UI.Reusables
             {
                 if (_useLineGraph)
                 {
-                    var lineGraphLabel = _lineGraphLabels[AXES_COUNT - 1 - i];
+                    var lineGraphLabel = _lineGraphLabels[i];
                     var lineGraphLabelXPosition = _useAreaGraph ? endX : startX;
                     var lineGraphLabelPosition = new Vector2(lineGraphLabelXPosition, graphHeight / (AXES_COUNT - 1) * i + LabelPadding.Top);
                     lineGraphLabel.style.left = lineGraphLabelPosition.x - size.x / 2;
@@ -198,13 +192,13 @@ namespace UI.Reusables
                     lineGraphLabel.style.top = lineGraphLabelPosition.y - size.y / 2;
                     lineGraphLabel.style.bottom = resolvedStyle.height - (lineGraphLabelPosition.y + size.y / 2);
 
-                    var labelText = _isLineGraphPercentage ? $"{(AXES_COUNT - 1 - i) * 100 / (AXES_COUNT - 1)}%" : $"{AXES_COUNT - 1 - i}";
+                    var labelText = _isLineGraphPercentage ? $"{100 - (AXES_COUNT - 1 - i) * 100 / (AXES_COUNT - 1)}%" : $"{AXES_COUNT - 1 - i}";
                     lineGraphLabel.text = labelText;
                 }
 
                 if (_useAreaGraph)
                 {
-                    var areaGraphLabel = _areaGraphLabels[AXES_COUNT - 1 - i];
+                    var areaGraphLabel = _areaGraphLabels[i];
                     var areaGraphLabelPosition = new Vector2(startX, graphHeight / (AXES_COUNT - 1) * i + LabelPadding.Top);
                     areaGraphLabel.style.left = areaGraphLabelPosition.x - size.x / 2;
                     areaGraphLabel.style.right = resolvedStyle.width - (areaGraphLabelPosition.x + size.x / 2);
