@@ -1,0 +1,7 @@
+.task-details-popup #Content {
+    width: 700px;
+}
+
+.task-details-popup #BasicInformationContainer {
+    margin-bottom: 12px;
+}

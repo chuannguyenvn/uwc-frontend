@@ -40,7 +40,6 @@ namespace UI.Views.Tasks.Tasks
         private void AllTaskListDataUpdatedHandler(GetAllTasksResponse getAllTasksResponse)
         {
             ScrollView.Clear();
-
             foreach (var task in getAllTasksResponse.Tasks)
             {
                 task.McpData.Address = Utility.RemoveDiacritics(task.McpData.Address);
@@ -51,7 +50,6 @@ namespace UI.Views.Tasks.Tasks
         private void PersonalTaskListDataUpdatedHandler(GetTasksOfWorkerResponse getTasksOfWorkerResponse)
         {
             ScrollView.Clear();
-
             foreach (var task in getTasksOfWorkerResponse.Tasks)
             {
                 task.McpData.Address = Utility.RemoveDiacritics(task.McpData.Address);

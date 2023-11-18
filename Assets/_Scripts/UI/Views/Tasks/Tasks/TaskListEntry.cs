@@ -64,7 +64,7 @@ namespace UI.Views.Tasks.Tasks
                     break;
             }
 
-            _content.RegisterCallback<MouseUpEvent>(_ => { GetFirstAncestorOfType<TasksView>().ShowTaskDetails(); });
+            _content.RegisterCallback<MouseUpEvent>(_ => { GetFirstAncestorOfType<TasksView>().ShowTaskDetails(taskData); });
 
             Add(_content);
         }
