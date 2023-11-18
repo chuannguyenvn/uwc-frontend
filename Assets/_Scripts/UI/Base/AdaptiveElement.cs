@@ -6,16 +6,19 @@ namespace UI.Base
 {
     public class AdaptiveElement : VisualElement
     {
-        protected AdaptiveElement(string name)
+        protected AdaptiveElement(string name, bool captureMouse = true)
         {
             this.name = name;
             styleSheets.AddByName(nameof(AdaptiveElement));
             AddToClassList(Configs.IS_DESKTOP ? "desktop" : "mobile");
 
-            RegisterCallback<MouseOverEvent>(evt => { Root.IsMouseOverElement = true; });
-            RegisterCallback<MouseOutEvent>(evt => { Root.IsMouseOverElement = false; });
-            RegisterCallback<MouseDownEvent>(evt => { Root.IsMouseDownElement = true; });
-            RegisterCallback<MouseUpEvent>(evt => { Root.IsMouseDownElement = false; });
+            if (captureMouse)
+            {
+                RegisterCallback<MouseOverEvent>(evt => { Root.IsMouseOverElement = true; });
+                RegisterCallback<MouseOutEvent>(evt => { Root.IsMouseOverElement = false; });
+                RegisterCallback<MouseDownEvent>(evt => { Root.IsMouseDownElement = true; });
+                RegisterCallback<MouseUpEvent>(evt => { Root.IsMouseDownElement = false; });
+            }
         }
 
         protected void ConfigureUss(string ussName)

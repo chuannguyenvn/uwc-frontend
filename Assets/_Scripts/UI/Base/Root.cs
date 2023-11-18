@@ -47,12 +47,13 @@ namespace UI.Base
         private VisualElement _fullscreenPopupContainer;
         private List<FullscreenPopup> _popups = new List<FullscreenPopup>();
 
-        public Root() : base(nameof(Root))
+        public Root() : base(nameof(Root), false)
         {
             Instance = this;
 
             styleSheets.AddByName("Common");
             styleSheets.AddByName(nameof(Root));
+            pickingMode = PickingMode.Ignore;
 
             CreateAuthenticationScreen();
             CreateNavigationBar();
