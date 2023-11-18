@@ -65,7 +65,7 @@ namespace Maps
 
         private void UpdateAllMcps(InitializationData data)
         {
-            foreach (var (id, coordinate) in data.McpLocationByIds.ToList())
+            foreach (var (id, coordinate) in data.McpLocationBroadcastData.LocationByIds.ToList())
             {
                 DrawMcpMarker(id, coordinate, Utility.GetRandomEnumValue<McpFillStatus>());
             }
@@ -74,7 +74,7 @@ namespace Maps
         private void DrawDriverMarker(int driverId, Coordinate coordinate, float orientationInDegrees)
         {
             if (coordinate.IsApproximatelyEqualTo(new Coordinate(10.7670552457392, 106.656326672901))) return;
-            
+
             OnlineMapsMarker marker;
             if (_driverMarkers.TryGetValue(driverId, out var driverMarker))
             {

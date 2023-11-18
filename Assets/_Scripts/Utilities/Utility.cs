@@ -439,7 +439,6 @@ namespace Utilities
             return (T)values.GetValue(Random.Range(0, values.Length));
         }
 
-
         private static readonly string[] VietnameseSigns = new string[]
         {
             "aAeEoOuUiIdDyY",

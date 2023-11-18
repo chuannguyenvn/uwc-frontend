@@ -1,25 +1,25 @@
 ﻿using Authentication;
+using Commons.Communications.Mcps;
 using Commons.HubHandlers;
 using Requests.DataStores.Base;
-using SharedLibrary.Communications.OnlineStatus;
 using Microsoft.AspNetCore.SignalR.Client;
 
-namespace Requests.DataStores.Implementations.OnlineStatus
+namespace Requests.DataStores.Implementations.Mcps
 {
-    public class OnlineStatusStore : ServerSendInBackgroundDataStore<OnlineStatusBroadcastData>
+    public class FillLevelStore : ServerSendInBackgroundDataStore<McpFillLevelBroadcastData>
     {
-        public OnlineStatusStore()
+        public FillLevelStore()
         {
             AuthenticationManager.Initialized += data =>
             {
-                Data = data.OnlineStatusBroadcastData;
+                Data = data.McpFillLevelBroadcastData;
                 OnDataUpdated(Data);
             };
         }
 
         protected override void EstablishHubConnection()
         {
-            AuthenticationManager.Instance.HubConnection.On(HubHandlers.OnlineStatus.UPDATE_STATUSES, (OnlineStatusBroadcastData data) =>
+            AuthenticationManager.Instance.HubConnection.On(HubHandlers.McpFillLevel.BROADCAST_FILL_LEVEL, (McpFillLevelBroadcastData data) =>
             {
                 Data = data;
                 OnDataUpdated(Data);

@@ -44,7 +44,7 @@ namespace UI.Views.Tasks.Tasks
             foreach (var task in getAllTasksResponse.Tasks)
             {
                 task.McpData.Address = Utility.RemoveDiacritics(task.McpData.Address);
-                ScrollView.Add(new TaskListEntry(task, TaskType.Unfocused));
+                ScrollView.Add(new TaskListEntry(task));
             }
         }
 
@@ -55,7 +55,7 @@ namespace UI.Views.Tasks.Tasks
             foreach (var task in getTasksOfWorkerResponse.Tasks)
             {
                 task.McpData.Address = Utility.RemoveDiacritics(task.McpData.Address);
-                ScrollView.Add(new TaskListEntry(task, TaskType.Unfocused));
+                ScrollView.Add(new TaskListEntry(task));
             }
         }
 

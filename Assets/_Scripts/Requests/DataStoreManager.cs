@@ -14,6 +14,7 @@ namespace Requests
         public static class Mcps
         {
             public static ListViewStore ListView { get; } = new();
+            public static FillLevelStore FillLevel { get; } = new();
         }
 
         public static class Messaging
