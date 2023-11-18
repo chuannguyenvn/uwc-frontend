@@ -21,8 +21,12 @@ namespace UI.Base
             CreatePopupContainer();
             CreateControls();
             CreateContent();
-            
+
             _background.PlaceBehind(_popupContainer);
+            _closeButton.Clicked += Hide;
+            _background.RegisterCallback<ClickEvent>(_ => Hide());
+            
+            Hide();
         }
 
         private void CreateBackground()
@@ -54,6 +58,16 @@ namespace UI.Base
         {
             _content = new ScrollView { name = "Content" };
             _popupContainer.Add(_content);
+        }
+
+        public void Show()
+        {
+            style.display = DisplayStyle.Flex;
+        }
+
+        public void Hide()
+        {
+            style.display = DisplayStyle.None;
         }
 
         public new class UxmlFactory : UxmlFactory<FullscreenPopup, UxmlTraits>
