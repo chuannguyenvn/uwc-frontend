@@ -4,7 +4,9 @@ namespace UI.Base
 {
     public class Popup : Panel
     {
+        private VisualElement _controlsContainer;
         private AnimatedButton _closeButton;
+        
         private ScrollView _content;
 
         public Popup()
@@ -13,17 +15,20 @@ namespace UI.Base
 
             AddToClassList("rounded-64px");
 
-            CreateCloseButton();
+            CreateControls();
             CreateContent();
         }
 
-        private void CreateCloseButton()
+        private void CreateControls()
         {
+            _controlsContainer = new VisualElement { name = "ControlsContainer" };
+            Add(_controlsContainer);
+            
             _closeButton = new AnimatedButton { name = "CloseButton" };
             _closeButton.AddToClassList("white-button");
             _closeButton.AddToClassList("circle-button-64px");
             _closeButton.AddToClassList("close-button");
-            Add(_closeButton);
+            _controlsContainer.Add(_closeButton);
         }
 
         private void CreateContent()

@@ -1,4 +1,18 @@
 .popup #Content {
-    width: 200px;
-    height: 200px;
+    flex-grow: 1;
+    margin-top: 48px;
+    margin-right: 48px;
+    margin-bottom: 48px;
+    margin-left: 48px;
+    min-height: 200px;
+}
+
+.popup #CloseButton {
+}
+
+.popup #ControlsContainer {
+    flex-direction: row-reverse;
+    height: 128px;
+    align-items: center;
+    margin-right: 36px;
 }
