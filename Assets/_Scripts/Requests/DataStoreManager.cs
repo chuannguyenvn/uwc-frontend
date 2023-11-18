@@ -4,6 +4,7 @@ using Requests.DataStores.Implementations.Messaging;
 using Requests.DataStores.Implementations.OnlineStatus;
 using Requests.DataStores.Implementations.Reports;
 using Requests.DataStores.Implementations.Tasks;
+using Requests.DataStores.Implementations.UserProfile;
 using Utilities;
 
 namespace Requests
@@ -35,6 +36,11 @@ namespace Requests
         public static class OnlineStatus
         {
             public static OnlineStatusStore Status { get; } = new();
+        }
+
+        public static class UserProfile
+        {
+            public static AllWorkerProfileListStore AllWorkerProfileList { get; } = new();
         }
 
         public static class Tasks

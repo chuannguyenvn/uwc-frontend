@@ -2,7 +2,7 @@
 
 namespace UI.Base
 {
-    public class FullscreenPopup : View
+    public abstract class FullscreenPopup : View
     {
         private VisualElement _background;
 

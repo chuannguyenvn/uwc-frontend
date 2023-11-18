@@ -1,9 +1,10 @@
-﻿using UI.Base;
+﻿using Commons.Models;
+using UI.Base;
 using UnityEngine.UIElements;
 
 namespace UI.Views.Mcps
 {
-    public class McpInformationPopup : FullscreenPopup
+    public class McpInformationPopup : DataBasedFullscreenPopup<McpData>
     {
         public McpInformationPopup()
         {
@@ -11,6 +12,11 @@ namespace UI.Views.Mcps
 
             AddContent(new TextElement() { text = "MCP Information Popup" });
             AddContent(new TextElement() { text = "MCP Information Popup2" });
+        }
+
+        public override void SetContent(McpData data)
+        {
+            
         }
     }
 }

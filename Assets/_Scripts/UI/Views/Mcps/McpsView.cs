@@ -70,7 +70,11 @@ namespace UI.Views.Mcps
                 var entry = new McpListEntry(mcpData, Random.Range(0f, 100f));
                 _scrollView.Add(entry);
                 _mcpListEntriesByAddress[mcpData.Address] = entry;
-                entry.Clicked += _mcpInformationPopup.Show;
+                entry.Clicked += () =>
+                {
+                    _mcpInformationPopup.SetContent(mcpData);
+                    _mcpInformationPopup.Show();
+                };
             }
         }
 
