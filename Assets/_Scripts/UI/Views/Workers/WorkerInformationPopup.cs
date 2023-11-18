@@ -6,12 +6,7 @@ namespace UI.Views.Workers
 {
     public class WorkerInformationPopup : DataBasedFullscreenPopup<UserProfile>
     {
-        private VisualElement _basicInformationContainer;
-        private VisualElement _avatar;
-        private TextElement _userRoleText;
-        private TextElement _nameText;
-
-        private VisualElement _additionalInformationContainer;
+        private PopupInformationEntry _roleEntry;
         private PopupInformationEntry _genderEntry;
         private PopupInformationEntry _dateOfBirthEntry;
         private PopupInformationEntry _addressEntry;
@@ -21,52 +16,32 @@ namespace UI.Views.Workers
         {
             ConfigureUss(nameof(WorkerInformationPopup));
 
-            CreateBasicInformation();
-            CreateAdditionalInformation();
+            CreateDetailsInformation();
         }
 
-        private void CreateBasicInformation()
+        private void CreateDetailsInformation()
         {
-            _basicInformationContainer = new VisualElement { name = "BasicInformationContainer" };
-            AddContent(_basicInformationContainer);
-
-            _avatar = new VisualElement { name = "Avatar" };
-            _basicInformationContainer.Add(_avatar);
-            
-            _userRoleText = new TextElement { name = "UserRoleText" };
-            _userRoleText.AddToClassList("sub-text");
-            _userRoleText.AddToClassList("grey-text");
-            _basicInformationContainer.Add(_userRoleText);
-            
-            _nameText = new TextElement { name = "NameText" };
-            _nameText.AddToClassList("super-title-text");
-            _nameText.AddToClassList("black-text");
-            _basicInformationContainer.Add(_nameText);
-        }
-
-        private void CreateAdditionalInformation()
-        {
-            _additionalInformationContainer = new VisualElement { name = "AdditionalInformationContainer" };
-            AddContent(_additionalInformationContainer);
+            _roleEntry = new PopupInformationEntry("Role");
+            DetailContainer.Add(_roleEntry);
 
             _genderEntry = new PopupInformationEntry("Gender");
-            _additionalInformationContainer.Add(_genderEntry);
+            DetailContainer.Add(_genderEntry);
 
             _dateOfBirthEntry = new PopupInformationEntry("Date of birth");
-            _additionalInformationContainer.Add(_dateOfBirthEntry);
+            DetailContainer.Add(_dateOfBirthEntry);
 
             _addressEntry = new PopupInformationEntry("Address");
-            _additionalInformationContainer.Add(_addressEntry);
-            
+            DetailContainer.Add(_addressEntry);
+
             _createdTimestampEntry = new PopupInformationEntry("Account created");
-            _additionalInformationContainer.Add(_createdTimestampEntry);
+            DetailContainer.Add(_createdTimestampEntry);
         }
 
         public override void SetContent(UserProfile data)
         {
-            _nameText.text = data.FirstName + " " + data.LastName;
-            _userRoleText.text = data.UserRole.ToString();
+            Title.text = data.FirstName + " " + data.LastName;
 
+            _roleEntry.SetValue(data.UserRole.ToString());
             _genderEntry.SetValue(data.Gender.ToString());
             _dateOfBirthEntry.SetValue(data.DateOfBirth.ToString("dd/MM/yyyy"));
             _addressEntry.SetValue(data.Address);

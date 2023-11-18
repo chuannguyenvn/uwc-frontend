@@ -5,6 +5,7 @@ using Requests.DataStores.Implementations.OnlineStatus;
 using Requests.DataStores.Implementations.Reports;
 using Requests.DataStores.Implementations.Tasks;
 using Requests.DataStores.Implementations.UserProfile;
+using Requests.DataStores.Implementations.Vehicles;
 using Utilities;
 
 namespace Requests
@@ -48,6 +49,11 @@ namespace Requests
         {
             public static AllTaskListStore AllTaskList { get; } = new();
             public static PersonalTaskListStore PersonalTaskList { get; } = new();
+        }
+
+        public static class Vehicles
+        {
+            public static AllVehicleListStore AllVehicleList { get; } = new();
         }
     }
 }

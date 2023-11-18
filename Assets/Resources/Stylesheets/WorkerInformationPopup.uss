@@ -1,7 +1,3 @@
-.worker-information-popup #Content {
-    width: 700px;
-}
-
 .worker-information-popup #BasicInformationContainer {
     margin-bottom: 12px;
 }

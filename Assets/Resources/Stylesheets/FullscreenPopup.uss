@@ -23,6 +23,7 @@
     margin-left: 48px;
     align-items: auto;
     flex-shrink: 1;
+    width: 700px;
 }
 
 .fullscreen-popup #CloseButton {
