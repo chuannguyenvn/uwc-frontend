@@ -1,0 +1,37 @@
+.fullscreen-popup {
+    justify-content: center;
+}
+
+.fullscreen-popup > #PopupContainer {
+    justify-content: center;
+}
+
+.fullscreen-popup #Content {
+    flex-grow: 1;
+    margin-top: 48px;
+    margin-right: 48px;
+    margin-bottom: 48px;
+    margin-left: 48px;
+    min-height: 200px;
+}
+
+.fullscreen-popup #CloseButton {
+}
+
+.fullscreen-popup #ControlsContainer {
+    flex-direction: row-reverse;
+    height: 128px;
+    align-items: center;
+    margin-right: 36px;
+}
+
+.fullscreen-popup > #Background {
+    flex-shrink: 0;
+    flex-grow: 1;
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    background-color: rgba(0, 0, 0, 0.09);
+}

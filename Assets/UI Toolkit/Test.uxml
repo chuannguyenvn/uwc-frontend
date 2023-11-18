@@ -1,7 +1,7 @@
 <ui:UXML xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" xsi="http://www.w3.org/2001/XMLSchema-instance" engine="UnityEngine.UIElements" editor="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
     <Style src="project://database/Assets/Resources/Stylesheets/Common.uss?fileID=7433441132597879392&amp;guid=b143485b20294be4a84594fdfb10686d&amp;type=3#Common" />
-    <Style src="project://database/Assets/Resources/Stylesheets/Popup.uss?fileID=7433441132597879392&amp;guid=5eb35a17392c4c1594216a41ad561781&amp;type=3#Popup" />
+    <Style src="project://database/Assets/Resources/Stylesheets/FullscreenPopup.uss?fileID=7433441132597879392&amp;guid=5eb35a17392c4c1594216a41ad561781&amp;type=3#FullscreenPopup" />
     <Style src="project://database/Assets/Resources/Stylesheets/Panel.uss?fileID=7433441132597879392&amp;guid=a6420d711ef34808bddb21a0e78aaa92&amp;type=3#Panel" />
     <Style src="project://database/Assets/Resources/Stylesheets/AnimatedButton.uss?fileID=7433441132597879392&amp;guid=03e2ab327ec04d11b84697dc8d7a224a&amp;type=3#AnimatedButton" />
-    <UI.Base.Popup />
+    <UI.Base.FullscreenPopup />
 </ui:UXML>
