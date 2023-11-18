@@ -8,8 +8,8 @@ namespace UI.Views.Workers
     {
         private VisualElement _basicInformationContainer;
         private VisualElement _avatar;
-        private TextElement _nameText;
         private TextElement _userRoleText;
+        private TextElement _nameText;
 
         private VisualElement _additionalInformationContainer;
         private PopupInformationEntry _genderEntry;
@@ -32,12 +32,16 @@ namespace UI.Views.Workers
 
             _avatar = new VisualElement { name = "Avatar" };
             _basicInformationContainer.Add(_avatar);
-
-            _nameText = new TextElement { name = "NameText" };
-            _basicInformationContainer.Add(_nameText);
-
+            
             _userRoleText = new TextElement { name = "UserRoleText" };
+            _userRoleText.AddToClassList("sub-text");
+            _userRoleText.AddToClassList("grey-text");
             _basicInformationContainer.Add(_userRoleText);
+            
+            _nameText = new TextElement { name = "NameText" };
+            _nameText.AddToClassList("super-title-text");
+            _nameText.AddToClassList("black-text");
+            _basicInformationContainer.Add(_nameText);
         }
 
         private void CreateAdditionalInformation()
@@ -54,7 +58,7 @@ namespace UI.Views.Workers
             _addressEntry = new PopupInformationEntry("Address");
             _additionalInformationContainer.Add(_addressEntry);
             
-            _createdTimestampEntry = new PopupInformationEntry("Created timestamp");
+            _createdTimestampEntry = new PopupInformationEntry("Account created");
             _additionalInformationContainer.Add(_createdTimestampEntry);
         }
 

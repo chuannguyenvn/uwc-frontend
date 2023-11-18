@@ -17,7 +17,7 @@
 
 .fullscreen-popup #Content {
     flex-grow: 1;
-    margin-top: 48px;
+    margin-top: 16px;
     margin-right: 48px;
     margin-bottom: 48px;
     margin-left: 48px;
