@@ -9,6 +9,10 @@
     --mcp-not-full-color: rgb(61, 163, 93);
 }
 
+.super-title-text {
+    -unity-font-definition: url('project://database/Assets/Graphics/Fonts/Segoe%20UI%20Bold.ttf?fileID=12800000&guid=3a56917333bec3c49bde9f46c791793c&type=3#Segoe UI Bold');
+}
+
 .title-text {
     -unity-font-definition: url('project://database/Assets/Graphics/Fonts/Segoe%20UI%20Semibold.ttf?fileID=12800000&guid=723807d3d8e26e3449d4983f4b454432&type=3#Segoe UI Semibold');
 }
@@ -19,6 +23,14 @@
 
 .sub-text {
     -unity-font-definition: url('project://database/Assets/Graphics/Fonts/Segoe%20UI.ttf?fileID=12800000&guid=3a56917333bec3c49bde9f46c791793c&type=3#Segoe UI');
+}
+
+.sub-sub-text {
+    -unity-font-definition: url('project://database/Assets/Graphics/Fonts/Segoe%20UI%20Italic.ttf?fileID=12800000&guid=3a56917333bec3c49bde9f46c791793c&type=3#Segoe UI Italic');
+}
+
+.desktop .super-title-text {
+    font-size: 60px;
 }
 
 .desktop .title-text {
@@ -35,6 +47,10 @@
 
 .desktop .sub-sub-text {
     font-size: 12px;
+}
+
+.mobile .super-title-text {
+    font-size: 80px;
 }
 
 .mobile .title-text {

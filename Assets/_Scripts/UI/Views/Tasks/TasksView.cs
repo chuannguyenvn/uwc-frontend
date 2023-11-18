@@ -1,4 +1,5 @@
-﻿using Requests;
+﻿using Commons.Models;
+using Requests;
 using Settings;
 using UI.Base;
 using UI.Views.Mcps.AssignTaskProcedure;
@@ -15,6 +16,8 @@ namespace UI.Views.Tasks
         private AssignTaskFlow _assignTaskFlow;
         private VisualElement _assignTaskButton;
         private VisualElement _assignTaskButtonIcon;
+
+        private TaskDetailsPopup _taskDetailsPopup;
 
         public TasksView() : base(nameof(TasksView))
         {
@@ -41,6 +44,9 @@ namespace UI.Views.Tasks
             _assignTaskButtonIcon = new VisualElement() { name = "AssignTaskButtonIcon" };
             _assignTaskButton.Add(_assignTaskButtonIcon);
 
+            _taskDetailsPopup = new TaskDetailsPopup();
+            Root.Instance.AddPopup(_taskDetailsPopup);
+
             _assignTaskButton.RegisterCallback<ClickEvent>(evt =>
             {
                 _assignTaskFlow.style.display = DisplayStyle.Flex;
@@ -61,10 +67,18 @@ namespace UI.Views.Tasks
             Add(_taskDetails);
         }
 
-        public void ShowTaskDetails()
+        public void ShowTaskDetails(TaskData taskData)
         {
-            _taskList.style.display = DisplayStyle.None;
-            _taskDetails.style.display = DisplayStyle.Flex;
+            if (Configs.IS_DESKTOP)
+            {
+                _taskDetailsPopup.SetContent(taskData);
+                _taskDetailsPopup.Show();
+            }
+            else
+            {
+                _taskList.style.display = DisplayStyle.None;
+                _taskDetails.style.display = DisplayStyle.Flex;
+            }
         }
 
         public void ShowTaskList()

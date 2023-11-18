@@ -1,4 +1,7 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using Commons.Communications.Mcps;
+using Commons.Endpoints;
 using Commons.Models;
 using Requests;
 using UI.Base;
@@ -15,6 +18,7 @@ namespace UI.Views.Mcps
         private VisualElement _controlsContainer;
         private SearchBar _searchBar;
         private ScrollView _scrollView;
+        private McpInformationPopup _mcpInformationPopup;
 
         private readonly Dictionary<string, McpListEntry> _mcpListEntriesByAddress = new();
 
@@ -26,6 +30,7 @@ namespace UI.Views.Mcps
 
             CreateControls();
             CreateScrollView();
+            CreateFullscreenPopup();
 
             DataStoreManager.Mcps.ListView.DataUpdated += DataUpdatedHandler;
         }
@@ -53,6 +58,12 @@ namespace UI.Views.Mcps
             DataStoreManager.Mcps.ListView.DataUpdated += DataUpdatedHandler;
         }
 
+        private void CreateFullscreenPopup()
+        {
+            _mcpInformationPopup = new McpInformationPopup();
+            Root.Instance.AddPopup(_mcpInformationPopup);
+        }
+
         private void DataUpdatedHandler(List<McpData> data)
         {
             _scrollView.Clear();
@@ -61,6 +72,27 @@ namespace UI.Views.Mcps
                 var entry = new McpListEntry(mcpData, Random.Range(0f, 100f));
                 _scrollView.Add(entry);
                 _mcpListEntriesByAddress[mcpData.Address] = entry;
+                entry.Clicked += () =>
+                {
+                    DataStoreManager.Instance.StartCoroutine(RequestHelper.SendPostRequest<GetSingleMcpDataResponse>(
+                        Endpoints.McpData.GetSingle,
+                        new GetSingleMcpDataRequest
+                        {
+                            McpId = mcpData.Id,
+                            HistoryCountLimit = 100,
+                            HistoryDateTimeLimit = DateTime.Now.AddDays(-1),
+                        },
+                        (success, result) =>
+                        {
+                            if (success)
+                            {
+                                mcpData.McpEmptyRecords = result.Result.McpEmptyRecords;
+                                mcpData.McpFillLevelLogs = result.Result.McpFillLevelLogs;
+                                _mcpInformationPopup.SetContent(mcpData);
+                                _mcpInformationPopup.Show();
+                            }
+                        }));
+                };
             }
         }
 

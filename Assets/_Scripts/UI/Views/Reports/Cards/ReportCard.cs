@@ -3,7 +3,7 @@ using UI.Base;
 
 namespace UI.Views.Reports.Cards
 {
-    public abstract class ReportCard : View
+    public abstract class ReportCard : AdaptiveElement
     {
         protected ReportCard(string name) : base(name)
         {

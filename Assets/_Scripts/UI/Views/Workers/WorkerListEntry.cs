@@ -1,4 +1,5 @@
-﻿using Commons.Models;
+﻿using System;
+using Commons.Models;
 using UI.Base;
 using UnityEngine.UIElements;
 
@@ -6,6 +7,8 @@ namespace UI.Views.Workers
 {
     public class WorkerListEntry : AdaptiveElement
     {
+        public event Action Clicked;
+
         private Image _image;
 
         private VisualElement _textContainer;
@@ -20,6 +23,8 @@ namespace UI.Views.Workers
 
             CreateImage();
             CreateDetails(profile);
+
+            RegisterCallback<ClickEvent>(_ => Clicked?.Invoke());
         }
 
         private void CreateImage()

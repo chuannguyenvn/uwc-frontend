@@ -1,0 +1,3 @@
+.worker-information-popup #BasicInformationContainer {
+    margin-bottom: 12px;
+}

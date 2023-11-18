@@ -1,4 +1,5 @@
-﻿using Commons.Models;
+﻿using System;
+using Commons.Models;
 using UI.Base;
 using UnityEngine.UIElements;
 
@@ -6,6 +7,8 @@ namespace UI.Views.Vehicles
 {
     public class VehicleListEntry : AdaptiveElement
     {
+        public event Action Clicked;
+
         // Image
         private Image _image;
 
@@ -22,6 +25,8 @@ namespace UI.Views.Vehicles
 
             CreateImage();
             CreateDetails(vehicleData);
+
+            RegisterCallback<ClickEvent>(_ => Clicked?.Invoke());
         }
 
         private void CreateImage()

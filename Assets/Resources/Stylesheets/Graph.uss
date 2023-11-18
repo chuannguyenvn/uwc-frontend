@@ -1,0 +1,49 @@
+#Graph{
+    flex-grow: 1;
+    height: 400px;
+}
+
+#AreaLabel {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    align-items: center;
+    justify-content: center;
+    align-self: center;
+}
+
+#LineLabel {
+    position: absolute;
+}
+
+#TimestampLabel {
+    position: absolute;
+    align-items: center;
+    -unity-text-align: upper-center;
+}
+
+#LegendContainer {
+    flex-direction: row;
+    position: absolute;
+    bottom: 39px;
+    left: 0;
+    right: 0;
+    align-items: center;
+    justify-content: center;
+}
+
+#McpEmptiedLegend {
+    margin-left: 24px;
+}
+
+.legend-icon {
+    width: 16px;
+    height: 16px;
+    border-top-left-radius: 999px;
+    border-top-right-radius: 999px;
+    border-bottom-right-radius: 999px;
+    border-bottom-left-radius: 999px;
+    margin-right: 8px;
+}

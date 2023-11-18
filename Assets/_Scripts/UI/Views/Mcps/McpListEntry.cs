@@ -9,6 +9,8 @@ namespace UI.Views.Mcps
 {
     public class McpListEntry : AdaptiveElement
     {
+        public event Action Clicked;
+
         // Information
         private VisualElement _informationContainer;
         private VisualElement _iconContainer;
@@ -26,6 +28,8 @@ namespace UI.Views.Mcps
 
             CreateInformation(mcpData, currentLoadPercentage);
             CreateLogs();
+
+            RegisterCallback<ClickEvent>(_ => Clicked?.Invoke());
         }
 
         private void CreateInformation(McpData mcpData, float currentLoadPercentage)

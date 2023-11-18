@@ -1,5 +1,6 @@
 ﻿using Commons.Models;
 using Commons.Types;
+using Requests;
 using Settings;
 using UI.Base;
 using UnityEngine.UIElements;
@@ -16,12 +17,12 @@ namespace UI.Views.Tasks.Tasks
 
         private VisualElement _content;
 
-        public TaskListEntry(TaskData taskData, TaskType taskType) : base(nameof(TaskListEntry))
+        public TaskListEntry(TaskData taskData) : base(nameof(TaskListEntry))
         {
             ConfigureUss(nameof(TaskListEntry));
 
             CreateTimeline();
-            CreateCard(taskData, taskType);
+            CreateCard(taskData);
         }
 
         private void CreateTimeline()
@@ -43,25 +44,27 @@ namespace UI.Views.Tasks.Tasks
             _timelineContainer.Add(_downLine);
         }
 
-        private void CreateCard(TaskData taskData, TaskType taskType)
+        private void CreateCard(TaskData taskData)
         {
-            switch (taskType)
+            var fillStatus = McpFillStatusHelper.GetStatus(DataStoreManager.Mcps.FillLevel.Data.FillLevelsById[taskData.McpDataId]);
+            switch (taskData.TaskStatus)
             {
-                case TaskType.Focused:
-                    _content = new FocusedTaskCard(taskData, Utility.GetRandomEnumValue<McpFillStatus>());
+                case TaskStatus.InProgress:
+                    _content = new FocusedTaskCard(taskData, fillStatus);
                     _statusText.text = "Ongoing";
                     break;
-                case TaskType.Unfocused:
-                    _content = new UnfocusedTaskCard(taskData, Utility.GetRandomEnumValue<McpFillStatus>());
+                case TaskStatus.NotStarted:
+                    _content = new UnfocusedTaskCard(taskData, fillStatus);
                     _statusText.text = "Pending";
                     break;
-                case TaskType.Completed:
+                case TaskStatus.Completed:
+                case TaskStatus.Rejected:
                     _content = new CompletedTaskCard(taskData);
-                    _statusText.text = "9:41AM";
+                    _statusText.text = taskData.LastStatusChangeTimestamp.ToString("hh:mm");
                     break;
             }
 
-            _content.RegisterCallback<MouseUpEvent>(_ => { GetFirstAncestorOfType<TasksView>().ShowTaskDetails(); });
+            _content.RegisterCallback<MouseUpEvent>(_ => { GetFirstAncestorOfType<TasksView>().ShowTaskDetails(taskData); });
 
             Add(_content);
         }

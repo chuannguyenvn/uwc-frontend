@@ -4,6 +4,8 @@ using Requests.DataStores.Implementations.Messaging;
 using Requests.DataStores.Implementations.OnlineStatus;
 using Requests.DataStores.Implementations.Reports;
 using Requests.DataStores.Implementations.Tasks;
+using Requests.DataStores.Implementations.UserProfile;
+using Requests.DataStores.Implementations.Vehicles;
 using Utilities;
 
 namespace Requests
@@ -13,6 +15,7 @@ namespace Requests
         public static class Mcps
         {
             public static ListViewStore ListView { get; } = new();
+            public static FillLevelStore FillLevel { get; } = new();
         }
 
         public static class Messaging
@@ -37,10 +40,20 @@ namespace Requests
             public static OnlineStatusStore Status { get; } = new();
         }
 
+        public static class UserProfile
+        {
+            public static AllWorkerProfileListStore AllWorkerProfileList { get; } = new();
+        }
+
         public static class Tasks
         {
             public static AllTaskListStore AllTaskList { get; } = new();
             public static PersonalTaskListStore PersonalTaskList { get; } = new();
+        }
+
+        public static class Vehicles
+        {
+            public static AllVehicleListStore AllVehicleList { get; } = new();
         }
     }
 }

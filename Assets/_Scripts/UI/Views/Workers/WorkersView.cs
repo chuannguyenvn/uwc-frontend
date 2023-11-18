@@ -1,5 +1,9 @@
-﻿using Commons.Models;
+﻿using System.Collections.Generic;
+using Commons.Communications.UserProfiles;
+using Commons.Models;
+using Requests;
 using UI.Base;
+using UI.Views.Mcps;
 using UnityEngine.UIElements;
 
 namespace UI.Views.Workers
@@ -7,6 +11,7 @@ namespace UI.Views.Workers
     public class WorkersView : View
     {
         private ScrollView _scrollView;
+        private WorkerInformationPopup _workerInformationPopup;
 
         public WorkersView() : base(nameof(WorkersView))
         {
@@ -15,7 +20,14 @@ namespace UI.Views.Workers
             AddToClassList("side-view");
 
             CreateScrollView();
-            CreateEntries();
+            CreateFullscreenPopup();
+
+            DataStoreManager.UserProfile.AllWorkerProfileList.DataUpdated += DataUpdatedHandler;
+        }
+
+        ~WorkersView()
+        {
+            DataStoreManager.UserProfile.AllWorkerProfileList.DataUpdated -= DataUpdatedHandler;
         }
 
         private void CreateScrollView()
@@ -25,15 +37,34 @@ namespace UI.Views.Workers
             Add(_scrollView);
         }
 
-        private void CreateEntries()
+        private void CreateFullscreenPopup()
         {
-            for (int i = 0; i < 30; i++)
+            _workerInformationPopup = new WorkerInformationPopup();
+            Root.Instance.AddPopup(_workerInformationPopup);
+        }
+
+        public override void FocusView()
+        {
+            DataStoreManager.UserProfile.AllWorkerProfileList.Focus();
+        }
+
+        public override void UnfocusView()
+        {
+            DataStoreManager.UserProfile.AllWorkerProfileList.Unfocus();
+        }
+
+        private void DataUpdatedHandler(GetAllWorkerProfilesResponse response)
+        {
+            _scrollView.Clear();
+            foreach (var userProfile in response.WorkerProfiles)
             {
-                _scrollView.Add(new WorkerListEntry(new UserProfile()
+                var entry = new WorkerListEntry(userProfile);
+                _scrollView.Add(entry);
+                entry.Clicked += () =>
                 {
-                    FirstName = "Worker name",
-                    Address = "Worker address"
-                }));
+                    _workerInformationPopup.SetContent(userProfile);
+                    _workerInformationPopup.Show();
+                };
             }
         }
     }

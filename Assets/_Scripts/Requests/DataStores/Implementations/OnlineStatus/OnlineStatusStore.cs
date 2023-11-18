@@ -12,7 +12,7 @@ namespace Requests.DataStores.Implementations.OnlineStatus
         {
             AuthenticationManager.Initialized += data =>
             {
-                Data = new OnlineStatusBroadcastData() { OnlineAccountIds = data.OnlineAccountIds };
+                Data = data.OnlineStatusBroadcastData;
                 OnDataUpdated(Data);
             };
         }

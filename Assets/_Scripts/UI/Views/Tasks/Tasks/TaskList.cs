@@ -40,22 +40,20 @@ namespace UI.Views.Tasks.Tasks
         private void AllTaskListDataUpdatedHandler(GetAllTasksResponse getAllTasksResponse)
         {
             ScrollView.Clear();
-
             foreach (var task in getAllTasksResponse.Tasks)
             {
                 task.McpData.Address = Utility.RemoveDiacritics(task.McpData.Address);
-                ScrollView.Add(new TaskListEntry(task, TaskType.Unfocused));
+                ScrollView.Add(new TaskListEntry(task));
             }
         }
 
         private void PersonalTaskListDataUpdatedHandler(GetTasksOfWorkerResponse getTasksOfWorkerResponse)
         {
             ScrollView.Clear();
-
             foreach (var task in getTasksOfWorkerResponse.Tasks)
             {
                 task.McpData.Address = Utility.RemoveDiacritics(task.McpData.Address);
-                ScrollView.Add(new TaskListEntry(task, TaskType.Unfocused));
+                ScrollView.Add(new TaskListEntry(task));
             }
         }
 

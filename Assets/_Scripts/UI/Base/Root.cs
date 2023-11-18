@@ -18,6 +18,8 @@ namespace UI.Base
 {
     public class Root : AdaptiveElement
     {
+        public static Root Instance;
+
         // Flags to prevent maps from being dragged under UI elements
         public static bool IsMouseOverElement;
         public static bool IsMouseDownElement;
@@ -42,14 +44,21 @@ namespace UI.Base
         private ReportingView _reportingView;
         private SettingsView _settingsView;
 
-        public Root() : base(nameof(Root))
+        private VisualElement _fullscreenPopupContainer;
+        private List<FullscreenPopup> _popups = new List<FullscreenPopup>();
+
+        public Root() : base(nameof(Root), false)
         {
+            Instance = this;
+
             styleSheets.AddByName("Common");
             styleSheets.AddByName(nameof(Root));
+            pickingMode = PickingMode.Ignore;
 
             CreateAuthenticationScreen();
             CreateNavigationBar();
             CreateViews();
+            CreatePopups();
 
             // Default view is Map
             ActivateView(ViewType.Map);
@@ -133,6 +142,20 @@ namespace UI.Base
             }
         }
 
+        private void CreatePopups()
+        {
+            _fullscreenPopupContainer = new VisualElement { name = "FullscreenPopupContainer" };
+            Add(_fullscreenPopupContainer);
+            _fullscreenPopupContainer.BringToFront();
+            _fullscreenPopupContainer.pickingMode = PickingMode.Ignore;
+
+            foreach (var popup in _popups)
+            {
+                _fullscreenPopupContainer.Add(popup);
+                popup.BringToFront();
+            }
+        }
+
         public void ActivateView(ViewType viewType, bool asExtension = false)
         {
             foreach (var (type, view) in _viewsByViewType)
@@ -202,6 +225,11 @@ namespace UI.Base
         {
             RegisterCallback<MouseUpEvent>(evt => { IsMouseDownElement = false; });
             RegisterCallback<MouseOutEvent>(evt => { IsMouseOverElement = false; });
+        }
+
+        public void AddPopup(FullscreenPopup popup)
+        {
+            _popups.Add(popup);
         }
 
         public new class UxmlFactory : UxmlFactory<Root, UxmlTraits>

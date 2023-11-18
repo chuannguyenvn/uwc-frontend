@@ -8,12 +8,21 @@ namespace Requests.DataStores.Implementations.Map
 {
     public class McpLocationStore : ServerSendInBackgroundDataStore<McpLocationBroadcastData>
     {
+        public McpLocationStore()
+        {
+            AuthenticationManager.Initialized += data =>
+            {
+                Data = data.McpLocationBroadcastData;
+                OnDataUpdated(Data);
+            };
+        }
+
         protected override void EstablishHubConnection()
         {
             AuthenticationManager.Instance.HubConnection.On(HubHandlers.McpLocation.BROADCAST_LOCATION,
                 (McpLocationBroadcastData data) => { OnDataUpdated(data); });
         }
-        
+
         protected override void CloseHubConnection()
         {
             AuthenticationManager.Instance.HubConnection.Remove(HubHandlers.McpLocation.BROADCAST_LOCATION);

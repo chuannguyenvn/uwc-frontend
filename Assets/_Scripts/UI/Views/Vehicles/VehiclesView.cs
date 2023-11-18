@@ -1,5 +1,5 @@
-﻿using Commons.Categories;
-using Commons.Models;
+﻿using Commons.Communications.Vehicles;
+using Requests;
 using UI.Base;
 using UnityEngine.UIElements;
 
@@ -8,6 +8,7 @@ namespace UI.Views.Vehicles
     public class VehiclesView : View
     {
         private ScrollView _scrollView;
+        private VehicleInformationPopup _vehicleInformationPopup;
 
         public VehiclesView() : base(nameof(VehiclesView))
         {
@@ -16,7 +17,14 @@ namespace UI.Views.Vehicles
             AddToClassList("side-view");
 
             CreateScrollView();
-            CreateEntries();
+            CreateFullscreenPopup();
+
+            DataStoreManager.Vehicles.AllVehicleList.DataUpdated += DataUpdatedHandler;
+        }
+
+        ~VehiclesView()
+        {
+            DataStoreManager.Vehicles.AllVehicleList.DataUpdated -= DataUpdatedHandler;
         }
 
         private void CreateScrollView()
@@ -26,15 +34,34 @@ namespace UI.Views.Vehicles
             Add(_scrollView);
         }
 
-        private void CreateEntries()
+        private void CreateFullscreenPopup()
         {
-            for (int i = 0; i < 30; i++)
+            _vehicleInformationPopup = new VehicleInformationPopup();
+            Root.Instance.AddPopup(_vehicleInformationPopup);
+        }
+
+        public override void FocusView()
+        {
+            DataStoreManager.Vehicles.AllVehicleList.Focus();
+        }
+
+        public override void UnfocusView()
+        {
+            DataStoreManager.Vehicles.AllVehicleList.Unfocus();
+        }
+
+        private void DataUpdatedHandler(GetAllVehicleResponse response)
+        {
+            _scrollView.Clear();
+            foreach (var vehicleData in response.Vehicles)
             {
-                _scrollView.Add(new VehicleListEntry(new VehicleData()
+                var entry = new VehicleListEntry(vehicleData);
+                _scrollView.Add(entry);
+                entry.Clicked += () =>
                 {
-                    LicensePlate = "51F-12345",
-                    VehicleType = VehicleType.SideLoader
-                }));
+                    _vehicleInformationPopup.SetContent(vehicleData);
+                    _vehicleInformationPopup.Show();
+                };
             }
         }
     }
