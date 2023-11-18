@@ -22,10 +22,10 @@ namespace UI.Base
             CreateControls();
             CreateContent();
 
-            _background.PlaceBehind(_popupContainer);
+            _background.SendToBack();
             _closeButton.Clicked += Hide;
             _background.RegisterCallback<ClickEvent>(_ => Hide());
-            
+
             Hide();
         }
 
@@ -38,7 +38,7 @@ namespace UI.Base
         private void CreatePopupContainer()
         {
             _popupContainer = new Panel { name = "PopupContainer" };
-            _popupContainer.AddToClassList("rounded-64px");
+            _popupContainer.AddToClassList("rounded-32px");
             Add(_popupContainer);
         }
 
@@ -49,7 +49,7 @@ namespace UI.Base
 
             _closeButton = new AnimatedButton { name = "CloseButton" };
             _closeButton.AddToClassList("white-button");
-            _closeButton.AddToClassList("circle-button-64px");
+            _closeButton.AddToClassList("circle-button-48px");
             _closeButton.AddToClassList("close-button");
             _controlsContainer.Add(_closeButton);
         }
@@ -70,8 +70,9 @@ namespace UI.Base
             style.display = DisplayStyle.None;
         }
 
-        public new class UxmlFactory : UxmlFactory<FullscreenPopup, UxmlTraits>
+        protected void AddContent(VisualElement element)
         {
+            _content.Add(element);
         }
     }
 }

@@ -18,6 +18,11 @@
     height: 32px;
 }
 
+.circle-button-48px {
+    width: 48px;
+    height: 48px;
+}
+
 .circle-button-64px {
     width: 64px;
     height: 64px;

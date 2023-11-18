@@ -15,7 +15,7 @@ namespace UI.Views.Mcps
         private VisualElement _controlsContainer;
         private SearchBar _searchBar;
         private ScrollView _scrollView;
-        private FullscreenPopup _fullscreenPopup;
+        private McpInformationPopup _mcpInformationPopup;
 
         private readonly Dictionary<string, McpListEntry> _mcpListEntriesByAddress = new();
 
@@ -57,9 +57,9 @@ namespace UI.Views.Mcps
 
         private void CreateFullscreenPopup()
         {
-            _fullscreenPopup = new FullscreenPopup();
-            _fullscreenPopup.AddToClassList("mcp-fullscreen-popup");
-            Root.Instance.AddPopup(_fullscreenPopup);
+            _mcpInformationPopup = new McpInformationPopup();
+            _mcpInformationPopup.AddToClassList("mcp-fullscreen-popup");
+            Root.Instance.AddPopup(_mcpInformationPopup);
         }
 
         private void DataUpdatedHandler(List<McpData> data)
@@ -70,7 +70,7 @@ namespace UI.Views.Mcps
                 var entry = new McpListEntry(mcpData, Random.Range(0f, 100f));
                 _scrollView.Add(entry);
                 _mcpListEntriesByAddress[mcpData.Address] = entry;
-                entry.Clicked += _fullscreenPopup.Show;
+                entry.Clicked += _mcpInformationPopup.Show;
             }
         }
 
