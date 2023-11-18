@@ -1,4 +1,5 @@
-﻿using Commons.Models;
+﻿using Commons.Categories;
+using Commons.Models;
 using UI.Base;
 
 namespace UI.Views.Vehicles
@@ -29,7 +30,7 @@ namespace UI.Views.Vehicles
             Title.text = data.LicensePlate;
 
             _modelEntry.SetValue(data.Model);
-            _vehicleTypeEntry.SetValue(data.VehicleType.ToString());
+            _vehicleTypeEntry.SetValue(data.VehicleType.GetFriendlyString());
         }
     }
 }

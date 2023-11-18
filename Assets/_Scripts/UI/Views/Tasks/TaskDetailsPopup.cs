@@ -9,8 +9,6 @@ namespace UI.Views.Tasks
 {
     public class TaskDetailsPopup : DataBasedFullscreenPopup<TaskData>
     {
-        private TextElement _titleText;
-
         private PopupInformationEntry _mcpAddressEntry;
         private PopupInformationEntry _assignerEntry;
         private PopupInformationEntry _assigneeEntry;
@@ -23,16 +21,7 @@ namespace UI.Views.Tasks
         {
             ConfigureUss(nameof(TaskDetailsPopup));
 
-            CreateTitle();
             CreateDetails();
-        }
-
-        private void CreateTitle()
-        {
-            _titleText = new TextElement { name = "TitleText" };
-            _titleText.AddToClassList("super-title-text");
-            _titleText.AddToClassList("black-text");
-            AddContent(_titleText);
         }
 
         private void CreateDetails()
@@ -61,14 +50,14 @@ namespace UI.Views.Tasks
 
         public override void SetContent(TaskData data)
         {
-            _titleText.text = "Task";
+            Title.text = "Cleaning task";
 
             _mcpAddressEntry.SetValue(data.McpData.Address);
             _assignerEntry.SetValue(data.AssignerProfile.FirstName + " " + data.AssignerProfile.LastName);
             _assigneeEntry.SetValue(data.AssigneeProfile.FirstName + " " + data.AssigneeProfile.LastName);
             _createdTimestampEntry.SetValue(data.CreatedTimestamp.ToString("hh:mm tt dd/MM"));
             _completeByTimestampEntry.SetValue(data.CompleteByTimestamp.ToString("hh:mm tt dd/MM"));
-            _statusEntry.SetValue(TaskStatusHelper.GetStatusText(data.TaskStatus));
+            _statusEntry.SetValue(data.TaskStatus.GetFriendlyString());
             _lastStatusChangeTimestampEntry.SetValue(data.LastStatusChangeTimestamp.ToString("hh:mm tt dd/MM"));
         }
     }
