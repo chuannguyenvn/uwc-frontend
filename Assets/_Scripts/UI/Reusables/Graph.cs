@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Newtonsoft.Json;
 using UI.Base;
 using UnityEngine;
 using UnityEngine.UIElements;
@@ -14,7 +15,7 @@ namespace UI.Reusables
         private List<TextElement> _lineGraphLabels;
         private List<TextElement> _timestamps;
 
-        private bool _isGraphTimestampRelative = true;
+        private bool _isGraphTimestampRelative;
 
         // Line graph
         private bool _useLineGraph = false;
@@ -35,14 +36,18 @@ namespace UI.Reusables
         private VisualElement _legendsContainer;
 
         private const int AXES_COUNT = 9;
-        private const int TIMESTAMP_COUNT = 24;
+        private const int TIMESTAMP_COUNT = 25;
         private static readonly Padding GraphPadding = new(96, 96, 64, 128);
         private static readonly Padding LabelPadding = new(64, 64, 64, 128);
         private static readonly Color GraphLineColor = new(217f / 255, 217f / 255, 217f / 255, 1);
         private Rect _graphRect;
 
-        public Graph() : base(nameof(Graph))
+        public Graph(bool useLineGraph, bool useAreaGraph, bool isGraphTimestampRelative) : base(nameof(Graph))
         {
+            _useLineGraph = useLineGraph;
+            _useAreaGraph = useAreaGraph;
+            _isGraphTimestampRelative = isGraphTimestampRelative;
+
             ConfigureUss(nameof(Graph));
 
             CreateLabels();
@@ -54,18 +59,16 @@ namespace UI.Reusables
             RegisterCallback<GeometryChangedEvent>(OnGeometryChanged);
         }
 
-        public void AddLineGraph(string name, Color color, bool isPercentage)
+        public void ConfigureLineGraph(string name, Color color, bool isPercentage)
         {
-            _useLineGraph = true;
             _lineGraphName = name;
             _lineGraphColor = color;
             _isLineGraphPercentage = isPercentage;
             CreateLegend(name, color);
         }
 
-        public void AddAreaGraph(string name, Color color, bool isPercentage)
+        public void ConfigureAreaGraph(string name, Color color, bool isPercentage)
         {
-            _useAreaGraph = true;
             _areaGraphName = name;
             _areaGraphColor = color;
             _isAreaGraphPercentage = isPercentage;
@@ -75,15 +78,21 @@ namespace UI.Reusables
         public void UpdateLineGraph(List<DateTime> timestamps, List<float> values)
         {
             if (!_useLineGraph) throw new Exception("Line graph not enabled");
+
             _lineGraphTimestamps = timestamps;
             _lineGraphValues = values;
+
+            MarkDirtyRepaint();
         }
 
         public void UpdateAreaGraph(List<DateTime> timestamps, List<float> values)
         {
             if (!_useAreaGraph) throw new Exception("Area graph not enabled");
+
             _areaGraphTimestamps = timestamps;
             _areaGraphValues = values;
+
+            MarkDirtyRepaint();
         }
 
         private void OnGeometryChanged(GeometryChangedEvent evt)
@@ -100,23 +109,35 @@ namespace UI.Reusables
 
             for (var i = 0; i < AXES_COUNT; i++)
             {
-                var lineLabel = new TextElement
+                if (_useLineGraph)
                 {
-                    name = "LineLabel"
-                };
-                _lineGraphLabels.Add(lineLabel);
-                lineLabel.AddToClassList("grey-text");
-                lineLabel.AddToClassList("graph-text");
-                Add(lineLabel);
+                    var lineLabel = new TextElement
+                    {
+                        name = "LineLabel"
+                    };
+                    _lineGraphLabels.Add(lineLabel);
+                    lineLabel.AddToClassList("grey-text");
+                    lineLabel.AddToClassList("graph-text");
+                    lineLabel.style.unityTextAlign = _useAreaGraph ? TextAnchor.MiddleRight : TextAnchor.MiddleLeft;
+                    Add(lineLabel);
 
-                var areaLabel = new TextElement
+                    if (i % 2 != 0) lineLabel.style.display = DisplayStyle.None; // Skip some labels
+                }
+
+                if (_useAreaGraph)
                 {
-                    name = "AreaLabel"
-                };
-                _areaGraphLabels.Add(areaLabel);
-                areaLabel.AddToClassList("grey-text");
-                areaLabel.AddToClassList("graph-text");
-                Add(areaLabel);
+                    var areaLabel = new TextElement
+                    {
+                        name = "AreaLabel"
+                    };
+                    _areaGraphLabels.Add(areaLabel);
+                    areaLabel.AddToClassList("grey-text");
+                    areaLabel.AddToClassList("graph-text");
+                    areaLabel.style.unityTextAlign = TextAnchor.MiddleRight;
+                    Add(areaLabel);
+
+                    if (i % 2 != 0) areaLabel.style.display = DisplayStyle.None; // Skip some labels
+                }
             }
 
             for (var i = 0; i < TIMESTAMP_COUNT; i++)
@@ -129,6 +150,8 @@ namespace UI.Reusables
                 timestamp.AddToClassList("grey-text");
                 timestamp.AddToClassList("graph-text");
                 Add(timestamp);
+
+                if (i % 4 != 0) timestamp.style.display = DisplayStyle.None; // Skip some labels
             }
         }
 
@@ -162,7 +185,7 @@ namespace UI.Reusables
             var startX = GraphPadding.Left;
             var endX = resolvedStyle.width - GraphPadding.Right;
             var graphHeight = resolvedStyle.height - (LabelPadding.Top + LabelPadding.Bottom);
-            for (var i = 0; i < AXES_COUNT - 1; i++)
+            for (var i = 0; i < AXES_COUNT; i++)
             {
                 painter.BeginPath();
                 painter.MoveTo(new Vector2(startX, graphHeight / (AXES_COUNT - 1) * i + LabelPadding.Top));
@@ -184,7 +207,7 @@ namespace UI.Reusables
             {
                 if (_useLineGraph)
                 {
-                    var lineGraphLabel = _lineGraphLabels[i];
+                    var lineGraphLabel = _lineGraphLabels[AXES_COUNT - 1 - i];
                     var lineGraphLabelXPosition = _useAreaGraph ? endX : startX;
                     var lineGraphLabelPosition = new Vector2(lineGraphLabelXPosition, graphHeight / (AXES_COUNT - 1) * i + LabelPadding.Top);
                     lineGraphLabel.style.left = lineGraphLabelPosition.x - size.x / 2;
@@ -192,13 +215,13 @@ namespace UI.Reusables
                     lineGraphLabel.style.top = lineGraphLabelPosition.y - size.y / 2;
                     lineGraphLabel.style.bottom = resolvedStyle.height - (lineGraphLabelPosition.y + size.y / 2);
 
-                    var labelText = _isLineGraphPercentage ? $"{100 - (AXES_COUNT - 1 - i) * 100 / (AXES_COUNT - 1)}%" : $"{AXES_COUNT - 1 - i}";
+                    var labelText = _isLineGraphPercentage ? $"{(AXES_COUNT - 1 - i) * 100 / (AXES_COUNT - 1)}%" : $"{AXES_COUNT - 1 - i}";
                     lineGraphLabel.text = labelText;
                 }
 
                 if (_useAreaGraph)
                 {
-                    var areaGraphLabel = _areaGraphLabels[i];
+                    var areaGraphLabel = _areaGraphLabels[AXES_COUNT - 1 - i];
                     var areaGraphLabelPosition = new Vector2(startX, graphHeight / (AXES_COUNT - 1) * i + LabelPadding.Top);
                     areaGraphLabel.style.left = areaGraphLabelPosition.x - size.x / 2;
                     areaGraphLabel.style.right = resolvedStyle.width - (areaGraphLabelPosition.x + size.x / 2);
@@ -222,13 +245,13 @@ namespace UI.Reusables
             {
                 var timestamp = _timestamps[i];
 
-                var position = new Vector2(graphWidth / (TIMESTAMP_COUNT - 1) * i + startX, y + 20);
+                var position = new Vector2(graphWidth / TIMESTAMP_COUNT * i + startX, y + 20);
                 timestamp.style.left = position.x - size.x / 2;
                 timestamp.style.right = resolvedStyle.width - (position.x + size.x / 2);
                 timestamp.style.top = position.y - size.y / 2;
                 timestamp.style.bottom = resolvedStyle.height - (position.y + size.y / 2);
 
-                if (_isGraphTimestampRelative) timestamp.text = $"{i}:00";
+                if (_isGraphTimestampRelative) timestamp.text = $"{24 - i}:00";
                 else timestamp.text = DateTime.Now.AddHours(-i).ToString("HH:mm");
             }
         }
@@ -244,8 +267,8 @@ namespace UI.Reusables
             painter.strokeColor = _lineGraphColor;
 
             painter.BeginPath();
-            painter.MoveTo(_graphRect.position + new Vector2(0, _graphRect.height));
-            for (int i = 0; i < _lineGraphValues.Count; i++)
+            painter.MoveTo(_graphRect.position + new Vector2(_graphRect.width, _graphRect.height));
+            for (var i = _lineGraphValues.Count - 1; i >= 0; i--)
             {
                 if (_lineGraphTimestamps[i] < DateTime.Now.AddHours(-24)) continue;
 
@@ -265,13 +288,14 @@ namespace UI.Reusables
         private void DrawAreaGraph(Painter2D painter)
         {
             var minValue = 0;
-            var maxValue = _isLineGraphPercentage ? 1 : _lineGraphValues.Max() * 1.1f;
+            var maxValue = _isLineGraphPercentage ? 1 : _areaGraphValues.Max() * 1.1f;
 
             painter.fillColor = _areaGraphColor;
 
             painter.BeginPath();
-            painter.MoveTo(_graphRect.position + new Vector2(0, _graphRect.height));
-            for (int i = 0; i < _areaGraphTimestamps.Count; i++)
+            painter.MoveTo(_graphRect.position + new Vector2(_graphRect.width, _graphRect.height));
+            Vector2 lastPoint = Vector2.zero;
+            for (var i = _areaGraphTimestamps.Count - 1; i >= 0; i--)
             {
                 if (_areaGraphTimestamps[i] < DateTime.Now.AddHours(-24)) continue;
 
@@ -283,9 +307,11 @@ namespace UI.Reusables
                     DateTime.Now.AddHours(-24),
                     DateTime.Now);
                 painter.LineTo(point);
+
+                if (i == 0) lastPoint = point;
             }
 
-            painter.LineTo(_graphRect.position + new Vector2(_graphRect.width, _graphRect.height));
+            painter.LineTo(new Vector2(lastPoint.x, _graphRect.position.y + _graphRect.height));
             painter.Fill();
         }
 

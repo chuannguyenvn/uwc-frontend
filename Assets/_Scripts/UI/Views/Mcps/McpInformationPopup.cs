@@ -6,7 +6,6 @@ using Requests;
 using UI.Base;
 using UI.Reusables;
 using UnityEngine;
-using Random = UnityEngine.Random;
 
 namespace UI.Views.Mcps
 {
@@ -50,10 +49,10 @@ namespace UI.Views.Mcps
 
         private void CreateGraph()
         {
-            _fillLevelGraph = new Graph();
+            _fillLevelGraph = new Graph(false, true, false);
             AddContent(_fillLevelGraph);
 
-            _fillLevelGraph.AddLineGraph("Mcp fill level", Color.red, true);
+            _fillLevelGraph.ConfigureAreaGraph("Mcp fill level", Color.red, true);
         }
 
         public override void SetContent(McpData data)
@@ -68,13 +67,14 @@ namespace UI.Views.Mcps
 
             var timestamps = new List<DateTime>();
             var values = new List<float>();
+            data.McpFillLevelLogs = data.McpFillLevelLogs.OrderBy(log => log.Timestamp).ToList();
             foreach (var fillLevelLog in data.McpFillLevelLogs)
             {
                 timestamps.Add(fillLevelLog.Timestamp);
-                values.Add(fillLevelLog.McpFillLevel);
+                values.Add(fillLevelLog.McpFillLevel / 100f);
             }
 
-            _fillLevelGraph.UpdateLineGraph(timestamps, values);
+            _fillLevelGraph.UpdateAreaGraph(timestamps, values);
         }
     }
 }
