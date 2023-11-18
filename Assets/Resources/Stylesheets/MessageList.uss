@@ -1,4 +1,9 @@
-#MessageList {
+.message-list {
     height: 100%;
     min-width: 0;
+}
+
+.message-list #unity-content-viewport {
+    margin-left: 12px;
+    margin-right: 12px;
 }

@@ -22,18 +22,18 @@ namespace UI.Views.Messaging
             CreateInbox();
         }
 
-        private void CreateInbox()
-        {
-            _inboxContainer = new InboxContainer();
-            Add(_inboxContainer);
-        }
-
         private void CreateContactList()
         {
             _contactList = new ContactList();
             Add(_contactList);
 
             if (!Configs.IS_DESKTOP) _inboxContainer.style.display = DisplayStyle.None;
+        }
+
+        private void CreateInbox()
+        {
+            _inboxContainer = new InboxContainer();
+            Add(_inboxContainer);
         }
 
         public override void FocusView()

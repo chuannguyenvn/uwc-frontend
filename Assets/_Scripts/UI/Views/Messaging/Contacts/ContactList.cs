@@ -15,7 +15,7 @@ namespace UI.Views.Messaging.Contacts
         {
             ConfigureUss(nameof(ContactList));
 
-            AddToClassList(Configs.IS_DESKTOP ? "side-view" : "full-view");
+            if (!Configs.IS_DESKTOP) AddToClassList("full-view");
 
             CreateScrollView();
 
