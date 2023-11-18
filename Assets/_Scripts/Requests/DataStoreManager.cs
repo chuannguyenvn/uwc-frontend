@@ -3,6 +3,8 @@ using Requests.DataStores.Implementations.Mcps;
 using Requests.DataStores.Implementations.Messaging;
 using Requests.DataStores.Implementations.OnlineStatus;
 using Requests.DataStores.Implementations.Reports;
+using Requests.DataStores.Implementations.Tasks;
+using Utilities;
 
 namespace Requests
 {
@@ -33,6 +35,12 @@ namespace Requests
         public static class OnlineStatus
         {
             public static OnlineStatusStore Status { get; } = new();
+        }
+
+        public static class Tasks
+        {
+            public static AllTaskListStore AllTaskList { get; } = new();
+            public static PersonalTaskListStore PersonalTaskList { get; } = new();
         }
     }
 }

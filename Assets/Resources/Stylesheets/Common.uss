@@ -33,6 +33,10 @@
     font-size: 20px;
 }
 
+.desktop .sub-sub-text {
+    font-size: 12px;
+}
+
 .mobile .title-text {
     font-size: 60px;
 }
@@ -43,6 +47,10 @@
 
 .mobile .sub-text {
     font-size: 40px;
+}
+
+.mobile .sub-sub-text {
+    font-size: 24px;
 }
 
 .black-text {
@@ -71,4 +79,25 @@
 
 .desktop .list-entry:hover {
     background-color: var(--grey-color);
+}
+
+.white-button {
+    background-color: var(--white-text-color);
+}
+
+.colored-button {
+    background-color: var(--theme-color);
+}
+
+.active-button.white-button:hover {
+    background-color: var(--grey-color);
+}
+
+.active-button.colored-button:hover {
+    background-color: rgb(40, 90, 56);
+}
+
+.inactive-button {
+    background-color: var(--grey-color);
+    color: rgb(128, 128, 128);
 }

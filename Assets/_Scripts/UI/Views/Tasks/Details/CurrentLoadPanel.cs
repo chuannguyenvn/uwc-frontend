@@ -1,48 +1,48 @@
 ﻿using UI.Base;
-using UnityEngine;
 using UnityEngine.UIElements;
 
 namespace UI.Views.Tasks.Details
 {
     public class CurrentLoadPanel : Panel
     {
-        public VisualElement NumericalLoadContainer;
-        public TextElement NumericalLoadTitle;
-        public TextElement NumericalLoadText;
+        private VisualElement _numericalLoadContainer;
+        private TextElement _numericalLoadTitle;
+        private TextElement _numericalLoadText;
 
-        public VisualElement VisualLoadContainer;
+        private VisualElement _visualLoadContainer;
 
         public CurrentLoadPanel() : base(nameof(CurrentLoadPanel))
         {
-            styleSheets.Add(Resources.Load<StyleSheet>("Stylesheets/Views/Tasks/Details/CurrentLoadPanel"));
+            ConfigureUss(nameof(CurrentLoadPanel));
+
             AddToClassList("rounded-32px");
-            
+
             CreateNumericalLoad();
             CreateVisualLoad();
         }
 
         private void CreateNumericalLoad()
         {
-            NumericalLoadContainer = new VisualElement { name = "NumericalLoadContainer" };
-            Add(NumericalLoadContainer);
+            _numericalLoadContainer = new VisualElement { name = "NumericalLoadContainer" };
+            Add(_numericalLoadContainer);
 
-            NumericalLoadTitle = new TextElement { name = "NumericalLoadTitle" };
-            NumericalLoadTitle.AddToClassList("sub-text");
-            NumericalLoadTitle.AddToClassList("grey-text");
-            NumericalLoadTitle.text = "Numerical Load";
-            NumericalLoadContainer.Add(NumericalLoadTitle);
+            _numericalLoadTitle = new TextElement { name = "NumericalLoadTitle" };
+            _numericalLoadTitle.AddToClassList("sub-text");
+            _numericalLoadTitle.AddToClassList("grey-text");
+            _numericalLoadTitle.text = "Numerical Load";
+            _numericalLoadContainer.Add(_numericalLoadTitle);
 
-            NumericalLoadText = new TextElement { name = "NumericalLoadText" };
-            NumericalLoadText.AddToClassList("normal-text");
-            NumericalLoadText.AddToClassList("black-text");
-            NumericalLoadText.text = "0.00";
-            NumericalLoadContainer.Add(NumericalLoadText);
+            _numericalLoadText = new TextElement { name = "NumericalLoadText" };
+            _numericalLoadText.AddToClassList("normal-text");
+            _numericalLoadText.AddToClassList("black-text");
+            _numericalLoadText.text = "0.00";
+            _numericalLoadContainer.Add(_numericalLoadText);
         }
 
         private void CreateVisualLoad()
         {
-            VisualLoadContainer = new VisualElement { name = "VisualLoadContainer" };
-            Add(VisualLoadContainer);
+            _visualLoadContainer = new VisualElement { name = "VisualLoadContainer" };
+            Add(_visualLoadContainer);
         }
     }
 }

@@ -1,6 +1,5 @@
 ﻿using System;
 using UI.Base;
-using UnityEngine;
 using UnityEngine.UIElements;
 
 namespace UI.Views.Reports.Cards
@@ -8,8 +7,8 @@ namespace UI.Views.Reports.Cards
     public class RelativeChange : AdaptiveElement
     {
         private readonly Mode _mode;
-        public VisualElement ArrowIcon;
-        public TextElement ChangeValue;
+        private VisualElement _arrowIcon;
+        private TextElement _changeValue;
 
         public RelativeChange(Mode mode) : base(nameof(RelativeChange))
         {
@@ -20,20 +19,29 @@ namespace UI.Views.Reports.Cards
                 return;
             }
 
-            styleSheets.Add(Resources.Load<StyleSheet>("Stylesheets/Views/Reports/Cards/RelativeChange"));
+            ConfigureUss(nameof(RelativeChange));
 
-            ArrowIcon = new VisualElement { name = "ArrowIcon" };
-            ArrowIcon.AddToClassList("arrow-icon");
-            Add(ArrowIcon);
+            CreateArrowIcon();
+            CreateChangeValue();
+        }
 
-            ChangeValue = new TextElement { name = "ChangeValue" };
-            ChangeValue.AddToClassList("change-value");
-            Add(ChangeValue);
+        private void CreateArrowIcon()
+        {
+            _arrowIcon = new VisualElement { name = "ArrowIcon" };
+            _arrowIcon.AddToClassList("arrow-icon");
+            Add(_arrowIcon);
+        }
+
+        private void CreateChangeValue()
+        {
+            _changeValue = new TextElement { name = "ChangeValue" };
+            _changeValue.AddToClassList("change-value");
+            Add(_changeValue);
         }
 
         public void UpdateChange(float percentage)
         {
-            ChangeValue.text = $"{Math.Abs(percentage)}%";
+            if (_changeValue != null) _changeValue.text = $"{Math.Abs(percentage)}%";
 
             if (percentage > 0 && _mode == Mode.HigherIsBetter || percentage < 0 && _mode == Mode.LowerIsBetter)
             {

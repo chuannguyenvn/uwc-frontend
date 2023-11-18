@@ -1,27 +1,45 @@
 ﻿using UI.Base;
-using UnityEngine;
-using UnityEngine.UIElements;
 
 namespace UI.Views.Tasks.Details
 {
     public class TaskDetails : View
     {
-        public TaskDetailsHeader TaskDetailsHeader;
-        public PanelList PanelList;
-        
+        // Header
+        private TaskDetailsHeader _taskDetailsHeader;
+
+        // Panels
+        private PanelList _panelList;
+        private DestinationPanel _destinationPanel;
+        private CurrentLoadPanel _currentLoadPanel;
+        private EmptyingLogPanel _emptyingLogPanel;
+
         public TaskDetails() : base(nameof(TaskDetails))
         {
-            styleSheets.Add(Resources.Load<StyleSheet>("Stylesheets/Views/Tasks/Details/TaskDetails"));
-            
-            TaskDetailsHeader = new TaskDetailsHeader();
-            Add(TaskDetailsHeader);
-            
-            PanelList = new PanelList();
-            Add(PanelList);
-            
-            PanelList.Add(new DestinationPanel());
-            PanelList.Add(new CurrentLoadPanel());
-            PanelList.Add(new EmptyingLogPanel());
+            ConfigureUss(nameof(TaskDetails));
+
+            CreateHeader();
+            CreatePanels();
+        }
+
+        private void CreatePanels()
+        {
+            _panelList = new PanelList();
+            Add(_panelList);
+
+            _destinationPanel = new DestinationPanel();
+            _panelList.AddPanel(_destinationPanel);
+
+            _currentLoadPanel = new CurrentLoadPanel();
+            _panelList.AddPanel(_currentLoadPanel);
+
+            _emptyingLogPanel = new EmptyingLogPanel();
+            _panelList.AddPanel(_emptyingLogPanel);
+        }
+
+        private void CreateHeader()
+        {
+            _taskDetailsHeader = new TaskDetailsHeader();
+            Add(_taskDetailsHeader);
         }
     }
 }

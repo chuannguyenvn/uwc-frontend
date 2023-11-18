@@ -2,57 +2,31 @@
 using Settings;
 using SharedLibrary.Communications.OnlineStatus;
 using UI.Base;
-using UnityEngine;
+using UI.Views.Messaging.Contacts;
 using UnityEngine.UIElements;
 
 namespace UI.Views.Messaging.Inbox
 {
     public class InboxHeader : AdaptiveElement
     {
-        public VisualElement BackButton;
+        // Back button
+        private VisualElement _backButton;
 
-        public VisualElement Avatar;
+        // Avatar
+        private VisualElement _avatar;
 
-        public VisualElement TextContainer;
-        public TextElement NameText;
-        public TextElement StatusText;
+        // Details
+        private VisualElement _detailsContainer;
+        private TextElement _nameText;
+        private TextElement _statusText;
 
         public InboxHeader() : base(nameof(InboxHeader))
         {
-            styleSheets.Add(Resources.Load<StyleSheet>("Stylesheets/Views/Messaging/Inbox/InboxHeader"));
+            ConfigureUss(nameof(InboxHeader));
 
-            BackButton = new VisualElement { name = "BackButton" };
-            if (!Configs.IS_DESKTOP)
-            {
-                BackButton.RegisterCallback<ClickEvent>(_ =>
-                {
-                    RegisterCallback<ClickEvent>(_ =>
-                    {
-                        GetFirstAncestorOfType<MessagingView>().InboxContainer.style.display = DisplayStyle.None;
-                        GetFirstAncestorOfType<MessagingView>().ContactList.style.display = DisplayStyle.Flex;
-                    });
-                });
-            }
-
-            Add(BackButton);
-
-            Avatar = new VisualElement { name = "Avatar" };
-            Add(Avatar);
-
-            TextContainer = new VisualElement { name = "TextContainer" };
-            Add(TextContainer);
-
-            NameText = new TextElement { name = "NameText" };
-            NameText.AddToClassList("normal-text");
-            NameText.AddToClassList("white-text");
-            NameText.text = "";
-            TextContainer.Add(NameText);
-
-            StatusText = new TextElement { name = "StatusText" };
-            StatusText.AddToClassList("sub-text");
-            StatusText.AddToClassList("white-text");
-            StatusText.text = "Offline";
-            TextContainer.Add(StatusText);
+            CreateBackButton();
+            CreateAvatar();
+            CreateDetails();
 
             DataStoreManager.OnlineStatus.Status.DataUpdated += DataUpdatedHandler;
         }
@@ -60,6 +34,48 @@ namespace UI.Views.Messaging.Inbox
         ~InboxHeader()
         {
             DataStoreManager.OnlineStatus.Status.DataUpdated -= DataUpdatedHandler;
+        }
+
+        private void CreateBackButton()
+        {
+            _backButton = new VisualElement { name = "BackButton" };
+            if (!Configs.IS_DESKTOP)
+            {
+                _backButton.RegisterCallback<ClickEvent>(_ =>
+                {
+                    RegisterCallback<ClickEvent>(_ =>
+                    {
+                        GetFirstAncestorOfType<MessagingView>().Q<InboxContainer>().style.display = DisplayStyle.None;
+                        GetFirstAncestorOfType<MessagingView>().Q<ContactList>().style.display = DisplayStyle.Flex;
+                    });
+                });
+            }
+
+            Add(_backButton);
+        }
+
+        private void CreateAvatar()
+        {
+            _avatar = new VisualElement { name = "Avatar" };
+            Add(_avatar);
+        }
+
+        private void CreateDetails()
+        {
+            _detailsContainer = new VisualElement { name = "DetailsContainer" };
+            Add(_detailsContainer);
+
+            _nameText = new TextElement { name = "NameText" };
+            _nameText.AddToClassList("normal-text");
+            _nameText.AddToClassList("white-text");
+            _nameText.text = "";
+            _detailsContainer.Add(_nameText);
+
+            _statusText = new TextElement { name = "StatusText" };
+            _statusText.AddToClassList("sub-text");
+            _statusText.AddToClassList("white-text");
+            _statusText.text = "Offline";
+            _detailsContainer.Add(_statusText);
         }
 
         private void DataUpdatedHandler(OnlineStatusBroadcastData data)
@@ -70,9 +86,13 @@ namespace UI.Views.Messaging.Inbox
         public void UpdateStatus()
         {
             var otherUserAccountId = DataStoreManager.Messaging.InboxMessageList.OtherUserAccountId;
+            var onlineAccountIds = DataStoreManager.OnlineStatus.Status.Data.OnlineAccountIds;
+            _statusText.text = onlineAccountIds.Contains(otherUserAccountId) ? "Online" : "Offline";
+        }
 
-            if (DataStoreManager.OnlineStatus.Status.Data.OnlineAccountIds.Contains(otherUserAccountId)) StatusText.text = "Online";
-            else StatusText.text = "Offline";
+        public void UpdateName(string name)
+        {
+            _nameText.text = name;
         }
     }
 }

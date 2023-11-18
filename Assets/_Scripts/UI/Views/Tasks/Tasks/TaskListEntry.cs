@@ -2,66 +2,68 @@
 using Commons.Types;
 using Settings;
 using UI.Base;
-using UnityEngine;
 using UnityEngine.UIElements;
+using Utilities;
 
 namespace UI.Views.Tasks.Tasks
 {
     public class TaskListEntry : AdaptiveElement
     {
-        public VisualElement TimelineContainer;
-        public VisualElement UpLine;
-        public VisualElement DownLine;
-        public TextElement StatusText;
+        private VisualElement _timelineContainer;
+        private VisualElement _upLine;
+        private VisualElement _downLine;
+        private TextElement _statusText;
 
-        public VisualElement Content;
+        private VisualElement _content;
 
         public TaskListEntry(TaskData taskData, TaskType taskType) : base(nameof(TaskListEntry))
         {
-            styleSheets.Add(Resources.Load<StyleSheet>("Stylesheets/Views/Tasks/Tasks/TaskListEntry"));
-            AddToClassList("tasks-list-entry");
+            ConfigureUss(nameof(TaskListEntry));
 
-            TimelineContainer = new VisualElement { name = "TimelineContainer" };
-            Add(TimelineContainer);
+            CreateTimeline();
+            CreateCard(taskData, taskType);
+        }
 
-            UpLine = new VisualElement { name = "UpLine" };
-            UpLine.AddToClassList("timeline-line");
-            TimelineContainer.Add(UpLine);
+        private void CreateTimeline()
+        {
+            _timelineContainer = new VisualElement { name = "TimelineContainer" };
+            Add(_timelineContainer);
 
-            StatusText = new TextElement { name = "StatusText" };
-            StatusText.AddToClassList("sub-text");
-            StatusText.AddToClassList("grey-text");
-            TimelineContainer.Add(StatusText);
+            _upLine = new VisualElement { name = "UpLine" };
+            _upLine.AddToClassList("timeline-line");
+            _timelineContainer.Add(_upLine);
 
-            DownLine = new VisualElement { name = "DownLine" };
-            DownLine.AddToClassList("timeline-line");
-            TimelineContainer.Add(DownLine);
+            _statusText = new TextElement { name = "StatusText" };
+            _statusText.AddToClassList("sub-text");
+            _statusText.AddToClassList("grey-text");
+            _timelineContainer.Add(_statusText);
 
+            _downLine = new VisualElement { name = "DownLine" };
+            _downLine.AddToClassList("timeline-line");
+            _timelineContainer.Add(_downLine);
+        }
+
+        private void CreateCard(TaskData taskData, TaskType taskType)
+        {
             switch (taskType)
             {
                 case TaskType.Focused:
-                    Content = new FocusedTaskCard(Utility.GetRandomEnumValue<McpFillStatus>());
-                    StatusText.text = "Ongoing";
+                    _content = new FocusedTaskCard(taskData, Utility.GetRandomEnumValue<McpFillStatus>());
+                    _statusText.text = "Ongoing";
                     break;
                 case TaskType.Unfocused:
-                    Content = new UnfocusedTaskCard(Utility.GetRandomEnumValue<McpFillStatus>());
-                    StatusText.text = "Pending";
+                    _content = new UnfocusedTaskCard(taskData, Utility.GetRandomEnumValue<McpFillStatus>());
+                    _statusText.text = "Pending";
                     break;
                 case TaskType.Completed:
-                    Content = new CompletedCard();
-                    StatusText.text = "9:41AM";
+                    _content = new CompletedTaskCard(taskData);
+                    _statusText.text = "9:41AM";
                     break;
             }
 
-            Content.RegisterCallback<MouseUpEvent>(_ =>
-            {
-                RegisterCallback<MouseUpEvent>(_ =>
-                {
-                    GetFirstAncestorOfType<TasksView>().TaskList.style.display = DisplayStyle.None;
-                    GetFirstAncestorOfType<TasksView>().TaskDetails.style.display = DisplayStyle.Flex;
-                });
-            });
-            Add(Content);
+            _content.RegisterCallback<MouseUpEvent>(_ => { GetFirstAncestorOfType<TasksView>().ShowTaskDetails(); });
+
+            Add(_content);
         }
     }
 }

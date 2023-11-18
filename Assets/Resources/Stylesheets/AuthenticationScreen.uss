@@ -1,0 +1,126 @@
+#AuthenticationScreen {
+    align-items: center;
+    flex-direction: row;
+    flex-grow: 1;
+}
+
+.mobile #AuthenticationScreen {
+    background-color: rgb(255, 255, 255);
+    background-image: url('project://database/Assets/Graphics/splash.png?fileID=-8030570891474961867&guid=52ac505627ade6e4d8e6b256de57fea5&type=3#splash_0');
+    -unity-background-image-tint-color: rgb(214, 214, 214);
+}
+
+#LoginElementsContainer {
+    width: 50%;
+    padding-right: 200px;
+    padding-left: 200px;
+    align-items: stretch;
+    justify-content: center;
+    background-color: white;
+    height: 100%;
+}
+
+.mobile #LoginElementsContainer {
+    flex-grow: 1;
+    background-image: url('project://database/Assets/Graphics/Shapes/square-shadow-rounded-64px.png?fileID=7006034526747111667&guid=fa0b71c51ec43c841a1067a5fe911bf2&type=3#square-shadow-rounded-64px_0');
+    -unity-slice-left: 64;
+    -unity-slice-top: 64;
+    -unity-slice-right: 64;
+    -unity-slice-bottom: 64;
+    padding: 32px;
+    margin-right: 128px;
+    margin-left: 128px;
+}
+
+#unity-text-input {
+    border-left-color: rgba(0, 0, 0, 0);
+    border-right-color: rgba(0, 0, 0, 0);
+    border-top-color: rgba(0, 0, 0, 0);
+    border-bottom-color: rgba(0, 0, 0, 0);
+}
+
+.desktop #unity-text-input {
+    min-height: 64px;
+    border-radius: 32px;
+}
+
+.mobile #unity-text-input {
+    min-height: 128px;
+    border-radius: 64px;
+}
+
+
+.unity-button {
+    border-left-color: rgba(0, 0, 0, 0);
+    border-right-color: rgba(0, 0, 0, 0);
+    border-top-color: rgba(0, 0, 0, 0);
+    border-bottom-color: rgba(0, 0, 0, 0);
+}
+
+.desktop .unity-button {
+    min-height: 64px;
+    border-radius: 32px;
+}
+
+.mobile .unity-button {
+    min-height: 128px;
+    border-radius: 64px;
+}
+
+#TitleText {
+    font-size: 55px;
+    align-self: center;
+    -unity-text-align: upper-center;
+    margin-bottom: 32px;
+    white-space: nowrap;
+}
+
+.desktop #UsernameTextField {
+    margin-bottom: 8px;
+}
+
+.desktop #PasswordTextField {
+    margin-bottom: 8px;
+}
+
+.mobile #UsernameTextField {
+    margin-bottom: 16px;
+}
+
+.mobile #PasswordTextField {
+    margin-bottom: 16px;
+}
+
+#unity-text-input .unity-text-element {
+    padding: 0 16px;
+}
+
+#LoginButton {
+    background-color: var(--theme-color);
+}
+
+#ForgotPasswordButton {
+    align-items: center;
+    align-self: center;
+    background-color: rgba(0, 0, 0, 0);
+}
+
+#Logo {
+    background-image: url('project://database/Assets/Graphics/Icons/recycling.png?fileID=21300000&guid=739723c54932fb4439c22430ff309b75&type=3#recycling');
+    width: 200px;
+    height: 200px;
+    -unity-background-image-tint-color: var(--theme-color);
+    align-self: center;
+}
+
+#SplashContainer {
+    background-image: url('project://database/Assets/Graphics/splash.png?fileID=-8030570891474961867&guid=52ac505627ade6e4d8e6b256de57fea5&type=3#splash_0');
+    flex-grow: 1;
+    width: 50%;
+    height: 100%;
+    -unity-background-scale-mode: scale-and-crop;
+}
+
+.mobile #SplashContainer {
+    display: none;
+}

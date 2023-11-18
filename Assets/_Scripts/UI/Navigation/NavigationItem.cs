@@ -6,28 +6,35 @@ namespace UI.Navigation
 {
     public class NavigationItem : AdaptiveElement
     {
-        private readonly VisualElement _icon;
-        private readonly Label _label;
+        private VisualElement _icon;
+        private Label _label;
 
         public NavigationItem(ViewType viewType) : base(nameof(NavigationItem))
         {
-            name = viewType.ToString();
-            AddToClassList("navigation-item");
+            ConfigureUss(nameof(NavigationItem));
 
+            name = viewType.ToString();
+
+            CreateIcon();
+            CreateLabel(viewType);
+
+            RegisterCallback<MouseUpEvent>(_ => { GetFirstAncestorOfType<Root>().ActivateView(viewType); });
+        }
+
+        private void CreateIcon()
+        {
             _icon = new VisualElement { name = "Icon" };
             _icon.AddToClassList("icon");
             Add(_icon);
+        }
 
+        private void CreateLabel(ViewType viewType)
+        {
             _label = new Label { name = "Label" };
             _label.AddToClassList("sub-text");
             _label.AddToClassList("white-text");
             _label.text = viewType.ToString();
             Add(_label);
-
-            RegisterCallback<MouseUpEvent>(_ =>
-            {
-                GetFirstAncestorOfType<Root>().ActivateView(viewType);
-            });
         }
     }
 }

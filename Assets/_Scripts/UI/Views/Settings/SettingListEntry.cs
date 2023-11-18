@@ -1,21 +1,24 @@
 ﻿using UI.Base;
-using UnityEngine;
 using UnityEngine.UIElements;
 
 namespace UI.Views.Settings
 {
     public class SettingListEntry : AdaptiveElement
     {
-        public TextElement SettingNameText;
-        
-        public SettingListEntry(string name) : base(name)
-        {
-            styleSheets.Add(Resources.Load<StyleSheet>("Stylesheets/Views/Settings/SettingListEntry"));
-            AddToClassList("setting-list-entry");
+        protected TextElement SettingNameText;
 
+        protected SettingListEntry(string name) : base(name)
+        {
+            ConfigureUss(nameof(SettingListEntry));
+
+            CreateSettingNameText(name);
+        }
+
+        private void CreateSettingNameText(string name)
+        {
             SettingNameText = new TextElement { name = "SettingNameText" };
-            SettingNameText.text = name;
             SettingNameText.AddToClassList("normal-text");
+            SettingNameText.text = name;
             Add(SettingNameText);
         }
     }

@@ -1,8 +1,10 @@
-using Commons.Models;
+using Commons.Communications.Tasks;
+using Requests;
 using Settings;
 using UI.Base;
 using UnityEngine;
 using UnityEngine.UIElements;
+using Utilities;
 
 namespace UI.Views.Tasks.Tasks
 {
@@ -12,26 +14,49 @@ namespace UI.Views.Tasks.Tasks
 
         public TaskList() : base(nameof(TaskList))
         {
-            styleSheets.Add(Resources.Load<StyleSheet>("Stylesheets/Views/Tasks/Tasks/TaskList"));
+            ConfigureUss(nameof(TaskList));
 
+            CreateScrollView();
+
+            if (Configs.IS_DESKTOP) DataStoreManager.Tasks.AllTaskList.DataUpdated += AllTaskListDataUpdatedHandler;
+            else DataStoreManager.Tasks.PersonalTaskList.DataUpdated += PersonalTaskListDataUpdatedHandler;
+
+            // ScrollToImmediate(focusedTask);
+        }
+
+        ~TaskList()
+        {
+            if (Configs.IS_DESKTOP) DataStoreManager.Tasks.AllTaskList.DataUpdated -= AllTaskListDataUpdatedHandler;
+            else DataStoreManager.Tasks.PersonalTaskList.DataUpdated -= PersonalTaskListDataUpdatedHandler;
+        }
+
+        private void CreateScrollView()
+        {
             ScrollView = new ScrollView();
             ScrollView.AddToClassList("list-view");
             Add(ScrollView);
+        }
 
-            TaskListEntry focusedTask = null;
-            for (int i = 0; i < 30; i++)
+        private void AllTaskListDataUpdatedHandler(GetAllTasksResponse getAllTasksResponse)
+        {
+            ScrollView.Clear();
+
+            foreach (var task in getAllTasksResponse.Tasks)
             {
-                var taskType = TaskType.Completed;
-                if (i == 15) taskType = TaskType.Focused;
-                if (i > 15) taskType = TaskType.Unfocused;
-
-                var newTask = new TaskListEntry(new TaskData(), taskType);
-                ScrollView.Add(newTask);
-
-                if (taskType == TaskType.Focused) focusedTask = newTask;
+                task.McpData.Address = Utility.RemoveDiacritics(task.McpData.Address);
+                ScrollView.Add(new TaskListEntry(task, TaskType.Unfocused));
             }
+        }
 
-            ScrollToImmediate(focusedTask);
+        private void PersonalTaskListDataUpdatedHandler(GetTasksOfWorkerResponse getTasksOfWorkerResponse)
+        {
+            ScrollView.Clear();
+
+            foreach (var task in getTasksOfWorkerResponse.Tasks)
+            {
+                task.McpData.Address = Utility.RemoveDiacritics(task.McpData.Address);
+                ScrollView.Add(new TaskListEntry(task, TaskType.Unfocused));
+            }
         }
 
         private void ScrollToImmediate(VisualElement item)

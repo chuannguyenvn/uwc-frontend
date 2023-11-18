@@ -4,12 +4,24 @@ namespace UI.Base
 {
     public class PanelList : AdaptiveElement
     {
-        public ScrollView ScrollView;
+        private ScrollView _scrollView;
 
         public PanelList() : base(nameof(PanelList))
         {
-            ScrollView = new ScrollView();
-            Add(ScrollView);
+            ConfigureUss(nameof(PanelList));
+
+            CreateScrollView();
+        }
+
+        private void CreateScrollView()
+        {
+            _scrollView = new ScrollView();
+            Add(_scrollView);
+        }
+
+        public void AddPanel(Panel panel)
+        {
+            _scrollView.Add(panel);
         }
     }
 }

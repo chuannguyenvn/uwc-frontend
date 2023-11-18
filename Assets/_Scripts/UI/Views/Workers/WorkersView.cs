@@ -1,6 +1,5 @@
 ﻿using Commons.Models;
 using UI.Base;
-using UnityEngine;
 using UnityEngine.UIElements;
 
 namespace UI.Views.Workers
@@ -11,14 +10,23 @@ namespace UI.Views.Workers
 
         public WorkersView() : base(nameof(WorkersView))
         {
-            styleSheets.Add(Resources.Load<StyleSheet>("Stylesheets/Views/Workers/WorkersView"));
-            styleSheets.Add(Resources.Load<StyleSheet>("Stylesheets/Views/Workers/WorkerListEntry"));
+            ConfigureUss(nameof(WorkersView));
+
             AddToClassList("side-view");
-            
+
+            CreateScrollView();
+            CreateEntries();
+        }
+
+        private void CreateScrollView()
+        {
             _scrollView = new ScrollView();
             _scrollView.AddToClassList("list-view");
             Add(_scrollView);
-            
+        }
+
+        private void CreateEntries()
+        {
             for (int i = 0; i < 30; i++)
             {
                 _scrollView.Add(new WorkerListEntry(new UserProfile()

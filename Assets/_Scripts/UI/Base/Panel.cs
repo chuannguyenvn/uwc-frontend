@@ -1,17 +1,21 @@
-﻿using UnityEngine;
-using UnityEngine.UIElements;
+﻿using UnityEngine.UIElements;
 
 namespace UI.Base
 {
     public class Panel : AdaptiveElement
     {
-        private readonly VisualElement _background;
+        // Background
+        private VisualElement _background;
 
         public Panel(string name = "Panel") : base(name)
         {
-            styleSheets.Add(Resources.Load<StyleSheet>("Stylesheets/Base/Panel"));
-            AddToClassList("panel");
+            ConfigureUss(nameof(Panel));
 
+            CreateBackground();
+        }
+
+        private void CreateBackground()
+        {
             _background = new VisualElement { name = "Background" };
             Add(_background);
         }

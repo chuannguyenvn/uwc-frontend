@@ -1,5 +1,4 @@
 ﻿using System;
-using UnityEngine;
 using UnityEngine.UIElements;
 
 namespace UI.Views.Settings
@@ -8,9 +7,11 @@ namespace UI.Views.Settings
     {
         public TriggerSettingListEntry(string name, Action callback, bool isDangerous = false) : base(name)
         {
-            styleSheets.Add(Resources.Load<StyleSheet>("Stylesheets/Views/Settings/TriggerSettingListEntry"));
-            AddToClassList("trigger-setting-list-entry");
+            ConfigureUss(nameof(TriggerSettingListEntry));
+
             if (isDangerous) AddToClassList("dangerous");
+
+            RegisterCallback<ClickEvent>(_ => callback?.Invoke());
         }
     }
 }
