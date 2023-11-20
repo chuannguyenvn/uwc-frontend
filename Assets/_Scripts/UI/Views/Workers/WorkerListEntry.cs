@@ -8,7 +8,6 @@ namespace UI.Views.Workers
     public class WorkerListEntry : AnimatedButton
     {
         public UserProfile Profile { get; }
-        public event Action Clicked;
 
         private Image _image;
 
@@ -28,8 +27,6 @@ namespace UI.Views.Workers
 
             // CreateImage();
             CreateDetails(profile);
-
-            RegisterCallback<ClickEvent>(_ => Clicked?.Invoke());
         }
 
         private void CreateImage()

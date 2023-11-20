@@ -12,7 +12,6 @@ namespace UI.Views.Mcps
     public class McpListEntry : AnimatedButton
     {
         private readonly McpData _mcpData;
-        public event Action Clicked;
 
         private float _currentLoadPercentage;
 
@@ -67,9 +66,7 @@ namespace UI.Views.Mcps
 
             CreateInformation(mcpData);
             CreateLogs();
-
-            RegisterCallback<ClickEvent>(_ => Clicked?.Invoke());
-
+            
             DataStoreManager.Mcps.FillLevel.DataUpdated += DataUpdatedHandler;
             DataUpdatedHandler(DataStoreManager.Mcps.FillLevel.Data);
         }
