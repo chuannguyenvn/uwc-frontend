@@ -5,7 +5,7 @@ using UnityEngine.UIElements;
 
 namespace UI.Views.Vehicles
 {
-    public class VehicleListEntry : AdaptiveElement
+    public class VehicleListEntry : AnimatedButton
     {
         public event Action Clicked;
 
@@ -21,7 +21,9 @@ namespace UI.Views.Vehicles
         {
             ConfigureUss(nameof(VehicleListEntry));
 
-            AddToClassList("list-entry");
+            AddToClassList("white-button");
+            AddToClassList("iconless-button");
+            AddToClassList("rounded-button-16px");
 
             CreateImage();
             CreateDetails(vehicleData);

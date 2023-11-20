@@ -10,7 +10,7 @@ namespace UI.Base
 
         private VisualElement _icon;
 
-        public AnimatedButton() : base(nameof(AnimatedButton))
+        public AnimatedButton(string name = nameof(AnimatedButton)) : base(name)
         {
             ConfigureUss(nameof(AnimatedButton));
 
@@ -20,7 +20,7 @@ namespace UI.Base
 
         private void CreateIcon()
         {
-            _icon = new VisualElement { name = "Icon" };
+            _icon = new VisualElement { name = "ButtonIcon" };
             Add(_icon);
         }
 

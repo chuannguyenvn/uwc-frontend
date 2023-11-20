@@ -2,6 +2,7 @@
     flex-direction: column;
     margin: 8px;
     padding: 8px;
+    align-items: flex-start;
 }
 
 #InformationContainer {
@@ -21,7 +22,7 @@
     margin-top: 8px;
     flex-direction: row;
     justify-content: flex-start;
-    align-items: center;
+    align-items: flex-start;
     flex-wrap: wrap;
 }
 

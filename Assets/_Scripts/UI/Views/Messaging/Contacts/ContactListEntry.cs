@@ -7,7 +7,7 @@ using UnityEngine.UIElements;
 
 namespace UI.Views.Messaging.Contacts
 {
-    public class ContactListEntry : AdaptiveElement
+    public class ContactListEntry : AnimatedButton
     {
         private readonly int _otherUserId;
 
@@ -26,7 +26,9 @@ namespace UI.Views.Messaging.Contacts
 
             ConfigureUss(nameof(ContactListEntry));
 
-            AddToClassList("list-entry");
+            AddToClassList("white-button");
+            AddToClassList("iconless-button");
+            AddToClassList("rounded-button-16px");
 
             CreateAvatar();
             CreateDetails(contactName, messageContent, timestamp, isFromUser);

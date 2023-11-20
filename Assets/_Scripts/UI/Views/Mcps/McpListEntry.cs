@@ -7,7 +7,7 @@ using Random = UnityEngine.Random;
 
 namespace UI.Views.Mcps
 {
-    public class McpListEntry : AdaptiveElement
+    public class McpListEntry : AnimatedButton
     {
         public event Action Clicked;
 
@@ -26,6 +26,10 @@ namespace UI.Views.Mcps
         {
             ConfigureUss(nameof(McpListEntry));
 
+            AddToClassList("white-button");
+            AddToClassList("iconless-button");
+            AddToClassList("rounded-button-16px");
+            
             CreateInformation(mcpData, currentLoadPercentage);
             CreateLogs();
 

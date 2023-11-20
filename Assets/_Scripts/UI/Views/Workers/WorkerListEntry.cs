@@ -5,7 +5,7 @@ using UnityEngine.UIElements;
 
 namespace UI.Views.Workers
 {
-    public class WorkerListEntry : AdaptiveElement
+    public class WorkerListEntry : AnimatedButton
     {
         public event Action Clicked;
 
@@ -19,8 +19,10 @@ namespace UI.Views.Workers
         {
             ConfigureUss(nameof(WorkerListEntry));
 
-            AddToClassList("list-entry");
-
+            AddToClassList("white-button");
+            AddToClassList("iconless-button");
+            AddToClassList("rounded-button-16px");
+            
             CreateImage();
             CreateDetails(profile);
 
