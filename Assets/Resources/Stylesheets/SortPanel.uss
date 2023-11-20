@@ -1,0 +1,3 @@
+.sort-panel {
+    align-items: flex-start;
+}

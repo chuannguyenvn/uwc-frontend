@@ -18,11 +18,6 @@ namespace UI.Views.Mcps.AssignTaskProcedure
         {
             _scrollView = new ScrollView();
             AddToContainer(_scrollView);
-            for (int i = 0; i < 5; i++)
-            {
-                var entry = new McpListEntry(new McpData() { Address = "Test MCP" }, Random.Range(0f, 100f));
-                _scrollView.Add(entry);
-            }
         }
 
         protected override bool CheckStepCompletion()

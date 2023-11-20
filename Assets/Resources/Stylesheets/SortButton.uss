@@ -1,0 +1,40 @@
+.sort-button {
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-around;
+    flex-shrink: 1;
+    flex-grow: 0;
+    border-width: 1;
+}
+
+.sort-button #SortNameText {
+    flex-shrink: 1;
+}
+
+.sort-button #SortIcon {
+    width: 24px;
+    height: 24px;
+    -unity-background-scale-mode: scale-to-fit;
+    -unity-background-image-tint-color: var(--theme-color);
+}
+
+.sort-button.none #SortIcon {
+    background-image: none;
+    display: none;
+}
+
+.sort-button.ascending {
+    border-color: var(--theme-color);
+}
+
+.sort-button.ascending #SortIcon {
+    background-image: url('project://database/Assets/Graphics/Icons/sort-ascending.svg');
+}
+
+.sort-button.descending {
+    border-color: var(--theme-color);
+}
+
+.sort-button.descending #SortIcon {
+    background-image: url('project://database/Assets/Graphics/Icons/sort-descending.svg');
+}
