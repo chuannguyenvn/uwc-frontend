@@ -1,5 +1,5 @@
 #ContactListEntry {
-    width: 100%;
+    flex-grow: 1;
     flex-direction: row;
 }
 
@@ -15,10 +15,6 @@
 #PreviewText {
     overflow: hidden;
     text-overflow: ellipsis;
-}
-
-.desktop {
-    height: 64px;
 }
 
 .mobile {

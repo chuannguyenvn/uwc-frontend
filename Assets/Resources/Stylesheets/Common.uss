@@ -117,3 +117,46 @@
     background-color: var(--grey-color);
     color: rgb(128, 128, 128);
 }
+
+#unity-content-viewport {
+    margin-left: 8px;
+    margin-right: 8px;
+}
+
+.unity-scroller {
+    margin-top: 4;
+    margin-bottom: 4;
+}
+
+.unity-scroller--vertical {
+    width: 16px;
+}
+
+#unity-slider {
+    margin-top: 0;
+    margin-bottom: 0;
+    min-width: 16px;
+    width: 16px;
+}
+
+#unity-tracker {
+    background-color: rgba(0, 0, 0, 0.1);
+    border-color: rgba(0, 0, 0, 0);
+    border-radius: 8;
+}
+
+#unity-dragger {
+    border-color: rgba(0, 0, 0, 0);
+    background-color: rgb(170, 170, 170);
+    border-radius: 8;
+    width: 12;
+    left: 2;
+}
+
+#unity-dragger:hover {
+    background-color: rgb(200, 200, 200);
+}
+
+RepeatButton {
+    display: none;
+}

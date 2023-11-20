@@ -1,4 +1,6 @@
 ﻿.contact-list
 {
     width: 500px;
+    border-color: rgb(190, 190, 190);
+    border-width: 1;
 }
