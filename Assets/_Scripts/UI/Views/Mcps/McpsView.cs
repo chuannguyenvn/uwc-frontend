@@ -24,7 +24,7 @@ namespace UI.Views.Mcps
         private ListControl _listControl;
 
         // List
-        private ScrollView _scrollView;
+        private ScrollViewWithShadow _scrollView;
 
         // Popup
         private McpInformationPopup _mcpInformationPopup;
@@ -58,7 +58,7 @@ namespace UI.Views.Mcps
 
         private void CreateScrollView()
         {
-            _scrollView = new ScrollView() { name = "ScrollView" };
+            _scrollView = new ScrollViewWithShadow(ShadowType.InnerTop) { name = "ScrollView" };
             _scrollView.AddToClassList("list-view");
             Add(_scrollView);
 
@@ -109,7 +109,7 @@ namespace UI.Views.Mcps
             else if (_listControl.SortStates[0] == SortType.Descending)
                 mcpEntries.Sort((a, b) => b.CurrentLoadPercentage.CompareTo(a.CurrentLoadPercentage));
 
-            foreach (var mcpEntry in mcpEntries) _scrollView.Add(mcpEntry);
+            foreach (var mcpEntry in mcpEntries) _scrollView.AddToScrollView(mcpEntry);
         }
 
         public override void FocusView()

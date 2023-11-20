@@ -1,0 +1,27 @@
+.shadow {
+    position: absolute;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    -unity-slice-top: 4;
+    -unity-slice-bottom: 4;
+    -unity-slice-left: 4;
+    -unity-slice-right: 4;
+}
+
+.shadow.inner-top {
+    background-image: url('project://database/Assets/Graphics/shadow-top.png');
+}
+
+.shadow.inner-bottom {
+    background-image: url('project://database/Assets/Graphics/shadow-bottom.png');
+}
+
+.shadow.inner-left {
+    background-image: url('project://database/Assets/Graphics/shadow-left.png');
+}
+
+.shadow.inner-right {
+    background-image: url('project://database/Assets/Graphics/shadow-right.png');
+}
