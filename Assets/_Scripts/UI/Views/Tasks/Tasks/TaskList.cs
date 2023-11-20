@@ -33,7 +33,6 @@ namespace UI.Views.Tasks.Tasks
         private void CreateScrollView()
         {
             ScrollView = new ScrollView();
-            ScrollView.AddToClassList("list-view");
             Add(ScrollView);
         }
 

@@ -41,7 +41,6 @@ namespace UI.Views.Messaging.Inbox
         private void CreateScrollView()
         {
             _scrollView = new ScrollViewWithShadow(ShadowType.InnerTop);
-            _scrollView.AddToClassList("list-view");
             _scrollView.ScrollView.verticalScroller.value =
                 _scrollView.ScrollView.verticalScroller.highValue > 0 ? _scrollView.ScrollView.verticalScroller.highValue : 0;
             Add(_scrollView);

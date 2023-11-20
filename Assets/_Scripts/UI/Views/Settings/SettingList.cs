@@ -17,7 +17,6 @@ namespace UI.Views.Settings
         private void CreateScrollView()
         {
             _scrollView = new ScrollView();
-            _scrollView.AddToClassList("list-view");
             Add(_scrollView);
         }
 
