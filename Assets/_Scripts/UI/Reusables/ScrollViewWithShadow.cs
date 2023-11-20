@@ -1,4 +1,5 @@
 ﻿using UI.Base;
+using UnityEngine;
 using UnityEngine.UIElements;
 
 namespace UI.Reusables
@@ -6,7 +7,7 @@ namespace UI.Reusables
     public class ScrollViewWithShadow : AdaptiveElement
     {
         private VisualElement _shadow;
-        public ScrollView ScrollView;
+        private ScrollView _scrollView;
 
         public ScrollViewWithShadow(ShadowType shadowType) : base(nameof(ScrollViewWithShadow))
         {
@@ -43,19 +44,75 @@ namespace UI.Reusables
 
         private void CreateScrollView()
         {
-            ScrollView = new ScrollView { name = "ScrollView" };
-            Add(ScrollView);
+            _scrollView = new ScrollView { name = "ScrollView" };
+            Add(_scrollView);
         }
 
         public void AddToScrollView(VisualElement element)
         {
-            ScrollView.Add(element);
+            _scrollView.Add(element);
             _shadow.BringToFront();
         }
 
         public new void Clear()
         {
-            ScrollView.Clear();
+            _scrollView.Clear();
+        }
+
+        public void ScrollToLast()
+        {
+            if (_scrollView.childCount > 0)
+            {
+                var lastChild = _scrollView[_scrollView.childCount - 1];
+                ScrollToImmediate(lastChild);
+            }
+        }
+        
+        private void ScrollToImmediate(VisualElement item)
+        {
+            int remainingIterations = 4;
+
+            void TryScroll()
+            {
+                //if both layout and item have a size, then we can scroll immediate
+                //otherwise, we need to listen to layout changes then scrollTo
+
+                if (item.layout.width > 0 && _scrollView.layout.width > 0)
+                {
+                    _scrollView.ScrollTo(item);
+                    return;
+                }
+                else if (remainingIterations <= 0)
+                {
+                    Debug.LogWarning("Too many layout iterations");
+
+                    _scrollView.ScrollTo(item);
+                    return;
+                }
+
+                if (_scrollView.layout.width > 0)
+                {
+                    item.RegisterCallback<GeometryChangedEvent, VisualElement>(OnGeometryChanged, item);
+                }
+                else
+                {
+                    _scrollView.RegisterCallback<GeometryChangedEvent, VisualElement>(OnGeometryChanged, _scrollView);
+                }
+            }
+
+            void OnGeometryChanged(GeometryChangedEvent evt, VisualElement target)
+            {
+                target.UnregisterCallback<GeometryChangedEvent, VisualElement>(OnGeometryChanged);
+
+                //try scrolling after we received a geometry changed event from either the item or scrollView
+                //the geometry still might be 0, so keep trying if so
+
+                remainingIterations--;
+
+                TryScroll();
+            }
+
+            TryScroll();
         }
     }
 

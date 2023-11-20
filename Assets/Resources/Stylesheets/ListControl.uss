@@ -3,3 +3,11 @@
     align-items: stretch;
     flex-shrink: 0;
 }
+
+.list-control .sort-panel {
+    flex-wrap: wrap;
+}
+
+.list-control .sort-button {
+    flex-shrink: 1;
+}

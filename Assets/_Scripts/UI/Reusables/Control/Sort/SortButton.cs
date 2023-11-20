@@ -42,6 +42,7 @@ namespace UI.Reusables.Control.Sort
         private void CreateSortIcon()
         {
             _sortIcon = new VisualElement { name = "SortIcon" };
+            _sortIcon.style.display = DisplayStyle.None;
             Add(_sortIcon);
         }
 
@@ -58,6 +59,8 @@ namespace UI.Reusables.Control.Sort
                         RemoveFromClassList("descending");
                         RemoveFromClassList("none");
 
+                        _sortIcon.style.display = DisplayStyle.Flex;
+
                         _sortNameText.AddToClassList("colored-text");
                         _sortNameText.RemoveFromClassList("grey-text");
                         break;
@@ -68,6 +71,8 @@ namespace UI.Reusables.Control.Sort
                         RemoveFromClassList("ascending");
                         RemoveFromClassList("none");
 
+                        _sortIcon.style.display = DisplayStyle.Flex;
+
                         _sortNameText.AddToClassList("colored-text");
                         _sortNameText.RemoveFromClassList("grey-text");
                         break;
@@ -77,6 +82,8 @@ namespace UI.Reusables.Control.Sort
                         AddToClassList("none");
                         RemoveFromClassList("ascending");
                         RemoveFromClassList("descending");
+
+                        _sortIcon.style.display = DisplayStyle.None;
 
                         _sortNameText.RemoveFromClassList("colored-text");
                         _sortNameText.AddToClassList("grey-text");
