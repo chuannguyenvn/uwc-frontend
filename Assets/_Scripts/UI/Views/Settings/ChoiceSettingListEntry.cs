@@ -1,22 +1,37 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Authentication;
+using Commons.Communications.Settings;
+using Commons.Endpoints;
+using Commons.Models;
+using Requests;
 using UnityEngine.UIElements;
 
 namespace UI.Views.Settings
 {
     public class ChoiceSettingListEntry : SettingListEntry
     {
+        private readonly Func<string> _initializingCallback;
         private VisualElement _optionsContainer;
         private Dictionary<string, Option> _optionsByName = new();
 
-        public ChoiceSettingListEntry(string name, Dictionary<string, Action> options) : base(name)
+        public ChoiceSettingListEntry(string name, Func<string> initializingCallback, Dictionary<string, Action> optionCallbacks) : base(name)
         {
+            _initializingCallback = initializingCallback;
+
             ConfigureUss(nameof(ChoiceSettingListEntry));
 
             CreateOptionsContainer();
-            CreateOptions(options);
+            CreateOptions(optionCallbacks);
             ModifySettingNameText();
+
+            DataStoreManager.Setting.Settings.DataUpdated += _ => Refresh();
+        }
+
+        public void Refresh()
+        {
+            OptionSelectedHandler(_initializingCallback?.Invoke());
         }
 
         private void CreateOptionsContainer()
@@ -33,6 +48,15 @@ namespace UI.Views.Settings
                 {
                     OptionSelectedHandler(settingName);
                     settingCallback?.Invoke();
+                    
+                    var newSetting = GetFirstAncestorOfType<SettingsView>().Setting;
+                    DataStoreManager.Instance.StartCoroutine(RequestHelper.SendPostRequest(
+                        Endpoints.Setting.UpdateSetting,
+                        new UpdateSettingRequest()
+                        {
+                            AccountId = AuthenticationManager.Instance.UserAccountId,
+                            NewSetting = newSetting,
+                        }));
                 });
                 _optionsContainer.Add(newOption);
                 _optionsByName.Add(settingName, newOption);

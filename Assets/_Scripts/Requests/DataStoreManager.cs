@@ -3,6 +3,7 @@ using Requests.DataStores.Implementations.Mcps;
 using Requests.DataStores.Implementations.Messaging;
 using Requests.DataStores.Implementations.OnlineStatus;
 using Requests.DataStores.Implementations.Reports;
+using Requests.DataStores.Implementations.Setting;
 using Requests.DataStores.Implementations.Tasks;
 using Requests.DataStores.Implementations.UserProfile;
 using Requests.DataStores.Implementations.Vehicles;
@@ -54,6 +55,11 @@ namespace Requests
         public static class Vehicles
         {
             public static AllVehicleListStore AllVehicleList { get; } = new();
+        }
+
+        public static class Setting
+        {
+            public static SettingStore Settings { get; } = new();
         }
     }
 }
