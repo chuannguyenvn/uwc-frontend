@@ -1,4 +1,5 @@
 ﻿using System;
+using Commons.Categories;
 using Commons.Models;
 using UI.Base;
 using UnityEngine.UIElements;
@@ -54,7 +55,7 @@ namespace UI.Views.Vehicles
             _classText = new TextElement { name = "ClassText" };
             _classText.AddToClassList("sub-text");
             _classText.AddToClassList("grey-text");
-            _classText.text = vehicleData.VehicleType.ToString();
+            _classText.text = vehicleData.VehicleType.GetFriendlyString();
             _textContainer.Add(_classText);
         }
     }
