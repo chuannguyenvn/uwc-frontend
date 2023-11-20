@@ -117,3 +117,8 @@
     background-color: var(--grey-color);
     color: rgb(128, 128, 128);
 }
+
+#unity-content-viewport {
+    margin-left: 8px;
+    margin-right: 8px;
+}

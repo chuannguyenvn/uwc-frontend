@@ -1,7 +1,5 @@
 #McpListEntry {
     flex-direction: column;
-    margin: 8px;
-    padding: 8px;
     align-items: flex-start;
 }
 
