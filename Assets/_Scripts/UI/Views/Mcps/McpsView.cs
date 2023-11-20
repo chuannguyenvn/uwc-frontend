@@ -7,7 +7,8 @@ using Newtonsoft.Json;
 using Requests;
 using UI.Base;
 using UI.Reusables;
-using UI.Reusables.Sort;
+using UI.Reusables.Control;
+using UI.Reusables.Control.Sort;
 using UnityEngine;
 using UnityEngine.UIElements;
 using Utilities;
@@ -20,9 +21,7 @@ namespace UI.Views.Mcps
         private readonly Dictionary<string, McpListEntry> _mcpListEntriesByAddress = new();
 
         // Controls
-        private VisualElement _controlsContainer;
-        private SearchBar _searchBar;
-        private SortPanel _sortPanel;
+        private ListControl _listControl;
 
         // List
         private ScrollView _scrollView;
@@ -51,15 +50,10 @@ namespace UI.Views.Mcps
 
         private void CreateControls()
         {
-            _controlsContainer = new VisualElement { name = "ControlsContainer" };
-            Add(_controlsContainer);
+            _listControl = new ListControl(SearchHandler);
+            Add(_listControl);
 
-            _searchBar = new SearchBar(SearchHandler);
-            _controlsContainer.Add(_searchBar);
-
-            _sortPanel = new SortPanel();
-            _sortPanel.CreateSortButton("Fill level", () => DataUpdatedHandler(DataStoreManager.Mcps.ListView.Data));
-            _controlsContainer.Add(_sortPanel);
+            _listControl.CreateSortButton("Fill level", () => DataUpdatedHandler(DataStoreManager.Mcps.ListView.Data));
         }
 
         private void CreateScrollView()
@@ -110,9 +104,9 @@ namespace UI.Views.Mcps
                 };
             }
 
-            if (_sortPanel.SortStates[0] == SortType.Ascending) 
+            if (_listControl.SortStates[0] == SortType.Ascending)
                 mcpEntries.Sort((a, b) => a.CurrentLoadPercentage.CompareTo(b.CurrentLoadPercentage));
-            else if (_sortPanel.SortStates[0] == SortType.Descending) 
+            else if (_listControl.SortStates[0] == SortType.Descending)
                 mcpEntries.Sort((a, b) => b.CurrentLoadPercentage.CompareTo(a.CurrentLoadPercentage));
 
             foreach (var mcpEntry in mcpEntries) _scrollView.Add(mcpEntry);

@@ -2,10 +2,6 @@
     flex-direction: column;
 }
 
-.mcps-view #ControlsContainer {
-    flex-shrink: 0;
-}
-
 .mcps-view #ScrollView {
     flex-grow: 1;
 }

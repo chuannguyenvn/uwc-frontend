@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UI.Base;
 using UnityEngine.UIElements;
 
-namespace UI.Reusables.Sort
+namespace UI.Reusables.Control.Sort
 {
     public class SortPanel : AdaptiveElement
     {

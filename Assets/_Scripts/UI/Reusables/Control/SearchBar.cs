@@ -2,7 +2,7 @@
 using UI.Base;
 using UnityEngine.UIElements;
 
-namespace UI.Reusables
+namespace UI.Reusables.Control
 {
     public class SearchBar : AdaptiveElement
     {
