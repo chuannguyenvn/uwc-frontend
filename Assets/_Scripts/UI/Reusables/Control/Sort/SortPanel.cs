@@ -25,6 +25,7 @@ namespace UI.Reusables.Control.Sort
             _titleText.AddToClassList("sub-text");
             _titleText.AddToClassList("grey-text");
             _titleText.text = "Sort by:";
+            _titleText.style.display = DisplayStyle.None;
             Add(_titleText);
         }
 
@@ -34,6 +35,8 @@ namespace UI.Reusables.Control.Sort
             _sortButtons.Add(sortButton);
             SortStates.Add(SortType.None);
             Add(sortButton);
+            
+            _titleText.style.display = DisplayStyle.Flex;
         }
     }
 }

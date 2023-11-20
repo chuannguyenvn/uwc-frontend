@@ -1,6 +1,7 @@
 ﻿using Commons.Communications.Messages;
 using Requests;
 using UI.Base;
+using UI.Reusables;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -8,7 +9,7 @@ namespace UI.Views.Messaging.Inbox
 {
     public class MessageList : AdaptiveElement
     {
-        private ScrollView _scrollView;
+        private ScrollViewWithShadow _scrollView;
 
         public MessageList() : base(nameof(MessageList))
         {
@@ -31,7 +32,7 @@ namespace UI.Views.Messaging.Inbox
             foreach (var message in data.Messages)
             {
                 lastEntry = new MessageListEntry(message);
-                _scrollView.Add(lastEntry);
+                _scrollView.AddToScrollView(lastEntry);
             }
 
             ScrollToLastMessage(lastEntry);
@@ -39,9 +40,10 @@ namespace UI.Views.Messaging.Inbox
 
         private void CreateScrollView()
         {
-            _scrollView = new ScrollView();
+            _scrollView = new ScrollViewWithShadow(ShadowType.InnerTop);
             _scrollView.AddToClassList("list-view");
-            _scrollView.verticalScroller.value = _scrollView.verticalScroller.highValue > 0 ? _scrollView.verticalScroller.highValue : 0;
+            _scrollView.ScrollView.verticalScroller.value =
+                _scrollView.ScrollView.verticalScroller.highValue > 0 ? _scrollView.ScrollView.verticalScroller.highValue : 0;
             Add(_scrollView);
         }
 
@@ -55,7 +57,7 @@ namespace UI.Views.Messaging.Inbox
             {
                 if (item.layout.height > 0 && _scrollView.layout.height > 0)
                 {
-                    _scrollView.ScrollTo(item);
+                    _scrollView.ScrollView.ScrollTo(item);
                     return;
                 }
 
@@ -63,7 +65,7 @@ namespace UI.Views.Messaging.Inbox
                 {
                     Debug.LogWarning("Too many layout iterations");
 
-                    _scrollView.ScrollTo(item);
+                    _scrollView.ScrollView.ScrollTo(item);
                     return;
                 }
 

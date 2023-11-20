@@ -1,14 +1,21 @@
-﻿using Commons.Communications.Vehicles;
+﻿using System.Collections.Generic;
+using Commons.Communications.Vehicles;
 using Requests;
 using UI.Base;
+using UI.Reusables;
+using UI.Reusables.Control;
 using UnityEngine.UIElements;
+using Utilities;
 
 namespace UI.Views.Vehicles
 {
     public class VehiclesView : View
     {
-        private ScrollView _scrollView;
+        private ListControl _listControl;
+        private ScrollViewWithShadow _scrollView;
         private VehicleInformationPopup _vehicleInformationPopup;
+
+        private List<VehicleListEntry> _vehicleListEntries = new();
 
         public VehiclesView() : base(nameof(VehiclesView))
         {
@@ -16,6 +23,7 @@ namespace UI.Views.Vehicles
 
             AddToClassList("side-view");
 
+            CreateControls();
             CreateScrollView();
             CreateFullscreenPopup();
 
@@ -27,10 +35,15 @@ namespace UI.Views.Vehicles
             DataStoreManager.Vehicles.AllVehicleList.DataUpdated -= DataUpdatedHandler;
         }
 
+        private void CreateControls()
+        {
+            _listControl = new ListControl(SearchHandler);
+            Add(_listControl);
+        }
+
         private void CreateScrollView()
         {
-            _scrollView = new ScrollView();
-            _scrollView.AddToClassList("list-view");
+            _scrollView = new ScrollViewWithShadow(ShadowType.InnerTop) { name = "ScrollView" };
             Add(_scrollView);
         }
 
@@ -53,15 +66,36 @@ namespace UI.Views.Vehicles
         private void DataUpdatedHandler(GetAllVehicleResponse response)
         {
             _scrollView.Clear();
+            _vehicleListEntries.Clear();
             foreach (var vehicleData in response.Vehicles)
             {
                 var entry = new VehicleListEntry(vehicleData);
-                _scrollView.Add(entry);
+
+                _scrollView.AddToScrollView(entry);
+                _vehicleListEntries.Add(entry);
+
                 entry.Clicked += () =>
                 {
                     _vehicleInformationPopup.SetContent(vehicleData);
                     _vehicleInformationPopup.Show();
                 };
+            }
+        }
+
+        private void SearchHandler(string text)
+        {
+            text = Utility.CreateSearchString(text);
+            foreach (var entry in _vehicleListEntries)
+            {
+                if (Utility.CreateSearchString(entry.VehicleData.LicensePlate, entry.VehicleData.VehicleType.ToString(), entry.VehicleData.Model)
+                        .Contains(text) || text == "")
+                {
+                    entry.style.display = DisplayStyle.Flex;
+                }
+                else
+                {
+                    entry.style.display = DisplayStyle.None;
+                }
             }
         }
     }

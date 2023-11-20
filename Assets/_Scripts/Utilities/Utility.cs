@@ -468,5 +468,17 @@ namespace Utilities
 
             return str;
         }
+
+        public static string CreateSearchString(params string[] strs)
+        {
+            var str = "";
+            foreach (var s in strs) str += s;
+            str = str.ToLower();
+            str = RemoveDiacritics(str);
+            str = str.Replace(" ", "");
+            str = str.Replace(".", "");
+            str = str.Replace(",", "");
+            return str;
+        }
     }
 }

@@ -7,6 +7,7 @@ namespace UI.Views.Workers
 {
     public class WorkerListEntry : AnimatedButton
     {
+        public UserProfile Profile { get; }
         public event Action Clicked;
 
         private Image _image;
@@ -17,13 +18,15 @@ namespace UI.Views.Workers
 
         public WorkerListEntry(UserProfile profile) : base(nameof(WorkerListEntry))
         {
+            Profile = profile;
+
             ConfigureUss(nameof(WorkerListEntry));
 
             AddToClassList("white-button");
             AddToClassList("iconless-button");
             AddToClassList("rounded-button-16px");
-            
-            CreateImage();
+
+            // CreateImage();
             CreateDetails(profile);
 
             RegisterCallback<ClickEvent>(_ => Clicked?.Invoke());

@@ -20,16 +20,10 @@ namespace UI.Views.Mcps
     {
         private readonly Dictionary<string, McpListEntry> _mcpListEntriesByAddress = new();
 
-        // Controls
         private ListControl _listControl;
-
-        // List
         private ScrollViewWithShadow _scrollView;
-
-        // Popup
         private McpInformationPopup _mcpInformationPopup;
-
-
+        
         public McpsView() : base(nameof(McpsView))
         {
             ConfigureUss(nameof(McpsView));
@@ -59,10 +53,7 @@ namespace UI.Views.Mcps
         private void CreateScrollView()
         {
             _scrollView = new ScrollViewWithShadow(ShadowType.InnerTop) { name = "ScrollView" };
-            _scrollView.AddToClassList("list-view");
             Add(_scrollView);
-
-            DataStoreManager.Mcps.ListView.DataUpdated += DataUpdatedHandler;
         }
 
         private void CreateFullscreenPopup()
@@ -124,10 +115,10 @@ namespace UI.Views.Mcps
 
         private void SearchHandler(string text)
         {
-            text = Utility.RemoveDiacritics(text).ToLower();
+            text = Utility.CreateSearchString(text);
             foreach (var (address, entry) in _mcpListEntriesByAddress)
             {
-                if (Utility.RemoveDiacritics(address).ToLower().Contains(text) || text == "")
+                if (Utility.CreateSearchString(address).Contains(text) || text == "")
                 {
                     entry.style.display = DisplayStyle.Flex;
                 }

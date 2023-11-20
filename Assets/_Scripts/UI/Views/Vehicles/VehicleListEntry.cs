@@ -7,6 +7,7 @@ namespace UI.Views.Vehicles
 {
     public class VehicleListEntry : AnimatedButton
     {
+        public VehicleData VehicleData { get; }
         public event Action Clicked;
 
         // Image
@@ -19,13 +20,15 @@ namespace UI.Views.Vehicles
 
         public VehicleListEntry(VehicleData vehicleData) : base(nameof(VehicleListEntry))
         {
+            VehicleData = vehicleData;
+
             ConfigureUss(nameof(VehicleListEntry));
 
             AddToClassList("white-button");
             AddToClassList("iconless-button");
             AddToClassList("rounded-button-16px");
 
-            CreateImage();
+            // CreateImage();
             CreateDetails(vehicleData);
 
             RegisterCallback<ClickEvent>(_ => Clicked?.Invoke());

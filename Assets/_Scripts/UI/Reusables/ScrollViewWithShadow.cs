@@ -6,7 +6,7 @@ namespace UI.Reusables
     public class ScrollViewWithShadow : AdaptiveElement
     {
         private VisualElement _shadow;
-        private ScrollView _scrollView;
+        public ScrollView ScrollView;
 
         public ScrollViewWithShadow(ShadowType shadowType) : base(nameof(ScrollViewWithShadow))
         {
@@ -43,19 +43,19 @@ namespace UI.Reusables
 
         private void CreateScrollView()
         {
-            _scrollView = new ScrollView { name = "ScrollView" };
-            Add(_scrollView);
+            ScrollView = new ScrollView { name = "ScrollView" };
+            Add(ScrollView);
         }
 
         public void AddToScrollView(VisualElement element)
         {
-            _scrollView.Add(element);
+            ScrollView.Add(element);
             _shadow.BringToFront();
         }
 
         public new void Clear()
         {
-            _scrollView.Clear();
+            ScrollView.Clear();
         }
     }
 

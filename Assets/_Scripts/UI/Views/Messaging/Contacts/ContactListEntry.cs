@@ -9,6 +9,8 @@ namespace UI.Views.Messaging.Contacts
 {
     public class ContactListEntry : AnimatedButton
     {
+        public string ContactName { get; }
+        public string PreviewMessage { get; }
         private readonly int _otherUserId;
 
         // Avatar
@@ -19,9 +21,11 @@ namespace UI.Views.Messaging.Contacts
         private TextElement _nameText;
         private TextElement _previewText;
 
-        public ContactListEntry(int otherUserId, string contactName, string messageContent, DateTime timestamp, bool isFromUser) : base(
+        public ContactListEntry(int otherUserId, string contactName, string previewMessage, DateTime timestamp, bool isFromUser) : base(
             nameof(ContactListEntry))
         {
+            ContactName = contactName;
+            PreviewMessage = previewMessage;
             _otherUserId = otherUserId;
 
             ConfigureUss(nameof(ContactListEntry));
@@ -30,8 +34,8 @@ namespace UI.Views.Messaging.Contacts
             AddToClassList("iconless-button");
             AddToClassList("rounded-button-16px");
 
-            CreateAvatar();
-            CreateDetails(contactName, messageContent, timestamp, isFromUser);
+            // CreateAvatar();
+            CreateDetails(contactName, previewMessage, timestamp, isFromUser);
 
             RegisterCallbacks();
         }
