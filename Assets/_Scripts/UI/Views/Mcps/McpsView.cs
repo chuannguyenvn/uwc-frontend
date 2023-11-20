@@ -3,9 +3,13 @@ using System.Collections.Generic;
 using Commons.Communications.Mcps;
 using Commons.Endpoints;
 using Commons.Models;
+using Newtonsoft.Json;
 using Requests;
 using UI.Base;
 using UI.Reusables;
+using UI.Reusables.Control;
+using UI.Reusables.Control.Sort;
+using UnityEngine;
 using UnityEngine.UIElements;
 using Utilities;
 using Random = UnityEngine.Random;
@@ -14,13 +18,17 @@ namespace UI.Views.Mcps
 {
     public class McpsView : View
     {
+        private readonly Dictionary<string, McpListEntry> _mcpListEntriesByAddress = new();
+
         // Controls
-        private VisualElement _controlsContainer;
-        private SearchBar _searchBar;
+        private ListControl _listControl;
+
+        // List
         private ScrollView _scrollView;
+
+        // Popup
         private McpInformationPopup _mcpInformationPopup;
 
-        private readonly Dictionary<string, McpListEntry> _mcpListEntriesByAddress = new();
 
         public McpsView() : base(nameof(McpsView))
         {
@@ -42,11 +50,10 @@ namespace UI.Views.Mcps
 
         private void CreateControls()
         {
-            _controlsContainer = new VisualElement { name = "ControlsContainer" };
-            Add(_controlsContainer);
+            _listControl = new ListControl(SearchHandler);
+            Add(_listControl);
 
-            _searchBar = new SearchBar(SearchHandler);
-            _controlsContainer.Add(_searchBar);
+            _listControl.CreateSortButton("Fill level", () => DataUpdatedHandler(DataStoreManager.Mcps.ListView.Data));
         }
 
         private void CreateScrollView()
@@ -64,13 +71,15 @@ namespace UI.Views.Mcps
             Root.Instance.AddPopup(_mcpInformationPopup);
         }
 
-        private void DataUpdatedHandler(List<McpData> data)
+        private void DataUpdatedHandler(GetMcpDataResponse data)
         {
+            var mcpEntries = new List<McpListEntry>();
+
             _scrollView.Clear();
-            foreach (var mcpData in data)
+            foreach (var mcpData in data.Results)
             {
-                var entry = new McpListEntry(mcpData, Random.Range(0f, 100f));
-                _scrollView.Add(entry);
+                var entry = new McpListEntry(mcpData);
+                mcpEntries.Add(entry);
                 _mcpListEntriesByAddress[mcpData.Address] = entry;
                 entry.Clicked += () =>
                 {
@@ -94,6 +103,13 @@ namespace UI.Views.Mcps
                         }));
                 };
             }
+
+            if (_listControl.SortStates[0] == SortType.Ascending)
+                mcpEntries.Sort((a, b) => a.CurrentLoadPercentage.CompareTo(b.CurrentLoadPercentage));
+            else if (_listControl.SortStates[0] == SortType.Descending)
+                mcpEntries.Sort((a, b) => b.CurrentLoadPercentage.CompareTo(a.CurrentLoadPercentage));
+
+            foreach (var mcpEntry in mcpEntries) _scrollView.Add(mcpEntry);
         }
 
         public override void FocusView()

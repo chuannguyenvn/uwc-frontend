@@ -10,7 +10,7 @@ using UnityEngine;
 
 namespace Requests.DataStores.Implementations.Mcps
 {
-    public class ListViewStore : ServerSendOnFocusedDataStore<List<McpData>>
+    public class ListViewStore : ServerSendOnFocusedDataStore<GetMcpDataResponse>
     {
         protected override IEnumerator CreateRequest()
         {
@@ -23,7 +23,7 @@ namespace Requests.DataStores.Implementations.Mcps
                 {
                     if (success)
                     {
-                        OnDataUpdated(response.Results);
+                        OnDataUpdated(response);
                     }
                 }
             );
