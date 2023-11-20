@@ -1,7 +1,11 @@
+using System.Collections.Generic;
 using Commons.Communications.Tasks;
 using Requests;
 using Settings;
 using UI.Base;
+using UI.Reusables;
+using UI.Reusables.Control;
+using UI.Reusables.Control.Sort;
 using UnityEngine;
 using UnityEngine.UIElements;
 using Utilities;
@@ -10,12 +14,16 @@ namespace UI.Views.Tasks.Tasks
 {
     public class TaskList : View
     {
-        public ScrollView ScrollView;
+        private ListControl _listControl;
+        private ScrollViewWithShadow _scrollView;
+
+        private List<TaskListEntry> _taskListEntries = new List<TaskListEntry>();
 
         public TaskList() : base(nameof(TaskList))
         {
             ConfigureUss(nameof(TaskList));
 
+            CreateControls();
             CreateScrollView();
 
             if (Configs.IS_DESKTOP) DataStoreManager.Tasks.AllTaskList.DataUpdated += AllTaskListDataUpdatedHandler;
@@ -30,77 +38,97 @@ namespace UI.Views.Tasks.Tasks
             else DataStoreManager.Tasks.PersonalTaskList.DataUpdated -= PersonalTaskListDataUpdatedHandler;
         }
 
+        private void CreateControls()
+        {
+            _listControl = new ListControl(SearchHandler);
+            Add(_listControl);
+
+            if (Configs.IS_DESKTOP)
+            {
+                _listControl.CreateSortButton("MCP fill level", () => AllTaskListDataUpdatedHandler(DataStoreManager.Tasks.AllTaskList.Data));
+                _listControl.CreateSortButton("Task status", () => AllTaskListDataUpdatedHandler(DataStoreManager.Tasks.AllTaskList.Data));
+                _listControl.CreateSortButton("Created time", () => AllTaskListDataUpdatedHandler(DataStoreManager.Tasks.AllTaskList.Data));
+                _listControl.CreateSortButton("Completed by time", () => AllTaskListDataUpdatedHandler(DataStoreManager.Tasks.AllTaskList.Data));
+                _listControl.CreateSortButton("Last changed time", () => AllTaskListDataUpdatedHandler(DataStoreManager.Tasks.AllTaskList.Data));
+            }
+        }
+
         private void CreateScrollView()
         {
-            ScrollView = new ScrollView();
-            Add(ScrollView);
+            _scrollView = new ScrollViewWithShadow(ShadowType.InnerTop) { name = "ScrollView" };
+            Add(_scrollView);
         }
 
         private void AllTaskListDataUpdatedHandler(GetAllTasksResponse getAllTasksResponse)
         {
-            ScrollView.Clear();
+            _scrollView.Clear();
+            _taskListEntries.Clear();
             foreach (var task in getAllTasksResponse.Tasks)
             {
                 task.McpData.Address = Utility.RemoveDiacritics(task.McpData.Address);
-                ScrollView.Add(new TaskListEntry(task));
+                var newTask = new TaskListEntry(task);
+                _taskListEntries.Add(newTask);
             }
+
+            if (_listControl.SortStates[0] == SortType.Ascending)
+                _taskListEntries.Sort((a, b) =>
+                    DataStoreManager.Mcps.FillLevel.Data.FillLevelsById[a.TaskData.McpData.Id]
+                        .CompareTo(DataStoreManager.Mcps.FillLevel.Data.FillLevelsById[b.TaskData.McpData.Id]));
+            else if (_listControl.SortStates[0] == SortType.Descending)
+                _taskListEntries.Sort((a, b) =>
+                    DataStoreManager.Mcps.FillLevel.Data.FillLevelsById[b.TaskData.McpData.Id]
+                        .CompareTo(DataStoreManager.Mcps.FillLevel.Data.FillLevelsById[a.TaskData.McpData.Id]));
+
+            if (_listControl.SortStates[1] == SortType.Ascending)
+                _taskListEntries.Sort((a, b) => a.TaskData.TaskStatus.CompareTo(b.TaskData.TaskStatus));
+            else if (_listControl.SortStates[1] == SortType.Descending)
+                _taskListEntries.Sort((a, b) => b.TaskData.TaskStatus.CompareTo(a.TaskData.TaskStatus));
+
+            if (_listControl.SortStates[2] == SortType.Ascending)
+                _taskListEntries.Sort((a, b) => a.TaskData.CreatedTimestamp.CompareTo(b.TaskData.CreatedTimestamp));
+            else if (_listControl.SortStates[2] == SortType.Descending)
+                _taskListEntries.Sort((a, b) => b.TaskData.CreatedTimestamp.CompareTo(a.TaskData.CreatedTimestamp));
+
+            if (_listControl.SortStates[3] == SortType.Ascending)
+                _taskListEntries.Sort((a, b) => a.TaskData.CompleteByTimestamp.CompareTo(b.TaskData.CompleteByTimestamp));
+            else if (_listControl.SortStates[3] == SortType.Descending)
+                _taskListEntries.Sort((a, b) => b.TaskData.CompleteByTimestamp.CompareTo(a.TaskData.CompleteByTimestamp));
+
+            if (_listControl.SortStates[4] == SortType.Ascending)
+                _taskListEntries.Sort((a, b) => a.TaskData.LastStatusChangeTimestamp.CompareTo(b.TaskData.LastStatusChangeTimestamp));
+            else if (_listControl.SortStates[4] == SortType.Descending)
+                _taskListEntries.Sort((a, b) => b.TaskData.LastStatusChangeTimestamp.CompareTo(a.TaskData.LastStatusChangeTimestamp));
+
+            foreach (var mcpEntry in _taskListEntries) _scrollView.AddToScrollView(mcpEntry);
         }
 
         private void PersonalTaskListDataUpdatedHandler(GetTasksOfWorkerResponse getTasksOfWorkerResponse)
         {
-            ScrollView.Clear();
+            _scrollView.Clear();
             foreach (var task in getTasksOfWorkerResponse.Tasks)
             {
                 task.McpData.Address = Utility.RemoveDiacritics(task.McpData.Address);
-                ScrollView.Add(new TaskListEntry(task));
+                _scrollView.Add(new TaskListEntry(task));
             }
         }
 
-        private void ScrollToImmediate(VisualElement item)
+        private void SearchHandler(string text)
         {
-            int remainingIterations = 4;
-
-            void TryScroll()
+            text = Utility.CreateSearchString(text);
+            foreach (var entry in _taskListEntries)
             {
-                //if both layout and item have a size, then we can scroll immediate
-                //otherwise, we need to listen to layout changes then scrollTo
-
-                if (item.layout.width > 0 && ScrollView.layout.width > 0)
+                if (Utility.CreateSearchString(entry.TaskData.McpData.Address, entry.TaskData.AssigneeProfile.FirstName,
+                            entry.TaskData.AssigneeProfile.LastName, entry.TaskData.AssignerProfile.FirstName,
+                            entry.TaskData.AssignerProfile.LastName)
+                        .Contains(text) || text == "")
                 {
-                    ScrollView.ScrollTo(item);
-                    return;
-                }
-                else if (remainingIterations <= 0)
-                {
-                    Debug.LogWarning("Too many layout iterations");
-
-                    ScrollView.ScrollTo(item);
-                    return;
-                }
-
-                if (ScrollView.layout.width > 0)
-                {
-                    item.RegisterCallback<GeometryChangedEvent, VisualElement>(OnGeometryChanged, item);
+                    entry.style.display = DisplayStyle.Flex;
                 }
                 else
                 {
-                    ScrollView.RegisterCallback<GeometryChangedEvent, VisualElement>(OnGeometryChanged, ScrollView);
+                    entry.style.display = DisplayStyle.None;
                 }
             }
-
-            void OnGeometryChanged(GeometryChangedEvent evt, VisualElement target)
-            {
-                target.UnregisterCallback<GeometryChangedEvent, VisualElement>(OnGeometryChanged);
-
-                //try scrolling after we received a geometry changed event from either the item or scrollView
-                //the geometry still might be 0, so keep trying if so
-
-                remainingIterations--;
-
-                TryScroll();
-            }
-
-            TryScroll();
         }
     }
 }

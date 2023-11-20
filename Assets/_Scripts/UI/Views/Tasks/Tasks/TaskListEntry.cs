@@ -10,6 +10,7 @@ namespace UI.Views.Tasks.Tasks
 {
     public class TaskListEntry : AdaptiveElement
     {
+        public TaskData TaskData { get; }
         private VisualElement _timelineContainer;
         private VisualElement _upLine;
         private VisualElement _downLine;
@@ -19,6 +20,8 @@ namespace UI.Views.Tasks.Tasks
 
         public TaskListEntry(TaskData taskData) : base(nameof(TaskListEntry))
         {
+            TaskData = taskData;
+
             ConfigureUss(nameof(TaskListEntry));
 
             CreateTimeline();
