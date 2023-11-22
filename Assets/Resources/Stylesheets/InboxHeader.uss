@@ -1,4 +1,4 @@
-#InboxHeader {
+.messaging-view .inbox-header {
     background-color: var(--theme-color);
     flex-direction: row;
     align-items: center;
@@ -8,11 +8,11 @@
     padding-left: 24px;
 }
 
-.desktop #InboxHeader {
+.desktop .inbox-header {
     height: 100px;
 }
 
-.mobile #InboxHeader {
+.mobile .inbox-header {
     height: 175px;
 }
 

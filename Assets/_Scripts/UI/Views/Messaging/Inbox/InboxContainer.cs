@@ -8,11 +8,11 @@ namespace UI.Views.Messaging.Inbox
         private MessageList _messageList;
         private InputBar _inputBar;
 
-        public InboxContainer() : base(nameof(InboxContainer))
+        public InboxContainer(bool isBubbleChatbox) : base(nameof(InboxContainer))
         {
             ConfigureUss(nameof(InboxContainer));
 
-            AddToClassList("full-view");
+            if (!isBubbleChatbox) AddToClassList("full-view");
 
             CreateInboxHeader();
             CreateMessageList();

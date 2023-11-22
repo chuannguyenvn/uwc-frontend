@@ -32,7 +32,7 @@ namespace UI.Views.Messaging
 
         private void CreateInbox()
         {
-            _inboxContainer = new InboxContainer();
+            _inboxContainer = new InboxContainer(false);
             Add(_inboxContainer);
         }
 

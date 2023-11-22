@@ -1,0 +1,7 @@
+.chat-bubbles-panel
+{
+    position: absolute;
+    right: 24px;
+    bottom: 24px;
+    width: 300px;
+}
