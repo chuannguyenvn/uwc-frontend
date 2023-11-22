@@ -47,7 +47,7 @@ namespace UI.Base
 
         // Chat bubbles
         private ChatBubblesPanel _chatBubblesPanel;
-        
+
         private VisualElement _fullscreenPopupContainer;
         private List<FullscreenPopup> _popups = new List<FullscreenPopup>();
 
@@ -59,7 +59,7 @@ namespace UI.Base
             styleSheets.AddByName(nameof(Root));
             pickingMode = PickingMode.Ignore;
 
-            CreateChatBubblesPanel();
+            if (Configs.IS_DESKTOP) CreateChatBubblesPanel();
             CreateAuthenticationScreen();
             CreateNavigationBar();
             CreateViews();
