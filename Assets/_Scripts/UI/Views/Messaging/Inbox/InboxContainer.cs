@@ -1,4 +1,6 @@
-﻿using UI.Base;
+﻿using Requests;
+using UI.Base;
+using UnityEngine.UIElements;
 
 namespace UI.Views.Messaging.Inbox
 {
@@ -37,8 +39,12 @@ namespace UI.Views.Messaging.Inbox
             Add(_inputBar);
         }
 
-        public void SwitchInbox()
+        public void SwitchInbox(int otherUserId, string contactFullName)
         {
+            DataStoreManager.Messaging.InboxMessageList.OtherUserAccountId = otherUserId;
+            DataStoreManager.Messaging.InboxMessageList.OtherUserFullName = contactFullName;
+            DataStoreManager.Messaging.InboxMessageList.SendRequest();
+            _inboxHeader.UpdateStatus();
         }
     }
 }

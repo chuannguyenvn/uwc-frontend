@@ -9,9 +9,9 @@ namespace UI.Views.Messaging.Contacts
 {
     public class ContactListEntry : AnimatedButton
     {
-        public string ContactName { get; }
+        public int OtherUserId { get; }
+        public string FullName { get; }
         public string PreviewMessage { get; }
-        private readonly int _otherUserId;
 
         // Avatar
         private Image _avatar;
@@ -21,12 +21,12 @@ namespace UI.Views.Messaging.Contacts
         private TextElement _nameText;
         private TextElement _previewText;
 
-        public ContactListEntry(int otherUserId, string contactName, string previewMessage, DateTime timestamp, bool isFromUser) : base(
+        public ContactListEntry(int otherUserId, string fullName, string previewMessage, DateTime timestamp, bool isFromUser) : base(
             nameof(ContactListEntry))
         {
-            ContactName = contactName;
+            OtherUserId = otherUserId;
+            FullName = fullName;
             PreviewMessage = previewMessage;
-            _otherUserId = otherUserId;
 
             ConfigureUss(nameof(ContactListEntry));
 
@@ -35,7 +35,7 @@ namespace UI.Views.Messaging.Contacts
             AddToClassList("rounded-button-16px");
 
             // CreateAvatar();
-            CreateDetails(contactName, previewMessage, timestamp, isFromUser);
+            CreateDetails(fullName, previewMessage, timestamp, isFromUser);
 
             RegisterCallbacks();
         }
@@ -71,15 +71,7 @@ namespace UI.Views.Messaging.Contacts
                 RegisterCallback<ClickEvent>(_ => { GetFirstAncestorOfType<MessagingView>().MobileShowInbox(); });
             }
 
-            RegisterCallback<ClickEvent>(_ => ShowMessages());
-        }
-
-        public void ShowMessages()
-        {
-            DataStoreManager.Messaging.InboxMessageList.SendRequest();
-            DataStoreManager.Messaging.InboxMessageList.OtherUserAccountId = _otherUserId;
-            DataStoreManager.Messaging.InboxMessageList.OtherUserFullName = ContactName;
-            GetFirstAncestorOfType<MessagingView>().Q<InboxHeader>().UpdateStatus();
+            RegisterCallback<ClickEvent>(_ => GetFirstAncestorOfType<MessagingView>().Q<InboxContainer>().SwitchInbox(OtherUserId, FullName));
         }
     }
 }
