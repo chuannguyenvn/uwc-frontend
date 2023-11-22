@@ -30,7 +30,7 @@
 }
 
 .desktop .super-title-text {
-    font-size: 60px;
+    font-size: 50px;
 }
 
 .desktop .title-text {
@@ -38,11 +38,11 @@
 }
 
 .desktop .normal-text {
-    font-size: 25px;
+    font-size: 20px;
 }
 
 .desktop .sub-text {
-    font-size: 20px;
+    font-size: 16px;
 }
 
 .desktop .sub-sub-text {

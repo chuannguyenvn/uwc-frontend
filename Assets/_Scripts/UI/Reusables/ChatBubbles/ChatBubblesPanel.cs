@@ -1,5 +1,8 @@
-﻿using UI.Base;
+﻿using Commons.Models;
+using Requests;
+using UI.Base;
 using UI.Views.Messaging.Inbox;
+using UnityEngine.UIElements;
 
 namespace UI.Reusables.ChatBubbles
 {
@@ -17,6 +20,25 @@ namespace UI.Reusables.ChatBubbles
 
             _chatBox = new InboxContainer(true);
             Add(_chatBox);
+            
+            HideChatBox();
+        }
+
+        public void FocusInbox(UserProfile userProfile)
+        {
+            _bubblesColumn.OpenBubble(userProfile);
+            _chatBox.SwitchInbox(userProfile);
+            ShowChatBox();
+        }
+        
+        public void ShowChatBox()
+        {
+            _chatBox.style.display = DisplayStyle.Flex;
+        }
+        
+        public void HideChatBox()
+        {
+            _chatBox.style.display = DisplayStyle.None;
         }
     }
 }

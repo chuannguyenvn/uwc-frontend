@@ -28,7 +28,7 @@ namespace UI.Views.Messaging.Inbox
         private void DataUpdatedHandler(GetMessagesBetweenTwoUsersResponse data)
         {
             _scrollView.Clear();
-
+            data.Messages.Sort((a, b) => a.Timestamp.CompareTo(b.Timestamp));
             foreach (var message in data.Messages)
             {
                 _scrollView.AddToScrollView(new MessageListEntry(message));

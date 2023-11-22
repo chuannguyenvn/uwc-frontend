@@ -1,0 +1,38 @@
+.chat-bubble {
+    width: 64px;
+    height: 64px;
+    align-content: center;
+    justify-content: center;
+    margin-top: 8px;
+}
+
+.chat-bubble #Avatar {
+    width: 64px;
+    height: 64px;
+    border-radius: 999px;
+    -unity-text-align: middle-center;
+}
+
+.chat-bubble #NotificationDot {
+    position: absolute;
+    top: 0;
+    right: 0;
+    width: 24px;
+    height: 24px;
+    border-radius: 999px;
+    background-color: var(--theme-color);
+    -unity-text-align: middle-center;
+    align-content: center;
+    justify-content: center;
+}
+
+.chat-bubble #CloseIcon {
+    align-content: center;
+    justify-content: center;
+    align-self: center;
+    width: 10px;
+    height: 10px;
+    background-image: url('project://database/Assets/Graphics/Icons/close.svg?fileID=7388822144124034973&guid=c832918a1e8e56e4080795b8cb984e32&type=3#close');
+    -unity-background-scale-mode: scale-to-fit;
+    -unity-background-image-tint-color: white;
+}

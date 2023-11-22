@@ -1,7 +1,6 @@
-.chat-bubbles-panel
-{
+.chat-bubbles-panel {
+    flex-direction: row-reverse;
     position: absolute;
-    right: 24px;
-    bottom: 24px;
-    width: 300px;
+    right: 12px;
+    bottom: 12px;
 }
