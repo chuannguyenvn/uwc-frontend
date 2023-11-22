@@ -14,6 +14,7 @@ namespace Requests.DataStores.Implementations.Messaging
     public class InboxMessageListStore : ServerSendInBackgroundDataStore<GetMessagesBetweenTwoUsersResponse>
     {
         public int OtherUserAccountId { get; set; }
+        public string OtherUserFullName { get; set; }
 
         protected override IEnumerator CreateRequest()
         {

@@ -39,17 +39,7 @@ namespace UI.Views.Messaging.Inbox
         private void CreateBackButton()
         {
             _backButton = new VisualElement { name = "BackButton" };
-            if (!Configs.IS_DESKTOP)
-            {
-                _backButton.RegisterCallback<ClickEvent>(_ =>
-                {
-                    RegisterCallback<ClickEvent>(_ =>
-                    {
-                        GetFirstAncestorOfType<MessagingView>().Q<InboxContainer>().style.display = DisplayStyle.None;
-                        GetFirstAncestorOfType<MessagingView>().Q<ContactList>().style.display = DisplayStyle.Flex;
-                    });
-                });
-            }
+            if (!Configs.IS_DESKTOP) _backButton.RegisterCallback<ClickEvent>(_ => { GetFirstAncestorOfType<MessagingView>().MobileShowInbox(); });
 
             Add(_backButton);
         }
@@ -87,12 +77,8 @@ namespace UI.Views.Messaging.Inbox
         {
             var otherUserAccountId = DataStoreManager.Messaging.InboxMessageList.OtherUserAccountId;
             var onlineAccountIds = DataStoreManager.OnlineStatus.Status.Data.OnlineAccountIds;
+            _nameText.text = DataStoreManager.Messaging.InboxMessageList.OtherUserFullName;
             _statusText.text = onlineAccountIds.Contains(otherUserAccountId) ? "Online" : "Offline";
-        }
-
-        public void UpdateName(string name)
-        {
-            _nameText.text = name;
         }
     }
 }

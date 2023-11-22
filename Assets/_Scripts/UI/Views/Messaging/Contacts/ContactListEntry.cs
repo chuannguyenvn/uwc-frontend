@@ -68,11 +68,7 @@ namespace UI.Views.Messaging.Contacts
         {
             if (!Configs.IS_DESKTOP)
             {
-                RegisterCallback<MouseUpEvent>(_ =>
-                {
-                    GetFirstAncestorOfType<MessagingView>().Q<InboxContainer>().style.display = DisplayStyle.Flex;
-                    GetFirstAncestorOfType<MessagingView>().Q<ContactList>().style.display = DisplayStyle.None;
-                });
+                RegisterCallback<ClickEvent>(_ => { GetFirstAncestorOfType<MessagingView>().MobileShowInbox(); });
             }
 
             RegisterCallback<ClickEvent>(_ => ShowMessages());
@@ -82,7 +78,7 @@ namespace UI.Views.Messaging.Contacts
         {
             DataStoreManager.Messaging.InboxMessageList.SendRequest();
             DataStoreManager.Messaging.InboxMessageList.OtherUserAccountId = _otherUserId;
-            GetFirstAncestorOfType<MessagingView>().Q<InboxHeader>().UpdateName(_nameText.text);
+            DataStoreManager.Messaging.InboxMessageList.OtherUserFullName = ContactName;
             GetFirstAncestorOfType<MessagingView>().Q<InboxHeader>().UpdateStatus();
         }
     }

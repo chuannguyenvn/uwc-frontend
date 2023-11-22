@@ -3,6 +3,7 @@ using Authentication;
 using Settings;
 using UI.Authentication;
 using UI.Navigation;
+using UI.Reusables.ChatBubbles;
 using UI.Views.Mcps;
 using UI.Views.Messaging;
 using UI.Views.Reports;
@@ -44,6 +45,9 @@ namespace UI.Base
         private ReportingView _reportingView;
         private SettingsView _settingsView;
 
+        // Chat bubbles
+        private ChatBubblesPanel _chatBubblesPanel;
+        
         private VisualElement _fullscreenPopupContainer;
         private List<FullscreenPopup> _popups = new List<FullscreenPopup>();
 
@@ -59,6 +63,7 @@ namespace UI.Base
             CreateNavigationBar();
             CreateViews();
             CreatePopups();
+            CreateChatBubblesPanel();
 
             // Default view is Map
             ActivateView(ViewType.Map);
@@ -154,6 +159,12 @@ namespace UI.Base
                 _fullscreenPopupContainer.Add(popup);
                 popup.BringToFront();
             }
+        }
+
+        private void CreateChatBubblesPanel()
+        {
+            _chatBubblesPanel = new ChatBubblesPanel();
+            Add(_chatBubblesPanel);
         }
 
         public void ActivateView(ViewType viewType, bool asExtension = false)
