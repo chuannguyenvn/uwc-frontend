@@ -1,24 +1,30 @@
-#ContactListEntry {
+.contact-list-entry {
     flex-grow: 1;
     flex-direction: row;
 }
 
-#DetailsContainer {
+.contact-list-entry #DetailsContainer {
     justify-content: center;
 }
 
-#Avatar {
+.contact-list-entry #Avatar {
+    flex-shrink: 0;
     width: 64px;
     height: 64px;
+    -unity-text-align: middle-center;
+    border-radius: 999px;
+    margin-right: 8px;
 }
 
-#PreviewText {
-    overflow: hidden;
+.contact-list-entry #PreviewText {
     text-overflow: ellipsis;
+    overflow: hidden;
+    height: 25px;
 }
 
-.mobile {
+.contact-list-entry .mobile {
     margin-top: 16px;
     margin-bottom: 16px;
     height: 128px;
 }
+

@@ -5,6 +5,7 @@ using Requests;
 using Settings;
 using UI.Base;
 using UI.Views.Messaging.Inbox;
+using UnityEngine;
 using UnityEngine.UIElements;
 
 namespace UI.Views.Messaging.Contacts
@@ -16,7 +17,7 @@ namespace UI.Views.Messaging.Contacts
         public string PreviewMessage { get; }
 
         // Avatar
-        private Image _avatar;
+        private TextElement _avatar;
 
         // Details
         private VisualElement _detailsContainer;
@@ -38,16 +39,20 @@ namespace UI.Views.Messaging.Contacts
             AddToClassList("iconless-button");
             AddToClassList("rounded-button-16px");
 
-            // CreateAvatar();
+            CreateImage(UserProfile);
             CreateDetails(UserProfile.FirstName + " " + UserProfile.LastName, message.Content, message.Timestamp,
                 message.SenderProfileId == AuthenticationManager.Instance.UserAccountId);
 
             RegisterCallbacks();
         }
 
-        private void CreateAvatar()
+        private void CreateImage(UserProfile profile)
         {
-            _avatar = new Image { name = "Avatar" };
+            _avatar = new TextElement { name = "Avatar" };
+            _avatar.AddToClassList("white-text");
+            _avatar.AddToClassList("title-text");
+            _avatar.text = profile.FirstName[0].ToString();
+            _avatar.style.backgroundColor = Color.HSVToRGB(profile.AvatarColorHue / 360f, 0.7f, 0.8f);
             Add(_avatar);
         }
 
@@ -65,7 +70,8 @@ namespace UI.Views.Messaging.Contacts
             _previewText = new TextElement { name = "PreviewText" };
             _previewText.AddToClassList("sub-text");
             _previewText.AddToClassList("grey-text");
-            _previewText.text = (isFromUser ? "You: " : "") + messageContent + " - " + timestamp.ToString("dd/mm HH:mm");
+            _previewText.text = timestamp.ToString(DateTime.Now.Date == timestamp.Date ? "HH:mm" : "HH:mm dd/MM") + " | " +
+                                (isFromUser ? "You: " : "") + messageContent;
             _detailsContainer.Add(_previewText);
         }
 
