@@ -16,4 +16,7 @@
 #Avatar {
     width: 64px;
     height: 64px;
+    -unity-text-align: middle-center;
+    border-radius: 999px;
+    margin-right: 8px;
 }
