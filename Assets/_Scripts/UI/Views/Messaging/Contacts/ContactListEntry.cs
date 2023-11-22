@@ -1,4 +1,6 @@
 ﻿using System;
+using Authentication;
+using Commons.Models;
 using Requests;
 using Settings;
 using UI.Base;
@@ -9,8 +11,8 @@ namespace UI.Views.Messaging.Contacts
 {
     public class ContactListEntry : AnimatedButton
     {
-        public int OtherUserId { get; }
-        public string FullName { get; }
+        public UserProfile UserProfile { get; }
+        public string FullName => UserProfile.FirstName + " " + UserProfile.LastName;
         public string PreviewMessage { get; }
 
         // Avatar
@@ -21,12 +23,14 @@ namespace UI.Views.Messaging.Contacts
         private TextElement _nameText;
         private TextElement _previewText;
 
-        public ContactListEntry(int otherUserId, string fullName, string previewMessage, DateTime timestamp, bool isFromUser) : base(
+        public ContactListEntry(Message message) : base(
             nameof(ContactListEntry))
         {
-            OtherUserId = otherUserId;
-            FullName = fullName;
-            PreviewMessage = previewMessage;
+            UserProfile = message.SenderProfileId == AuthenticationManager.Instance.UserAccountId
+                ? message.ReceiverUserProfile
+                : message.SenderUserProfile;
+
+            PreviewMessage = message.Content;
 
             ConfigureUss(nameof(ContactListEntry));
 
@@ -35,7 +39,8 @@ namespace UI.Views.Messaging.Contacts
             AddToClassList("rounded-button-16px");
 
             // CreateAvatar();
-            CreateDetails(fullName, previewMessage, timestamp, isFromUser);
+            CreateDetails(UserProfile.FirstName + " " + UserProfile.LastName, message.Content, message.Timestamp,
+                message.SenderProfileId == AuthenticationManager.Instance.UserAccountId);
 
             RegisterCallbacks();
         }
@@ -71,7 +76,7 @@ namespace UI.Views.Messaging.Contacts
                 RegisterCallback<ClickEvent>(_ => { GetFirstAncestorOfType<MessagingView>().MobileShowInbox(); });
             }
 
-            RegisterCallback<ClickEvent>(_ => GetFirstAncestorOfType<MessagingView>().Q<InboxContainer>().SwitchInbox(OtherUserId, FullName));
+            RegisterCallback<ClickEvent>(_ => GetFirstAncestorOfType<MessagingView>().Q<InboxContainer>().SwitchInbox(UserProfile));
         }
     }
 }

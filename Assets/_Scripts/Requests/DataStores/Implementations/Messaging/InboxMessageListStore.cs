@@ -13,8 +13,7 @@ namespace Requests.DataStores.Implementations.Messaging
 {
     public class InboxMessageListStore : ServerSendInBackgroundDataStore<GetMessagesBetweenTwoUsersResponse>
     {
-        public int OtherUserAccountId { get; set; }
-        public string OtherUserFullName { get; set; }
+        public Commons.Models.UserProfile OtherUserProfile { get; set; }
 
         protected override IEnumerator CreateRequest()
         {
@@ -23,7 +22,7 @@ namespace Requests.DataStores.Implementations.Messaging
                 new GetMessagesBetweenTwoUsersRequest()
                 {
                     UserAccountId = AuthenticationManager.Instance.UserAccountId,
-                    OtherUserAccountId = OtherUserAccountId,
+                    OtherUserAccountId = OtherUserProfile.Id,
                 },
                 (success, response) =>
                 {
@@ -48,8 +47,8 @@ namespace Requests.DataStores.Implementations.Messaging
         {
             Data.Messages.Add(new Message
             {
-                SenderAccountId = AuthenticationManager.Instance.UserAccountId,
-                ReceiverAccountId = OtherUserAccountId,
+                SenderProfileId = AuthenticationManager.Instance.UserAccountId,
+                ReceiverProfileId = OtherUserProfile.Id,
                 Content = content,
                 Timestamp = DateTime.Now
             });
@@ -60,7 +59,7 @@ namespace Requests.DataStores.Implementations.Messaging
                 new SendMessageRequest()
                 {
                     SenderAccountId = AuthenticationManager.Instance.UserAccountId,
-                    ReceiverAccountId = OtherUserAccountId,
+                    ReceiverAccountId = OtherUserProfile.Id,
                     Content = content,
                 },
                 success =>

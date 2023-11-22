@@ -52,26 +52,17 @@ namespace UI.Views.Messaging.Contacts
         {
             _scrollView.Clear();
             _contactListEntries.Clear();
-            for (int i = 0; i < data.FullNames.Count; i++)
+
+            foreach (var previewMessage in data.Messages)
             {
-                var otherUserId = data.Messages[i].SenderAccountId == AuthenticationManager.Instance.UserAccountId
-                    ? data.Messages[i].ReceiverAccountId
-                    : data.Messages[i].SenderAccountId;
-
-                var entry = new ContactListEntry(otherUserId,
-                    data.FullNames[i],
-                    data.Messages[i].Content,
-                    data.Messages[i].Timestamp,
-                    data.Messages[i].SenderAccountId == AuthenticationManager.Instance.UserAccountId);
-
+                var entry = new ContactListEntry(previewMessage);
                 _contactListEntries.Add(entry);
                 _scrollView.AddToScrollView(entry);
             }
 
             if (data.FullNames.Count > 0)
             {
-                GetFirstAncestorOfType<MessagingView>().Q<InboxContainer>()
-                    .SwitchInbox(_contactListEntries[0].OtherUserId, _contactListEntries[0].FullName);
+                GetFirstAncestorOfType<MessagingView>().Q<InboxContainer>().SwitchInbox(_contactListEntries[0].UserProfile);
             }
         }
 

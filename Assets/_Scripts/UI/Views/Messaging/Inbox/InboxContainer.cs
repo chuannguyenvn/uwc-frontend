@@ -1,4 +1,5 @@
-﻿using Requests;
+﻿using Commons.Models;
+using Requests;
 using UI.Base;
 using UnityEngine.UIElements;
 
@@ -39,10 +40,9 @@ namespace UI.Views.Messaging.Inbox
             Add(_inputBar);
         }
 
-        public void SwitchInbox(int otherUserId, string contactFullName)
+        public void SwitchInbox(UserProfile userProfile)
         {
-            DataStoreManager.Messaging.InboxMessageList.OtherUserAccountId = otherUserId;
-            DataStoreManager.Messaging.InboxMessageList.OtherUserFullName = contactFullName;
+            DataStoreManager.Messaging.InboxMessageList.OtherUserProfile = userProfile;
             DataStoreManager.Messaging.InboxMessageList.SendRequest();
             _inboxHeader.UpdateStatus();
         }

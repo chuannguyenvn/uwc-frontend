@@ -75,9 +75,12 @@ namespace UI.Views.Messaging.Inbox
 
         public void UpdateStatus()
         {
-            var otherUserAccountId = DataStoreManager.Messaging.InboxMessageList.OtherUserAccountId;
+            if (DataStoreManager.Messaging.InboxMessageList.OtherUserProfile == null) return;
+
+            var otherUserAccountId = DataStoreManager.Messaging.InboxMessageList.OtherUserProfile.Id;
             var onlineAccountIds = DataStoreManager.OnlineStatus.Status.Data.OnlineAccountIds;
-            _nameText.text = DataStoreManager.Messaging.InboxMessageList.OtherUserFullName;
+            _nameText.text = DataStoreManager.Messaging.InboxMessageList.OtherUserProfile.FirstName + " " +
+                             DataStoreManager.Messaging.InboxMessageList.OtherUserProfile.LastName;
             _statusText.text = onlineAccountIds.Contains(otherUserAccountId) ? "Online" : "Offline";
         }
     }

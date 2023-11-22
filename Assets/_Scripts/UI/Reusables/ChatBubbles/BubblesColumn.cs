@@ -1,4 +1,5 @@
-﻿using UI.Base;
+﻿using Commons.Models;
+using UI.Base;
 
 namespace UI.Reusables.ChatBubbles
 {
@@ -7,6 +8,11 @@ namespace UI.Reusables.ChatBubbles
         public BubblesColumn() : base(nameof(BubblesColumn))
         {
             ConfigureUss(nameof(BubblesColumn));
+        }
+        
+        public void FocusBubble(UserProfile userProfile)
+        {
+          
         }
     }
 }

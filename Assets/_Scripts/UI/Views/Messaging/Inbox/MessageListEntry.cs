@@ -30,7 +30,7 @@ namespace UI.Views.Messaging.Inbox
             _contentText.text = message.Content;
             _contentContainer.Add(_contentText);
 
-            if (message.SenderAccountId == AuthenticationManager.Instance.UserAccountId)
+            if (message.SenderProfileId == AuthenticationManager.Instance.UserAccountId)
             {
                 _contentText.AddToClassList("white-text");
                 AddToClassList("sent-message");
