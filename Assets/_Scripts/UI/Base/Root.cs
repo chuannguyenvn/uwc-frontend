@@ -59,11 +59,11 @@ namespace UI.Base
             styleSheets.AddByName(nameof(Root));
             pickingMode = PickingMode.Ignore;
 
+            CreateChatBubblesPanel();
             CreateAuthenticationScreen();
             CreateNavigationBar();
             CreateViews();
             CreatePopups();
-            CreateChatBubblesPanel();
 
             // Default view is Map
             ActivateView(ViewType.Map);
@@ -92,6 +92,12 @@ namespace UI.Base
             {
                 view.style.display = DisplayStyle.None;
             }
+        }
+
+        private void CreateChatBubblesPanel()
+        {
+            _chatBubblesPanel = new ChatBubblesPanel();
+            Add(_chatBubblesPanel);
         }
 
         private void CloseAuthenticationScreen()
@@ -159,12 +165,6 @@ namespace UI.Base
                 _fullscreenPopupContainer.Add(popup);
                 popup.BringToFront();
             }
-        }
-
-        private void CreateChatBubblesPanel()
-        {
-            _chatBubblesPanel = new ChatBubblesPanel();
-            Add(_chatBubblesPanel);
         }
 
         public void ActivateView(ViewType viewType, bool asExtension = false)
