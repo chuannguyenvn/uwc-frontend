@@ -65,7 +65,7 @@ namespace UI.Views.Tasks.Tasks
             _taskListEntries.Clear();
             foreach (var task in getAllTasksResponse.Tasks)
             {
-                task.McpData.Address = Utility.RemoveDiacritics(task.McpData.Address);
+                task.McpData.Address = task.McpData.Address;
                 var newTask = new TaskListEntry(task);
                 _taskListEntries.Add(newTask);
             }
@@ -107,7 +107,7 @@ namespace UI.Views.Tasks.Tasks
             _scrollView.Clear();
             foreach (var task in getTasksOfWorkerResponse.Tasks)
             {
-                task.McpData.Address = Utility.RemoveDiacritics(task.McpData.Address);
+                task.McpData.Address = task.McpData.Address;
                 _scrollView.Add(new TaskListEntry(task));
             }
         }

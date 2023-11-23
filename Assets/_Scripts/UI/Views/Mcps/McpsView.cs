@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Commons.Communications.Mcps;
 using Commons.Endpoints;
 using Commons.Models;
+using LocalizationNS;
 using Newtonsoft.Json;
 using Requests;
 using UI.Base;
@@ -23,7 +24,7 @@ namespace UI.Views.Mcps
         private ListControl _listControl;
         private ScrollViewWithShadow _scrollView;
         private McpInformationPopup _mcpInformationPopup;
-        
+
         public McpsView() : base(nameof(McpsView))
         {
             ConfigureUss(nameof(McpsView));
@@ -47,7 +48,8 @@ namespace UI.Views.Mcps
             _listControl = new ListControl(SearchHandler);
             Add(_listControl);
 
-            _listControl.CreateSortButton("Fill level", () => DataUpdatedHandler(DataStoreManager.Mcps.ListView.Data));
+            _listControl.CreateSortButton(Localization.GetSentence(Sentence.McpsView.FILL_LEVEL),
+                () => DataUpdatedHandler(DataStoreManager.Mcps.ListView.Data));
         }
 
         private void CreateScrollView()

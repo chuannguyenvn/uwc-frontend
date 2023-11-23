@@ -1,5 +1,6 @@
 ﻿using Commons.Categories;
 using Commons.Models;
+using LocalizationNS;
 using UI.Base;
 
 namespace UI.Views.Vehicles
@@ -18,10 +19,10 @@ namespace UI.Views.Vehicles
 
         private void CreateDetails()
         {
-            _modelEntry = new PopupInformationEntry("Model");
+            _modelEntry = new PopupInformationEntry(Localization.GetSentence(Sentence.VehiclesView.MODEL));
             AddContent(_modelEntry);
 
-            _vehicleTypeEntry = new PopupInformationEntry("Vehicle type");
+            _vehicleTypeEntry = new PopupInformationEntry(Localization.GetSentence(Sentence.VehiclesView.VEHICLE_TYPE));
             AddContent(_vehicleTypeEntry);
         }
 

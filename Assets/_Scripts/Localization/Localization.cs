@@ -1,31 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
+using Commons.Categories;
 using Commons.Types.SettingOptions;
 
-namespace Localization
+namespace LocalizationNS
 {
     public static class Localization
     {
         public static Action LanguageChanged;
 
         private static LanguageOption _languageOption = LanguageOption.English;
-
-        public static LanguageOption LanguageOption
-        {
-            get => _languageOption;
-            set
-            {
-                _languageOption = value;
-                LanguageChanged?.Invoke();
-            }
-        }
-
-        public static string GetSentence(string sentence)
-        {
-            return LanguageOption == LanguageOption.English
-                ? _localizationUnitsBySentence[sentence].English
-                : _localizationUnitsBySentence[sentence].Vietnamese;
-        }
 
         private static Dictionary<string, LocalizationUnit> _localizationUnitsBySentence = new()
         {
@@ -63,6 +47,19 @@ namespace Localization
                 Sentence.TasksView.CHOOSE_THE_DATE_AND_TIME_TO_COLLECT_THE_SELECTED_MCPS,
                 new LocalizationUnit("Choose the date and time to collect the selected MCPS", "Chọn ngày và giờ để thu gom các MCP đã chọn")
             },
+            { Sentence.TasksView.CLEANING_TASK, new LocalizationUnit("Cleaning task", "Nhiệm vụ") },
+            { Sentence.TasksView.ONGOING, new LocalizationUnit("Ongoing", "Đang thực hiện") },
+            { Sentence.TasksView.PENDING, new LocalizationUnit("Pending", "Đang chờ") },
+            { Sentence.TasksView.COMPLETE, new LocalizationUnit("Complete", "Hoàn thành") },
+            { Sentence.TasksView.COMPLETED, new LocalizationUnit("Completed", "Đã hoàn thành") },
+            { Sentence.TasksView.REJECT, new LocalizationUnit("Reject", "Từ chối") },
+            { Sentence.TasksView.REJECTED, new LocalizationUnit("Rejected", "Đã từ chối") },
+            { Sentence.TasksView.ADDRESS, new LocalizationUnit("Address", "Địa chỉ") },
+            { Sentence.TasksView.ETA, new LocalizationUnit("ETA", "Dự kiến đến nơi") },
+            { Sentence.TasksView.EMPTYING_LOGS, new LocalizationUnit("Emptying logs", "Lịch sử thu gom") },
+            { Sentence.TasksView.CURRENT_LOAD, new LocalizationUnit("Current load", "Tải hiện tại") },
+
+            { Sentence.StatusView.STATUS, new LocalizationUnit("Status", "Trạng thái") },
 
             { Sentence.WorkersView.WORKERS, new LocalizationUnit("Workers", "Nhân viên") },
             { Sentence.WorkersView.ROLE, new LocalizationUnit("Role", "Chức vụ") },
@@ -84,6 +81,9 @@ namespace Localization
             { Sentence.McpsView.LONGITUDE, new LocalizationUnit("Longitude", "Kinh độ") },
             { Sentence.McpsView.LAST_EMPTIED, new LocalizationUnit("Last emptied", "Lần dọn dẹp cuối") },
             { Sentence.McpsView.NEVER, new LocalizationUnit("Never", "Chưa bao giờ") },
+            { Sentence.McpsView.MAJOR_COLLECTION_POINT, new LocalizationUnit("Major collection point", "Điểm thu thập rác (MCP)") },
+            { Sentence.McpsView.ADDRESS, new LocalizationUnit("Address", "Địa chỉ") },
+            { Sentence.McpsView.FILL_LEVEL_BY_HOUR, new LocalizationUnit("Fill level by hour", "Độ đầy theo giờ") },
 
             { Sentence.VehiclesView.VEHICLES, new LocalizationUnit("Vehicles", "Xe") },
             { Sentence.VehiclesView.SIDE_LOADER, new LocalizationUnit("Side loader", "Xe rác thùng bên") },
@@ -107,12 +107,11 @@ namespace Localization
                 Sentence.ReportingView.HOURLY_AGGREGATED_MCPS_FILL_LEVEL,
                 new LocalizationUnit("Hourly aggregated MCPS fill level", "Tổng mức đầy mỗi giờ của MCP")
             },
-            { Sentence.ReportingView.HOURLY_MPCS_EMPTIED, new LocalizationUnit("Hourly MCPS emptied", "MCP được thu gom mỗi giờ") },
+            { Sentence.ReportingView.HOURLY_MCPS_EMPTIED, new LocalizationUnit("Hourly MCPS emptied", "MCP được thu gom mỗi giờ") },
 
             { Sentence.MessagingView.MESSAGING, new LocalizationUnit("Messaging", "Tin nhắn") },
             { Sentence.MessagingView.ONLINE, new LocalizationUnit("Online", "Trực tuyến") },
             { Sentence.MessagingView.OFFLINE, new LocalizationUnit("Offline", "Ngoại tuyến") },
-
 
             { Sentence.SettingsView.SETTINGS, new LocalizationUnit("Settings", "Cài đặt") },
             { Sentence.SettingsView.ON, new LocalizationUnit("On", "Bật") },
@@ -140,10 +139,12 @@ namespace Localization
             { Sentence.SettingsView.CHANGE_PASSWORD, new LocalizationUnit("Change password", "Thay đổi mật khẩu") },
             { Sentence.SettingsView.REPORT_PROBLEM, new LocalizationUnit("Report problem", "Báo cáo vấn đề") },
             { Sentence.SettingsView.LOGOUT, new LocalizationUnit("Logout", "Đăng xuất") },
-
+            { Sentence.SettingsView.REGISTER_FACIAL_RECOGNITION, new LocalizationUnit("Register facial recognition", "Đăng ký nhận diện khuôn mặt") },
 
             { Sentence.ListControl.SEARCH, new LocalizationUnit("Search", "Tìm kiếm") },
             { Sentence.ListControl.SORT_BY, new LocalizationUnit("Sort by", "Sắp xếp theo") },
+
+            { Sentence.Procedure.CONFIRM, new LocalizationUnit("Confirm", "Xác nhận") },
 
             { Sentence.DateAndTime.JANUARY, new LocalizationUnit("January", "Tháng 1") },
             { Sentence.DateAndTime.FEBRUARY, new LocalizationUnit("February", "Tháng 2") },
@@ -165,5 +166,64 @@ namespace Localization
             { Sentence.DateAndTime.SHORT_HAND_SATURDAY, new LocalizationUnit("S", "T7") },
             { Sentence.DateAndTime.SHORT_HAND_SUNDAY, new LocalizationUnit("S", "CN") },
         };
+
+        public static LanguageOption LanguageOption
+        {
+            get => _languageOption;
+            set
+            {
+                _languageOption = value;
+                LanguageChanged?.Invoke();
+            }
+        }
+
+        public static string GetSentence(string sentence)
+        {
+            return LanguageOption == LanguageOption.English
+                ? _localizationUnitsBySentence[sentence].English
+                : _localizationUnitsBySentence[sentence].Vietnamese;
+        }
+
+        public static string GetMonth(int month)
+        {
+            return month switch
+            {
+                1 => Sentence.DateAndTime.JANUARY,
+                2 => Sentence.DateAndTime.FEBRUARY,
+                3 => Sentence.DateAndTime.MARCH,
+                4 => Sentence.DateAndTime.APRIL,
+                5 => Sentence.DateAndTime.MAY,
+                6 => Sentence.DateAndTime.JUNE,
+                7 => Sentence.DateAndTime.JULY,
+                8 => Sentence.DateAndTime.AUGUST,
+                9 => Sentence.DateAndTime.SEPTEMBER,
+                10 => Sentence.DateAndTime.OCTOBER,
+                11 => Sentence.DateAndTime.NOVEMBER,
+                12 => Sentence.DateAndTime.DECEMBER,
+                _ => Sentence.MissingTranslation.MISSING_TRANSLATION
+            };
+        }
+
+        public static string GetGender(Gender gender)
+        {
+            return gender switch
+            {
+                Gender.Male => Sentence.WorkersView.MALE,
+                Gender.Female => Sentence.WorkersView.FEMALE,
+                Gender.Other => Sentence.WorkersView.OTHER,
+                _ => throw new ArgumentOutOfRangeException(nameof(gender), gender, null)
+            };
+        }
+
+        public static string GetUserRole(UserRole userRole)
+        {
+            return userRole switch
+            {
+                UserRole.Supervisor => Sentence.WorkersView.SUPERVISOR,
+                UserRole.Driver => Sentence.WorkersView.DRIVER,
+                UserRole.Cleaner => Sentence.WorkersView.CLEANER,
+                _ => throw new ArgumentOutOfRangeException(nameof(userRole), userRole, null)
+            };
+        }
     };
 }

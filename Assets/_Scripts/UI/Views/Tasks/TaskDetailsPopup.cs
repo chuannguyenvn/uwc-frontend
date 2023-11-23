@@ -1,5 +1,6 @@
 ﻿using Commons.Models;
 using Commons.Types;
+using LocalizationNS;
 using Newtonsoft.Json;
 using UI.Base;
 using UnityEngine;
@@ -26,31 +27,31 @@ namespace UI.Views.Tasks
 
         private void CreateDetails()
         {
-            _mcpAddressEntry = new PopupInformationEntry("MCP address");
+            _mcpAddressEntry = new PopupInformationEntry(Localization.GetSentence(Sentence.TasksView.MCP_ADDRESS));
             AddContent(_mcpAddressEntry);
 
-            _assignerEntry = new PopupInformationEntry("Assigned by");
+            _assignerEntry = new PopupInformationEntry(Localization.GetSentence(Sentence.TasksView.ASSIGNED_BY));
             AddContent(_assignerEntry);
 
-            _assigneeEntry = new PopupInformationEntry("Assigned to");
+            _assigneeEntry = new PopupInformationEntry(Localization.GetSentence(Sentence.TasksView.ASSIGNED_TO));
             AddContent(_assigneeEntry);
 
-            _createdTimestampEntry = new PopupInformationEntry("Created at");
+            _createdTimestampEntry = new PopupInformationEntry(Localization.GetSentence(Sentence.TasksView.CREATED_AT));
             AddContent(_createdTimestampEntry);
 
-            _completeByTimestampEntry = new PopupInformationEntry("Complete by");
+            _completeByTimestampEntry = new PopupInformationEntry(Localization.GetSentence(Sentence.TasksView.COMPLETE_BY));
             AddContent(_completeByTimestampEntry);
 
-            _statusEntry = new PopupInformationEntry("Last status");
+            _statusEntry = new PopupInformationEntry(Localization.GetSentence(Sentence.TasksView.LAST_STATUS));
             AddContent(_statusEntry);
 
-            _lastStatusChangeTimestampEntry = new PopupInformationEntry("Last status change at");
+            _lastStatusChangeTimestampEntry = new PopupInformationEntry(Localization.GetSentence(Sentence.TasksView.LAST_STATUS_CHANGE_AT));
             AddContent(_lastStatusChangeTimestampEntry);
         }
 
         public override void SetContent(TaskData data)
         {
-            Title.text = "Cleaning task";
+            Title.text = Localization.GetSentence(Sentence.TasksView.CLEANING_TASK);
 
             _mcpAddressEntry.SetValue(data.McpData.Address);
             _assignerEntry.SetValue(data.AssignerProfile.FirstName + " " + data.AssignerProfile.LastName);

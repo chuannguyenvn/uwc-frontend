@@ -1,4 +1,4 @@
-﻿namespace Localization
+﻿namespace LocalizationNS
 {
     public class LocalizationUnit
     {

@@ -1,5 +1,6 @@
 ﻿using Commons.Models;
 using Commons.Types;
+using LocalizationNS;
 using Requests;
 using Settings;
 using UI.Base;
@@ -54,11 +55,11 @@ namespace UI.Views.Tasks.Tasks
             {
                 case TaskStatus.InProgress:
                     _content = new FocusedTaskCard(taskData, fillStatus);
-                    _statusText.text = "Ongoing";
+                    _statusText.text = Localization.GetSentence(Sentence.TasksView.ONGOING);
                     break;
                 case TaskStatus.NotStarted:
                     _content = new UnfocusedTaskCard(taskData, fillStatus);
-                    _statusText.text = "Pending";
+                    _statusText.text = Localization.GetSentence(Sentence.TasksView.PENDING);
                     break;
                 case TaskStatus.Completed:
                 case TaskStatus.Rejected:

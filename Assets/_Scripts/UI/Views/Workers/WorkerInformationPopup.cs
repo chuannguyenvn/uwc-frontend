@@ -1,4 +1,5 @@
 ﻿using Commons.Models;
+using LocalizationNS;
 using UI.Base;
 using UnityEngine.UIElements;
 
@@ -21,19 +22,19 @@ namespace UI.Views.Workers
 
         private void CreateDetailsInformation()
         {
-            _roleEntry = new PopupInformationEntry("Role");
+            _roleEntry = new PopupInformationEntry(Localization.GetSentence(Sentence.WorkersView.ROLE));
             DetailContainer.Add(_roleEntry);
 
-            _genderEntry = new PopupInformationEntry("Gender");
+            _genderEntry = new PopupInformationEntry(Localization.GetSentence(Sentence.WorkersView.GENDER));
             DetailContainer.Add(_genderEntry);
 
-            _dateOfBirthEntry = new PopupInformationEntry("Date of birth");
+            _dateOfBirthEntry = new PopupInformationEntry(Localization.GetSentence(Sentence.WorkersView.DATE_OF_BIRTH));
             DetailContainer.Add(_dateOfBirthEntry);
 
-            _addressEntry = new PopupInformationEntry("Address");
+            _addressEntry = new PopupInformationEntry(Localization.GetSentence(Sentence.WorkersView.ADDRESS));
             DetailContainer.Add(_addressEntry);
 
-            _createdTimestampEntry = new PopupInformationEntry("Account created");
+            _createdTimestampEntry = new PopupInformationEntry(Localization.GetSentence(Sentence.WorkersView.ACCOUNT_CREATED));
             DetailContainer.Add(_createdTimestampEntry);
         }
 

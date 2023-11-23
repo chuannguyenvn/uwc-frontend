@@ -1,4 +1,4 @@
-﻿namespace Localization
+﻿namespace LocalizationNS
 {
     public class Sentence
     {
@@ -37,8 +37,25 @@
                 "Tasks.LeaveThisStepEmptyIfYouWantToAssignTheTaskToAllWorkers";
 
             public const string CHOOSE_THE_DATE_AND_TIME_TO_COLLECT_THE_SELECTED_MCPS = "Tasks.ChooseTheDateAndTimeToCollectTheSelectedMcps";
+            public const string CLEANING_TASK = "Tasks.CleaningTask";
+            public const string ONGOING = "Tasks.Ongoing";
+            public const string PENDING = "Tasks.Pending";
+            public const string COMPLETE = "Tasks.Complete";
+            public const string COMPLETED = "Tasks.Completed";
+            public const string REJECT = "Tasks.Reject";
+            public const string REJECTED = "Tasks.Rejected";
+            public const string ADDRESS = "Tasks.Address";
+            public const string ETA = "Tasks.Eta";
+            public const string EMPTYING_LOGS = "Tasks.EmptyingLogs";
+            public const string CURRENT_LOAD = "Tasks.CurrentLoad";
         }
 
+        public class StatusView
+        {
+            public const string STATUS = "Status.Status";
+            
+        }
+        
         public class WorkersView
         {
             public const string WORKERS = "Workers.Workers";
@@ -64,6 +81,9 @@
             public const string LONGITUDE = "Mcps.Longitude";
             public const string LAST_EMPTIED = "Mcps.LastEmptied";
             public const string NEVER = "Mcps.Never";
+            public const string MAJOR_COLLECTION_POINT = "Mcps.MajorCollectionPoint";
+            public const string ADDRESS = "Mcps.Address";
+            public const string FILL_LEVEL_BY_HOUR = "Mcps.FillLevelByHour";
         }
 
         public class VehiclesView
@@ -90,7 +110,7 @@
             public const string WORKERS_ONLINE = "Reporting.WorkersOnline";
             public const string TOTAL_WORKERS = "Reporting.TotalWorkers";
             public const string HOURLY_AGGREGATED_MCPS_FILL_LEVEL = "Reporting.HourlyAggregatedMcpsFillLevel";
-            public const string HOURLY_MPCS_EMPTIED = "Reporting.HourlyMpcsEmptied";
+            public const string HOURLY_MCPS_EMPTIED = "Reporting.HourlyMcpsEmptied";
         }
 
         public class MessagingView
@@ -128,6 +148,8 @@
             public const string CHANGE_PASSWORD = "Settings.ChangePassword";
             public const string REPORT_PROBLEM = "Settings.ReportProblem";
             public const string LOGOUT = "Settings.Logout";
+            public const string REGISTER_FACIAL_RECOGNITION = "Settings.RegisterFacialRecognition";
+            
         }
 
         public class ListControl
@@ -136,6 +158,10 @@
             public const string SORT_BY = "ListControl.SortBy";
         }
 
+        public class Procedure
+        {
+            public const string CONFIRM = "Procedure.Confirm";
+        }
 
         public class DateAndTime
         {
@@ -158,6 +184,11 @@
             public const string SHORT_HAND_FRIDAY = "DateAndTime.ShortHandFriday";
             public const string SHORT_HAND_SATURDAY = "DateAndTime.ShortHandSaturday";
             public const string SHORT_HAND_SUNDAY = "DateAndTime.ShortHandSunday";
+        }
+
+        public class MissingTranslation
+        {
+            public const string MISSING_TRANSLATION = "MissingTranslation.MissingTranslation";
         }
     }
 }

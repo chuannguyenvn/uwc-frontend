@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using LocalizationNS;
 using UI.Base;
 using UnityEngine.UIElements;
 
@@ -24,7 +25,7 @@ namespace UI.Reusables.Control.Sort
             _titleText = new TextElement { name = "TitleText" };
             _titleText.AddToClassList("sub-text");
             _titleText.AddToClassList("grey-text");
-            _titleText.text = "Sort by:";
+            _titleText.text = Localization.GetSentence(Sentence.ListControl.SORT_BY) + ":";
             _titleText.style.display = DisplayStyle.None;
             Add(_titleText);
         }

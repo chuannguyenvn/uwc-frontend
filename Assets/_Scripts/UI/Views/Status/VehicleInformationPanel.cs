@@ -1,4 +1,5 @@
-﻿using UI.Base;
+﻿using LocalizationNS;
+using UI.Base;
 using UnityEngine.UIElements;
 
 namespace UI.Views.Status
@@ -37,7 +38,7 @@ namespace UI.Views.Status
             _licensePlateTitleText = new TextElement { name = "RoleText" };
             _licensePlateTitleText.AddToClassList("sub-text");
             _licensePlateTitleText.AddToClassList("grey-text");
-            _licensePlateTitleText.text = "Vehicle";
+            _licensePlateTitleText.text = Localization.GetSentence(Sentence.VehiclesView.VEHICLES);
             _licensePlateContainer.Add(_licensePlateTitleText);
 
             _licensePlateText = new TextElement { name = "NameText" };

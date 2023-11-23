@@ -1,4 +1,5 @@
 ﻿using Authentication;
+using LocalizationNS;
 using Settings;
 using UI.Base;
 using UnityEngine.UIElements;
@@ -45,7 +46,7 @@ namespace UI.Authentication
             }
             else
             {
-                _titleText.text = "Login";
+                _titleText.text = Localization.GetSentence(Sentence.AuthenticationView.LOGIN);
             }
 
             _loginElementsContainer.Add(_titleText);
@@ -70,14 +71,14 @@ namespace UI.Authentication
             _loginButton = new Button { name = "LoginButton" };
             _loginButton.AddToClassList("title-text");
             _loginButton.AddToClassList("white-text");
-            _loginButton.text = "Login";
+            _loginButton.text = Localization.GetSentence(Sentence.AuthenticationView.LOGIN);
             _loginElementsContainer.Add(_loginButton);
             _loginButton.RegisterCallback<ClickEvent>(_ => AuthenticationManager.Instance.Login(_usernameTextField.value, _passwordTextField.value));
 
             _forgotPasswordButton = new Button { name = "ForgotPasswordButton" };
             _forgotPasswordButton.AddToClassList("sub-text");
             _forgotPasswordButton.AddToClassList("grey-text");
-            _forgotPasswordButton.text = "Forgot password?";
+            _forgotPasswordButton.text = Localization.GetSentence(Sentence.AuthenticationView.FORGOT_PASSWORD);
             _loginElementsContainer.Add(_forgotPasswordButton);
         }
 

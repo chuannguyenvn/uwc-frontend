@@ -1,4 +1,5 @@
 ﻿using Commons.Models;
+using LocalizationNS;
 using UI.Reusables.Procedure;
 using UnityEngine;
 using UnityEngine.UIElements;
@@ -9,7 +10,8 @@ namespace UI.Views.Mcps.AssignTaskProcedure
     {
         private ScrollView _scrollView;
 
-        public ChooseMcpsStep(Flow flow, int stepIndex) : base(flow, stepIndex, false, "Choose the MCPs that you want to be collected.")
+        public ChooseMcpsStep(Flow flow, int stepIndex) : base(flow, stepIndex, false,
+            Localization.GetSentence(Sentence.TasksView.CHOOSE_THE_MCPS_THAT_YOU_WANT_TO_BE_COLLECTED))
         {
             CreateMcpList();
         }

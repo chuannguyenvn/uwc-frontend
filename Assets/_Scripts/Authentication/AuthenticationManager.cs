@@ -68,7 +68,7 @@ namespace Authentication
 
             Initialized?.Invoke(response.InitializationData);
 
-            Localization.Localization.LanguageOption = response.InitializationData.Setting.Language;
+            LocalizationNS.Localization.LanguageOption = response.InitializationData.Setting.Language;
         }
 
         protected override void OnApplicationQuit()

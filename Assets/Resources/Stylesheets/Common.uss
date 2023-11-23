@@ -10,23 +10,23 @@
 }
 
 .super-title-text {
-    -unity-font-definition: url('project://database/Assets/Graphics/Fonts/Segoe%20UI%20Bold.ttf?fileID=12800000&guid=3a56917333bec3c49bde9f46c791793c&type=3#Segoe UI Bold');
+    -unity-font-definition: url('project://database/Assets/UI%20Toolkit/UnityThemes/UnityDefaultRuntimeTheme.tss?fileID=2230732570650464555&guid=0461991ded3778848922f05cf9bc29eb&type=3#NotInter-Regular');
 }
 
 .title-text {
-    -unity-font-definition: url('project://database/Assets/Graphics/Fonts/Segoe%20UI%20Semibold.ttf?fileID=12800000&guid=723807d3d8e26e3449d4983f4b454432&type=3#Segoe UI Semibold');
+    -unity-font-definition: url('project://database/Assets/UI%20Toolkit/UnityThemes/UnityDefaultRuntimeTheme.tss?fileID=2230732570650464555&guid=0461991ded3778848922f05cf9bc29eb&type=3#NotInter-Regular');
 }
 
 .normal-text {
-    -unity-font-definition: url('project://database/Assets/Graphics/Fonts/Segoe%20UI.ttf?fileID=12800000&guid=3a56917333bec3c49bde9f46c791793c&type=3#Segoe UI');
+    -unity-font-definition: url('project://database/Assets/UI%20Toolkit/UnityThemes/UnityDefaultRuntimeTheme.tss?fileID=2230732570650464555&guid=0461991ded3778848922f05cf9bc29eb&type=3#NotInter-Regular');
 }
 
 .sub-text {
-    -unity-font-definition: url('project://database/Assets/Graphics/Fonts/Segoe%20UI.ttf?fileID=12800000&guid=3a56917333bec3c49bde9f46c791793c&type=3#Segoe UI');
+    -unity-font-definition: url('project://database/Assets/UI%20Toolkit/UnityThemes/UnityDefaultRuntimeTheme.tss?fileID=2230732570650464555&guid=0461991ded3778848922f05cf9bc29eb&type=3#NotInter-Regular');
 }
 
 .sub-sub-text {
-    -unity-font-definition: url('project://database/Assets/Graphics/Fonts/Segoe%20UI%20Italic.ttf?fileID=12800000&guid=3a56917333bec3c49bde9f46c791793c&type=3#Segoe UI Italic');
+    -unity-font-definition: url('project://database/Assets/UI%20Toolkit/UnityThemes/UnityDefaultRuntimeTheme.tss?fileID=2230732570650464555&guid=0461991ded3778848922f05cf9bc29eb&type=3#NotInter-Regular');
 }
 
 .desktop .super-title-text {
