@@ -65,7 +65,7 @@ namespace UI.Views.Status
             _classTitleText = new TextElement { name = "ClassTitleText" };
             _classTitleText.AddToClassList("sub-text");
             _classTitleText.AddToClassList("grey-text");
-            _classTitleText.text = "Class";
+            _classTitleText.text = Localization.GetSentence(Sentence.VehiclesView.VEHICLE_TYPE);
             _classContainer.Add(_classTitleText);
 
             _classText = new TextElement { name = "ClassText" };
@@ -83,7 +83,7 @@ namespace UI.Views.Status
             _modelTitleText = new TextElement { name = "ModelTitleText" };
             _modelTitleText.AddToClassList("sub-text");
             _modelTitleText.AddToClassList("grey-text");
-            _modelTitleText.text = "Model";
+            _modelTitleText.text = Localization.GetSentence(Sentence.VehiclesView.MODEL);
             _modelContainer.Add(_modelTitleText);
 
             _modelText = new TextElement { name = "ModelText" };

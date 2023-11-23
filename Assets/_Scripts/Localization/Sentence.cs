@@ -45,6 +45,7 @@
             public const string REJECT = "Tasks.Reject";
             public const string REJECTED = "Tasks.Rejected";
             public const string ADDRESS = "Tasks.Address";
+            public const string DISTANCE = "Tasks.Distance";
             public const string ETA = "Tasks.Eta";
             public const string EMPTYING_LOGS = "Tasks.EmptyingLogs";
             public const string CURRENT_LOAD = "Tasks.CurrentLoad";

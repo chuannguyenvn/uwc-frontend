@@ -67,7 +67,7 @@ namespace UI.Reusables
                 ScrollToImmediate(lastChild);
             }
         }
-        
+
         private void ScrollToImmediate(VisualElement item)
         {
             int remainingIterations = 4;

@@ -1,6 +1,6 @@
 #SettingNameText {
     color: var(--grey-text-color);
-    -unity-font-definition: url('project://database/Assets/Graphics/Fonts/Segoe%20UI%20Bold.ttf?fileID=12800000&guid=d39367468006e144194466e5686e40a3&type=3#Segoe UI Bold');
+    -unity-font-definition: url('project://database/Assets/Graphics/Fonts/OpenSans/OpenSans-Bold.ttf?fileID=12800000&guid=68e7b07bba1bee2448945f56641bd1fd&type=3#OpenSans-Bold');
 }
 
 .dangerous #SettingNameText {

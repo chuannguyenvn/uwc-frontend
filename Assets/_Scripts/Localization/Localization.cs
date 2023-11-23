@@ -56,6 +56,7 @@ namespace LocalizationNS
             { Sentence.TasksView.REJECT, new LocalizationUnit("Reject", "Từ chối") },
             { Sentence.TasksView.REJECTED, new LocalizationUnit("Rejected", "Đã từ chối") },
             { Sentence.TasksView.ADDRESS, new LocalizationUnit("Address", "Địa chỉ") },
+            { Sentence.TasksView.DISTANCE, new LocalizationUnit("Distance", "Khoảng cách") },
             { Sentence.TasksView.ETA, new LocalizationUnit("ETA", "Dự kiến đến nơi") },
             { Sentence.TasksView.EMPTYING_LOGS, new LocalizationUnit("Emptying logs", "Lịch sử thu gom") },
             { Sentence.TasksView.CURRENT_LOAD, new LocalizationUnit("Current load", "Tải hiện tại") },

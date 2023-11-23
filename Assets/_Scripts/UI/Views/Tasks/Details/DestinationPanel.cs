@@ -1,4 +1,5 @@
-﻿using UI.Base;
+﻿using LocalizationNS;
+using UI.Base;
 using UnityEngine.UIElements;
 
 namespace UI.Views.Tasks.Details
@@ -35,7 +36,7 @@ namespace UI.Views.Tasks.Details
             _addressTitle = new TextElement { name = "AddressTitle" };
             _addressTitle.AddToClassList("sub-text");
             _addressTitle.AddToClassList("grey-text");
-            _addressTitle.text = "Address";
+            _addressTitle.text = Localization.GetSentence(Sentence.TasksView.ADDRESS);
             _addressContainer.Add(_addressTitle);
 
             _addressText = new TextElement { name = "AddressText" };
@@ -62,7 +63,7 @@ namespace UI.Views.Tasks.Details
             _distanceTitle = new TextElement { name = "DistanceTitle" };
             _distanceTitle.AddToClassList("sub-text");
             _distanceTitle.AddToClassList("grey-text");
-            _distanceTitle.text = "Distance";
+            _distanceTitle.text = Localization.GetSentence(Sentence.TasksView.DISTANCE);
             _distanceContainer.Add(_distanceTitle);
 
             _distanceText = new TextElement { name = "DistanceText" };
@@ -80,7 +81,7 @@ namespace UI.Views.Tasks.Details
             _etaTitle = new TextElement { name = "EtaTitle" };
             _etaTitle.AddToClassList("sub-text");
             _etaTitle.AddToClassList("grey-text");
-            _etaTitle.text = "ETA";
+            _etaTitle.text = Localization.GetSentence(Sentence.TasksView.ETA);
             _etaContainer.Add(_etaTitle);
 
             _etaText = new TextElement { name = "EtaText" };

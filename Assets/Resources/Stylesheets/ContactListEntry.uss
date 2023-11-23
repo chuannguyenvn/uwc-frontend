@@ -1,6 +1,7 @@
 .contact-list-entry {
     flex-grow: 1;
     flex-direction: row;
+    align-items: center;
 }
 
 .contact-list-entry #DetailsContainer {
@@ -9,22 +10,32 @@
 
 .contact-list-entry #Avatar {
     flex-shrink: 0;
-    width: 64px;
-    height: 64px;
     -unity-text-align: middle-center;
     border-radius: 999px;
+}
+
+.desktop .contact-list-entry #Avatar {
+    width: 64px;
+    height: 64px;
     margin-right: 8px;
+}
+
+.mobile .contact-list-entry #Avatar {
+    width: 96px;
+    height: 96px;
+    margin-right: 16px;
 }
 
 .contact-list-entry #PreviewText {
     text-overflow: ellipsis;
     overflow: hidden;
+}
+
+.desktop .contact-list-entry #PreviewText {
     height: 25px;
 }
 
-.contact-list-entry .mobile {
-    margin-top: 16px;
-    margin-bottom: 16px;
-    height: 128px;
+.mobile .contact-list-entry #PreviewText {
+    height: 55px;
 }
 

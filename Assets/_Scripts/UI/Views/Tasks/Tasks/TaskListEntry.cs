@@ -1,9 +1,11 @@
 ﻿using Commons.Models;
 using Commons.Types;
 using LocalizationNS;
+using Newtonsoft.Json;
 using Requests;
 using Settings;
 using UI.Base;
+using UnityEngine;
 using UnityEngine.UIElements;
 using Utilities;
 
@@ -50,6 +52,7 @@ namespace UI.Views.Tasks.Tasks
 
         private void CreateCard(TaskData taskData)
         {
+            Debug.Log(taskData.McpDataId);
             var fillStatus = McpFillStatusHelper.GetStatus(DataStoreManager.Mcps.FillLevel.Data.FillLevelsById[taskData.McpDataId]);
             switch (taskData.TaskStatus)
             {

@@ -10,23 +10,23 @@
 }
 
 .super-title-text {
-    -unity-font-definition: url('project://database/Assets/UI%20Toolkit/UnityThemes/UnityDefaultRuntimeTheme.tss?fileID=2230732570650464555&guid=0461991ded3778848922f05cf9bc29eb&type=3#NotInter-Regular');
+    -unity-font-definition: url('project://database/Assets/Graphics/Fonts/OpenSans/OpenSans-Bold.ttf?fileID=12800000&guid=68e7b07bba1bee2448945f56641bd1fd&type=3#OpenSans-Bold');
 }
 
 .title-text {
-    -unity-font-definition: url('project://database/Assets/UI%20Toolkit/UnityThemes/UnityDefaultRuntimeTheme.tss?fileID=2230732570650464555&guid=0461991ded3778848922f05cf9bc29eb&type=3#NotInter-Regular');
+    -unity-font-definition: url('project://database/Assets/Graphics/Fonts/OpenSans/OpenSans-Bold.ttf?fileID=12800000&guid=68e7b07bba1bee2448945f56641bd1fd&type=3#OpenSans-Bold');
 }
 
 .normal-text {
-    -unity-font-definition: url('project://database/Assets/UI%20Toolkit/UnityThemes/UnityDefaultRuntimeTheme.tss?fileID=2230732570650464555&guid=0461991ded3778848922f05cf9bc29eb&type=3#NotInter-Regular');
+    -unity-font-definition: url('project://database/Assets/Graphics/Fonts/OpenSans/OpenSans-Regular.ttf?fileID=12800000&guid=7f5870a7068fc70459003ec9aee968c8&type=3#OpenSans-Regular');
 }
 
 .sub-text {
-    -unity-font-definition: url('project://database/Assets/UI%20Toolkit/UnityThemes/UnityDefaultRuntimeTheme.tss?fileID=2230732570650464555&guid=0461991ded3778848922f05cf9bc29eb&type=3#NotInter-Regular');
+    -unity-font-definition: url('project://database/Assets/Graphics/Fonts/OpenSans/OpenSans-Light.ttf?fileID=12800000&guid=200405e1ec83b2f4f8665582ba6ca522&type=3#OpenSans-Light');
 }
 
 .sub-sub-text {
-    -unity-font-definition: url('project://database/Assets/UI%20Toolkit/UnityThemes/UnityDefaultRuntimeTheme.tss?fileID=2230732570650464555&guid=0461991ded3778848922f05cf9bc29eb&type=3#NotInter-Regular');
+    -unity-font-definition: url('project://database/Assets/Graphics/Fonts/OpenSans/OpenSans-Light.ttf?fileID=12800000&guid=200405e1ec83b2f4f8665582ba6ca522&type=3#OpenSans-Light');
 }
 
 .desktop .super-title-text {
