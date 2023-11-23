@@ -81,5 +81,5 @@
 }
 
 .input-bar .unity-text-element{
-    padding: 8px;
+    padding: 16px;
 }

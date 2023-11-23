@@ -41,7 +41,7 @@ namespace UI.Views.Messaging.Inbox
         private void CreateBackButton()
         {
             _backButton = new VisualElement { name = "BackButton" };
-            if (!Configs.IS_DESKTOP) _backButton.RegisterCallback<ClickEvent>(_ => { GetFirstAncestorOfType<MessagingView>().MobileShowInbox(); });
+            if (!Configs.IS_DESKTOP) _backButton.RegisterCallback<ClickEvent>(_ => { GetFirstAncestorOfType<MessagingView>().MobileShowContactList(); });
 
             Add(_backButton);
         }
