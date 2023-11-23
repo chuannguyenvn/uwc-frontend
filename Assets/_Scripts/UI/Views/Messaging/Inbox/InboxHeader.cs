@@ -61,13 +61,13 @@ namespace UI.Views.Messaging.Inbox
 
             _nameText = new TextElement { name = "NameText" };
             _nameText.AddToClassList("normal-text");
-            _nameText.AddToClassList("black-text");
+            _nameText.AddToClassList(Configs.IS_DESKTOP ? "black-text" : "white-text");
             _nameText.text = "";
             _detailsContainer.Add(_nameText);
 
             _statusText = new TextElement { name = "StatusText" };
             _statusText.AddToClassList("sub-text");
-            _statusText.AddToClassList("black-text");
+            _statusText.AddToClassList(Configs.IS_DESKTOP ? "black-text" : "white-text");
             _statusText.text = Localization.GetSentence(Sentence.MessagingView.OFFLINE);
             _detailsContainer.Add(_statusText);
         }

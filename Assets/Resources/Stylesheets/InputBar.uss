@@ -1,33 +1,40 @@
 .input-bar {
     flex-direction: row;
-    height: 56px;
-    padding: 4px;
     flex-shrink: 0;
     flex-grow: 1;
 }
 
+.desktop .input-bar {
+    height: 56px;
+    padding: 4px;
+}
+
+.mobile .input-bar {
+    height: 128px;
+    padding: 12px;
+}
+
 .input-bar #TextField {
     flex-grow: 1;
-    border-top-left-radius: 24px;
-    border-top-right-radius: 24px;
-    border-bottom-right-radius: 24px;
-    border-bottom-left-radius: 24px;
     border-left-color: rgba(0, 0, 0, 0);
     border-right-color: rgba(0, 0, 0, 0);
     border-top-color: rgba(0, 0, 0, 0);
     border-bottom-color: rgba(0, 0, 0, 0);
 }
 
+.desktop .input-bar #TextField {
+    border-radius: 24px;
+}
+
+.mobile .input-bar #TextField {
+    border-radius: 51px;
+}
+
 .input-bar. #SendButton {
     align-self: center;
     flex-shrink: 0;
-    width: 45px;
-    height: 45px;
     -unity-background-scale-mode: scale-to-fit;
-    border-top-left-radius: 100%;
-    border-top-right-radius: 100%;
-    border-bottom-right-radius: 100%;
-    border-bottom-left-radius: 100%;
+    border-radius: 999px;
     align-items: center;
     justify-content: center;
     background-color: var(--theme-color);
@@ -37,17 +44,42 @@
     border-bottom-color: rgba(0, 0, 0, 0);
 }
 
+.desktop .input-bar. #SendButton {
+    width: 45px;
+    height: 45px;
+}
+
+.mobile .input-bar. #SendButton {
+    width: 96px;
+    height: 96px;
+    margin-left: 12px;
+}
+
 .input-bar. #SendIcon {
     background-image: url('project://database/Assets/Graphics/Icons/send.png?fileID=21300000&guid=85e7a45670f06314a9beeab5531f512d&type=3#send');
+    -unity-background-scale-mode: scale-to-fit;
+}
+
+.desktop .input-bar. #SendIcon {
     width: 90%;
     height: 90%;
-    -unity-background-scale-mode: scale-to-fit;
     margin-left: 3px;
 }
 
-#unity-text-input {
+.mobile .input-bar. #SendIcon {
+    background-image: url('project://database/Assets/Graphics/Icons/send.png?fileID=21300000&guid=85e7a45670f06314a9beeab5531f512d&type=3#send');
+    width:  80%;
+    height: 80%;
+    margin-left: 9px;
+}
+
+.input-bar. #unity-text-input {
     border-left-color: rgba(0, 0, 0, 0);
     border-right-color: rgba(0, 0, 0, 0);
     border-top-color: rgba(0, 0, 0, 0);
     border-bottom-color: rgba(0, 0, 0, 0);
+}
+
+.input-bar .unity-text-element{
+    padding: 8px;
 }
