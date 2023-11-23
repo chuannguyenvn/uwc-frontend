@@ -52,21 +52,6 @@ namespace UI.Views.Reports
             _graphContainer.Add(_graphCard);
         }
 
-        private void CreateSecondRow()
-        {
-            _secondCardRowContainer = new VisualElement { name = "SecondCardRowContainer" };
-            _secondCardRowContainer.AddToClassList("report-card-row-container");
-            Add(_secondCardRowContainer);
-
-            _mcpCapacityCard = new McpCapacityCard();
-            _taskCard = new TaskCard();
-            _workerCard = new WorkerCard();
-
-            _secondCardRowContainer.Add(_mcpCapacityCard);
-            _secondCardRowContainer.Add(_taskCard);
-            _secondCardRowContainer.Add(_workerCard);
-        }
-
         private void CreateFirstRow()
         {
             _firstCardRowContainer = new VisualElement { name = "FirstCardRowContainer" };
@@ -80,6 +65,21 @@ namespace UI.Views.Reports
             _firstCardRowContainer.Add(_mcpCollectedCard);
             _firstCardRowContainer.Add(_logisticCard);
             _firstCardRowContainer.Add(_weatherCard);
+        }
+
+        private void CreateSecondRow()
+        {
+            _secondCardRowContainer = new VisualElement { name = "SecondCardRowContainer" };
+            _secondCardRowContainer.AddToClassList("report-card-row-container");
+            Add(_secondCardRowContainer);
+
+            _mcpCapacityCard = new McpCapacityCard();
+            _taskCard = new TaskCard();
+            _workerCard = new WorkerCard();
+
+            _secondCardRowContainer.Add(_mcpCapacityCard);
+            _secondCardRowContainer.Add(_taskCard);
+            _secondCardRowContainer.Add(_workerCard);
         }
 
         private void DataUpdatedHandler(GetDashboardReportResponse response)

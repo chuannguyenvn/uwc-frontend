@@ -1,4 +1,5 @@
 ﻿using Commons.Communications.Reports;
+using LocalizationNS;
 
 namespace UI.Views.Reports.Cards
 {
@@ -15,7 +16,7 @@ namespace UI.Views.Reports.Cards
 
         private void CreateMcpCollected()
         {
-            _mcpCollectedDataUnit = new DataUnit("MCPs collected", RelativeChange.Mode.HigherIsBetter);
+            _mcpCollectedDataUnit = new DataUnit(Localization.GetSentence(Sentence.ReportingView.MCPS_COLLECTED), RelativeChange.Mode.HigherIsBetter);
             Add(_mcpCollectedDataUnit);
         }
 

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Commons.Categories;
+using Commons.Types;
 using Commons.Types.SettingOptions;
 
 namespace LocalizationNS
@@ -25,7 +26,7 @@ namespace LocalizationNS
             { Sentence.TasksView.TASK_STATUS, new LocalizationUnit("Task status", "Trạng thái nhiệm vụ") },
             { Sentence.TasksView.CREATED_TIME, new LocalizationUnit("Created time", "Thời gian tạo") },
             { Sentence.TasksView.COMPLETE_BY_TIME, new LocalizationUnit("Complete by time", "Hoàn thành trước thời gian") },
-            { Sentence.TasksView.LAST_CHANGED_TIME, new LocalizationUnit("Last changed time", "Thời gian cập nhật  cuối") },
+            { Sentence.TasksView.LAST_CHANGED_TIME, new LocalizationUnit("Last changed time", "Thời gian cập nhật cuối") },
             { Sentence.TasksView.MCP_ADDRESS, new LocalizationUnit("MCP address", "Địa chỉ MCP") },
             { Sentence.TasksView.ASSIGNED_BY, new LocalizationUnit("Assigned by", "Được giao bởi") },
             { Sentence.TasksView.ASSIGNED_TO, new LocalizationUnit("Assigned to", "Được giao cho") },
@@ -85,7 +86,7 @@ namespace LocalizationNS
             { Sentence.McpsView.ADDRESS, new LocalizationUnit("Address", "Địa chỉ") },
             { Sentence.McpsView.FILL_LEVEL_BY_HOUR, new LocalizationUnit("Fill level by hour", "Độ đầy theo giờ") },
 
-            { Sentence.VehiclesView.VEHICLES, new LocalizationUnit("Vehicles", "Xe") },
+            { Sentence.VehiclesView.VEHICLES, new LocalizationUnit("Vehicles", "Phương tiện") },
             { Sentence.VehiclesView.SIDE_LOADER, new LocalizationUnit("Side loader", "Xe rác thùng bên") },
             { Sentence.VehiclesView.REAR_LOADER, new LocalizationUnit("Rear loader", "Xe rác thùng sau") },
             { Sentence.VehiclesView.FRONT_LOADER, new LocalizationUnit("Front loader", "Xe rác thùng trước") },
@@ -133,6 +134,8 @@ namespace LocalizationNS
             { Sentence.SettingsView.SOFTWARE_UPDATE_AVAILABLE, new LocalizationUnit("Software update available", "Cập nhật phần mềm") },
             { Sentence.SettingsView.ACCOUNT_SETTINGS, new LocalizationUnit("Account settings", "Cài đặt tài khoản") },
             { Sentence.SettingsView.ONLINE_STATUS, new LocalizationUnit("Online status", "Trạng thái trực tuyến") },
+            { Sentence.SettingsView.ONLINE, new LocalizationUnit("Online", "Trực tuyến") },
+            { Sentence.SettingsView.OFFLINE, new LocalizationUnit("Offline", "Ngoại tuyến") },
             { Sentence.SettingsView.EXPORT_MESSAGES, new LocalizationUnit("Export messages", "Xuất tin nhắn") },
             { Sentence.SettingsView.EXPORT_WORK_LOGS, new LocalizationUnit("Export work logs", "Xuất nhật ký công việc") },
             { Sentence.SettingsView.CHANGE_PERSONAL_INFORMATION, new LocalizationUnit("Change personal information", "Thay đổi thông tin cá nhân") },
@@ -179,6 +182,8 @@ namespace LocalizationNS
 
         public static string GetSentence(string sentence)
         {
+            if (!_localizationUnitsBySentence.ContainsKey(sentence)) return sentence;
+
             return LanguageOption == LanguageOption.English
                 ? _localizationUnitsBySentence[sentence].English
                 : _localizationUnitsBySentence[sentence].Vietnamese;
@@ -186,7 +191,7 @@ namespace LocalizationNS
 
         public static string GetMonth(int month)
         {
-            return month switch
+            var sentence = month switch
             {
                 1 => Sentence.DateAndTime.JANUARY,
                 2 => Sentence.DateAndTime.FEBRUARY,
@@ -202,28 +207,47 @@ namespace LocalizationNS
                 12 => Sentence.DateAndTime.DECEMBER,
                 _ => Sentence.MissingTranslation.MISSING_TRANSLATION
             };
+
+            return GetSentence(sentence);
         }
 
         public static string GetGender(Gender gender)
         {
-            return gender switch
+            var sentence = gender switch
             {
                 Gender.Male => Sentence.WorkersView.MALE,
                 Gender.Female => Sentence.WorkersView.FEMALE,
                 Gender.Other => Sentence.WorkersView.OTHER,
                 _ => throw new ArgumentOutOfRangeException(nameof(gender), gender, null)
             };
+
+            return GetSentence(sentence);
         }
 
         public static string GetUserRole(UserRole userRole)
         {
-            return userRole switch
+            var sentence = userRole switch
             {
                 UserRole.Supervisor => Sentence.WorkersView.SUPERVISOR,
                 UserRole.Driver => Sentence.WorkersView.DRIVER,
                 UserRole.Cleaner => Sentence.WorkersView.CLEANER,
                 _ => throw new ArgumentOutOfRangeException(nameof(userRole), userRole, null)
             };
+
+            return GetSentence(sentence);
+        }
+
+        public static string GetVehicleType(VehicleType vehicleType)
+        {
+            var sentence = vehicleType switch
+            {
+                VehicleType.SideLoader => Sentence.VehiclesView.SIDE_LOADER,
+                VehicleType.RearLoader => Sentence.VehiclesView.REAR_LOADER,
+                VehicleType.FrontLoader => Sentence.VehiclesView.FRONT_LOADER,
+                _ => throw new ArgumentOutOfRangeException(nameof(vehicleType), vehicleType, null)
+            };
+
+            return GetSentence(sentence);
         }
     };
 }

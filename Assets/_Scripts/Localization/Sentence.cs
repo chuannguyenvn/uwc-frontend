@@ -53,9 +53,8 @@
         public class StatusView
         {
             public const string STATUS = "Status.Status";
-            
         }
-        
+
         public class WorkersView
         {
             public const string WORKERS = "Workers.Workers";
@@ -142,6 +141,8 @@
             public const string SOFTWARE_UPDATE_AVAILABLE = "Settings.SoftwareUpdateAvailable";
             public const string ACCOUNT_SETTINGS = "Settings.AccountSettings";
             public const string ONLINE_STATUS = "Settings.OnlineStatus";
+            public const string ONLINE = "Settings.Online";
+            public const string OFFLINE = "Settings.Offline";
             public const string EXPORT_MESSAGES = "Settings.ExportMessages";
             public const string EXPORT_WORK_LOGS = "Settings.ExportWorkLogs";
             public const string CHANGE_PERSONAL_INFORMATION = "Settings.ChangePersonalInformation";
@@ -149,7 +150,6 @@
             public const string REPORT_PROBLEM = "Settings.ReportProblem";
             public const string LOGOUT = "Settings.Logout";
             public const string REGISTER_FACIAL_RECOGNITION = "Settings.RegisterFacialRecognition";
-            
         }
 
         public class ListControl

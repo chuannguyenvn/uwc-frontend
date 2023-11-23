@@ -1,4 +1,5 @@
 ﻿using Commons.Communications.Reports;
+using LocalizationNS;
 
 namespace UI.Views.Reports.Cards
 {
@@ -17,13 +18,13 @@ namespace UI.Views.Reports.Cards
 
         private void CreateTotalWorkers()
         {
-            _totalWorkersDataUnit = new DataUnit("Total workers", RelativeChange.Mode.None);
+            _totalWorkersDataUnit = new DataUnit(Localization.GetSentence(Sentence.ReportingView.TOTAL_WORKERS), RelativeChange.Mode.None);
             Add(_totalWorkersDataUnit);
         }
 
         private void CreateOnlineWorkers()
         {
-            _onlineWorkersDataUnit = new DataUnit("Workers online", RelativeChange.Mode.None);
+            _onlineWorkersDataUnit = new DataUnit(Localization.GetSentence(Sentence.ReportingView.WORKERS_ONLINE), RelativeChange.Mode.None);
             Add(_onlineWorkersDataUnit);
         }
 

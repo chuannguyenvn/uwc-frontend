@@ -31,7 +31,7 @@ namespace UI.Views.Vehicles
             Title.text = data.LicensePlate;
 
             _modelEntry.SetValue(data.Model);
-            _vehicleTypeEntry.SetValue(data.VehicleType.GetFriendlyString());
+            _vehicleTypeEntry.SetValue(Localization.GetVehicleType(data.VehicleType));
         }
     }
 }

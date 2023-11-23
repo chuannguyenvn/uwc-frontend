@@ -1,4 +1,5 @@
 ﻿using Commons.Communications.Reports;
+using LocalizationNS;
 
 namespace UI.Views.Reports.Cards
 {
@@ -17,13 +18,15 @@ namespace UI.Views.Reports.Cards
 
         private void CreateCurrentTemperature()
         {
-            _currentTemperatureDataUnit = new DataUnit("Current temperature", RelativeChange.Mode.None, "°C");
+            _currentTemperatureDataUnit =
+                new DataUnit(Localization.GetSentence(Sentence.ReportingView.CURRENT_TEMPERATURE), RelativeChange.Mode.None, "°C");
             Add(_currentTemperatureDataUnit);
         }
 
         private void CreateChanceOfPrecipitation()
         {
-            _chanceOfPrecipitationDataUnit = new DataUnit("Chance of precipitation", RelativeChange.Mode.None);
+            _chanceOfPrecipitationDataUnit =
+                new DataUnit(Localization.GetSentence(Sentence.ReportingView.CHANCE_OF_PRECIPITATION), RelativeChange.Mode.None);
             Add(_chanceOfPrecipitationDataUnit);
         }
 

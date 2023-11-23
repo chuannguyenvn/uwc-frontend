@@ -42,8 +42,8 @@ namespace UI.Views.Workers
         {
             Title.text = data.FirstName + " " + data.LastName;
 
-            _roleEntry.SetValue(data.UserRole.ToString());
-            _genderEntry.SetValue(data.Gender.ToString());
+            _roleEntry.SetValue(Localization.GetUserRole(data.UserRole));
+            _genderEntry.SetValue(Localization.GetGender(data.Gender));
             _dateOfBirthEntry.SetValue(data.DateOfBirth.ToString("dd/MM/yyyy"));
             _addressEntry.SetValue(data.Address);
             _createdTimestampEntry.SetValue(data.CreatedTimestamp.ToString("dd/MM/yyyy HH:mm"));

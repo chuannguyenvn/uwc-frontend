@@ -1,4 +1,5 @@
 ﻿using System;
+using LocalizationNS;
 using UI.Base;
 using UnityEngine.UIElements;
 
@@ -27,7 +28,7 @@ namespace UI.Reusables.Control
             _searchField = new TextField { name = "SearchField" };
             _searchField.AddToClassList("normal-text");
             _searchField.AddToClassList("black-text");
-            _searchField.textEdition.placeholder = "Search...";
+            _searchField.textEdition.placeholder = Localization.GetSentence(Sentence.ListControl.SEARCH) + "...";
             Add(_searchField);
 
             _searchField.RegisterCallback<ChangeEvent<string>>(e => Search());

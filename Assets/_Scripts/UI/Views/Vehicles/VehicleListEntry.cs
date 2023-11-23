@@ -1,6 +1,7 @@
 ﻿using System;
 using Commons.Categories;
 using Commons.Models;
+using LocalizationNS;
 using UI.Base;
 using UnityEngine.UIElements;
 
@@ -52,7 +53,7 @@ namespace UI.Views.Vehicles
             _classText = new TextElement { name = "ClassText" };
             _classText.AddToClassList("sub-text");
             _classText.AddToClassList("grey-text");
-            _classText.text = vehicleData.VehicleType.GetFriendlyString();
+            _classText.text = Localization.GetVehicleType(vehicleData.VehicleType);
             _textContainer.Add(_classText);
         }
     }

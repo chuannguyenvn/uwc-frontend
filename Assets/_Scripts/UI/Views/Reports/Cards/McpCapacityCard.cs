@@ -1,4 +1,5 @@
 ﻿using Commons.Communications.Reports;
+using LocalizationNS;
 
 namespace UI.Views.Reports.Cards
 {
@@ -15,7 +16,7 @@ namespace UI.Views.Reports.Cards
 
         private void CreateMcpCapacity()
         {
-            _mcpCapacityDataUnit = new DataUnit("MCP capacity", RelativeChange.Mode.None, "%");
+            _mcpCapacityDataUnit = new DataUnit(Localization.GetSentence(Sentence.ReportingView.MCP_CAPACITY), RelativeChange.Mode.None, "%");
             Add(_mcpCapacityDataUnit);
         }
 

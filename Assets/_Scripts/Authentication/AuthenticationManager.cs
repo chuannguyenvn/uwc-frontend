@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using Commons.Communications.Authentication;
 using Commons.Endpoints;
+using LocalizationNS;
 using Microsoft.AspNetCore.SignalR.Client;
 using Requests;
 using Settings;
@@ -68,7 +69,9 @@ namespace Authentication
 
             Initialized?.Invoke(response.InitializationData);
 
-            LocalizationNS.Localization.LanguageOption = response.InitializationData.Setting.Language;
+            Localization.LanguageOption = response.InitializationData.Setting.Language;
+
+            PlayerPrefs.SetString("Language", Localization.LanguageOption.ToString());
         }
 
         protected override void OnApplicationQuit()

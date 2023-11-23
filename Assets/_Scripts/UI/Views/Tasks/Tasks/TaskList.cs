@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using Commons.Communications.Tasks;
+using LocalizationNS;
 using Requests;
 using Settings;
 using UI.Base;
@@ -45,11 +46,16 @@ namespace UI.Views.Tasks.Tasks
 
             if (Configs.IS_DESKTOP)
             {
-                _listControl.CreateSortButton("MCP fill level", () => AllTaskListDataUpdatedHandler(DataStoreManager.Tasks.AllTaskList.Data));
-                _listControl.CreateSortButton("Task status", () => AllTaskListDataUpdatedHandler(DataStoreManager.Tasks.AllTaskList.Data));
-                _listControl.CreateSortButton("Created time", () => AllTaskListDataUpdatedHandler(DataStoreManager.Tasks.AllTaskList.Data));
-                _listControl.CreateSortButton("Completed by time", () => AllTaskListDataUpdatedHandler(DataStoreManager.Tasks.AllTaskList.Data));
-                _listControl.CreateSortButton("Last changed time", () => AllTaskListDataUpdatedHandler(DataStoreManager.Tasks.AllTaskList.Data));
+                _listControl.CreateSortButton(Localization.GetSentence(Sentence.TasksView.MCP_FILL_LEVEL),
+                    () => AllTaskListDataUpdatedHandler(DataStoreManager.Tasks.AllTaskList.Data));
+                _listControl.CreateSortButton(Localization.GetSentence(Sentence.TasksView.TASK_STATUS),
+                    () => AllTaskListDataUpdatedHandler(DataStoreManager.Tasks.AllTaskList.Data));
+                _listControl.CreateSortButton(Localization.GetSentence(Sentence.TasksView.CREATED_TIME),
+                    () => AllTaskListDataUpdatedHandler(DataStoreManager.Tasks.AllTaskList.Data));
+                _listControl.CreateSortButton(Localization.GetSentence(Sentence.TasksView.COMPLETE_BY),
+                    () => AllTaskListDataUpdatedHandler(DataStoreManager.Tasks.AllTaskList.Data));
+                _listControl.CreateSortButton(Localization.GetSentence(Sentence.TasksView.LAST_CHANGED_TIME),
+                    () => AllTaskListDataUpdatedHandler(DataStoreManager.Tasks.AllTaskList.Data));
             }
         }
 
