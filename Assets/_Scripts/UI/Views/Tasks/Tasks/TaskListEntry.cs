@@ -52,7 +52,6 @@ namespace UI.Views.Tasks.Tasks
 
         private void CreateCard(TaskData taskData)
         {
-            Debug.Log(taskData.McpDataId);
             var fillStatus = McpFillStatusHelper.GetStatus(DataStoreManager.Mcps.FillLevel.Data.FillLevelsById[taskData.McpDataId]);
             switch (taskData.TaskStatus)
             {

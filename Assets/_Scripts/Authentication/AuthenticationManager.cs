@@ -4,6 +4,7 @@ using Commons.Communications.Authentication;
 using Commons.Endpoints;
 using LocalizationNS;
 using Microsoft.AspNetCore.SignalR.Client;
+using Newtonsoft.Json;
 using Requests;
 using Settings;
 using UnityEngine;
@@ -63,14 +64,13 @@ namespace Authentication
 
             await HubConnection.StartAsync();
 
-            LoggedIn?.Invoke();
-
-            Debug.Log("Successfully logged in with JWT: " + JWT + " and UserAccountId: " + UserAccountId);
-
             Initialized?.Invoke(response.InitializationData);
+            Debug.Log(JsonConvert.SerializeObject(response.InitializationData, Formatting.Indented));
 
+            LoggedIn?.Invoke();
+            Debug.Log("Successfully logged in with JWT: " + JWT + " and UserAccountId: " + UserAccountId);
+            
             Localization.LanguageOption = response.InitializationData.Setting.Language;
-
             PlayerPrefs.SetString("Language", Localization.LanguageOption.ToString());
         }
 

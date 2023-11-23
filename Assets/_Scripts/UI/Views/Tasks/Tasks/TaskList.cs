@@ -24,7 +24,7 @@ namespace UI.Views.Tasks.Tasks
         {
             ConfigureUss(nameof(TaskList));
 
-            CreateControls();
+            if (Configs.IS_DESKTOP) CreateControls();
             CreateScrollView();
 
             if (Configs.IS_DESKTOP) DataStoreManager.Tasks.AllTaskList.DataUpdated += AllTaskListDataUpdatedHandler;
@@ -44,19 +44,16 @@ namespace UI.Views.Tasks.Tasks
             _listControl = new ListControl(SearchHandler);
             Add(_listControl);
 
-            if (Configs.IS_DESKTOP)
-            {
-                _listControl.CreateSortButton(Localization.GetSentence(Sentence.TasksView.MCP_FILL_LEVEL),
-                    () => AllTaskListDataUpdatedHandler(DataStoreManager.Tasks.AllTaskList.Data));
-                _listControl.CreateSortButton(Localization.GetSentence(Sentence.TasksView.TASK_STATUS),
-                    () => AllTaskListDataUpdatedHandler(DataStoreManager.Tasks.AllTaskList.Data));
-                _listControl.CreateSortButton(Localization.GetSentence(Sentence.TasksView.CREATED_TIME),
-                    () => AllTaskListDataUpdatedHandler(DataStoreManager.Tasks.AllTaskList.Data));
-                _listControl.CreateSortButton(Localization.GetSentence(Sentence.TasksView.COMPLETE_BY),
-                    () => AllTaskListDataUpdatedHandler(DataStoreManager.Tasks.AllTaskList.Data));
-                _listControl.CreateSortButton(Localization.GetSentence(Sentence.TasksView.LAST_CHANGED_TIME),
-                    () => AllTaskListDataUpdatedHandler(DataStoreManager.Tasks.AllTaskList.Data));
-            }
+            _listControl.CreateSortButton(Localization.GetSentence(Sentence.TasksView.MCP_FILL_LEVEL),
+                () => AllTaskListDataUpdatedHandler(DataStoreManager.Tasks.AllTaskList.Data));
+            _listControl.CreateSortButton(Localization.GetSentence(Sentence.TasksView.TASK_STATUS),
+                () => AllTaskListDataUpdatedHandler(DataStoreManager.Tasks.AllTaskList.Data));
+            _listControl.CreateSortButton(Localization.GetSentence(Sentence.TasksView.CREATED_TIME),
+                () => AllTaskListDataUpdatedHandler(DataStoreManager.Tasks.AllTaskList.Data));
+            _listControl.CreateSortButton(Localization.GetSentence(Sentence.TasksView.COMPLETE_BY),
+                () => AllTaskListDataUpdatedHandler(DataStoreManager.Tasks.AllTaskList.Data));
+            _listControl.CreateSortButton(Localization.GetSentence(Sentence.TasksView.LAST_CHANGED_TIME),
+                () => AllTaskListDataUpdatedHandler(DataStoreManager.Tasks.AllTaskList.Data));
         }
 
         private void CreateScrollView()
