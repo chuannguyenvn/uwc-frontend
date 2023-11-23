@@ -1,4 +1,7 @@
-﻿using UI.Base;
+﻿using Commons.Models;
+using Requests;
+using UI.Base;
+using UnityEngine.UIElements;
 
 namespace UI.Views.Messaging.Inbox
 {
@@ -8,11 +11,11 @@ namespace UI.Views.Messaging.Inbox
         private MessageList _messageList;
         private InputBar _inputBar;
 
-        public InboxContainer() : base(nameof(InboxContainer))
+        public InboxContainer(bool isBubbleChatbox) : base(nameof(InboxContainer))
         {
             ConfigureUss(nameof(InboxContainer));
 
-            AddToClassList("full-view");
+            if (!isBubbleChatbox) AddToClassList("full-view");
 
             CreateInboxHeader();
             CreateMessageList();
@@ -37,8 +40,11 @@ namespace UI.Views.Messaging.Inbox
             Add(_inputBar);
         }
 
-        public void SwitchInbox()
+        public void SwitchInbox(UserProfile userProfile)
         {
+            DataStoreManager.Messaging.InboxMessageList.OtherUserProfile = userProfile;
+            DataStoreManager.Messaging.InboxMessageList.SendRequest();
+            _inboxHeader.UpdateStatus();
         }
     }
 }

@@ -32,19 +32,30 @@ namespace UI.Views.Messaging
 
         private void CreateInbox()
         {
-            _inboxContainer = new InboxContainer();
+            _inboxContainer = new InboxContainer(false);
             Add(_inboxContainer);
         }
 
         public override void FocusView()
         {
             DataStoreManager.Messaging.ContactList.Focus();
-            _inboxContainer.Q<InboxHeader>().UpdateStatus();
         }
 
         public override void UnfocusView()
         {
             DataStoreManager.Messaging.ContactList.Unfocus();
+        }
+        
+        public void MobileShowInbox()
+        {
+            _contactList.style.display = DisplayStyle.None;
+            _inboxContainer.style.display = DisplayStyle.Flex;
+        }
+        
+        public void MobileShowContactList()
+        {
+            _contactList.style.display = DisplayStyle.Flex;
+            _inboxContainer.style.display = DisplayStyle.None;
         }
     }
 }

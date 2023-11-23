@@ -3,6 +3,7 @@ using Authentication;
 using Settings;
 using UI.Authentication;
 using UI.Navigation;
+using UI.Reusables.ChatBubbles;
 using UI.Views.Mcps;
 using UI.Views.Messaging;
 using UI.Views.Reports;
@@ -44,6 +45,9 @@ namespace UI.Base
         private ReportingView _reportingView;
         private SettingsView _settingsView;
 
+        // Chat bubbles
+        private ChatBubblesPanel _chatBubblesPanel;
+
         private VisualElement _fullscreenPopupContainer;
         private List<FullscreenPopup> _popups = new List<FullscreenPopup>();
 
@@ -55,6 +59,7 @@ namespace UI.Base
             styleSheets.AddByName(nameof(Root));
             pickingMode = PickingMode.Ignore;
 
+            if (Configs.IS_DESKTOP) CreateChatBubblesPanel();
             CreateAuthenticationScreen();
             CreateNavigationBar();
             CreateViews();
@@ -87,6 +92,12 @@ namespace UI.Base
             {
                 view.style.display = DisplayStyle.None;
             }
+        }
+
+        private void CreateChatBubblesPanel()
+        {
+            _chatBubblesPanel = new ChatBubblesPanel();
+            Add(_chatBubblesPanel);
         }
 
         private void CloseAuthenticationScreen()

@@ -1,32 +1,37 @@
 ﻿using System;
+using Authentication;
+using Commons.Models;
 using Requests;
 using Settings;
 using UI.Base;
 using UI.Views.Messaging.Inbox;
+using UnityEngine;
 using UnityEngine.UIElements;
 
 namespace UI.Views.Messaging.Contacts
 {
     public class ContactListEntry : AnimatedButton
     {
-        public string ContactName { get; }
+        public UserProfile UserProfile { get; }
+        public string FullName => UserProfile.FirstName + " " + UserProfile.LastName;
         public string PreviewMessage { get; }
-        private readonly int _otherUserId;
 
         // Avatar
-        private Image _avatar;
+        private TextElement _avatar;
 
         // Details
         private VisualElement _detailsContainer;
         private TextElement _nameText;
         private TextElement _previewText;
 
-        public ContactListEntry(int otherUserId, string contactName, string previewMessage, DateTime timestamp, bool isFromUser) : base(
+        public ContactListEntry(Message message) : base(
             nameof(ContactListEntry))
         {
-            ContactName = contactName;
-            PreviewMessage = previewMessage;
-            _otherUserId = otherUserId;
+            UserProfile = message.SenderProfileId == AuthenticationManager.Instance.UserAccountId
+                ? message.ReceiverUserProfile
+                : message.SenderUserProfile;
+
+            PreviewMessage = message.Content;
 
             ConfigureUss(nameof(ContactListEntry));
 
@@ -34,15 +39,20 @@ namespace UI.Views.Messaging.Contacts
             AddToClassList("iconless-button");
             AddToClassList("rounded-button-16px");
 
-            // CreateAvatar();
-            CreateDetails(contactName, previewMessage, timestamp, isFromUser);
+            CreateImage(UserProfile);
+            CreateDetails(UserProfile.FirstName + " " + UserProfile.LastName, message.Content, message.Timestamp,
+                message.SenderProfileId == AuthenticationManager.Instance.UserAccountId);
 
             RegisterCallbacks();
         }
 
-        private void CreateAvatar()
+        private void CreateImage(UserProfile profile)
         {
-            _avatar = new Image { name = "Avatar" };
+            _avatar = new TextElement { name = "Avatar" };
+            _avatar.AddToClassList("white-text");
+            _avatar.AddToClassList("title-text");
+            _avatar.text = profile.FirstName[0].ToString();
+            _avatar.style.backgroundColor = Color.HSVToRGB(profile.AvatarColorHue / 360f, 0.7f, 0.8f);
             Add(_avatar);
         }
 
@@ -60,7 +70,8 @@ namespace UI.Views.Messaging.Contacts
             _previewText = new TextElement { name = "PreviewText" };
             _previewText.AddToClassList("sub-text");
             _previewText.AddToClassList("grey-text");
-            _previewText.text = (isFromUser ? "You: " : "") + messageContent + " - " + timestamp.ToString("dd/mm HH:mm");
+            _previewText.text = timestamp.ToString(DateTime.Now.Date == timestamp.Date ? "HH:mm" : "HH:mm dd/MM") + " | " +
+                                (isFromUser ? "You: " : "") + messageContent;
             _detailsContainer.Add(_previewText);
         }
 
@@ -68,22 +79,10 @@ namespace UI.Views.Messaging.Contacts
         {
             if (!Configs.IS_DESKTOP)
             {
-                RegisterCallback<MouseUpEvent>(_ =>
-                {
-                    GetFirstAncestorOfType<MessagingView>().Q<InboxContainer>().style.display = DisplayStyle.Flex;
-                    GetFirstAncestorOfType<MessagingView>().Q<ContactList>().style.display = DisplayStyle.None;
-                });
+                RegisterCallback<ClickEvent>(_ => { GetFirstAncestorOfType<MessagingView>().MobileShowInbox(); });
             }
 
-            RegisterCallback<ClickEvent>(_ => ShowMessages());
-        }
-
-        public void ShowMessages()
-        {
-            DataStoreManager.Messaging.InboxMessageList.SendRequest();
-            DataStoreManager.Messaging.InboxMessageList.OtherUserAccountId = _otherUserId;
-            GetFirstAncestorOfType<MessagingView>().Q<InboxHeader>().UpdateName(_nameText.text);
-            GetFirstAncestorOfType<MessagingView>().Q<InboxHeader>().UpdateStatus();
+            RegisterCallback<ClickEvent>(_ => GetFirstAncestorOfType<MessagingView>().Q<InboxContainer>().SwitchInbox(UserProfile));
         }
     }
 }

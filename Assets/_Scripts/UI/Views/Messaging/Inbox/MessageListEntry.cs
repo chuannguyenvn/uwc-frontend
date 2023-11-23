@@ -1,4 +1,5 @@
-﻿using Authentication;
+﻿using System;
+using Authentication;
 using Commons.Models;
 using UI.Base;
 using UnityEngine.UIElements;
@@ -30,7 +31,7 @@ namespace UI.Views.Messaging.Inbox
             _contentText.text = message.Content;
             _contentContainer.Add(_contentText);
 
-            if (message.SenderAccountId == AuthenticationManager.Instance.UserAccountId)
+            if (message.SenderProfileId == AuthenticationManager.Instance.UserAccountId)
             {
                 _contentText.AddToClassList("white-text");
                 AddToClassList("sent-message");
@@ -47,7 +48,7 @@ namespace UI.Views.Messaging.Inbox
             _timestampText = new TextElement { name = "TimestampText" };
             _timestampText.AddToClassList("sub-text");
             _timestampText.AddToClassList("grey-text");
-            _timestampText.text = message.Timestamp.ToString("dd/MM HH:mm");
+            _timestampText.text = message.Timestamp.ToString(DateTime.Now.Date == message.Timestamp.Date ? "HH:mm" : "HH:mm dd/MM");
             Add(_timestampText);
         }
     }

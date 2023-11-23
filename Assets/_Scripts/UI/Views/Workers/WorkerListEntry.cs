@@ -1,7 +1,11 @@
 ﻿using System;
+using System.Drawing;
 using Commons.Models;
 using UI.Base;
+using UnityEngine;
 using UnityEngine.UIElements;
+using Utilities;
+using Color = UnityEngine.Color;
 
 namespace UI.Views.Workers
 {
@@ -9,7 +13,7 @@ namespace UI.Views.Workers
     {
         public UserProfile Profile { get; }
 
-        private Image _image;
+        private TextElement _avatar;
 
         private VisualElement _textContainer;
         private TextElement _nameText;
@@ -25,14 +29,18 @@ namespace UI.Views.Workers
             AddToClassList("iconless-button");
             AddToClassList("rounded-button-16px");
 
-            // CreateImage();
+            CreateImage(profile);
             CreateDetails(profile);
         }
 
-        private void CreateImage()
+        private void CreateImage(UserProfile profile)
         {
-            _image = new Image { name = "Avatar" };
-            Add(_image);
+            _avatar = new TextElement { name = "Avatar" };
+            _avatar.AddToClassList("white-text");
+            _avatar.AddToClassList("title-text");
+            _avatar.text = profile.FirstName[0].ToString();
+            _avatar.style.backgroundColor = Color.HSVToRGB(profile.AvatarColorHue / 360f, 0.7f, 0.8f);
+            Add(_avatar);
         }
 
         private void CreateDetails(UserProfile profile)

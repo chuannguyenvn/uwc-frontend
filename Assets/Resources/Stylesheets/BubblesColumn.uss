@@ -1,0 +1,4 @@
+.bubbles-column {
+    flex-direction: column-reverse;
+    margin-left: 16px;
+}

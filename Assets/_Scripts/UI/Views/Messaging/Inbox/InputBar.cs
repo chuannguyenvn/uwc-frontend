@@ -1,5 +1,7 @@
 ﻿using Requests;
+using Settings;
 using UI.Base;
+using UI.Reusables.ChatBubbles;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -50,6 +52,8 @@ namespace UI.Views.Messaging.Inbox
         {
             DataStoreManager.Messaging.InboxMessageList.SendMessage(_textField.value);
             _textField.value = "";
+            if (Configs.IS_DESKTOP)
+                GetFirstAncestorOfType<Root>().Q<ChatBubblesPanel>().FocusInbox(DataStoreManager.Messaging.InboxMessageList.OtherUserProfile);
         }
     }
 }

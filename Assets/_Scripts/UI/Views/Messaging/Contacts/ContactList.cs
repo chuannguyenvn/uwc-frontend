@@ -6,6 +6,7 @@ using Settings;
 using UI.Base;
 using UI.Reusables;
 using UI.Reusables.Control;
+using UI.Views.Messaging.Inbox;
 using UnityEngine.UIElements;
 using Utilities;
 
@@ -16,7 +17,7 @@ namespace UI.Views.Messaging.Contacts
         private ListControl _listControl;
         private ScrollViewWithShadow _scrollView;
 
-        private List<ContactListEntry> _workerListEntries = new();
+        private List<ContactListEntry> _contactListEntries = new();
 
         public ContactList() : base(nameof(ContactList))
         {
@@ -50,36 +51,27 @@ namespace UI.Views.Messaging.Contacts
         private void DataUpdatedHandler(GetPreviewMessagesResponse data)
         {
             _scrollView.Clear();
-            _workerListEntries.Clear();
-            ContactListEntry firstEntry = null;
-            for (int i = 0; i < data.FullNames.Count; i++)
-            {
-                var entry = new ContactListEntry(
-                    data.Messages[i].SenderAccountId == AuthenticationManager.Instance.UserAccountId
-                        ? data.Messages[i].ReceiverAccountId
-                        : data.Messages[i].SenderAccountId,
-                    data.FullNames[i],
-                    data.Messages[i].Content,
-                    data.Messages[i].Timestamp,
-                    data.Messages[i].SenderAccountId == AuthenticationManager.Instance.UserAccountId);
+            _contactListEntries.Clear();
 
-                _workerListEntries.Add(entry);
+            foreach (var previewMessage in data.Messages)
+            {
+                var entry = new ContactListEntry(previewMessage);
+                _contactListEntries.Add(entry);
                 _scrollView.AddToScrollView(entry);
-                if (i == 0) firstEntry = entry;
             }
 
-            if (firstEntry != null)
+            if (data.FullNames.Count > 0)
             {
-                firstEntry.ShowMessages();
+                GetFirstAncestorOfType<MessagingView>().Q<InboxContainer>().SwitchInbox(_contactListEntries[0].UserProfile);
             }
         }
 
         private void SearchHandler(string text)
         {
             text = Utility.CreateSearchString(text);
-            foreach (var entry in _workerListEntries)
+            foreach (var entry in _contactListEntries)
             {
-                if (Utility.CreateSearchString(entry.ContactName, entry.PreviewMessage).Contains(text) ||
+                if (Utility.CreateSearchString(entry.FullName, entry.PreviewMessage).Contains(text) ||
                     text == "")
                 {
                     entry.style.display = DisplayStyle.Flex;

@@ -1,0 +1,11 @@
+.inbox-container {
+    padding-bottom: 4px;
+}
+
+.chat-bubbles-panel .inbox-container {
+    height: 500px;
+    width: 350px;
+    flex-grow: 0;
+    background-color: white;
+    border-radius: 12px;
+}
