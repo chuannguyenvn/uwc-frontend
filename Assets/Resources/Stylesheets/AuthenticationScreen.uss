@@ -7,7 +7,8 @@
 .mobile #AuthenticationScreen {
     background-color: rgb(255, 255, 255);
     background-image: url('project://database/Assets/Graphics/splash.png?fileID=-8030570891474961867&guid=52ac505627ade6e4d8e6b256de57fea5&type=3#splash_0');
-    -unity-background-image-tint-color: rgb(214, 214, 214);
+    -unity-background-image-tint-color: rgb(170, 170, 170);
+    justify-content: center;
 }
 
 #LoginElementsContainer {
@@ -16,20 +17,23 @@
     padding-left: 200px;
     align-items: stretch;
     justify-content: center;
+}
+
+.desktop #LoginElementsContainer {
     background-color: white;
     height: 100%;
 }
 
 .mobile #LoginElementsContainer {
     flex-grow: 1;
-    background-image: url('project://database/Assets/Graphics/Shapes/square-shadow-rounded-64px.png?fileID=7006034526747111667&guid=fa0b71c51ec43c841a1067a5fe911bf2&type=3#square-shadow-rounded-64px_0');
+    background-image: url('project://database/Assets/Graphics/Shapes/square-shadow-rounded-64px.png');
     -unity-slice-left: 64;
     -unity-slice-top: 64;
     -unity-slice-right: 64;
     -unity-slice-bottom: 64;
-    padding: 32px;
-    margin-right: 128px;
-    margin-left: 128px;
+    padding: 96px;
+    margin-left: 48px;
+    margin-right: 48px;
 }
 
 #unity-text-input {
@@ -40,15 +44,15 @@
 }
 
 .desktop #unity-text-input {
-    min-height: 64px;
+    height: 64px;
     border-radius: 32px;
 }
 
 .mobile #unity-text-input {
-    min-height: 128px;
+    height: 128px;
+    width: 512px;
     border-radius: 64px;
 }
-
 
 .unity-button {
     border-left-color: rgba(0, 0, 0, 0);
