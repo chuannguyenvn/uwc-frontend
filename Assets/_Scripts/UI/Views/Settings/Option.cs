@@ -1,4 +1,5 @@
 ﻿using System;
+using LocalizationNS;
 using UI.Base;
 using UnityEngine.UIElements;
 
@@ -21,7 +22,7 @@ namespace UI.Views.Settings
         {
             _optionNameText = new TextElement() { name = "OptionNameText" };
             _optionNameText.AddToClassList("normal-text");
-            _optionNameText.text = name;
+            _optionNameText.text = Localization.GetSentence(name);
             Add(_optionNameText);
         }
 

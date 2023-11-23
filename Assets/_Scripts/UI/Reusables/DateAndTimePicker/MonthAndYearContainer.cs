@@ -1,4 +1,5 @@
-﻿using UI.Base;
+﻿using LocalizationNS;
+using UI.Base;
 using UnityEngine.UIElements;
 
 namespace UI.Reusables.DateAndTimePicker
@@ -28,7 +29,7 @@ namespace UI.Reusables.DateAndTimePicker
 
         public void Refresh()
         {
-            _monthAndYearText.text = _dateTimePicker.SelectedDateTime.ToString("MMMM");
+            _monthAndYearText.text = Localization.GetMonth(_dateTimePicker.SelectedDateTime.Month);
         }
     }
 }

@@ -1,5 +1,6 @@
 ﻿using Commons.Categories;
 using Commons.Models;
+using LocalizationNS;
 using UI.Base;
 
 namespace UI.Views.Vehicles
@@ -18,10 +19,10 @@ namespace UI.Views.Vehicles
 
         private void CreateDetails()
         {
-            _modelEntry = new PopupInformationEntry("Model");
+            _modelEntry = new PopupInformationEntry(Localization.GetSentence(Sentence.VehiclesView.MODEL));
             AddContent(_modelEntry);
 
-            _vehicleTypeEntry = new PopupInformationEntry("Vehicle type");
+            _vehicleTypeEntry = new PopupInformationEntry(Localization.GetSentence(Sentence.VehiclesView.VEHICLE_TYPE));
             AddContent(_vehicleTypeEntry);
         }
 
@@ -30,7 +31,7 @@ namespace UI.Views.Vehicles
             Title.text = data.LicensePlate;
 
             _modelEntry.SetValue(data.Model);
-            _vehicleTypeEntry.SetValue(data.VehicleType.GetFriendlyString());
+            _vehicleTypeEntry.SetValue(Localization.GetVehicleType(data.VehicleType));
         }
     }
 }

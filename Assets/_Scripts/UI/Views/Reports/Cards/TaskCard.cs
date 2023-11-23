@@ -1,4 +1,5 @@
 ﻿using Commons.Communications.Reports;
+using LocalizationNS;
 
 namespace UI.Views.Reports.Cards
 {
@@ -17,13 +18,13 @@ namespace UI.Views.Reports.Cards
 
         private void CreateTasksLeft()
         {
-            _tasksLeftDataUnit = new DataUnit("Tasks left", RelativeChange.Mode.None);
+            _tasksLeftDataUnit = new DataUnit(Localization.GetSentence(Sentence.ReportingView.TASKS_LEFT), RelativeChange.Mode.None);
             Add(_tasksLeftDataUnit);
         }
 
         private void CreateTasksCreated()
         {
-            _tasksCreatedDataUnit = new DataUnit("Tasks created", RelativeChange.Mode.HigherIsBetter);
+            _tasksCreatedDataUnit = new DataUnit(Localization.GetSentence(Sentence.ReportingView.TASKS_CREATED), RelativeChange.Mode.HigherIsBetter);
             Add(_tasksCreatedDataUnit);
         }
 

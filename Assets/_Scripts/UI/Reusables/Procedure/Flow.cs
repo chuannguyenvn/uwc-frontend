@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using LocalizationNS;
 using UI.Base;
 using UnityEngine.UIElements;
 
@@ -39,7 +40,7 @@ namespace UI.Reusables.Procedure
             _confirmButton.AddToClassList("confirm-button");
             _confirmButton.AddToClassList("normal-text");
             _confirmButton.AddToClassList("black-text");
-            _confirmButton.text = "Confirm";
+            _confirmButton.text = Localization.GetSentence(Sentence.Procedure.CONFIRM);
             Add(_confirmButton);
         }
 

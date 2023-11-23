@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Commons.Models;
+using LocalizationNS;
 using Requests;
 using UI.Base;
 using UI.Reusables;
@@ -23,7 +24,7 @@ namespace UI.Views.Mcps
         {
             ConfigureUss(nameof(McpInformationPopup));
 
-            Title.text = "Major collection point";
+            Title.text = Localization.GetSentence(Sentence.McpsView.MAJOR_COLLECTION_POINT);
 
             CreateDetails();
             CreateGraph();
@@ -31,19 +32,19 @@ namespace UI.Views.Mcps
 
         private void CreateDetails()
         {
-            _addressEntry = new PopupInformationEntry("Address");
+            _addressEntry = new PopupInformationEntry(Localization.GetSentence(Sentence.McpsView.ADDRESS));
             AddContent(_addressEntry);
 
-            _latitudeEntry = new PopupInformationEntry("Latitude");
+            _latitudeEntry = new PopupInformationEntry(Localization.GetSentence(Sentence.McpsView.LATITUDE));
             AddContent(_latitudeEntry);
 
-            _longitudeEntry = new PopupInformationEntry("Longitude");
+            _longitudeEntry = new PopupInformationEntry(Localization.GetSentence(Sentence.McpsView.LONGITUDE));
             AddContent(_longitudeEntry);
 
-            _fillLevelEntry = new PopupInformationEntry("Fill level");
+            _fillLevelEntry = new PopupInformationEntry(Localization.GetSentence(Sentence.McpsView.FILL_LEVEL));
             AddContent(_fillLevelEntry);
 
-            _lastEmptiedEntry = new PopupInformationEntry("Last emptied");
+            _lastEmptiedEntry = new PopupInformationEntry(Localization.GetSentence(Sentence.McpsView.LAST_EMPTIED));
             AddContent(_lastEmptiedEntry);
         }
 
@@ -52,7 +53,7 @@ namespace UI.Views.Mcps
             _fillLevelGraph = new Graph(false, true, false);
             AddContent(_fillLevelGraph);
 
-            _fillLevelGraph.ConfigureAreaGraph("Mcp fill level", Color.red, true);
+            _fillLevelGraph.ConfigureAreaGraph(Localization.GetSentence(Sentence.McpsView.FILL_LEVEL_BY_HOUR), Color.red, true);
         }
 
         public override void SetContent(McpData data)
@@ -60,10 +61,10 @@ namespace UI.Views.Mcps
             _addressEntry.SetValue(data.Address);
             _latitudeEntry.SetValue(data.Latitude.ToString());
             _longitudeEntry.SetValue(data.Longitude.ToString());
-            _fillLevelEntry.SetValue(DataStoreManager.Mcps.FillLevel.Data.FillLevelsById[data.Id].ToString() + " %");
+            _fillLevelEntry.SetValue(DataStoreManager.Mcps.FillLevel.Data.FillLevelsById[data.Id] + " %");
             _lastEmptiedEntry.SetValue(data.McpEmptyRecords.Count > 0
                 ? data.McpEmptyRecords.Last().Timestamp.ToString("hh:mm tt dd/MM")
-                : "Never");
+                : Localization.GetSentence(Sentence.McpsView.NEVER));
 
             var timestamps = new List<DateTime>();
             var values = new List<float>();

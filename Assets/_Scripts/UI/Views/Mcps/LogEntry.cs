@@ -1,4 +1,5 @@
 ﻿using System;
+using LocalizationNS;
 using UI.Base;
 using UnityEngine.UIElements;
 
@@ -33,7 +34,7 @@ namespace UI.Views.Mcps
             var timestampText = timestamp.ToString("hh:mmtt dd/MM");
             if (timestamp.Date == DateTime.Today.Date)
             {
-                timestampText = timestamp.ToString("hh:mmtt") + " today";
+                timestampText = timestamp.ToString("hh:mmtt") + " " + Localization.GetSentence(Sentence.McpsView.TODAY).ToLower();
             }
 
             if (workerId != -1)

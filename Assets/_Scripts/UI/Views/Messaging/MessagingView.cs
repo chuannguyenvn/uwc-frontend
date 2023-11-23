@@ -26,14 +26,14 @@ namespace UI.Views.Messaging
         {
             _contactList = new ContactList();
             Add(_contactList);
-
-            if (!Configs.IS_DESKTOP) _inboxContainer.style.display = DisplayStyle.None;
         }
 
         private void CreateInbox()
         {
             _inboxContainer = new InboxContainer(false);
             Add(_inboxContainer);
+
+            if (!Configs.IS_DESKTOP) _inboxContainer.style.display = DisplayStyle.None;
         }
 
         public override void FocusView()
@@ -45,13 +45,13 @@ namespace UI.Views.Messaging
         {
             DataStoreManager.Messaging.ContactList.Unfocus();
         }
-        
+
         public void MobileShowInbox()
         {
             _contactList.style.display = DisplayStyle.None;
             _inboxContainer.style.display = DisplayStyle.Flex;
         }
-        
+
         public void MobileShowContactList()
         {
             _contactList.style.display = DisplayStyle.Flex;

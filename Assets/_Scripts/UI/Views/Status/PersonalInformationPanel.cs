@@ -1,4 +1,6 @@
-﻿using UI.Base;
+﻿using Commons.Categories;
+using LocalizationNS;
+using UI.Base;
 using UnityEngine.UIElements;
 
 namespace UI.Views.Status
@@ -23,7 +25,7 @@ namespace UI.Views.Status
             _roleText = new TextElement { name = "RoleText" };
             _roleText.AddToClassList("sub-text");
             _roleText.AddToClassList("grey-text");
-            _roleText.text = "Driver";
+            _roleText.text = Localization.GetUserRole(UserRole.Driver);
             Add(_roleText);
         }
 

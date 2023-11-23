@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using Commons.Communications.Reports;
+using LocalizationNS;
 using UnityEngine;
 using UnityEngine.UIElements;
 using Utilities;
@@ -121,7 +122,8 @@ namespace UI.Views.Reports.Cards
             mcpFillLevelLegendIcon.style.backgroundColor = TotalMcpFillLevelColor;
             legendContainer.Add(mcpFillLevelLegendIcon);
 
-            var mcpFillLevelTitle = new TextElement { text = "Hourly aggregated MCPs fill level", name = "McpFillLevelTitle" };
+            var mcpFillLevelTitle = new TextElement
+                { text = Localization.GetSentence(Sentence.ReportingView.HOURLY_AGGREGATED_MCPS_FILL_LEVEL), name = "McpFillLevelTitle" };
             mcpFillLevelTitle.AddToClassList("sub-text");
             mcpFillLevelTitle.AddToClassList("grey-text");
             legendContainer.Add(mcpFillLevelTitle);
@@ -131,7 +133,8 @@ namespace UI.Views.Reports.Cards
             mcpEmptiedLegendIcon.style.backgroundColor = McpEmptiedColor;
             legendContainer.Add(mcpEmptiedLegendIcon);
 
-            var mcpEmptiedTitle = new TextElement { text = "Hourly MCPs Emptied", name = "McpEmptiedTitle" };
+            var mcpEmptiedTitle = new TextElement
+                { text = Localization.GetSentence(Sentence.ReportingView.HOURLY_MCPS_EMPTIED), name = "McpEmptiedTitle" };
             mcpEmptiedTitle.AddToClassList("sub-text");
             mcpEmptiedTitle.AddToClassList("grey-text");
             legendContainer.Add(mcpEmptiedTitle);

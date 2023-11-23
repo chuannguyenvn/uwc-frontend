@@ -1,5 +1,7 @@
 ﻿using System.Collections.Generic;
 using Authentication;
+using Commons.Types.SettingOptions;
+using LocalizationNS;
 using Settings;
 using UI.Authentication;
 using UI.Navigation;
@@ -12,6 +14,7 @@ using UI.Views.Status;
 using UI.Views.Tasks;
 using UI.Views.Vehicles;
 using UI.Views.Workers;
+using UnityEngine;
 using UnityEngine.UIElements;
 using Utilities;
 
@@ -55,6 +58,8 @@ namespace UI.Base
         {
             Instance = this;
 
+            RestoreLanguageOption();
+
             styleSheets.AddByName("Common");
             styleSheets.AddByName(nameof(Root));
             pickingMode = PickingMode.Ignore;
@@ -75,6 +80,18 @@ namespace UI.Base
         ~Root()
         {
             UnsubscribeToAuthenticationScreenEvents();
+        }
+
+        private static void RestoreLanguageOption()
+        {
+            if (PlayerPrefs.GetString("Language", LanguageOption.English.ToString()) == LanguageOption.English.ToString())
+            {
+                Localization.LanguageOption = LanguageOption.English;
+            }
+            else
+            {
+                Localization.LanguageOption = LanguageOption.Vietnamese;
+            }
         }
 
         private void CreateAuthenticationScreen()

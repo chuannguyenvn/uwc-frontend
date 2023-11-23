@@ -10,23 +10,23 @@
 }
 
 .super-title-text {
-    -unity-font-definition: url('project://database/Assets/Graphics/Fonts/Segoe%20UI%20Bold.ttf?fileID=12800000&guid=3a56917333bec3c49bde9f46c791793c&type=3#Segoe UI Bold');
+    -unity-font-definition: url('project://database/Assets/Graphics/Fonts/OpenSans/OpenSans-Bold.ttf?fileID=12800000&guid=68e7b07bba1bee2448945f56641bd1fd&type=3#OpenSans-Bold');
 }
 
 .title-text {
-    -unity-font-definition: url('project://database/Assets/Graphics/Fonts/Segoe%20UI%20Semibold.ttf?fileID=12800000&guid=723807d3d8e26e3449d4983f4b454432&type=3#Segoe UI Semibold');
+    -unity-font-definition: url('project://database/Assets/Graphics/Fonts/OpenSans/OpenSans-Bold.ttf?fileID=12800000&guid=68e7b07bba1bee2448945f56641bd1fd&type=3#OpenSans-Bold');
 }
 
 .normal-text {
-    -unity-font-definition: url('project://database/Assets/Graphics/Fonts/Segoe%20UI.ttf?fileID=12800000&guid=3a56917333bec3c49bde9f46c791793c&type=3#Segoe UI');
+    -unity-font-definition: url('project://database/Assets/Graphics/Fonts/OpenSans/OpenSans-Regular.ttf?fileID=12800000&guid=7f5870a7068fc70459003ec9aee968c8&type=3#OpenSans-Regular');
 }
 
 .sub-text {
-    -unity-font-definition: url('project://database/Assets/Graphics/Fonts/Segoe%20UI.ttf?fileID=12800000&guid=3a56917333bec3c49bde9f46c791793c&type=3#Segoe UI');
+    -unity-font-definition: url('project://database/Assets/Graphics/Fonts/OpenSans/OpenSans-Light.ttf?fileID=12800000&guid=200405e1ec83b2f4f8665582ba6ca522&type=3#OpenSans-Light');
 }
 
 .sub-sub-text {
-    -unity-font-definition: url('project://database/Assets/Graphics/Fonts/Segoe%20UI%20Italic.ttf?fileID=12800000&guid=3a56917333bec3c49bde9f46c791793c&type=3#Segoe UI Italic');
+    -unity-font-definition: url('project://database/Assets/Graphics/Fonts/OpenSans/OpenSans-Light.ttf?fileID=12800000&guid=200405e1ec83b2f4f8665582ba6ca522&type=3#OpenSans-Light');
 }
 
 .desktop .super-title-text {

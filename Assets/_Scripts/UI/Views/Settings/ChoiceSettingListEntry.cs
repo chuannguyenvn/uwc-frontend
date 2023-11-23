@@ -68,7 +68,6 @@ namespace UI.Views.Settings
         private void ModifySettingNameText()
         {
             SettingNameText.AddToClassList("black-text");
-            SettingNameText.text += ":";
         }
 
         private void OptionSelectedHandler(string optionName)

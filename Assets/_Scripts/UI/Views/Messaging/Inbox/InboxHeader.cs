@@ -1,4 +1,5 @@
-﻿using Requests;
+﻿using LocalizationNS;
+using Requests;
 using Settings;
 using SharedLibrary.Communications.OnlineStatus;
 using UI.Base;
@@ -67,7 +68,7 @@ namespace UI.Views.Messaging.Inbox
             _statusText = new TextElement { name = "StatusText" };
             _statusText.AddToClassList("sub-text");
             _statusText.AddToClassList("black-text");
-            _statusText.text = "Offline";
+            _statusText.text = Localization.GetSentence(Sentence.MessagingView.OFFLINE);
             _detailsContainer.Add(_statusText);
         }
 
@@ -84,7 +85,7 @@ namespace UI.Views.Messaging.Inbox
             var onlineAccountIds = DataStoreManager.OnlineStatus.Status.Data.OnlineAccountIds;
             _nameText.text = DataStoreManager.Messaging.InboxMessageList.OtherUserProfile.FirstName + " " +
                              DataStoreManager.Messaging.InboxMessageList.OtherUserProfile.LastName;
-            _statusText.text = onlineAccountIds.Contains(otherUserAccountId) ? "Online" : "Offline";
+            _statusText.text = Localization.GetSentence(onlineAccountIds.Contains(otherUserAccountId) ? Sentence.MessagingView.ONLINE : Sentence.MessagingView.OFFLINE);
             _avatar.text = DataStoreManager.Messaging.InboxMessageList.OtherUserProfile.FirstName[0].ToString();
             _avatar.style.backgroundColor =
                 Color.HSVToRGB(DataStoreManager.Messaging.InboxMessageList.OtherUserProfile.AvatarColorHue / 360f, 0.7f, 0.8f);

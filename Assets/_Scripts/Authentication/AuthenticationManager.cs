@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using Commons.Communications.Authentication;
 using Commons.Endpoints;
+using LocalizationNS;
 using Microsoft.AspNetCore.SignalR.Client;
 using Requests;
 using Settings;
@@ -45,6 +46,11 @@ namespace Authentication
                 false));
         }
 
+        public void Logout()
+        {
+            HubConnection?.DisposeAsync();
+        }
+
         private async void SuccessfulLoginHandler(LoginResponse response)
         {
             JWT = response.Credentials.JwtToken;
@@ -62,6 +68,10 @@ namespace Authentication
             Debug.Log("Successfully logged in with JWT: " + JWT + " and UserAccountId: " + UserAccountId);
 
             Initialized?.Invoke(response.InitializationData);
+
+            Localization.LanguageOption = response.InitializationData.Setting.Language;
+
+            PlayerPrefs.SetString("Language", Localization.LanguageOption.ToString());
         }
 
         protected override void OnApplicationQuit()

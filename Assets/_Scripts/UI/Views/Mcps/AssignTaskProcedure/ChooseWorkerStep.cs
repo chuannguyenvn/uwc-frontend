@@ -1,4 +1,5 @@
 ﻿using Commons.Models;
+using LocalizationNS;
 using UI.Reusables.Procedure;
 using UI.Views.Workers;
 using UnityEngine.UIElements;
@@ -10,8 +11,9 @@ namespace UI.Views.Mcps.AssignTaskProcedure
     {
         private ScrollView _scrollView;
 
-        public ChooseWorkerStep(Flow flow, int stepIndex) : base(flow, stepIndex, true, "Choose the workers to assign.",
-            "Leave this step empty if you want to use smart assignment.")
+        public ChooseWorkerStep(Flow flow, int stepIndex) : base(flow, stepIndex, true,
+            Localization.GetSentence(Sentence.TasksView.CHOOSE_THE_WORKERS_TO_ASSIGN),
+            Localization.GetSentence(Sentence.TasksView.LEAVE_THIS_STEP_EMPTY_IF_YOU_WANT_TO_ASSIGN_THE_TASK_TO_ALL_WORKERS))
         {
             CreateWorkerList();
         }

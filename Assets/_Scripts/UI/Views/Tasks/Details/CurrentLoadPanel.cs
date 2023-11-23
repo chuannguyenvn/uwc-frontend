@@ -1,4 +1,5 @@
-﻿using UI.Base;
+﻿using LocalizationNS;
+using UI.Base;
 using UnityEngine.UIElements;
 
 namespace UI.Views.Tasks.Details
@@ -29,7 +30,7 @@ namespace UI.Views.Tasks.Details
             _numericalLoadTitle = new TextElement { name = "NumericalLoadTitle" };
             _numericalLoadTitle.AddToClassList("sub-text");
             _numericalLoadTitle.AddToClassList("grey-text");
-            _numericalLoadTitle.text = "Numerical Load";
+            _numericalLoadTitle.text = Localization.GetSentence(Sentence.TasksView.CURRENT_LOAD);
             _numericalLoadContainer.Add(_numericalLoadTitle);
 
             _numericalLoadText = new TextElement { name = "NumericalLoadText" };

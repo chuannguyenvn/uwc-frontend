@@ -1,3 +1,8 @@
-﻿#MessagingView {
+﻿.messaging-view {
     flex-direction: row;
+}
+
+.mobile .messaging-view .unity-scroller {
+    visibility: hidden;
+    width: 0;
 }

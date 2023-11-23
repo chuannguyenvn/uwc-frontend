@@ -1,4 +1,5 @@
-﻿using UI.Base;
+﻿using LocalizationNS;
+using UI.Base;
 using UnityEngine.UIElements;
 
 namespace UI.Views.Tasks.Details
@@ -22,7 +23,7 @@ namespace UI.Views.Tasks.Details
             _titleText = new TextElement { name = "TitleText" };
             _titleText.AddToClassList("grey-text");
             _titleText.AddToClassList("sub-text");
-            _titleText.text = "Emptying logs";
+            _titleText.text = Localization.GetSentence(Sentence.TasksView.EMPTYING_LOGS);
             Add(_titleText);
         }
 

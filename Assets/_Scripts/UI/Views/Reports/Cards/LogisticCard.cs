@@ -1,4 +1,5 @@
 ﻿using Commons.Communications.Reports;
+using LocalizationNS;
 
 namespace UI.Views.Reports.Cards
 {
@@ -17,13 +18,13 @@ namespace UI.Views.Reports.Cards
 
         private void CreateDistanceTraveled()
         {
-            _distanceTraveledDataUnit = new DataUnit("Distance traveled", RelativeChange.Mode.LowerIsBetter, "kms");
+            _distanceTraveledDataUnit = new DataUnit(Localization.GetSentence(Sentence.ReportingView.DISTANCE_TRAVELED), RelativeChange.Mode.LowerIsBetter, "kms");
             Add(_distanceTraveledDataUnit);
         }
 
         private void CreateFuelConsumption()
         {
-            _fuelConsumptionDataUnit = new DataUnit("Fuel used", RelativeChange.Mode.LowerIsBetter, "l");
+            _fuelConsumptionDataUnit = new DataUnit(Localization.GetSentence(Sentence.ReportingView.FUEL_CONSUMED), RelativeChange.Mode.LowerIsBetter, "l");
             Add(_fuelConsumptionDataUnit);
         }
 

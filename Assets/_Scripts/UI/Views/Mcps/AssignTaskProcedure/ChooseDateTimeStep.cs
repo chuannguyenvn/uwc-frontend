@@ -1,4 +1,5 @@
-﻿using UI.Reusables.DateAndTimePicker;
+﻿using LocalizationNS;
+using UI.Reusables.DateAndTimePicker;
 using UI.Reusables.Procedure;
 
 namespace UI.Views.Mcps.AssignTaskProcedure
@@ -7,7 +8,7 @@ namespace UI.Views.Mcps.AssignTaskProcedure
     {
         private DateTimePicker _dateTimePicker;
 
-        public ChooseDateTimeStep(Flow flow, int stepIndex) : base(flow, stepIndex, false, "Choose the date and time to collect the selected MCPs.")
+        public ChooseDateTimeStep(Flow flow, int stepIndex) : base(flow, stepIndex, false, Localization.GetSentence(Sentence.TasksView.CHOOSE_THE_DATE_AND_TIME_TO_COLLECT_THE_SELECTED_MCPS))
         {
             CreateDateTimePicker();
         }
