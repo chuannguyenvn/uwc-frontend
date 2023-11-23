@@ -26,7 +26,7 @@ namespace UI.Views.Settings
             CreateSettings();
             CreateNotificationSettings();
             CreateAccountSettings();
-            
+
             _settingList.style.display = DisplayStyle.None;
         }
 
@@ -62,8 +62,12 @@ namespace UI.Views.Settings
 
             _settingList.Add(new ChoiceSettingListEntry("Language", () => Setting.Language.ToString(), new Dictionary<string, Action>
             {
-                { "English", () => Setting.Language = LanguageOption.English },
-                { "Vietnamese", () => Setting.Language = LanguageOption.Vietnamese },
+                {
+                    "English", () => { Setting.Language = Localization.Localization.LanguageOption = LanguageOption.English; }
+                },
+                {
+                    "Vietnamese", () => { Setting.Language = Localization.Localization.LanguageOption = LanguageOption.Vietnamese; }
+                },
             }));
         }
 

@@ -1,11 +1,24 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Commons.Types.SettingOptions;
 
 namespace Localization
 {
     public static class Localization
     {
-        public static LanguageOption LanguageOption { get; set; }
+        public static Action LanguageChanged;
+
+        private static LanguageOption _languageOption = LanguageOption.English;
+
+        public static LanguageOption LanguageOption
+        {
+            get => _languageOption;
+            set
+            {
+                _languageOption = value;
+                LanguageChanged?.Invoke();
+            }
+        }
 
         public static string GetSentence(string sentence)
         {

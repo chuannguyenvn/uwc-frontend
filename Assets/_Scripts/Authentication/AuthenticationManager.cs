@@ -45,6 +45,11 @@ namespace Authentication
                 false));
         }
 
+        public void Logout()
+        {
+            HubConnection?.DisposeAsync();
+        }
+
         private async void SuccessfulLoginHandler(LoginResponse response)
         {
             JWT = response.Credentials.JwtToken;
@@ -62,6 +67,8 @@ namespace Authentication
             Debug.Log("Successfully logged in with JWT: " + JWT + " and UserAccountId: " + UserAccountId);
 
             Initialized?.Invoke(response.InitializationData);
+
+            Localization.Localization.LanguageOption = response.InitializationData.Setting.Language;
         }
 
         protected override void OnApplicationQuit()
