@@ -3,7 +3,6 @@ using Requests;
 using Settings;
 using SharedLibrary.Communications.OnlineStatus;
 using UI.Base;
-using UI.Views.Messaging.Contacts;
 using UnityEngine;
 using UnityEngine.UIElements;
 

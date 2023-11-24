@@ -1,13 +1,9 @@
 ﻿using Commons.Models;
 using Commons.Types;
 using LocalizationNS;
-using Newtonsoft.Json;
 using Requests;
-using Settings;
 using UI.Base;
-using UnityEngine;
 using UnityEngine.UIElements;
-using Utilities;
 
 namespace UI.Views.Tasks.Tasks
 {

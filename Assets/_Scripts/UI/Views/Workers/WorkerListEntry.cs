@@ -1,10 +1,6 @@
-﻿using System;
-using System.Drawing;
-using Commons.Models;
+﻿using Commons.Models;
 using UI.Base;
-using UnityEngine;
 using UnityEngine.UIElements;
-using Utilities;
 using Color = UnityEngine.Color;
 
 namespace UI.Views.Workers

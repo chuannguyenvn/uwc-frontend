@@ -1,10 +1,7 @@
 ﻿using Commons.Models;
 using Commons.Types;
 using LocalizationNS;
-using Newtonsoft.Json;
 using UI.Base;
-using UnityEngine;
-using UnityEngine.UIElements;
 
 namespace UI.Views.Tasks
 {

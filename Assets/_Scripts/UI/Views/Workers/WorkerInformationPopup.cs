@@ -1,7 +1,6 @@
 ﻿using Commons.Models;
 using LocalizationNS;
 using UI.Base;
-using UnityEngine.UIElements;
 
 namespace UI.Views.Workers
 {
