@@ -180,7 +180,7 @@ public class OnlineMapsMarker : OnlineMapsMarkerBase
     }
 
     /// <summary>
-    /// Area of ​​the screen, which is a marker at the current map display.
+    /// Area of the screen, which is a marker at the current map display.
     /// Note: When used as a source display Texture or Tileset, is not returned the correct value.
     /// </summary>
     /// <value>
