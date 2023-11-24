@@ -2,7 +2,3 @@
     flex-direction: column-reverse;
     height: 100%;
 }
-
-.message-list #ScrollViewWithShadow {
-    flex-grow: 1;
-}

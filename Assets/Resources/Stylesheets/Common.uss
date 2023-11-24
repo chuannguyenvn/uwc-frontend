@@ -160,3 +160,9 @@
 RepeatButton {
     display: none;
 }
+
+.mobile .unity-scroller {
+    visibility: hidden;
+    width: 0;
+}
+
