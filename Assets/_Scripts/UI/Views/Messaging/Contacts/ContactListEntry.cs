@@ -37,7 +37,7 @@ namespace UI.Views.Messaging.Contacts
 
             AddToClassList("white-button");
             AddToClassList("iconless-button");
-            AddToClassList("rounded-button-16px");
+            AddToClassList(Configs.IS_DESKTOP ? "rounded-button-16px" : "rounded-button-32px");
 
             CreateImage(UserProfile);
             CreateDetails(UserProfile.FirstName + " " + UserProfile.LastName, message.Content, message.Timestamp,
