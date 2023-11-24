@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using Authentication;
 using Commons.Communications.Messages;
 using Commons.Endpoints;
@@ -8,7 +9,7 @@ namespace Requests.DataStores.Implementations.Messaging
 {
     public class ContactListStore : ServerSendOnFocusedDataStore<GetPreviewMessagesResponse>
     {
-        protected override IEnumerator CreateRequest()
+        protected override IEnumerator CreateRequest(Action callback)
         {
             yield return RequestHelper.SendPostRequest<GetPreviewMessagesResponse>(
                 Endpoints.Messaging.GetPreviewMessages,
@@ -21,6 +22,7 @@ namespace Requests.DataStores.Implementations.Messaging
                     if (success)
                     {
                         OnDataUpdated(response);
+                        callback?.Invoke();
                     }
                 }
             );

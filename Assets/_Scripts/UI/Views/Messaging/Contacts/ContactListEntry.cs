@@ -77,12 +77,10 @@ namespace UI.Views.Messaging.Contacts
 
         private void RegisterCallbacks()
         {
-            if (!Configs.IS_DESKTOP)
+            RegisterCallback<ClickEvent>(_ => GetFirstAncestorOfType<MessagingView>().Q<InboxContainer>().SwitchInbox(UserProfile, () =>
             {
-                RegisterCallback<ClickEvent>(_ => { GetFirstAncestorOfType<MessagingView>().MobileShowInbox(); });
-            }
-
-            RegisterCallback<ClickEvent>(_ => GetFirstAncestorOfType<MessagingView>().Q<InboxContainer>().SwitchInbox(UserProfile));
+                if (!Configs.IS_DESKTOP) GetFirstAncestorOfType<MessagingView>().MobileShowInbox();
+            }));
         }
     }
 }

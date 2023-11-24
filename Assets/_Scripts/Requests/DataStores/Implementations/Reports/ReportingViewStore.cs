@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using Commons.Communications.Reports;
 using Commons.Endpoints;
 using Requests.DataStores.Base;
@@ -7,7 +8,7 @@ namespace Requests.DataStores.Implementations.Reports
 {
     public class ReportingViewStore : ServerSendOnFocusedDataStore<GetDashboardReportResponse>
     {
-        protected override IEnumerator CreateRequest()
+        protected override IEnumerator CreateRequest(Action callback)
         {
             yield return RequestHelper.SendGetRequest<GetDashboardReportResponse>(
                 Endpoints.Report.Get,
@@ -16,6 +17,7 @@ namespace Requests.DataStores.Implementations.Reports
                     if (success)
                     {
                         OnDataUpdated(response);
+                        callback?.Invoke();
                     }
                 }
             );

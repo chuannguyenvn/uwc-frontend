@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using Commons.Communications.UserProfiles;
 using Commons.Endpoints;
 using Requests.DataStores.Base;
@@ -7,7 +8,7 @@ namespace Requests.DataStores.Implementations.UserProfile
 {
     public class AllWorkerProfileListStore : ServerSendOnFocusedDataStore<GetAllWorkerProfilesResponse>
     {
-        protected override IEnumerator CreateRequest()
+        protected override IEnumerator CreateRequest(Action callback)
         {
             yield return RequestHelper.SendGetRequest<GetAllWorkerProfilesResponse>(
                 Endpoints.UserProfile.GetAllWorkerProfiles,
@@ -16,6 +17,7 @@ namespace Requests.DataStores.Implementations.UserProfile
                     if (success)
                     {
                         OnDataUpdated(response);
+                        callback?.Invoke();
                     }
                 }
             );

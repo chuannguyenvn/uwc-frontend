@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using Authentication;
 using Commons.Communications.Settings;
 using Commons.Endpoints;
@@ -8,7 +9,7 @@ namespace Requests.DataStores.Implementations.Setting
 {
     public class SettingStore : ServerSendOnFocusedDataStore<GetSettingResponse>
     {
-        protected override IEnumerator CreateRequest()
+        protected override IEnumerator CreateRequest(Action callback)
         {
             yield return RequestHelper.SendPostRequest<GetSettingResponse>(
                 Endpoints.Setting.GetSetting,
@@ -21,6 +22,7 @@ namespace Requests.DataStores.Implementations.Setting
                     if (success)
                     {
                         OnDataUpdated(response);
+                        callback?.Invoke();
                     }
                 }
             );
