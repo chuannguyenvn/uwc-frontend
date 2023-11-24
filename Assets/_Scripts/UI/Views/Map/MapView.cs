@@ -8,6 +8,7 @@ namespace UI.Views.Map
     {
         private NavigationPanel _navigationPanel;
         private NextStopPanel _nextStopPanel;
+        private MobileMapModeTogglePanel _mobileMapModeTogglePanel;
 
         private MapMode _currentMapMode = MapMode.NextStop;
 
@@ -21,6 +22,7 @@ namespace UI.Views.Map
 
             CreateNavigationPanel();
             CreateNextStopPanel();
+            CreateMobileMapModeTogglePanel();
 
             ToggleMapMode();
         }
@@ -37,6 +39,12 @@ namespace UI.Views.Map
             _nextStopPanel = new NextStopPanel();
             _nextStopPanel.SetNextStopAddress("495/4/8 Tô Hiến Thành");
             Add(_nextStopPanel);
+        }
+
+        private void CreateMobileMapModeTogglePanel()
+        {
+            _mobileMapModeTogglePanel = new MobileMapModeTogglePanel();
+            Add(_mobileMapModeTogglePanel);
         }
 
         public void ToggleMapMode()
