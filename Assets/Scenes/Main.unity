@@ -437,7 +437,7 @@ MonoBehaviour:
   lockRedraw: 0
   needRedraw: 1
   notInteractUnderGUI: 1
-  mapType: mapbox.map
+  mapType: osm.mapnik
   osmServer: 0
   proxyURL: https://service.infinity-code.com/redirect.php?
   redrawOnPlay: 1
@@ -455,8 +455,7 @@ MonoBehaviour:
   useProxy: 1
   useSoftwareJPEGDecoder: 0
   width: 1024
-  _activeTypeSettings: 07User ID217214chuan-nguyenvn06Map ID228225cllbq6uaa00tl01pd7qaa6h0m12Access
-    Token3101298pk.eyJ1IjoiY2h1YW4tbmd1eWVudm4iLCJhIjoiY2xsYTkycjJoMGg1MjNxbGhhcW5mMzNuOCJ9.tpAt14HVH_j1IKuKxsK31A
+  _activeTypeSettings: 
   _zoom: 15
   latitude: 10.7670552457392
   longitude: 106.656326672901

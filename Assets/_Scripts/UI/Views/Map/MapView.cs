@@ -1,4 +1,5 @@
 ﻿using UI.Base;
+using UnityEngine;
 using UnityEngine.UIElements;
 
 namespace UI.Views.Map
@@ -16,12 +17,14 @@ namespace UI.Views.Map
             ConfigureUss(nameof(MapView));
 
             AddToClassList("full-view");
+            style.backgroundColor = new StyleColor(new Color(0.0f, 0.0f, 0.0f, 0.0f));
+            pickingMode = PickingMode.Ignore;
 
             CreateNavigationPanel();
             CreateNextStopPanel();
             CreateMobileMapModeToggleButton();
 
-            ToggleMapMode();
+            // ToggleMapMode();
         }
 
         private void CreateNavigationPanel()
@@ -34,6 +37,7 @@ namespace UI.Views.Map
         private void CreateNextStopPanel()
         {
             _nextStopPanel = new NextStopPanel();
+            _nextStopPanel.SetNextStopAddress("495/4/8 Tô Hiến Thành");
             Add(_nextStopPanel);
         }
 

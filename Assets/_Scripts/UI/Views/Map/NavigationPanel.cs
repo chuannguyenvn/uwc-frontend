@@ -15,13 +15,16 @@ namespace UI.Views.Map
         {
             ConfigureUss(nameof(NavigationPanel));
 
+            AddToClassList("rounded-64px");
+            AddToClassList("theme-colored");
+
             CreateNavigationIcon();
             CreateTextContainer();
         }
 
         private void CreateNavigationIcon()
         {
-            _navigationIcon = new VisualElement();
+            _navigationIcon = new VisualElement { name = "NavigationIcon" };
             Add(_navigationIcon);
 
             DisableAllNavigationIconClasses();
@@ -43,13 +46,17 @@ namespace UI.Views.Map
 
         private void CreateTextContainer()
         {
-            _textContainer = new VisualElement();
+            _textContainer = new VisualElement { name = "TextContainer" };
             Add(_textContainer);
 
-            _distance = new TextElement();
+            _distance = new TextElement { name = "Distance" };
+            _distance.AddToClassList("title-text");
+            _distance.AddToClassList("white-text");
             _textContainer.Add(_distance);
 
-            _roadName = new TextElement();
+            _roadName = new TextElement { name = "RoadName" };
+            _roadName.AddToClassList("title-text");
+            _roadName.AddToClassList("white-text");
             _textContainer.Add(_roadName);
         }
 
