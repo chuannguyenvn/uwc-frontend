@@ -19,7 +19,7 @@ public class OnlineMapsMarkerBufferDrawer : OnlineMapsMarker2DDrawer
     private OnlineMapsControlBase control;
 
     /// <summary>
-    /// Contructor
+    /// Constructor
     /// </summary>
     /// <param name="control">Reference to control</param>
     public OnlineMapsMarkerBufferDrawer(OnlineMapsControlBase control)

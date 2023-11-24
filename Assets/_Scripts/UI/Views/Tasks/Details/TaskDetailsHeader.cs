@@ -20,6 +20,7 @@ namespace UI.Views.Tasks.Details
         {
             _backButton = new VisualElement { name = "BackButton" };
             _backButton.RegisterCallback<ClickEvent>(_ => { GetFirstAncestorOfType<TasksView>().ShowTaskList(); });
+            RootController.BackButtonPressed += () => { GetFirstAncestorOfType<TasksView>().ShowTaskList(); };
             Add(_backButton);
         }
 

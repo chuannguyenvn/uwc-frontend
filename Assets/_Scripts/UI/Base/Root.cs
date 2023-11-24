@@ -56,6 +56,10 @@ namespace UI.Base
         private VisualElement _fullscreenPopupContainer;
         private List<FullscreenPopup> _popups = new List<FullscreenPopup>();
 
+
+        // For exiting app in Android
+        private float _timeSinceLastBackButtonPress;
+
         public Root() : base(nameof(Root), false)
         {
             Instance = this;
@@ -74,6 +78,7 @@ namespace UI.Base
 
             SubscribeToAuthenticationScreenEvents();
             RegisterMouseEvents();
+            if (!Configs.IS_DESKTOP) SubscribeToGlobalBackButtonClickEvent();
         }
 
         ~Root()
@@ -259,6 +264,27 @@ namespace UI.Base
         {
             RegisterCallback<MouseUpEvent>(evt => { IsMouseDownElement = false; });
             RegisterCallback<MouseOutEvent>(evt => { IsMouseOverElement = false; });
+        }
+
+        private void SubscribeToGlobalBackButtonClickEvent()
+        {
+            RootController.BackButtonPressed += () =>
+            {
+                if (_mainActiveViewType == ViewType.Map)
+                {
+                    if (Time.time - _timeSinceLastBackButtonPress < 3)
+                    {
+                        Application.Quit();
+                    }
+
+                    _timeSinceLastBackButtonPress = Time.time;
+                    AndroidUtility.ShowAndroidToastMessage(Localization.GetSentence(Sentence.MapView.PRESS_BACK_AGAIN_TO_EXIT));
+                }
+                else
+                {
+                    ActivateView(ViewType.Map);
+                }
+            };
         }
 
         public void AddPopup(FullscreenPopup popup)

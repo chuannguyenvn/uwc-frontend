@@ -103,14 +103,12 @@ public partial class OnlineMapsCache
     {
         StringBuilder stringBuilder = GetStringBuilder();
 
-        if (fileCacheLocation == CacheLocation.persistentDataPath)
-            stringBuilder.Append(OnlineMapsUtils.persistentDataPath).Append("/").Append("OnlineMapsCache");
+        if (fileCacheLocation == CacheLocation.persistentDataPath) stringBuilder.Append(OnlineMapsUtils.persistentDataPath).Append("/").Append("OnlineMapsCache");
         else
         {
             if (!string.IsNullOrEmpty(fileCacheCustomPath)) //throw new Exception("Custom path is empty.");
                 stringBuilder.Append(fileCacheCustomPath);
         }
-
         return stringBuilder;
     }
 
@@ -152,10 +150,10 @@ public partial class OnlineMapsCache
     public StringBuilder GetShortTilePath(OnlineMapsTile tile)
     {
         OnlineMapsRasterTile rTile = tile as OnlineMapsRasterTile;
-        OnlineMapsProvider.MapType mapType = rTile != null ? rTile.mapType : tile.map.activeType;
+        OnlineMapsProvider.MapType mapType = rTile != null? rTile.mapType: tile.map.activeType;
         return GetShortTilePath(tile, mapType);
     }
-
+    
     public StringBuilder GetShortTilePath(OnlineMapsTile tile, OnlineMapsProvider.MapType mapType)
     {
 #if ALLOW_FILECACHE
@@ -220,9 +218,9 @@ public partial class OnlineMapsCache
 
         string fullTilePath = fileCacheAtlas.GetFullPath(this, shortFilename);
         if (!File.Exists(fullTilePath)) return false;
-
+        
         byte[] bytes = File.ReadAllBytes(fullTilePath);
-        texture = new Texture2D(0, 0, TextureFormat.ARGB32, tile.map.control.mipmapForTiles);
+        texture = new Texture2D(1, 1, TextureFormat.ARGB32, tile.map.control.mipmapForTiles);
         texture.LoadImage(bytes);
         texture.wrapMode = TextureWrapMode.Clamp;
 
@@ -244,16 +242,10 @@ public partial class OnlineMapsCache
         OnlineMaps map = tile.map;
         if (!map.control.resultIsTexture || tempTexture == null)
         {
-            try
-            {
-                texture = tempTexture = new Texture2D(0, 0, TextureFormat.ARGB32, map.control.mipmapForTiles);
-            }
-            catch
-            {
-            }
+            texture = tempTexture = new Texture2D(1, 1, TextureFormat.ARGB32, map.control.mipmapForTiles);
         }
         else texture = tempTexture;
-
+            
         texture.LoadImage(bytes);
         texture.wrapMode = TextureWrapMode.Clamp;
 
@@ -293,7 +285,7 @@ public partial class OnlineMapsCache
         if (fileCacheAtlas != null) fileCacheAtlas.Save(this);
         saveFileCacheAtlasCoroutine = null;
     }
-
+    
     public void SetTileTexture(OnlineMapsTile tile, OnlineMapsProvider.MapType mapType, Texture2D texture)
     {
 #if ALLOW_FILECACHE
@@ -364,7 +356,7 @@ public partial class OnlineMapsCache
     /// <summary>
     /// File cache atlas
     /// </summary>
-    public class FileCacheAtlas : CacheAtlas<FileCacheItem>
+    public class FileCacheAtlas: CacheAtlas<FileCacheItem>
     {
         /// <summary>
         /// File cache atlas name
@@ -388,7 +380,7 @@ public partial class OnlineMapsCache
         public void Add(OnlineMapsCache cache, OnlineMapsTile tile, byte[] bytes)
         {
             OnlineMapsRasterTile rTile = tile as OnlineMapsRasterTile;
-            OnlineMapsProvider.MapType mapType = rTile != null ? rTile.mapType : tile.map.activeType;
+            OnlineMapsProvider.MapType mapType = rTile != null? rTile.mapType: tile.map.activeType;
             Add(cache, tile, mapType, bytes);
         }
 
@@ -412,9 +404,9 @@ public partial class OnlineMapsCache
             OnlineMapsThreadManager.AddThreadAction(() =>
             {
 #endif
-            FileInfo fileInfo = new FileInfo(fullFilename);
-            if (!Directory.Exists(fileInfo.DirectoryName)) Directory.CreateDirectory(fileInfo.DirectoryName);
-            File.WriteAllBytes(fullFilename, bytes);
+                FileInfo fileInfo = new FileInfo(fullFilename);
+                if (!Directory.Exists(fileInfo.DirectoryName)) Directory.CreateDirectory(fileInfo.DirectoryName);
+                File.WriteAllBytes(fullFilename, bytes);
 #if !UNITY_WEBGL
             });
 #endif
@@ -432,10 +424,9 @@ public partial class OnlineMapsCache
                 capacity += 100;
                 Array.Resize(ref items, capacity);
             }
-
             items[count++] = item;
         }
-
+        
         public override FileCacheItem CreateItem(string filename, int size, long time)
         {
             return new FileCacheItem(filename, size, time);
@@ -482,7 +473,6 @@ public partial class OnlineMapsCache
                             unloadIndices[j] = unloadIndices[j - 1];
                             unloadTimes[j] = unloadTimes[j - 1];
                         }
-
                         unloadIndices[index] = i;
                         unloadTimes[index] = t;
                         if (c < countUnload) c++;
@@ -512,11 +502,11 @@ public partial class OnlineMapsCache
             OnlineMapsThreadManager.AddThreadAction(() =>
             {
 #endif
-            for (int i = 0; i < countUnload; i++)
-            {
-                string fn = unloadFiles[i];
-                if (File.Exists(fn)) File.Delete(fn);
-            }
+                for (int i = 0; i < countUnload; i++)
+                {
+                    string fn = unloadFiles[i];
+                    if (File.Exists(fn)) File.Delete(fn);
+                }
 #if !UNITY_WEBGL
         });
 #endif
@@ -553,6 +543,7 @@ public partial class OnlineMapsCache
         /// <param name="size">Size of data</param>
         public FileCacheItem(string filename, int size) : this(filename, size, DateTime.Now.Ticks)
         {
+
         }
 
         /// <summary>

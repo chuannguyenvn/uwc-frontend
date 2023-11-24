@@ -110,7 +110,7 @@ public class OnlineMapsMarkerFlatDrawer : OnlineMapsMarker2DMeshDrawer
         double tx, ty;
         map.projection.CoordinatesToTile(tlx, tly, zoom, out tx, out ty);
 
-        float yScale = OnlineMapsElevationManagerBase.GetBestElevationYScale(tlx, tly, brx, bry);
+        float yScale = OnlineMapsElevationManagerBase.GetBestElevationYScale(control.elevationManager, tlx, tly, brx, bry);
 
         float cx = -control.sizeInScene.x / map.buffer.renderState.width;
         float cy = control.sizeInScene.y / map.buffer.renderState.height;
@@ -134,18 +134,18 @@ public class OnlineMapsMarkerFlatDrawer : OnlineMapsMarker2DMeshDrawer
         IEnumerable<OnlineMapsMarker> markers;
         if (control.markerManager.enabled)
         {
-            markers = control.markerManager.Where(delegate (OnlineMapsMarker marker)
+            markers = control.markerManager.Where(m =>
             {
-                if (!marker.enabled || !marker.range.InRange(zoom)) return false;
+                if (!m.enabled || !m.range.InRange(zoom)) return false;
 
                 if (OnCheckMarker2DVisibility != null)
                 {
-                    if (!OnCheckMarker2DVisibility(marker)) return false;
+                    if (!OnCheckMarker2DVisibility(m)) return false;
                 }
                 else if (control.checkMarker2DVisibility == OnlineMapsTilesetCheckMarker2DVisibility.pivot)
                 {
                     double mx, my;
-                    marker.GetPosition(out mx, out my);
+                    m.GetPosition(out mx, out my);
 
                     bool a = my > tly ||
                              my < bry ||
