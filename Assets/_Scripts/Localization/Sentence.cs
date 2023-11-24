@@ -13,6 +13,7 @@
         public class MapView
         {
             public const string MAP = "Map.Map";
+            public const string PRESS_BACK_AGAIN_TO_EXIT = "Map.PressBackAgainToExit";
         }
 
         public class TasksView

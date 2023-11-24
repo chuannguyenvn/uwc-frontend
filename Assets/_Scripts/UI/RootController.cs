@@ -6,7 +6,7 @@ namespace UI.Base
 {
     public class RootController : Singleton<RootController>
     {
-        public event Action BackButtonPressed;
+        public static event Action BackButtonPressed;
         
         public UIDocument RootDocument;
 
