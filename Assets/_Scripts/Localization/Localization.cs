@@ -20,6 +20,7 @@ namespace LocalizationNS
             { Sentence.AuthenticationView.FORGOT_PASSWORD, new LocalizationUnit("Forgot password", "Quên mật khẩu") },
 
             { Sentence.MapView.MAP, new LocalizationUnit("Map", "Bản đồ") },
+            { Sentence.MapView.PRESS_BACK_AGAIN_TO_EXIT, new LocalizationUnit("Press back again to exit.", "Nhấn back lần nữa để thoát.") },
 
             { Sentence.TasksView.TASKS, new LocalizationUnit("Tasks", "Nhiệm vụ") },
             { Sentence.TasksView.MCP_FILL_LEVEL, new LocalizationUnit("MCP fill level", "Mức đầy MCP") },
