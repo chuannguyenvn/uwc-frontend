@@ -78,7 +78,14 @@ namespace UI.Base
 
             SubscribeToAuthenticationScreenEvents();
             RegisterMouseEvents();
-            if (!Configs.IS_DESKTOP) SubscribeToGlobalBackButtonClickEvent();
+            if (!Configs.IS_DESKTOP)
+            {
+                SubscribeToGlobalBackButtonClickEvent();
+
+#if UNITY_ANDROID && !UNITY_EDITOR
+                AndroidUtility.ShowStatusBar(Color.black);
+#endif
+            }
         }
 
         ~Root()
@@ -276,9 +283,11 @@ namespace UI.Base
                     {
                         Application.Quit();
                     }
-
-                    _timeSinceLastBackButtonPress = Time.time;
-                    AndroidUtility.ShowAndroidToastMessage(Localization.GetSentence(Sentence.MapView.PRESS_BACK_AGAIN_TO_EXIT));
+                    else
+                    {
+                        _timeSinceLastBackButtonPress = Time.time;
+                        AndroidUtility.ShowAndroidToastMessage(Localization.GetSentence(Sentence.MapView.PRESS_BACK_AGAIN_TO_EXIT));
+                    }
                 }
                 else
                 {

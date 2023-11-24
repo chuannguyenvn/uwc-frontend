@@ -1,4 +1,6 @@
-﻿using UI.Base;
+﻿using Maps;
+using Settings;
+using UI.Base;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -61,6 +63,16 @@ namespace UI.Views.Map
                 _nextStopPanel.style.display = DisplayStyle.None;
                 _navigationPanel.style.display = DisplayStyle.Flex;
             }
+        }
+
+        public override void FocusView()
+        {
+            if (!Configs.IS_DESKTOP) MapManager.Instance.MapGameObject.SetActive(true);
+        }
+
+        public override void UnfocusView()
+        {
+            if (!Configs.IS_DESKTOP) MapManager.Instance.MapGameObject.SetActive(false);
         }
     }
 }
