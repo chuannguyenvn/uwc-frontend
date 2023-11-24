@@ -24,7 +24,7 @@ namespace UI.Views.Tasks.Tasks
         {
             ConfigureUss(nameof(TaskList));
 
-            CreateControls();
+            if (Configs.IS_DESKTOP) CreateControls();
             CreateScrollView();
 
             if (Configs.IS_DESKTOP) DataStoreManager.Tasks.AllTaskList.DataUpdated += AllTaskListDataUpdatedHandler;
@@ -44,19 +44,16 @@ namespace UI.Views.Tasks.Tasks
             _listControl = new ListControl(SearchHandler);
             Add(_listControl);
 
-            if (Configs.IS_DESKTOP)
-            {
-                _listControl.CreateSortButton(Localization.GetSentence(Sentence.TasksView.MCP_FILL_LEVEL),
-                    () => AllTaskListDataUpdatedHandler(DataStoreManager.Tasks.AllTaskList.Data));
-                _listControl.CreateSortButton(Localization.GetSentence(Sentence.TasksView.TASK_STATUS),
-                    () => AllTaskListDataUpdatedHandler(DataStoreManager.Tasks.AllTaskList.Data));
-                _listControl.CreateSortButton(Localization.GetSentence(Sentence.TasksView.CREATED_TIME),
-                    () => AllTaskListDataUpdatedHandler(DataStoreManager.Tasks.AllTaskList.Data));
-                _listControl.CreateSortButton(Localization.GetSentence(Sentence.TasksView.COMPLETE_BY),
-                    () => AllTaskListDataUpdatedHandler(DataStoreManager.Tasks.AllTaskList.Data));
-                _listControl.CreateSortButton(Localization.GetSentence(Sentence.TasksView.LAST_CHANGED_TIME),
-                    () => AllTaskListDataUpdatedHandler(DataStoreManager.Tasks.AllTaskList.Data));
-            }
+            _listControl.CreateSortButton(Localization.GetSentence(Sentence.TasksView.MCP_FILL_LEVEL),
+                () => AllTaskListDataUpdatedHandler(DataStoreManager.Tasks.AllTaskList.Data));
+            _listControl.CreateSortButton(Localization.GetSentence(Sentence.TasksView.TASK_STATUS),
+                () => AllTaskListDataUpdatedHandler(DataStoreManager.Tasks.AllTaskList.Data));
+            _listControl.CreateSortButton(Localization.GetSentence(Sentence.TasksView.CREATED_TIME),
+                () => AllTaskListDataUpdatedHandler(DataStoreManager.Tasks.AllTaskList.Data));
+            _listControl.CreateSortButton(Localization.GetSentence(Sentence.TasksView.COMPLETE_BY),
+                () => AllTaskListDataUpdatedHandler(DataStoreManager.Tasks.AllTaskList.Data));
+            _listControl.CreateSortButton(Localization.GetSentence(Sentence.TasksView.LAST_CHANGED_TIME),
+                () => AllTaskListDataUpdatedHandler(DataStoreManager.Tasks.AllTaskList.Data));
         }
 
         private void CreateScrollView()
@@ -111,11 +108,24 @@ namespace UI.Views.Tasks.Tasks
         private void PersonalTaskListDataUpdatedHandler(GetTasksOfWorkerResponse getTasksOfWorkerResponse)
         {
             _scrollView.Clear();
+
             foreach (var task in getTasksOfWorkerResponse.Tasks)
             {
                 task.McpData.Address = task.McpData.Address;
-                _scrollView.Add(new TaskListEntry(task));
+                var newTask = new TaskListEntry(task);
+                _taskListEntries.Add(newTask);
             }
+
+            _taskListEntries.Sort((a, b) =>
+            {
+                var sortByStatus = b.TaskData.TaskStatus.CompareTo(a.TaskData.TaskStatus);
+                if (sortByStatus != 0) return sortByStatus;
+
+                var sortByLastChangedTime = b.TaskData.LastStatusChangeTimestamp.CompareTo(a.TaskData.LastStatusChangeTimestamp);
+                return sortByLastChangedTime;
+            });
+
+            foreach (var mcpEntry in _taskListEntries) _scrollView.AddToScrollView(mcpEntry);
         }
 
         private void SearchHandler(string text)

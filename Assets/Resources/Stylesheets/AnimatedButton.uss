@@ -2,13 +2,15 @@
     background-color: rgb(0, 0, 0);
 }
 
-.iconless-button #ButtonIcon {
+.iconless-button > #ButtonIcon {
     display: none;
 }
 
-#ButtonIcon {
+.animated-button. #ButtonIcon {
     width: 50%;
     height: 50%;
+    -unity-text-align: middle-center;
+    align-self: center;
 }
 
 .rounded-button-8px {
@@ -80,6 +82,30 @@
 }
 
 .white-button.pressed {
+    background-color: rgb(200, 200, 200);
+}
+
+.green-button {
+    background-color: var(--theme-color);
+}
+
+.green-button:hover {
+    background-color: rgb(240, 240, 240);
+}
+
+.green-button.pressed {
+    background-color: rgb(200, 200, 200);
+}
+
+.red-button {
+    background-color: var(--mcp-full-color);
+}
+
+.red-button:hover {
+    background-color: rgb(240, 240, 240);
+}
+
+.red-button.pressed {
     background-color: rgb(200, 200, 200);
 }
 

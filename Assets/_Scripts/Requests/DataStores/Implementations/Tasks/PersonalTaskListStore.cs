@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using Authentication;
 using Commons.Communications.Tasks;
 using Commons.Endpoints;
@@ -8,7 +9,7 @@ namespace Requests.DataStores.Implementations.Tasks
 {
     public class PersonalTaskListStore : ServerSendOnFocusedDataStore<GetTasksOfWorkerResponse>
     {
-        protected override IEnumerator CreateRequest()
+        protected override IEnumerator CreateRequest(Action callback)
         {
             yield return RequestHelper.SendPostRequest<GetTasksOfWorkerResponse>(
                 Endpoints.TaskData.GetTasksOfWorker,
@@ -21,6 +22,7 @@ namespace Requests.DataStores.Implementations.Tasks
                     if (success)
                     {
                         OnDataUpdated(response);
+                        callback?.Invoke();
                     }
                 }
             );

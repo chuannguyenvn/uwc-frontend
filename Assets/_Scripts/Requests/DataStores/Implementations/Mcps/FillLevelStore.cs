@@ -3,6 +3,8 @@ using Commons.Communications.Mcps;
 using Commons.HubHandlers;
 using Requests.DataStores.Base;
 using Microsoft.AspNetCore.SignalR.Client;
+using Newtonsoft.Json;
+using UnityEngine;
 
 namespace Requests.DataStores.Implementations.Mcps
 {
@@ -21,6 +23,7 @@ namespace Requests.DataStores.Implementations.Mcps
         {
             AuthenticationManager.Instance.HubConnection.On(HubHandlers.McpFillLevel.BROADCAST_FILL_LEVEL, (McpFillLevelBroadcastData data) =>
             {
+                Debug.Log(JsonConvert.SerializeObject(data, Formatting.Indented));
                 Data = data;
                 OnDataUpdated(Data);
             });

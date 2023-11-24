@@ -8,7 +8,7 @@ namespace UI.Base
         public event Action Clicked;
         private bool _isCaptured;
 
-        private VisualElement _icon;
+        private TextElement _iconOrTextElement;
 
         public AnimatedButton(string name = nameof(AnimatedButton)) : base(name)
         {
@@ -20,8 +20,8 @@ namespace UI.Base
 
         private void CreateIcon()
         {
-            _icon = new VisualElement { name = "ButtonIcon" };
-            Add(_icon);
+            _iconOrTextElement = new TextElement { name = "ButtonIcon" };
+            Add(_iconOrTextElement);
         }
 
         private void RegisterCallbacks()
@@ -31,24 +31,31 @@ namespace UI.Base
                 if (!_isCaptured) return;
                 AddToClassList("pressed");
             });
-            
+
             RegisterCallback<MouseUpEvent>(evt =>
             {
                 if (!_isCaptured) return;
                 Clicked?.Invoke();
                 RemoveFromClassList("pressed");
             });
-            
-            RegisterCallback<MouseEnterEvent>(evt =>
-            {
-                _isCaptured = true; 
-            });
-            
+
+            RegisterCallback<MouseEnterEvent>(evt => { _isCaptured = true; });
+
             RegisterCallback<MouseLeaveEvent>(evt =>
             {
                 RemoveFromClassList("pressed");
                 _isCaptured = false;
             });
+        }
+
+        public void SetText(string text)
+        {
+            _iconOrTextElement.text = text;
+        }
+        
+        public void AddToTextClassList(string className)
+        {
+            _iconOrTextElement.AddToClassList(className);
         }
     }
 }

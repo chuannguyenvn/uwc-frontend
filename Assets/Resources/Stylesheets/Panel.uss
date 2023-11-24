@@ -10,14 +10,15 @@
 }
 
 .square {
-    background-image: url('project://database/Assets/Graphics/Shapes/square-shadow.png?fileID=-2744241399563890845&guid=229febb0e6cd4614f8bf2961be1c6df1&type=3#square-shadow_0');
+    background-image: url('project://database/Assets/Graphics/Shapes/square-shadow.png?fileID=21300000&guid=229febb0e6cd4614f8bf2961be1c6df1&type=3#square-shadow');
 }
 
 .rounded-16px {
+    background-image: url('project://database/Assets/Graphics/Shapes/square-shadow-rounded-128px.png?fileID=21300000&guid=ffaf4d12715b2c4428e8ddf767aba97d&type=3#square-shadow-rounded-128px');
 }
 
 .rounded-32px {
-    background-image: url('project://database/Assets/Graphics/Shapes/square-shadow-rounded-32px.png?fileID=-414892841926334688&guid=d1b1a160b977dbc4c9e716b4ff052a4b&type=3#square-shadow-rounded-32px_0');
+    background-image: url('project://database/Assets/Graphics/Shapes/square-shadow-rounded-32px.png?fileID=21300000&guid=d1b1a160b977dbc4c9e716b4ff052a4b&type=3#square-shadow-rounded-32px');
     -unity-slice-left: 40;
     -unity-slice-top: 40;
     -unity-slice-right: 40;
@@ -26,7 +27,7 @@
 }
 
 .rounded-64px {
-    background-image: url('project://database/Assets/Graphics/Shapes/square-shadow-rounded-64px.png?fileID=7006034526747111667&guid=fa0b71c51ec43c841a1067a5fe911bf2&type=3#square-shadow-rounded-64px_0');
+    background-image: url('project://database/Assets/Graphics/Shapes/square-shadow-rounded-64px.png?fileID=21300000&guid=fa0b71c51ec43c841a1067a5fe911bf2&type=3#square-shadow-rounded-64px');
     -unity-slice-left: 64;
     -unity-slice-top: 64;
     -unity-slice-right: 64;
@@ -34,4 +35,5 @@
 }
 
 .rounded-128px {
+    background-image: url('project://database/Assets/Graphics/Shapes/square-shadow-rounded-128px.png?fileID=21300000&guid=ffaf4d12715b2c4428e8ddf767aba97d&type=3#square-shadow-rounded-128px');
 }

@@ -1,7 +1,14 @@
 .inbox-header {
-    background-color: white;
     flex-direction: row;
     align-items: center;
+}
+
+.desktop .inbox-header {
+    background-color: white;
+}
+
+.mobile .inbox-header {
+    background-color: var(--theme-color);
 }
 
 .messaging-view .inbox-header {
@@ -47,12 +54,21 @@
     display: none;
 }
 
-#Avatar {
-    width: 64px;
-    height: 64px;
+.inbox-header  #Avatar {
     -unity-text-align: middle-center;
     border-radius: 999px;
+}
+
+.desktop .inbox-header  #Avatar {
+    width: 64px;
+    height: 64px;
     margin-right: 8px;
+}
+
+.mobile .inbox-header  #Avatar {
+    width: 96px;
+    height: 96px;
+    margin-right: 16px;
 }
 
 .chat-bubbles-panel #Avatar {

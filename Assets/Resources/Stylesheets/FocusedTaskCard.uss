@@ -21,16 +21,16 @@
 }
 
 #Panel {
-    background-image: url('project://database/Assets/Graphics/Shapes/square-shadow-rounded-32px.png?fileID=-414892841926334688&guid=d1b1a160b977dbc4c9e716b4ff052a4b&type=3#square-shadow-rounded-32px_0');
+    background-image: url('project://database/Assets/Graphics/Shapes/square-shadow-rounded-32px.png');
     position: absolute;
     -unity-slice-left: 32;
     -unity-slice-top: 32;
     -unity-slice-right: 32;
     -unity-slice-bottom: 32;
-    top: -5px;
-    left: -8px;
+    top: -4px;
+    left: -4px;
     bottom: -10px;
-    right: -8px;
+    right: -4px;
 }
 
 #ContentContainer {

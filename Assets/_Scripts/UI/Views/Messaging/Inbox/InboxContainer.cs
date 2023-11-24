@@ -1,4 +1,5 @@
-﻿using Commons.Models;
+﻿using System;
+using Commons.Models;
 using Requests;
 using UI.Base;
 using UnityEngine.UIElements;
@@ -40,10 +41,10 @@ namespace UI.Views.Messaging.Inbox
             Add(_inputBar);
         }
 
-        public void SwitchInbox(UserProfile userProfile)
+        public void SwitchInbox(UserProfile userProfile, Action callback = null)
         {
             DataStoreManager.Messaging.InboxMessageList.OtherUserProfile = userProfile;
-            DataStoreManager.Messaging.InboxMessageList.SendRequest();
+            DataStoreManager.Messaging.InboxMessageList.SendRequest(callback);
             _inboxHeader.UpdateStatus();
         }
     }

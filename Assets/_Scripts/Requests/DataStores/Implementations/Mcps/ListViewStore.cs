@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using Commons.Communications.Mcps;
 using Commons.Endpoints;
@@ -12,7 +13,7 @@ namespace Requests.DataStores.Implementations.Mcps
 {
     public class ListViewStore : ServerSendOnFocusedDataStore<GetMcpDataResponse>
     {
-        protected override IEnumerator CreateRequest()
+        protected override IEnumerator CreateRequest(Action callback)
         {
             yield return RequestHelper.SendPostRequest<GetMcpDataResponse>(
                 Endpoints.McpData.Get,
@@ -24,6 +25,7 @@ namespace Requests.DataStores.Implementations.Mcps
                     if (success)
                     {
                         OnDataUpdated(response);
+                        callback?.Invoke();
                     }
                 }
             );

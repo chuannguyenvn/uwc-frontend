@@ -26,6 +26,7 @@ namespace UI.Views.Messaging.Inbox
             _textField = new TextField { name = "TextField" };
             _textField.AddToClassList("normal-text");
             _textField.AddToClassList("black-text");
+            _textField.textEdition.placeholder = "Aa";
             Add(_textField);
 
             // _textField.RegisterCallback<FocusInEvent>(_ => { GetFirstAncestorOfType<Root>().ShowKeyboard(); });

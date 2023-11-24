@@ -15,7 +15,7 @@ namespace Requests.DataStores.Implementations.Messaging
     {
         public Commons.Models.UserProfile OtherUserProfile { get; set; }
 
-        protected override IEnumerator CreateRequest()
+        protected override IEnumerator CreateRequest(Action callback)
         {
             yield return RequestHelper.SendPostRequest<GetMessagesBetweenTwoUsersResponse>(
                 Endpoints.Messaging.GetMessagesBetweenTwoUsers,
@@ -29,6 +29,7 @@ namespace Requests.DataStores.Implementations.Messaging
                     if (success)
                     {
                         OnDataUpdated(response);
+                        callback?.Invoke();
                     }
                 }
             );
