@@ -82,7 +82,7 @@ namespace UI.Base
             {
                 SubscribeToGlobalBackButtonClickEvent();
 
-#if UNITY_ANDROID
+#if UNITY_ANDROID && !UNITY_EDITOR
                 AndroidUtility.ShowStatusBar(Color.black);
 #endif
             }
