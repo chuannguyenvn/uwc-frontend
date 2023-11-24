@@ -20,6 +20,8 @@ namespace UI.Views.Map
 
             CreateNavigationIcon();
             CreateTextContainer();
+
+            RegisterCallback<ClickEvent>(evt => { GetFirstAncestorOfType<MapView>().ToggleMapMode(); });
         }
 
         private void CreateNavigationIcon()

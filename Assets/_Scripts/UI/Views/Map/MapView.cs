@@ -8,7 +8,6 @@ namespace UI.Views.Map
     {
         private NavigationPanel _navigationPanel;
         private NextStopPanel _nextStopPanel;
-        private MobileMapModeToggle _mobileMapModeToggle;
 
         private MapMode _currentMapMode = MapMode.NextStop;
 
@@ -22,9 +21,8 @@ namespace UI.Views.Map
 
             CreateNavigationPanel();
             CreateNextStopPanel();
-            CreateMobileMapModeToggleButton();
 
-            // ToggleMapMode();
+            ToggleMapMode();
         }
 
         private void CreateNavigationPanel()
@@ -41,14 +39,7 @@ namespace UI.Views.Map
             Add(_nextStopPanel);
         }
 
-        private void CreateMobileMapModeToggleButton()
-        {
-            _mobileMapModeToggle = new MobileMapModeToggle();
-            _mobileMapModeToggle.Clicked += ToggleMapMode;
-            Add(_mobileMapModeToggle);
-        }
-
-        private void ToggleMapMode()
+        public void ToggleMapMode()
         {
             if (_currentMapMode == MapMode.Navigation)
             {

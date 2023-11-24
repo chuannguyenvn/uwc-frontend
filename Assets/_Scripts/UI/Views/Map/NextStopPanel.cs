@@ -20,6 +20,8 @@ namespace UI.Views.Map
 
             CreateNextStopContainer();
             CreateNextStopAddress();
+            
+            RegisterCallback<ClickEvent>(evt => { GetFirstAncestorOfType<MapView>().ToggleMapMode(); });
         }
 
         private void CreateNextStopContainer()
