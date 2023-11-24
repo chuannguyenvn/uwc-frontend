@@ -108,11 +108,24 @@ namespace UI.Views.Tasks.Tasks
         private void PersonalTaskListDataUpdatedHandler(GetTasksOfWorkerResponse getTasksOfWorkerResponse)
         {
             _scrollView.Clear();
+
             foreach (var task in getTasksOfWorkerResponse.Tasks)
             {
                 task.McpData.Address = task.McpData.Address;
-                _scrollView.Add(new TaskListEntry(task));
+                var newTask = new TaskListEntry(task);
+                _taskListEntries.Add(newTask);
             }
+
+            _taskListEntries.Sort((a, b) =>
+            {
+                var sortByStatus = b.TaskData.TaskStatus.CompareTo(a.TaskData.TaskStatus);
+                if (sortByStatus != 0) return sortByStatus;
+
+                var sortByLastChangedTime = b.TaskData.LastStatusChangeTimestamp.CompareTo(a.TaskData.LastStatusChangeTimestamp);
+                return sortByLastChangedTime;
+            });
+
+            foreach (var mcpEntry in _taskListEntries) _scrollView.AddToScrollView(mcpEntry);
         }
 
         private void SearchHandler(string text)
