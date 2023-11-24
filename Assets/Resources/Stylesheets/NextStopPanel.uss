@@ -1,0 +1,7 @@
+.next-stop-panel {
+    flex-direction: column;
+}
+
+.next-stop-panel #NextStopContainer {
+    flex-direction: row;
+}
