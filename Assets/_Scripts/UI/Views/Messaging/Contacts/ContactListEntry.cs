@@ -1,7 +1,6 @@
 ﻿using System;
 using Authentication;
 using Commons.Models;
-using Requests;
 using Settings;
 using UI.Base;
 using UI.Views.Messaging.Inbox;

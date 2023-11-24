@@ -1,0 +1,54 @@
+.navigation-panel {
+    flex-direction: row;
+    margin: 32px;
+    padding: 48px 60px;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.navigation-panel #NavigationIcon {
+    width: 100px;
+    height: 100px;
+    margin-right: 40px;
+    -unity-background-scale-mode: scale-to-fit;
+}
+
+.navigation-panel #NavigationIcon.left {
+    background-image: url('project://database/Assets/Graphics/Icons/Navigation/turn-left.svg');
+}
+
+.navigation-panel #NavigationIcon.right {
+    background-image: url('project://database/Assets/Graphics/Icons/Navigation/turn-right.svg');
+}
+
+.navigation-panel #NavigationIcon.slight-left {
+    background-image: url('project://database/Assets/Graphics/Icons/Navigation/slight-left.svg');
+}
+
+.navigation-panel #NavigationIcon.slight-right {
+    background-image: url('project://database/Assets/Graphics/Icons/Navigation/slight-right.svg');
+}
+
+.navigation-panel #NavigationIcon.sharp-left {
+    background-image: url('project://database/Assets/Graphics/Icons/Navigation/sharp-left.svg');
+}
+
+.navigation-panel #NavigationIcon.sharp-right {
+    background-image: url('project://database/Assets/Graphics/Icons/Navigation/sharp-right.svg');
+}
+
+.navigation-panel #NavigationIcon.straight {
+    background-image: url('project://database/Assets/Graphics/Icons/Navigation/straight.svg');
+}
+
+.navigation-panel #NavigationIcon.roundabout-left {
+    background-image: url('project://database/Assets/Graphics/Icons/Navigation/roundabout-left.svg');
+}
+
+.navigation-panel #NavigationIcon.roundabout-right {
+    background-image: url('project://database/Assets/Graphics/Icons/Navigation/roundabout-right.svg');
+}
+
+.navigation-panel #NavigationIcon.u-turn-left {
+    background-image: url('project://database/Assets/Graphics/Icons/Navigation/u-turn-left.svg');
+}

@@ -6,6 +6,7 @@ using Settings;
 using UI.Authentication;
 using UI.Navigation;
 using UI.Reusables.ChatBubbles;
+using UI.Views.Map;
 using UI.Views.Mcps;
 using UI.Views.Messaging;
 using UI.Views.Reports;
@@ -36,9 +37,10 @@ namespace UI.Base
 
         // View flags
         private readonly Dictionary<ViewType, View> _viewsByViewType = new();
-        private ViewType _mainActiveViewType;
+        private ViewType _mainActiveViewType = ViewType.None;
 
         // Views
+        private MapView _mapView;
         private WorkersView _workersView;
         private McpsView _mcpsView;
         private VehiclesView _vehiclesView;
@@ -73,9 +75,6 @@ namespace UI.Base
             CreateNavigationBar();
             CreateViews();
             CreatePopups();
-
-            // Default view is Map
-            ActivateView(ViewType.Map);
 
             SubscribeToAuthenticationScreenEvents();
             RegisterMouseEvents();
@@ -116,16 +115,19 @@ namespace UI.Base
             }
         }
 
-        private void CreateChatBubblesPanel()
-        {
-            _chatBubblesPanel = new ChatBubblesPanel();
-            Add(_chatBubblesPanel);
-        }
-
         private void CloseAuthenticationScreen()
         {
             _authenticationScreen.style.display = DisplayStyle.None;
             _navigationBar.style.display = DisplayStyle.Flex;
+
+            // Default view is Map
+            ActivateView(ViewType.Map);
+        }
+
+        private void CreateChatBubblesPanel()
+        {
+            _chatBubblesPanel = new ChatBubblesPanel();
+            Add(_chatBubblesPanel);
         }
 
         private void CreateNavigationBar()
@@ -139,6 +141,7 @@ namespace UI.Base
         {
             if (Configs.IS_DESKTOP)
             {
+                _mapView = new MapView();
                 _tasksView = new TasksView();
                 _workersView = new WorkersView();
                 _mcpsView = new McpsView();
@@ -147,6 +150,7 @@ namespace UI.Base
                 _messagingView = new MessagingView();
                 _settingsView = new SettingsView();
 
+                _viewsByViewType.Add(ViewType.Map, _mapView);
                 _viewsByViewType.Add(ViewType.Tasks, _tasksView);
                 _viewsByViewType.Add(ViewType.Workers, _workersView);
                 _viewsByViewType.Add(ViewType.Mcps, _mcpsView);
@@ -157,11 +161,13 @@ namespace UI.Base
             }
             else
             {
+                _mapView = new MapView();
                 _tasksView = new TasksView();
                 _statusView = new StatusView();
                 _messagingView = new MessagingView();
                 _settingsView = new SettingsView();
 
+                _viewsByViewType.Add(ViewType.Map, _mapView);
                 _viewsByViewType.Add(ViewType.Tasks, _tasksView);
                 _viewsByViewType.Add(ViewType.Status, _statusView);
                 _viewsByViewType.Add(ViewType.Messaging, _messagingView);
@@ -196,23 +202,23 @@ namespace UI.Base
                 if (!asExtension || type != _mainActiveViewType) view.style.display = DisplayStyle.None;
             }
 
-            if (viewType != ViewType.Map)
+            if (viewType == _mainActiveViewType)
             {
-                if (viewType == _mainActiveViewType)
-                {
-                    _viewsByViewType[viewType].style.display = DisplayStyle.None;
-                    viewType = ViewType.Map;
-                }
-                else
-                {
-                    _viewsByViewType[viewType].style.display = DisplayStyle.Flex;
-                }
+                _viewsByViewType[viewType].style.display = DisplayStyle.None;
+                viewType = ViewType.Map;
+            }
+            else
+            {
+                _viewsByViewType[viewType].style.display = DisplayStyle.Flex;
             }
 
             _navigationBar.ActivateView(viewType);
 
             switch (viewType)
             {
+                case ViewType.Map:
+                    _mapView.FocusView();
+                    break;
                 case ViewType.Workers:
                     _workersView.FocusView();
                     break;

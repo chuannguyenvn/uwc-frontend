@@ -1,5 +1,4 @@
 ﻿using System.Collections.Generic;
-using Authentication;
 using Commons.Communications.Messages;
 using Requests;
 using Settings;

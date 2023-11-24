@@ -2,8 +2,6 @@
 using Requests;
 using UI.Base;
 using UI.Reusables;
-using UnityEngine;
-using UnityEngine.UIElements;
 
 namespace UI.Views.Messaging.Inbox
 {

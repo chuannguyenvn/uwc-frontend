@@ -8,20 +8,28 @@ namespace UI.Base
         public event Action Clicked;
         private bool _isCaptured;
 
-        private TextElement _iconOrTextElement;
+        private VisualElement _iconElement;
+        private TextElement _textElement;
 
         public AnimatedButton(string name = nameof(AnimatedButton)) : base(name)
         {
             ConfigureUss(nameof(AnimatedButton));
 
             CreateIcon();
+            CreateText();
             RegisterCallbacks();
         }
 
         private void CreateIcon()
         {
-            _iconOrTextElement = new TextElement { name = "ButtonIcon" };
-            Add(_iconOrTextElement);
+            _iconElement = new VisualElement { name = "ButtonIcon" };
+            Add(_iconElement);
+        }
+
+        private void CreateText()
+        {
+            _textElement = new TextElement { name = "ButtonText" };
+            Add(_textElement);
         }
 
         private void RegisterCallbacks()
@@ -50,12 +58,12 @@ namespace UI.Base
 
         public void SetText(string text)
         {
-            _iconOrTextElement.text = text;
+            _textElement.text = text;
         }
-        
+
         public void AddToTextClassList(string className)
         {
-            _iconOrTextElement.AddToClassList(className);
+            _textElement.AddToClassList(className);
         }
     }
 }

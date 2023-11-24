@@ -1,0 +1,21 @@
+.next-stop-panel {
+    flex-direction: column;
+    margin: 32px;
+    padding: 48px 60px;
+    justify-content: center;
+    align-items: flex-start;
+}
+
+.next-stop-panel #NextStopContainer {
+    flex-direction: row;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.next-stop-panel #NextStopIcon
+{
+    background-image: url('project://database/Assets/Graphics/Icons/Navigation/navigation.svg');
+    width: 40px;
+    height: 40px;
+    margin-right: 16px;
+}

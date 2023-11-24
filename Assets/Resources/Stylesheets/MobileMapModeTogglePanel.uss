@@ -1,0 +1,60 @@
+.mobile-map-mode-toggle-panel {
+    flex-direction: row;
+    margin: 16px;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    align-items: center;
+}
+
+.mobile-map-mode-toggle-panel #Separator {
+    height: 60%;
+    width: 4px;
+    background-color: rgb(180, 180, 180);
+}
+
+.mobile-map-mode-toggle-panel #ShowAllDestinationsButton #ButtonIcon {
+    background-image: url('project://database/Assets/Graphics/Icons/Navigation/route.svg');
+}
+
+.mobile-map-mode-toggle-panel #ShowTrafficButton #ButtonIcon {
+    background-image: url('project://database/Assets/Graphics/Icons/Navigation/traffic.svg');
+}
+
+.mobile-map-mode-toggle-panel > .animated-button {
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    border-radius: 32px;
+    padding: 16px;
+    margin: 32px;
+    flex-grow: 1;
+    flex-basis: 100%;
+}
+
+.mobile-map-mode-toggle-panel > .animated-button #ButtonIcon {
+    width: 40px;
+    height: 40px;
+    margin-right: 16px;
+}
+
+.mobile-map-mode-toggle-panel > .animated-button.active {
+    background-color: var(--theme-color);
+}
+
+.mobile-map-mode-toggle-panel > .animated-button.active #ButtonIcon {
+    -unity-background-image-tint-color: rgb(255, 255, 255);
+}
+
+.mobile-map-mode-toggle-panel > .animated-button.active #ButtonText {
+    color: rgb(255, 255, 255);
+}
+
+.mobile-map-mode-toggle-panel > .animated-button.inactive #ButtonIcon {
+    -unity-background-image-tint-color: var(--theme-color);
+}
+
+.mobile-map-mode-toggle-panel > .animated-button.inactive #ButtonText {
+    color: var(--theme-color);
+}

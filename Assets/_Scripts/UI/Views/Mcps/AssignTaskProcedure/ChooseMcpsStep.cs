@@ -1,7 +1,5 @@
-﻿using Commons.Models;
-using LocalizationNS;
+﻿using LocalizationNS;
 using UI.Reusables.Procedure;
-using UnityEngine;
 using UnityEngine.UIElements;
 
 namespace UI.Views.Mcps.AssignTaskProcedure
