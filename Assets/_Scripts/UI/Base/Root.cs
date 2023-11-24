@@ -272,7 +272,7 @@ namespace UI.Base
                     }
 
                     _timeSinceLastBackButtonPress = Time.time;
-                    AndroidUtility.ShowAndroidToastMessage(Localization.GetSentence(Sentence.Root.PRESS_BACK_AGAIN_TO_EXIT));
+                    AndroidUtility.ShowAndroidToastMessage(Localization.GetSentence(Sentence.MapView.PRESS_BACK_AGAIN_TO_EXIT));
                 }
                 else
                 {

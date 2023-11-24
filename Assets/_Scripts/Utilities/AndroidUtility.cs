@@ -1,5 +1,4 @@
-﻿#if UNITY_ANDROID && !UNITY_EDITOR
-using System;
+﻿using System;
 using UnityEngine;
 
 public static class AndroidUtility
@@ -79,8 +78,8 @@ public static class AndroidUtility
         }
     }
 
-/// <param name="message">Message string to show in the toast.</param>
-    public void ShowAndroidToastMessage(string message)
+    /// <param name="message">Message string to show in the toast.</param>
+    public static void ShowAndroidToastMessage(string message)
     {
         AndroidJavaClass unityPlayer = new AndroidJavaClass("com.unity3d.player.UnityPlayer");
         AndroidJavaObject unityActivity = unityPlayer.GetStatic<AndroidJavaObject>("currentActivity");
@@ -95,8 +94,4 @@ public static class AndroidUtility
             }));
         }
     }
-
-
 }
-
-#endif
