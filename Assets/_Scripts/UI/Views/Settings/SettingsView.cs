@@ -180,7 +180,7 @@ namespace UI.Views.Settings
 
             if (!Configs.IS_DESKTOP)
                 _settingList.Add(new TriggerSettingListEntry(Localization.GetSentence(Sentence.SettingsView.REGISTER_FACIAL_RECOGNITION),
-                    () => FaceRegUtility.Process()));
+                    () => { RootController.Instance.TakePhoto(); }));
 
             _settingList.Add(new TriggerSettingListEntry(Localization.GetSentence(Sentence.SettingsView.REPORT_PROBLEM), () => { }));
 

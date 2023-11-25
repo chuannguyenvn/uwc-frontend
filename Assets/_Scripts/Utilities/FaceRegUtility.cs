@@ -7,16 +7,17 @@ namespace Utilities
     {
         public static void Process(Action completeCallback = null)
         {
-            NativeCamera.RecordVideo((path) =>
-            {
-                Debug.Log("Image path: " + path);
-                if (path != null)
-                {
-                   
-                }
-                
-                completeCallback?.Invoke();
-            }, preferredCamera: NativeCamera.PreferredCamera.Front);
+            // NativeCamera.RecordVideo((path) =>
+            // {
+            //     Debug.Log("Image path: " + path);
+            //     if (path != null)
+            //     {
+            //        
+            //     }
+            //     
+            //     completeCallback?.Invoke();
+            // }, preferredCamera: NativeCamera.PreferredCamera.Front);
+            
         }
     }
 }
