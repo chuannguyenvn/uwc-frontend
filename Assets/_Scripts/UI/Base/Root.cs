@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Authentication;
 using Commons.Types.SettingOptions;
 using LocalizationNS;
@@ -53,12 +54,16 @@ namespace UI.Base
         // Chat bubbles
         private ChatBubblesPanel _chatBubblesPanel;
 
+        // Popups
         private VisualElement _fullscreenPopupContainer;
         private List<FullscreenPopup> _popups = new List<FullscreenPopup>();
 
-
         // For exiting app in Android
         private float _timeSinceLastBackButtonPress;
+
+        // Focus and unfocus event
+        public event Action<ViewType> ViewFocused;
+        public event Action<ViewType> ViewUnfocused;
 
         public Root() : base(nameof(Root), false)
         {
@@ -209,7 +214,7 @@ namespace UI.Base
                 if (!asExtension || type != _mainActiveViewType) view.style.display = DisplayStyle.None;
             }
 
-            if (viewType == _mainActiveViewType)
+            if (viewType == _mainActiveViewType && Configs.IS_DESKTOP)
             {
                 _viewsByViewType[viewType].style.display = DisplayStyle.None;
                 viewType = ViewType.Map;
@@ -251,6 +256,9 @@ namespace UI.Base
                     _settingsView.FocusView();
                     break;
             }
+
+            ViewFocused?.Invoke(viewType);
+            ViewUnfocused?.Invoke(_mainActiveViewType);
 
             if (!asExtension) _mainActiveViewType = viewType;
         }

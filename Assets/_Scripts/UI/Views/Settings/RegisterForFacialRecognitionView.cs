@@ -1,4 +1,5 @@
 ﻿using System.Threading.Tasks;
+using Settings;
 using UI.Base;
 using UnityEngine.UIElements;
 
@@ -22,6 +23,11 @@ namespace UI.Views.Settings
             CreateBackButton();
 
             BringToFront();
+
+            Root.Instance.ViewUnfocused += (viewType) =>
+            {
+                if (viewType == ViewType.Settings) Hide();
+            };
         }
 
         private void CreateCameraView()
