@@ -16,6 +16,7 @@ namespace UI.Views.Settings
     {
         public Setting Setting;
         private SettingList _settingList;
+        private VisualElement _cameraView;
 
         public SettingsView() : base(nameof(SettingsView))
         {
@@ -24,6 +25,16 @@ namespace UI.Views.Settings
             AddToClassList(Configs.IS_DESKTOP ? "side-view" : "full-view");
 
             DataStoreManager.Setting.Settings.DataUpdated += data => Setting = data.Setting;
+
+            _cameraView = new VisualElement();
+            _cameraView.style.position = Position.Absolute;
+            _cameraView.style.top = 0;
+            _cameraView.style.left = 0;
+            _cameraView.style.right = 0;
+            _cameraView.style.bottom = 0;
+            _cameraView.style.display = DisplayStyle.None;
+            _cameraView.pickingMode = PickingMode.Ignore;
+            Add(_cameraView);
 
             CreateSettings();
             CreateNotificationSettings();
@@ -170,8 +181,22 @@ namespace UI.Views.Settings
                 _settingList.Add(new TriggerSettingListEntry(Localization.GetSentence(Sentence.SettingsView.REGISTER_FACIAL_RECOGNITION),
                     () =>
                     {
-                        Permission.RequestUserPermission(Permission.Camera);
-                        Debug.Log("AAAAAAAAAAAAAAAAAAAA");
+                        NativeCamera.RecordVideo((path) =>
+                        {
+                            Debug.Log("Image path: " + path);
+                            if (path != null)
+                            {
+                                // Create a Texture2D from the captured image
+                                Texture2D texture = NativeCamera.LoadImageAtPath(path);
+                                if (texture == null)
+                                {
+                                    Debug.Log("Couldn't load texture from " + path);
+                                    return;
+                                }
+
+                                _cameraView.style.backgroundImage = texture;
+                            }
+                        }, preferredCamera: NativeCamera.PreferredCamera.Front);
                     }));
 
             _settingList.Add(new TriggerSettingListEntry(Localization.GetSentence(Sentence.SettingsView.REPORT_PROBLEM), () => { }));
