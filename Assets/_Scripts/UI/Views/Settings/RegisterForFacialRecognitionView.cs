@@ -42,7 +42,6 @@ namespace UI.Views.Settings
             _guideText = new TextElement { name = "GuideText" };
             _guideText.AddToClassList("white-text");
             _guideText.AddToClassList("normal-text");
-            _guideText.text = "Please look at the camera and press the button below to start.";
             _guidePanel.Add(_guideText);
 
             _startButton = new AnimatedButton { name = "StartButton" };
@@ -60,7 +59,7 @@ namespace UI.Views.Settings
                 },
                 async () =>
                 {
-                    _faceRegIcon.AddToClassList("done");
+                    _faceRegIcon.EnableInClassList("done", true);
                     _guideText.text = "Done!";
                     await Task.Delay(2000);
                     Hide();
@@ -78,6 +77,9 @@ namespace UI.Views.Settings
         public void Show()
         {
             style.display = DisplayStyle.Flex;
+            _startButton.style.display = DisplayStyle.Flex;
+            _faceRegIcon.EnableInClassList("done", false);
+            _guideText.text = "Please look at the camera and press the button below to start.";
             if (RootController.Instance) RootController.Instance.ShowCamera(_cameraView);
         }
 
