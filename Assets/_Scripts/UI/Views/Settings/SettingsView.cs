@@ -9,6 +9,7 @@ using UI.Base;
 using UnityEngine;
 using UnityEngine.Android;
 using UnityEngine.UIElements;
+using Utilities;
 
 namespace UI.Views.Settings
 {
@@ -179,25 +180,7 @@ namespace UI.Views.Settings
 
             if (!Configs.IS_DESKTOP)
                 _settingList.Add(new TriggerSettingListEntry(Localization.GetSentence(Sentence.SettingsView.REGISTER_FACIAL_RECOGNITION),
-                    () =>
-                    {
-                        NativeCamera.RecordVideo((path) =>
-                        {
-                            Debug.Log("Image path: " + path);
-                            if (path != null)
-                            {
-                                // Create a Texture2D from the captured image
-                                Texture2D texture = NativeCamera.LoadImageAtPath(path);
-                                if (texture == null)
-                                {
-                                    Debug.Log("Couldn't load texture from " + path);
-                                    return;
-                                }
-
-                                _cameraView.style.backgroundImage = texture;
-                            }
-                        }, preferredCamera: NativeCamera.PreferredCamera.Front);
-                    }));
+                    () => FaceRegUtility.Process()));
 
             _settingList.Add(new TriggerSettingListEntry(Localization.GetSentence(Sentence.SettingsView.REPORT_PROBLEM), () => { }));
 
