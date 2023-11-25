@@ -7,6 +7,7 @@ using Requests;
 using Settings;
 using UI.Base;
 using UnityEngine;
+using UnityEngine.Android;
 using UnityEngine.UIElements;
 
 namespace UI.Views.Settings
@@ -166,7 +167,12 @@ namespace UI.Views.Settings
             _settingList.Add(new TriggerSettingListEntry(Localization.GetSentence(Sentence.SettingsView.CHANGE_PASSWORD), () => { }));
 
             if (!Configs.IS_DESKTOP)
-                _settingList.Add(new TriggerSettingListEntry(Localization.GetSentence(Sentence.SettingsView.REGISTER_FACIAL_RECOGNITION), () => { }));
+                _settingList.Add(new TriggerSettingListEntry(Localization.GetSentence(Sentence.SettingsView.REGISTER_FACIAL_RECOGNITION),
+                    () =>
+                    {
+                        Permission.RequestUserPermission(Permission.Camera);
+                        Debug.Log("AAAAAAAAAAAAAAAAAAAA");
+                    }));
 
             _settingList.Add(new TriggerSettingListEntry(Localization.GetSentence(Sentence.SettingsView.REPORT_PROBLEM), () => { }));
 
