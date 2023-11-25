@@ -1,3 +1,3 @@
-.desktop #SettingsView {
+.desktop .setting-view {
     width: 550px;
 }

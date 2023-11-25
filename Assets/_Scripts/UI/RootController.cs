@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections;
 using System.IO;
-using Newtonsoft.Json;
 using UnityEngine;
 using UnityEngine.Android;
 using UnityEngine.UIElements;
@@ -29,12 +28,12 @@ namespace UI.Base
             }
         }
 
-        public void TakePhoto()
+        public void ShowCamera(VisualElement cameraView)
         {
-            StartCoroutine(TakePhoto_CO());
+            StartCoroutine(ShowCamera_CO(cameraView));
         }
 
-        private IEnumerator TakePhoto_CO()
+        private IEnumerator ShowCamera_CO(VisualElement cameraView)
         {
             string frontCamName = null;
             var webCamDevices = WebCamTexture.devices;
@@ -48,28 +47,56 @@ namespace UI.Base
             }
 
             Permission.RequestUserPermission(Permission.Camera);
-            _webCamTexture = new WebCamTexture(frontCamName);
+            _webCamTexture = new WebCamTexture(frontCamName, 512, 512);
             _webCamTexture.Play();
 
             yield return new WaitForEndOfFrame();
 
-            Texture2D photo = new Texture2D(_webCamTexture.height, _webCamTexture.width);
-            var array = _webCamTexture.GetPixels();
+            cameraView.style.display = DisplayStyle.Flex;
 
-            for (int x = 0; x < photo.width; x++)
+            Texture2D photo = new Texture2D(_webCamTexture.width, _webCamTexture.height);
+            cameraView.style.backgroundImage = new StyleBackground(photo);
+
+            while (true)
             {
-                for (int y = 0; y < photo.height; y++)
-                {
-                    photo.SetPixel(x, y, array[x * photo.height + y]);
-                }
+                var array = _webCamTexture.GetPixels();
+                cameraView.style.backgroundImage.value.texture.SetPixels(array);
+                cameraView.style.backgroundImage.value.texture.Apply();
+
+                yield return new WaitForEndOfFrame();
+            }
+        }
+
+        public void HideCamera()
+        {
+            StopCoroutine(nameof(ShowCamera_CO));
+            StopCoroutine(nameof(StartTakingPhotos_CO));
+            _webCamTexture.Stop();
+        }
+
+        public void StartTakingPhotos(Action startCallback = null, Action endCallback = null)
+        {
+            startCallback?.Invoke();
+            StartCoroutine(StartTakingPhotos_CO(endCallback));
+        }
+
+        private IEnumerator StartTakingPhotos_CO(Action callback)
+        {
+            Texture2D photo = new Texture2D(_webCamTexture.width, _webCamTexture.height);
+
+            for (int i = 0; i < 5; i++)
+            {
+                var array = _webCamTexture.GetPixels();
+                photo.SetPixels(array);
+                photo.Apply();
+
+                byte[] bytes = photo.EncodeToPNG();
+                File.WriteAllBytes(Application.persistentDataPath + "/" + DateTime.Now.ToString("yy-MM-dd hh:mm:ss") + ".png", bytes);
+
+                yield return new WaitForSeconds(0.5f);
             }
 
-            photo.Apply();
-
-            //Encode to a PNG
-            byte[] bytes = photo.EncodeToPNG();
-            //Write out the PNG. Of course you have to substitute your_path for something sensible
-            File.WriteAllBytes(Application.persistentDataPath + "/" + DateTime.Now.ToString("yy-MM-dd hh:mm:ss") + ".png", bytes);
+            callback?.Invoke();
         }
     }
 }

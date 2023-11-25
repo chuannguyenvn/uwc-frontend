@@ -7,9 +7,7 @@ using Requests;
 using Settings;
 using UI.Base;
 using UnityEngine;
-using UnityEngine.Android;
 using UnityEngine.UIElements;
-using Utilities;
 
 namespace UI.Views.Settings
 {
@@ -17,7 +15,7 @@ namespace UI.Views.Settings
     {
         public Setting Setting;
         private SettingList _settingList;
-        private VisualElement _cameraView;
+        private RegisterForFacialRecognitionView _registerForFacialRecognitionView;
 
         public SettingsView() : base(nameof(SettingsView))
         {
@@ -27,19 +25,10 @@ namespace UI.Views.Settings
 
             DataStoreManager.Setting.Settings.DataUpdated += data => Setting = data.Setting;
 
-            _cameraView = new VisualElement();
-            _cameraView.style.position = Position.Absolute;
-            _cameraView.style.top = 0;
-            _cameraView.style.left = 0;
-            _cameraView.style.right = 0;
-            _cameraView.style.bottom = 0;
-            _cameraView.style.display = DisplayStyle.None;
-            _cameraView.pickingMode = PickingMode.Ignore;
-            Add(_cameraView);
-
             CreateSettings();
             CreateNotificationSettings();
             CreateAccountSettings();
+            CreateRegisterForFacialRecognitionView();
 
             _settingList.style.display = DisplayStyle.None;
         }
@@ -180,11 +169,19 @@ namespace UI.Views.Settings
 
             if (!Configs.IS_DESKTOP)
                 _settingList.Add(new TriggerSettingListEntry(Localization.GetSentence(Sentence.SettingsView.REGISTER_FACIAL_RECOGNITION),
-                    () => { RootController.Instance.TakePhoto(); }));
+                    () => _registerForFacialRecognitionView.Show()));
 
             _settingList.Add(new TriggerSettingListEntry(Localization.GetSentence(Sentence.SettingsView.REPORT_PROBLEM), () => { }));
 
             _settingList.Add(new TriggerSettingListEntry(Localization.GetSentence(Sentence.SettingsView.LOGOUT), () => { }, true));
+        }
+
+        private void CreateRegisterForFacialRecognitionView()
+        {
+            _registerForFacialRecognitionView = new RegisterForFacialRecognitionView();
+            Add(_registerForFacialRecognitionView);
+            
+            _registerForFacialRecognitionView.Hide();
         }
 
         public override void FocusView()
