@@ -5,7 +5,7 @@ namespace Settings
     public static class Configs
     {
 #if UNITY_WEBGL || UNITY_STANDALONE
-        public const bool IS_DESKTOP = false;
+        public const bool IS_DESKTOP = true;
 #elif UNITY_ANDROID
         public const bool IS_DESKTOP = false;
 #endif
