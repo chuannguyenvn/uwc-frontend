@@ -15,6 +15,7 @@ namespace UI.Views.Settings
     {
         public Setting Setting;
         private SettingList _settingList;
+        private RegisterForFacialRecognitionView _registerForFacialRecognitionView;
 
         public SettingsView() : base(nameof(SettingsView))
         {
@@ -27,6 +28,7 @@ namespace UI.Views.Settings
             CreateSettings();
             CreateNotificationSettings();
             CreateAccountSettings();
+            CreateRegisterForFacialRecognitionView();
 
             _settingList.style.display = DisplayStyle.None;
         }
@@ -166,11 +168,20 @@ namespace UI.Views.Settings
             _settingList.Add(new TriggerSettingListEntry(Localization.GetSentence(Sentence.SettingsView.CHANGE_PASSWORD), () => { }));
 
             if (!Configs.IS_DESKTOP)
-                _settingList.Add(new TriggerSettingListEntry(Localization.GetSentence(Sentence.SettingsView.REGISTER_FACIAL_RECOGNITION), () => { }));
+                _settingList.Add(new TriggerSettingListEntry(Localization.GetSentence(Sentence.SettingsView.REGISTER_FACIAL_RECOGNITION),
+                    () => _registerForFacialRecognitionView.Show()));
 
             _settingList.Add(new TriggerSettingListEntry(Localization.GetSentence(Sentence.SettingsView.REPORT_PROBLEM), () => { }));
 
             _settingList.Add(new TriggerSettingListEntry(Localization.GetSentence(Sentence.SettingsView.LOGOUT), () => { }, true));
+        }
+
+        private void CreateRegisterForFacialRecognitionView()
+        {
+            _registerForFacialRecognitionView = new RegisterForFacialRecognitionView();
+            Add(_registerForFacialRecognitionView);
+            
+            _registerForFacialRecognitionView.Hide();
         }
 
         public override void FocusView()
