@@ -1,7 +1,7 @@
 ﻿using Authentication;
+using Commons.Communications.Status;
 using Commons.HubHandlers;
 using Requests.DataStores.Base;
-using SharedLibrary.Communications.OnlineStatus;
 using Microsoft.AspNetCore.SignalR.Client;
 
 namespace Requests.DataStores.Implementations.OnlineStatus
@@ -10,7 +10,7 @@ namespace Requests.DataStores.Implementations.OnlineStatus
     {
         public OnlineStatusStore()
         {
-            AuthenticationManager.Initialized += data =>
+            AuthenticationManager.Instance.Initialized += data =>
             {
                 Data = data.OnlineStatusBroadcastData;
                 OnDataUpdated(Data);

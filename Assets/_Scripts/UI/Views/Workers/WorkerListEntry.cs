@@ -1,4 +1,5 @@
 ﻿using Commons.Models;
+using Maps;
 using UI.Base;
 using UnityEngine.UIElements;
 using Color = UnityEngine.Color;
@@ -27,6 +28,8 @@ namespace UI.Views.Workers
 
             CreateImage(profile);
             CreateDetails(profile);
+
+            Clicked += () => MapManager.Instance.ZoomToWorker(profile.Id);
         }
 
         private void CreateImage(UserProfile profile)

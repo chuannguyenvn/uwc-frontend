@@ -10,7 +10,7 @@ namespace Requests.DataStores.Implementations.Map
     {
         public McpLocationStore()
         {
-            AuthenticationManager.Initialized += data =>
+            AuthenticationManager.Instance.Initialized += data =>
             {
                 Data = data.McpLocationBroadcastData;
                 OnDataUpdated(Data);

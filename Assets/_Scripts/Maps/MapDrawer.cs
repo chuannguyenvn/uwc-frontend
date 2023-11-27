@@ -1,10 +1,15 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Authentication;
 using Commons.Communications.Authentication;
 using Commons.Communications.Map;
+using Commons.Communications.Status;
+using Commons.Endpoints;
 using Commons.Types;
+using InfinityCode.OnlineMapsExamples;
+using Newtonsoft.Json;
 using Requests;
 using UnityEngine;
 using Utilities;
@@ -23,23 +28,39 @@ namespace Maps
         private readonly Dictionary<int, OnlineMapsMarker> _cleanerMarkers = new();
         private readonly Dictionary<int, OnlineMapsMarker> _mcpMarkers = new();
 
+        private OnlineMapsDrawingElement _route;
+        private bool _isRouteDirty = false;
+
+        private int _focusedWorkerId = -1;
+
         private WorkerLocationBroadcastData _data = new()
         {
             DriverLocationByIds = new(),
             CleanerLocationByIds = new()
         };
 
+        private OnlineMapsDrawingPoly _selfLocation;
+
         private void Start()
         {
-            AuthenticationManager.Initialized += UpdateAllMcps;
-            DataStoreManager.Map.WorkerLocation.DataUpdated += (data) => _data = data;
+            AuthenticationManager.Instance.Initialized += UpdateAllMcps;
+            DataStoreManager.Map.WorkerLocation.DataUpdated += (data) =>
+            {
+                _data = data;
+                _isRouteDirty = true;
+            };
             DataStoreManager.Map.McpLocation.DataUpdated += UpdateAllMcps;
+            LocationManager.Instance.LocationUpdated += (_) => UpdateLocation();
         }
 
         private void Update()
         {
             UpdateAllWorkers(_data);
-            OnlineMaps.instance.Redraw();
+            if (_isRouteDirty)
+            {
+                DrawWorkerRoute();
+                _isRouteDirty = false;
+            }
         }
 
         private void UpdateAllWorkers(WorkerLocationBroadcastData data)
@@ -73,8 +94,6 @@ namespace Maps
 
         private void DrawDriverMarker(int driverId, Coordinate coordinate, float orientationInDegrees)
         {
-            if (coordinate.IsApproximatelyEqualTo(new Coordinate(10.7670552457392, 106.656326672901))) return;
-
             OnlineMapsMarker marker;
             if (_driverMarkers.TryGetValue(driverId, out var driverMarker))
             {
@@ -84,19 +103,18 @@ namespace Maps
             {
                 marker = OnlineMapsMarkerManager.instance.Create(coordinate.Longitude, coordinate.Latitude);
                 marker.scale = 0.1f;
-                marker.range = new OnlineMapsRange(17, 24);
+                // marker.range = new OnlineMapsRange(17, 24);
+                marker.texture = _driverMapIconTexture;
+                marker.OnClick += (_) => FocusWorker(driverId);
             }
 
             marker.SetPosition(coordinate.Longitude, coordinate.Latitude);
-            marker.texture = _driverMapIconTexture;
 
             _driverMarkers[driverId] = marker;
         }
 
         private void DrawCleanerMarker(int cleanerId, Coordinate coordinate, float orientationInDegrees)
         {
-            if (coordinate.IsApproximatelyEqualTo(new Coordinate(10.7670552457392, 106.656326672901))) return;
-
             OnlineMapsMarker marker;
             if (_cleanerMarkers.TryGetValue(cleanerId, out var cleanerMarker))
             {
@@ -106,11 +124,12 @@ namespace Maps
             {
                 marker = OnlineMapsMarkerManager.instance.Create(coordinate.Longitude, coordinate.Latitude);
                 marker.scale = 0.1f;
-                marker.range = new OnlineMapsRange(17, 24);
+                // marker.range = new OnlineMapsRange(17, 24);
+                marker.texture = _cleanerMapIconTexture;
+                marker.OnClick += (_) => FocusWorker(cleanerId);
             }
 
             marker.SetPosition(coordinate.Longitude, coordinate.Latitude);
-            marker.texture = _cleanerMapIconTexture;
 
             _cleanerMarkers[cleanerId] = marker;
         }
@@ -126,24 +145,126 @@ namespace Maps
             {
                 marker = OnlineMapsMarkerManager.instance.Create(coordinate.Longitude, coordinate.Latitude);
                 marker.scale = 0.1f;
-                marker.range = new OnlineMapsRange(17, 24);
+                // marker.range = new OnlineMapsRange(17, 24);
+                marker.texture = status switch
+                {
+                    McpFillStatus.Full => _fullMcpMapIconTexture,
+                    McpFillStatus.AlmostFull => _almostFullMcpMapIconTexture,
+                    McpFillStatus.NotFull => _notFullMcpMapIconTexture,
+                    _ => throw new ArgumentOutOfRangeException(nameof(status), status, null)
+                };
             }
 
             marker.SetPosition(coordinate.Longitude, coordinate.Latitude);
-            marker.texture = status switch
-            {
-                McpFillStatus.Full => _fullMcpMapIconTexture,
-                McpFillStatus.AlmostFull => _almostFullMcpMapIconTexture,
-                McpFillStatus.NotFull => _notFullMcpMapIconTexture,
-                _ => throw new ArgumentOutOfRangeException(nameof(status), status, null)
-            };
 
             _mcpMarkers[mcpId] = marker;
         }
 
-        private OnlineMapsDrawingElement CreateWorkerRouteMarker(List<Coordinate> route)
+        private void ShowWorkerRoute(List<Coordinate> route)
         {
-            throw new NotImplementedException();
+            HideWorkerRoute();
+
+            var coordinates = new List<double>();
+
+            coordinates.Add(_data.DriverLocationByIds[_focusedWorkerId].Longitude);
+            coordinates.Add(_data.DriverLocationByIds[_focusedWorkerId].Latitude);
+
+            foreach (var coordinate in route)
+            {
+                coordinates.Add(coordinate.Longitude);
+                coordinates.Add(coordinate.Latitude);
+            }
+
+            var line = new OnlineMapsDrawingLine(coordinates, new Color(90f / 255f, 146f / 255f, 255f / 255f), 4f);
+            OnlineMapsDrawingElementManager.instance.Add(line);
+            _route = line;
+        }
+
+        private void HideWorkerRoute()
+        {
+            if (_route != null)
+            {
+                OnlineMapsDrawingElementManager.instance.Remove(_route);
+            }
+        }
+
+        private void FocusWorker(int workerId)
+        {
+            _focusedWorkerId = workerId;
+
+            StopCoroutine(SendRouteRequest());
+            _isRouteDirty = true;
+            DrawWorkerRoute();
+        }
+
+        private void DrawWorkerRoute()
+        {
+            if (_focusedWorkerId == -1) return;
+
+            StartCoroutine(SendRouteRequest());
+        }
+
+        private IEnumerator SendRouteRequest()
+        {
+            yield return RequestHelper.SendPostRequest<GetWorkingStatusResponse>(Endpoints.Status.GetWorkingStatus, new GetWorkingStatusRequest
+                {
+                    WorkerId = _focusedWorkerId,
+                },
+                (success, result) =>
+                {
+                    if (success)
+                    {
+                        if (result.FocusedTask != null)
+                        {
+                            var route = result.DirectionToFocusedTask.Routes[0].Geometry.Coordinates;
+                            var coordinatesRoute = route.Select(coordinate => new Coordinate(coordinate[1], coordinate[0])).ToList();
+                            ShowWorkerRoute(coordinatesRoute);
+                        }
+                    }
+                });
+        }
+
+        private void UpdateLocation()
+        {
+            if (_selfLocation != null)
+            {
+                OnlineMapsDrawingElementManager.instance.Remove(_selfLocation);
+            }
+
+            var segments = 32;
+
+            double lng = LocationManager.Instance.LastKnownCoordinate.Longitude;
+            double lat = LocationManager.Instance.LastKnownCoordinate.Latitude;
+
+            double nlng, nlat;
+            var radiusKM = LocationManager.Instance.AccuracyInMeters / 1000;
+            OnlineMapsUtils.GetCoordinateInDistance(lng, lat, radiusKM, 90, out nlng, out nlat);
+
+            double tx1, ty1, tx2, ty2;
+
+            OnlineMaps.instance.projection.CoordinatesToTile(lng, lat, 20, out tx1, out ty1);
+
+            OnlineMaps.instance.projection.CoordinatesToTile(nlng, nlat, 20, out tx2, out ty2);
+
+            double r = tx2 - tx1;
+
+            OnlineMapsVector2d[] points = new OnlineMapsVector2d[segments];
+
+            double step = 360d / segments;
+
+            for (int i = 0; i < segments; i++)
+            {
+                double px = tx1 + Math.Cos(step * i * OnlineMapsUtils.Deg2Rad) * r;
+                double py = ty1 + Math.Sin(step * i * OnlineMapsUtils.Deg2Rad) * r;
+                OnlineMaps.instance.projection.TileToCoordinates(px, py, 20, out lng, out lat);
+                points[i] = new OnlineMapsVector2d(lng, lat);
+            }
+
+            OnlineMapsDrawingPoly poly = new OnlineMapsDrawingPoly(points, new Color(90f / 255f, 146f / 255f, 255f / 255f), 3,
+                new Color(90f / 255f, 146f / 255f, 255f / 255f, 0.5f));
+            OnlineMaps.instance.drawingElementManager.Add(poly);
+
+            _selfLocation = poly;
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using Requests.DataStores.Implementations.Map;
+﻿using System;
+using Requests.DataStores.Implementations.Map;
 using Requests.DataStores.Implementations.Mcps;
 using Requests.DataStores.Implementations.Messaging;
 using Requests.DataStores.Implementations.OnlineStatus;
@@ -15,51 +16,76 @@ namespace Requests
     {
         public static class Mcps
         {
-            public static ListViewStore ListView { get; } = new();
-            public static FillLevelStore FillLevel { get; } = new();
+            public static ListViewStore ListView { get; set; }
+            public static FillLevelStore FillLevel { get; set; }
         }
 
         public static class Messaging
         {
-            public static ContactListStore ContactList { get; } = new();
-            public static InboxMessageListStore InboxMessageList { get; } = new();
+            public static ContactListStore ContactList { get; set; }
+            public static InboxMessageListStore InboxMessageList { get; set; }
         }
 
         public static class Map
         {
-            public static WorkerLocationStore WorkerLocation { get; } = new();
-            public static McpLocationStore McpLocation { get; } = new();
+            public static WorkerLocationStore WorkerLocation { get; set; }
+            public static McpLocationStore McpLocation { get; set; }
         }
 
         public static class Reporting
         {
-            public static ReportingViewStore ReportingView { get; } = new();
+            public static ReportingViewStore ReportingView { get; set; }
         }
 
         public static class OnlineStatus
         {
-            public static OnlineStatusStore Status { get; } = new();
+            public static OnlineStatusStore Status { get; set; }
         }
 
         public static class UserProfile
         {
-            public static AllWorkerProfileListStore AllWorkerProfileList { get; } = new();
+            public static AllWorkerProfileListStore AllWorkerProfileList { get; set; }
         }
 
         public static class Tasks
         {
-            public static AllTaskListStore AllTaskList { get; } = new();
-            public static PersonalTaskListStore PersonalTaskList { get; } = new();
+            public static AllTaskListStore AllTaskList { get; set; }
+            public static PersonalTaskListStore PersonalTaskList { get; set; }
         }
 
         public static class Vehicles
         {
-            public static AllVehicleListStore AllVehicleList { get; } = new();
+            public static AllVehicleListStore AllVehicleList { get; set; }
         }
 
         public static class Setting
         {
-            public static SettingStore Settings { get; } = new();
+            public static SettingStore Settings { get; set; }
+        }
+
+        private void Start()
+        {
+            Mcps.ListView = new ListViewStore();
+            Mcps.FillLevel = new FillLevelStore();
+
+            Messaging.ContactList = new ContactListStore();
+            Messaging.InboxMessageList = new InboxMessageListStore();
+
+            Map.WorkerLocation = new WorkerLocationStore();
+            Map.McpLocation = new McpLocationStore();
+
+            Reporting.ReportingView = new ReportingViewStore();
+
+            OnlineStatus.Status = new OnlineStatusStore();
+
+            UserProfile.AllWorkerProfileList = new AllWorkerProfileListStore();
+
+            Tasks.AllTaskList = new AllTaskListStore();
+            Tasks.PersonalTaskList = new PersonalTaskListStore();
+
+            Vehicles.AllVehicleList = new AllVehicleListStore();
+
+            Setting.Settings = new SettingStore();
         }
     }
 }

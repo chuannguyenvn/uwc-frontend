@@ -19,14 +19,15 @@ namespace UI.Views.Map
             ConfigureUss(nameof(MapView));
 
             AddToClassList("full-view");
-            style.backgroundColor = new StyleColor(new Color(0.0f, 0.0f, 0.0f, 0.0f));
             pickingMode = PickingMode.Ignore;
 
-            CreateNavigationPanel();
-            CreateNextStopPanel();
-            CreateMobileMapModeTogglePanel();
-
-            ToggleMapMode();
+            if (!Configs.IS_DESKTOP)
+            {
+                CreateNavigationPanel();
+                CreateNextStopPanel();
+                CreateMobileMapModeTogglePanel();
+                ToggleMapMode();
+            }
         }
 
         private void CreateNavigationPanel()
