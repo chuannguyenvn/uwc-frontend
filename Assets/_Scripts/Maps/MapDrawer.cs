@@ -175,7 +175,7 @@ namespace Maps
                 coordinates.Add(coordinate.Latitude);
             }
 
-            var line = new OnlineMapsDrawingLine(coordinates, new Color(90f / 255f, 146f / 255f, 255f / 255f), 4f);
+            var line = new OnlineMapsDrawingLine(coordinates, new Color(90f / 255f, 146f / 255f, 255f / 255f, 0.5f), 4f);
             OnlineMapsDrawingElementManager.instance.Add(line);
             _route = line;
         }
