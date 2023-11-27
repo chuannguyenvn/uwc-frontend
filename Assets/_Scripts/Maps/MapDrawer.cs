@@ -4,6 +4,8 @@ using System.Linq;
 using Authentication;
 using Commons.Communications.Authentication;
 using Commons.Communications.Map;
+using Commons.Communications.Status;
+using Commons.Endpoints;
 using Commons.Types;
 using Newtonsoft.Json;
 using Requests;
@@ -87,6 +89,7 @@ namespace Maps
                 marker.scale = 0.1f;
                 marker.range = new OnlineMapsRange(17, 24);
                 marker.texture = _driverMapIconTexture;
+                marker.OnClick += (_) => WorkerClickedHandler(driverId);
             }
 
             marker.SetPosition(coordinate.Longitude, coordinate.Latitude);
@@ -109,6 +112,7 @@ namespace Maps
                 marker.scale = 0.1f;
                 marker.range = new OnlineMapsRange(17, 24);
                 marker.texture = _cleanerMapIconTexture;
+                marker.OnClick += (_) => WorkerClickedHandler(cleanerId);
             }
 
             marker.SetPosition(coordinate.Longitude, coordinate.Latitude);
@@ -149,6 +153,21 @@ namespace Maps
             OnlineMapsDrawingElementManager.instance.Add(line);
 
             return line;
+        }
+
+        private void WorkerClickedHandler(int workerId)
+        {
+            StartCoroutine(RequestHelper.SendPostRequest<GetWorkingStatusResponse>(Endpoints.Status.GetWorkingStatus, new GetWorkingStatusRequest
+                {
+                    WorkerId = workerId,
+                },
+                (success, result) =>
+                {
+                    if (success)
+                    {
+                        Debug.Log(JsonConvert.SerializeObject(result, Formatting.Indented));
+                    }
+                }));
         }
     }
 }
