@@ -1,6 +1,7 @@
 ﻿using System;
 using Commons.Communications.Mcps;
 using Commons.Models;
+using Maps;
 using Requests;
 using UI.Base;
 using UnityEngine.UIElements;
@@ -68,6 +69,8 @@ namespace UI.Views.Mcps
             
             DataStoreManager.Mcps.FillLevel.DataUpdated += DataUpdatedHandler;
             DataUpdatedHandler(DataStoreManager.Mcps.FillLevel.Data);
+            
+            Clicked += () => MapManager.Instance.ZoomToMcp(mcpData.Id);
         }
 
         ~McpListEntry()

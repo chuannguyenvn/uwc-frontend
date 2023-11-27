@@ -779,6 +779,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   MapGameObject: {fileID: 268021858}
+  OnlineMaps: {fileID: 268021867}
 --- !u!4 &1732594614
 Transform:
   m_ObjectHideFlags: 0
