@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.IO;
+using JetBrains.Annotations;
 using UnityEngine;
 using UnityEngine.Android;
 using UnityEngine.UIElements;
@@ -13,7 +14,7 @@ namespace UI.Base
         public static event Action BackButtonPressed;
 
         public UIDocument RootDocument;
-        private WebCamTexture _webCamTexture;
+        [CanBeNull] private WebCamTexture _webCamTexture;
 
         private void Start()
         {
@@ -71,7 +72,7 @@ namespace UI.Base
         {
             StopCoroutine(nameof(ShowCamera_CO));
             StopCoroutine(nameof(StartTakingPhotos_CO));
-            _webCamTexture.Stop();
+            if (_webCamTexture != null) _webCamTexture.Stop();
         }
 
         public void StartTakingPhotos(Action startCallback = null, Action endCallback = null)

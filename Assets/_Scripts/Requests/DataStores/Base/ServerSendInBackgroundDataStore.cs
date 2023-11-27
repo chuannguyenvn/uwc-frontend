@@ -6,8 +6,8 @@ namespace Requests.DataStores.Base
     {
         public ServerSendInBackgroundDataStore()
         {
-            AuthenticationManager.LoggedIn += EstablishHubConnection;
-            AuthenticationManager.LoggedOut += CloseHubConnection;
+            AuthenticationManager.Instance.LoggedIn += EstablishHubConnection;
+            AuthenticationManager.Instance.LoggedOut += CloseHubConnection;
         }
 
         ~ServerSendInBackgroundDataStore()

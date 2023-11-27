@@ -12,7 +12,7 @@ namespace Requests.DataStores.Implementations.Mcps
     {
         public FillLevelStore()
         {
-            AuthenticationManager.Initialized += data =>
+            AuthenticationManager.Instance.Initialized += data =>
             {
                 Data = data.McpFillLevelBroadcastData;
                 OnDataUpdated(Data);
@@ -23,7 +23,6 @@ namespace Requests.DataStores.Implementations.Mcps
         {
             AuthenticationManager.Instance.HubConnection.On(HubHandlers.McpFillLevel.BROADCAST_FILL_LEVEL, (McpFillLevelBroadcastData data) =>
             {
-                Debug.Log(JsonConvert.SerializeObject(data, Formatting.Indented));
                 Data = data;
                 OnDataUpdated(Data);
             });

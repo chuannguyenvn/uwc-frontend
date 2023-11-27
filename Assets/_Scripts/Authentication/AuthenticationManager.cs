@@ -7,21 +7,28 @@ using Microsoft.AspNetCore.SignalR.Client;
 using Newtonsoft.Json;
 using Requests;
 using Settings;
+using UI.Base;
 using UnityEngine;
+using UnityEngine.UIElements;
 using Utilities;
 
 namespace Authentication
 {
     public class AuthenticationManager : PersistentSingleton<AuthenticationManager>
     {
-        public static event Action LoggedIn;
-        public static event Action LoggedOut;
-        public static event Action<InitializationData> Initialized;
+        public event Action LoggedIn;
+        public event Action LoggedOut;
+        public event Action<InitializationData> Initialized;
 
         public string JWT { get; private set; }
         public int UserAccountId { get; private set; }
 
         public HubConnection HubConnection { get; private set; }
+
+        private void Start()
+        {
+            RootController.Instance.RootDocument.rootVisualElement.Q<Root>().Create();
+        }
 
         public void Login(string username, string password)
         {
@@ -69,7 +76,7 @@ namespace Authentication
 
             LoggedIn?.Invoke();
             Debug.Log("Successfully logged in with JWT: " + JWT + " and UserAccountId: " + UserAccountId);
-            
+
             Localization.LanguageOption = response.InitializationData.Setting.Language;
             PlayerPrefs.SetString("Language", Localization.LanguageOption.ToString());
         }

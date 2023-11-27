@@ -5,6 +5,7 @@ using Authentication;
 using Commons.Communications.Authentication;
 using Commons.Communications.Map;
 using Commons.Types;
+using Newtonsoft.Json;
 using Requests;
 using UnityEngine;
 using Utilities;
@@ -31,7 +32,7 @@ namespace Maps
 
         private void Start()
         {
-            AuthenticationManager.Initialized += UpdateAllMcps;
+            AuthenticationManager.Instance.Initialized += UpdateAllMcps;
             DataStoreManager.Map.WorkerLocation.DataUpdated += (data) => _data = data;
             DataStoreManager.Map.McpLocation.DataUpdated += UpdateAllMcps;
         }
@@ -85,10 +86,10 @@ namespace Maps
                 marker = OnlineMapsMarkerManager.instance.Create(coordinate.Longitude, coordinate.Latitude);
                 marker.scale = 0.1f;
                 marker.range = new OnlineMapsRange(17, 24);
+                marker.texture = _driverMapIconTexture;
             }
 
             marker.SetPosition(coordinate.Longitude, coordinate.Latitude);
-            marker.texture = _driverMapIconTexture;
 
             _driverMarkers[driverId] = marker;
         }
@@ -107,10 +108,10 @@ namespace Maps
                 marker = OnlineMapsMarkerManager.instance.Create(coordinate.Longitude, coordinate.Latitude);
                 marker.scale = 0.1f;
                 marker.range = new OnlineMapsRange(17, 24);
+                marker.texture = _cleanerMapIconTexture;
             }
 
             marker.SetPosition(coordinate.Longitude, coordinate.Latitude);
-            marker.texture = _cleanerMapIconTexture;
 
             _cleanerMarkers[cleanerId] = marker;
         }
@@ -127,23 +128,27 @@ namespace Maps
                 marker = OnlineMapsMarkerManager.instance.Create(coordinate.Longitude, coordinate.Latitude);
                 marker.scale = 0.1f;
                 marker.range = new OnlineMapsRange(17, 24);
+                marker.texture = status switch
+                {
+                    McpFillStatus.Full => _fullMcpMapIconTexture,
+                    McpFillStatus.AlmostFull => _almostFullMcpMapIconTexture,
+                    McpFillStatus.NotFull => _notFullMcpMapIconTexture,
+                    _ => throw new ArgumentOutOfRangeException(nameof(status), status, null)
+                };
             }
 
             marker.SetPosition(coordinate.Longitude, coordinate.Latitude);
-            marker.texture = status switch
-            {
-                McpFillStatus.Full => _fullMcpMapIconTexture,
-                McpFillStatus.AlmostFull => _almostFullMcpMapIconTexture,
-                McpFillStatus.NotFull => _notFullMcpMapIconTexture,
-                _ => throw new ArgumentOutOfRangeException(nameof(status), status, null)
-            };
 
             _mcpMarkers[mcpId] = marker;
         }
 
         private OnlineMapsDrawingElement CreateWorkerRouteMarker(List<Coordinate> route)
         {
-            throw new NotImplementedException();
+            var coordinates = route.Select(coordinate => new Vector2((float)coordinate.Longitude, (float)coordinate.Latitude)).ToList();
+            var line = new OnlineMapsDrawingLine(coordinates, Color.green);
+            OnlineMapsDrawingElementManager.instance.Add(line);
+
+            return line;
         }
     }
 }

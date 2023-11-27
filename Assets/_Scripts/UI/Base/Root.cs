@@ -74,15 +74,23 @@ namespace UI.Base
             styleSheets.AddByName("Common");
             styleSheets.AddByName(nameof(Root));
             pickingMode = PickingMode.Ignore;
+        }
 
+        ~Root()
+        {
+            UnsubscribeToAuthenticationScreenEvents();
+        }
+
+        public void Create()
+        {
             if (Configs.IS_DESKTOP) CreateChatBubblesPanel();
             CreateAuthenticationScreen();
             CreateNavigationBar();
             CreateViews();
             CreatePopups();
 
-            SubscribeToAuthenticationScreenEvents();
             RegisterMouseEvents();
+            SubscribeToAuthenticationScreenEvents();
             if (!Configs.IS_DESKTOP)
             {
                 SubscribeToGlobalBackButtonClickEvent();
@@ -91,11 +99,6 @@ namespace UI.Base
                 AndroidUtility.ShowStatusBar(Color.black);
 #endif
             }
-        }
-
-        ~Root()
-        {
-            UnsubscribeToAuthenticationScreenEvents();
         }
 
         private static void RestoreLanguageOption()
@@ -265,14 +268,14 @@ namespace UI.Base
 
         private void SubscribeToAuthenticationScreenEvents()
         {
-            AuthenticationManager.LoggedIn += CloseAuthenticationScreen;
-            AuthenticationManager.LoggedOut += OpenAuthenticationScreen;
+            AuthenticationManager.Instance.LoggedIn += CloseAuthenticationScreen;
+            AuthenticationManager.Instance.LoggedOut += OpenAuthenticationScreen;
         }
 
         private void UnsubscribeToAuthenticationScreenEvents()
         {
-            AuthenticationManager.LoggedIn -= CloseAuthenticationScreen;
-            AuthenticationManager.LoggedOut -= OpenAuthenticationScreen;
+            AuthenticationManager.Instance.LoggedIn -= CloseAuthenticationScreen;
+            AuthenticationManager.Instance.LoggedOut -= OpenAuthenticationScreen;
         }
 
         private void RegisterMouseEvents()

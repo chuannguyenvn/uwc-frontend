@@ -10,7 +10,7 @@ namespace Requests.DataStores.Implementations.OnlineStatus
     {
         public OnlineStatusStore()
         {
-            AuthenticationManager.Initialized += data =>
+            AuthenticationManager.Instance.Initialized += data =>
             {
                 Data = data.OnlineStatusBroadcastData;
                 OnDataUpdated(Data);
