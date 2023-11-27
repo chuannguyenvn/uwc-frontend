@@ -14,6 +14,7 @@ namespace Maps
     {
         public event Action<Coordinate> LocationUpdated;
         public Coordinate LastKnownCoordinate { get; private set; }
+        public float AccuracyInMeters => Input.location.lastData.horizontalAccuracy;
 
         private void Start()
         {

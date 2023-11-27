@@ -8,6 +8,7 @@ using Commons.Communications.Map;
 using Commons.Communications.Status;
 using Commons.Endpoints;
 using Commons.Types;
+using InfinityCode.OnlineMapsExamples;
 using Newtonsoft.Json;
 using Requests;
 using UnityEngine;
@@ -38,6 +39,8 @@ namespace Maps
             CleanerLocationByIds = new()
         };
 
+        private OnlineMapsDrawingPoly _selfLocation;
+
         private void Start()
         {
             AuthenticationManager.Instance.Initialized += UpdateAllMcps;
@@ -47,6 +50,7 @@ namespace Maps
                 _isRouteDirty = true;
             };
             DataStoreManager.Map.McpLocation.DataUpdated += UpdateAllMcps;
+            LocationManager.Instance.LocationUpdated += (_) => UpdateLocation();
         }
 
         private void Update()
@@ -57,8 +61,6 @@ namespace Maps
                 DrawWorkerRoute();
                 _isRouteDirty = false;
             }
-
-            OnlineMaps.instance.Redraw();
         }
 
         private void UpdateAllWorkers(WorkerLocationBroadcastData data)
@@ -173,7 +175,7 @@ namespace Maps
                 coordinates.Add(coordinate.Latitude);
             }
 
-            var line = new OnlineMapsDrawingLine(coordinates, Color.green, 5f);
+            var line = new OnlineMapsDrawingLine(coordinates, new Color(90f / 255f, 146f / 255f, 255f / 255f), 4f);
             OnlineMapsDrawingElementManager.instance.Add(line);
             _route = line;
         }
@@ -220,6 +222,49 @@ namespace Maps
                         }
                     }
                 });
+        }
+
+        private void UpdateLocation()
+        {
+            if (_selfLocation != null)
+            {
+                OnlineMapsDrawingElementManager.instance.Remove(_selfLocation);
+            }
+
+            var segments = 32;
+
+            double lng = LocationManager.Instance.LastKnownCoordinate.Longitude;
+            double lat = LocationManager.Instance.LastKnownCoordinate.Latitude;
+
+            double nlng, nlat;
+            var radiusKM = LocationManager.Instance.AccuracyInMeters / 1000;
+            OnlineMapsUtils.GetCoordinateInDistance(lng, lat, radiusKM, 90, out nlng, out nlat);
+
+            double tx1, ty1, tx2, ty2;
+
+            OnlineMaps.instance.projection.CoordinatesToTile(lng, lat, 20, out tx1, out ty1);
+
+            OnlineMaps.instance.projection.CoordinatesToTile(nlng, nlat, 20, out tx2, out ty2);
+
+            double r = tx2 - tx1;
+
+            OnlineMapsVector2d[] points = new OnlineMapsVector2d[segments];
+
+            double step = 360d / segments;
+
+            for (int i = 0; i < segments; i++)
+            {
+                double px = tx1 + Math.Cos(step * i * OnlineMapsUtils.Deg2Rad) * r;
+                double py = ty1 + Math.Sin(step * i * OnlineMapsUtils.Deg2Rad) * r;
+                OnlineMaps.instance.projection.TileToCoordinates(px, py, 20, out lng, out lat);
+                points[i] = new OnlineMapsVector2d(lng, lat);
+            }
+
+            OnlineMapsDrawingPoly poly = new OnlineMapsDrawingPoly(points, new Color(90f / 255f, 146f / 255f, 255f / 255f), 3,
+                new Color(90f / 255f, 146f / 255f, 255f / 255f, 0.5f));
+            OnlineMaps.instance.drawingElementManager.Add(poly);
+
+            _selfLocation = poly;
         }
     }
 }
