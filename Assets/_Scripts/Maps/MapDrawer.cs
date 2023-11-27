@@ -151,7 +151,6 @@ namespace Maps
             var coordinates = route.Select(coordinate => new Vector2((float)coordinate.Longitude, (float)coordinate.Latitude)).ToList();
             var line = new OnlineMapsDrawingLine(coordinates, Color.green);
             OnlineMapsDrawingElementManager.instance.Add(line);
-
             return line;
         }
 
@@ -166,6 +165,12 @@ namespace Maps
                     if (success)
                     {
                         Debug.Log(JsonConvert.SerializeObject(result, Formatting.Indented));
+                        if (result.FocusedTask != null)
+                        {
+                            var route = result.DirectionToFocusedTask.Routes[0].Geometry.Coordinates;
+                            var coordinatesRoute = route.Select(coordinate => new Coordinate(coordinate[1], coordinate[0])).ToList();
+                            CreateWorkerRouteMarker(coordinatesRoute);
+                        }
                     }
                 }));
         }
