@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Authentication;
@@ -26,6 +27,11 @@ namespace Maps
         private readonly Dictionary<int, OnlineMapsMarker> _cleanerMarkers = new();
         private readonly Dictionary<int, OnlineMapsMarker> _mcpMarkers = new();
 
+        private OnlineMapsDrawingElement _route;
+        private bool _isRouteDirty = false;
+
+        private int _focusedWorkerId = -1;
+
         private WorkerLocationBroadcastData _data = new()
         {
             DriverLocationByIds = new(),
@@ -35,13 +41,23 @@ namespace Maps
         private void Start()
         {
             AuthenticationManager.Instance.Initialized += UpdateAllMcps;
-            DataStoreManager.Map.WorkerLocation.DataUpdated += (data) => _data = data;
+            DataStoreManager.Map.WorkerLocation.DataUpdated += (data) =>
+            {
+                _data = data;
+                _isRouteDirty = true;
+            };
             DataStoreManager.Map.McpLocation.DataUpdated += UpdateAllMcps;
         }
 
         private void Update()
         {
             UpdateAllWorkers(_data);
+            if (_isRouteDirty)
+            {
+                DrawWorkerRoute();
+                _isRouteDirty = false;
+            }
+
             OnlineMaps.instance.Redraw();
         }
 
@@ -76,8 +92,6 @@ namespace Maps
 
         private void DrawDriverMarker(int driverId, Coordinate coordinate, float orientationInDegrees)
         {
-            if (coordinate.IsApproximatelyEqualTo(new Coordinate(10.7670552457392, 106.656326672901))) return;
-
             OnlineMapsMarker marker;
             if (_driverMarkers.TryGetValue(driverId, out var driverMarker))
             {
@@ -87,9 +101,9 @@ namespace Maps
             {
                 marker = OnlineMapsMarkerManager.instance.Create(coordinate.Longitude, coordinate.Latitude);
                 marker.scale = 0.1f;
-                marker.range = new OnlineMapsRange(17, 24);
+                // marker.range = new OnlineMapsRange(17, 24);
                 marker.texture = _driverMapIconTexture;
-                marker.OnClick += (_) => WorkerClickedHandler(driverId);
+                marker.OnClick += (_) => FocusWorker(driverId);
             }
 
             marker.SetPosition(coordinate.Longitude, coordinate.Latitude);
@@ -99,8 +113,6 @@ namespace Maps
 
         private void DrawCleanerMarker(int cleanerId, Coordinate coordinate, float orientationInDegrees)
         {
-            if (coordinate.IsApproximatelyEqualTo(new Coordinate(10.7670552457392, 106.656326672901))) return;
-
             OnlineMapsMarker marker;
             if (_cleanerMarkers.TryGetValue(cleanerId, out var cleanerMarker))
             {
@@ -110,9 +122,9 @@ namespace Maps
             {
                 marker = OnlineMapsMarkerManager.instance.Create(coordinate.Longitude, coordinate.Latitude);
                 marker.scale = 0.1f;
-                marker.range = new OnlineMapsRange(17, 24);
+                // marker.range = new OnlineMapsRange(17, 24);
                 marker.texture = _cleanerMapIconTexture;
-                marker.OnClick += (_) => WorkerClickedHandler(cleanerId);
+                marker.OnClick += (_) => FocusWorker(cleanerId);
             }
 
             marker.SetPosition(coordinate.Longitude, coordinate.Latitude);
@@ -131,7 +143,7 @@ namespace Maps
             {
                 marker = OnlineMapsMarkerManager.instance.Create(coordinate.Longitude, coordinate.Latitude);
                 marker.scale = 0.1f;
-                marker.range = new OnlineMapsRange(17, 24);
+                // marker.range = new OnlineMapsRange(17, 24);
                 marker.texture = status switch
                 {
                     McpFillStatus.Full => _fullMcpMapIconTexture,
@@ -146,33 +158,68 @@ namespace Maps
             _mcpMarkers[mcpId] = marker;
         }
 
-        private OnlineMapsDrawingElement CreateWorkerRouteMarker(List<Coordinate> route)
+        private void ShowWorkerRoute(List<Coordinate> route)
         {
-            var coordinates = route.Select(coordinate => new Vector2((float)coordinate.Longitude, (float)coordinate.Latitude)).ToList();
-            var line = new OnlineMapsDrawingLine(coordinates, Color.green);
+            HideWorkerRoute();
+
+            var coordinates = new List<double>();
+
+            coordinates.Add(_data.DriverLocationByIds[_focusedWorkerId].Longitude);
+            coordinates.Add(_data.DriverLocationByIds[_focusedWorkerId].Latitude);
+
+            foreach (var coordinate in route)
+            {
+                coordinates.Add(coordinate.Longitude);
+                coordinates.Add(coordinate.Latitude);
+            }
+
+            var line = new OnlineMapsDrawingLine(coordinates, Color.green, 5f);
             OnlineMapsDrawingElementManager.instance.Add(line);
-            return line;
+            _route = line;
         }
 
-        private void WorkerClickedHandler(int workerId)
+        private void HideWorkerRoute()
         {
-            StartCoroutine(RequestHelper.SendPostRequest<GetWorkingStatusResponse>(Endpoints.Status.GetWorkingStatus, new GetWorkingStatusRequest
+            if (_route != null)
+            {
+                OnlineMapsDrawingElementManager.instance.Remove(_route);
+            }
+        }
+
+        private void FocusWorker(int workerId)
+        {
+            _focusedWorkerId = workerId;
+
+            StopCoroutine(SendRouteRequest());
+            _isRouteDirty = true;
+            DrawWorkerRoute();
+        }
+
+        private void DrawWorkerRoute()
+        {
+            if (_focusedWorkerId == -1) return;
+
+            StartCoroutine(SendRouteRequest());
+        }
+
+        private IEnumerator SendRouteRequest()
+        {
+            yield return RequestHelper.SendPostRequest<GetWorkingStatusResponse>(Endpoints.Status.GetWorkingStatus, new GetWorkingStatusRequest
                 {
-                    WorkerId = workerId,
+                    WorkerId = _focusedWorkerId,
                 },
                 (success, result) =>
                 {
                     if (success)
                     {
-                        Debug.Log(JsonConvert.SerializeObject(result, Formatting.Indented));
                         if (result.FocusedTask != null)
                         {
                             var route = result.DirectionToFocusedTask.Routes[0].Geometry.Coordinates;
                             var coordinatesRoute = route.Select(coordinate => new Coordinate(coordinate[1], coordinate[0])).ToList();
-                            CreateWorkerRouteMarker(coordinatesRoute);
+                            ShowWorkerRoute(coordinatesRoute);
                         }
                     }
-                }));
+                });
         }
     }
 }
