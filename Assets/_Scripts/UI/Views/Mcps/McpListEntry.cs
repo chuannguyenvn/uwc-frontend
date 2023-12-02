@@ -28,11 +28,11 @@ namespace UI.Views.Mcps
                 EnableInClassList("almost-full", false);
                 EnableInClassList("full", false);
 
-                if (_currentLoadPercentage < 50)
+                if (_currentLoadPercentage < 0.5f)
                 {
                     EnableInClassList("not-full", true);
                 }
-                else if (_currentLoadPercentage < 90)
+                else if (_currentLoadPercentage < 0.9f)
                 {
                     EnableInClassList("almost-full", true);
                 }
@@ -41,7 +41,7 @@ namespace UI.Views.Mcps
                     EnableInClassList("full", true);
                 }
 
-                _currentLoadPercentageText.text = _currentLoadPercentage.ToString("F2") + "%";
+                _currentLoadPercentageText.text = (_currentLoadPercentage * 100).ToString("F1") + "%";
             }
         }
 

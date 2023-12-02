@@ -115,7 +115,7 @@ namespace UI.Views.Mcps
             foreach (var mcpEntry in mcpEntries) _scrollView.AddToScrollView(mcpEntry);
         }
 
-        public void SortByAssigningOrder()
+        private void SortByAssigningOrder()
         {
             var mcpEntries = _mcpListEntriesByAddress.Values.ToList();
 
