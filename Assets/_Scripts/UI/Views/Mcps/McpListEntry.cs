@@ -12,6 +12,7 @@ namespace UI.Views.Mcps
     public class McpListEntry : AnimatedButton
     {
         private readonly McpData _mcpData;
+        private readonly bool _isTaskAssigning;
 
         private float _currentLoadPercentage;
 
@@ -54,9 +55,10 @@ namespace UI.Views.Mcps
         // Logs
         private VisualElement _logsContainer;
 
-        public McpListEntry(McpData mcpData) : base(nameof(McpListEntry))
+        public McpListEntry(McpData mcpData, bool isTaskAssigning) : base(nameof(McpListEntry))
         {
             _mcpData = mcpData;
+            _isTaskAssigning = isTaskAssigning;
 
             ConfigureUss(nameof(McpListEntry));
 
@@ -65,12 +67,19 @@ namespace UI.Views.Mcps
             AddToClassList("rounded-button-16px");
 
             CreateInformation(mcpData);
-            CreateLogs();
-            
+
+            if (_isTaskAssigning)
+            {
+                AddToClassList("task-assigning");
+            }
+            else
+            {
+                Clicked += () => MapManager.Instance.ZoomToMcp(mcpData.Id);
+                CreateLogs();
+            }
+
             DataStoreManager.Mcps.FillLevel.DataUpdated += DataUpdatedHandler;
             DataUpdatedHandler(DataStoreManager.Mcps.FillLevel.Data);
-            
-            Clicked += () => MapManager.Instance.ZoomToMcp(mcpData.Id);
         }
 
         ~McpListEntry()

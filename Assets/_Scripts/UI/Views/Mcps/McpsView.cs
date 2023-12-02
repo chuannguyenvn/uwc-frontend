@@ -15,21 +15,25 @@ namespace UI.Views.Mcps
 {
     public class McpsView : View
     {
+        private readonly bool _isTaskAssigning;
         private readonly Dictionary<string, McpListEntry> _mcpListEntriesByAddress = new();
 
         private ListControl _listControl;
         private ScrollViewWithShadow _scrollView;
         private McpInformationPopup _mcpInformationPopup;
 
-        public McpsView() : base(nameof(McpsView))
+        public McpsView(bool isTaskAssigning = false) : base(nameof(McpsView))
         {
+            _isTaskAssigning = isTaskAssigning;
+            if (_isTaskAssigning) AddToClassList("task-assigning");
+
             ConfigureUss(nameof(McpsView));
 
             AddToClassList("side-view");
 
             CreateControls();
             CreateScrollView();
-            CreateFullscreenPopup();
+            if (!_isTaskAssigning) CreateFullscreenPopup();
 
             DataStoreManager.Mcps.ListView.DataUpdated += DataUpdatedHandler;
         }
@@ -67,7 +71,7 @@ namespace UI.Views.Mcps
             _scrollView.Clear();
             foreach (var mcpData in data.Results)
             {
-                var entry = new McpListEntry(mcpData);
+                var entry = new McpListEntry(mcpData, _isTaskAssigning);
                 mcpEntries.Add(entry);
                 _mcpListEntriesByAddress[mcpData.Address] = entry;
                 entry.Clicked += () =>

@@ -39,7 +39,6 @@ namespace UI.Reusables.Procedure
 
             CreateTitle();
             CreateSteps();
-            Deactivate();
         }
 
         private void CreateTitle()

@@ -1,0 +1,4 @@
+.workers-view.task-assigning {
+    flex-basis: 200px;
+    flex-grow: 1;
+}

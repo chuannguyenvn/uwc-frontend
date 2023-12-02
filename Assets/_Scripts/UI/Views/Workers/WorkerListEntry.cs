@@ -8,6 +8,7 @@ namespace UI.Views.Workers
 {
     public class WorkerListEntry : AnimatedButton
     {
+        private readonly bool _isTaskAssigning;
         public UserProfile Profile { get; }
 
         private TextElement _avatar;
@@ -16,9 +17,11 @@ namespace UI.Views.Workers
         private TextElement _nameText;
         private TextElement _statusText;
 
-        public WorkerListEntry(UserProfile profile) : base(nameof(WorkerListEntry))
+        public WorkerListEntry(UserProfile profile, bool isTaskAssigning) : base(nameof(WorkerListEntry))
         {
             Profile = profile;
+            _isTaskAssigning = isTaskAssigning;
+            if (_isTaskAssigning) AddToClassList("task-assigning");
 
             ConfigureUss(nameof(WorkerListEntry));
 
@@ -29,7 +32,7 @@ namespace UI.Views.Workers
             CreateImage(profile);
             CreateDetails(profile);
 
-            Clicked += () => MapManager.Instance.ZoomToWorker(profile.Id);
+            if (!_isTaskAssigning) Clicked += () => MapManager.Instance.ZoomToWorker(profile.Id);
         }
 
         private void CreateImage(UserProfile profile)

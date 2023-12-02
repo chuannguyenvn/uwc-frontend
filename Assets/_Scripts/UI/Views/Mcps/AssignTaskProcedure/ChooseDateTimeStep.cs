@@ -12,6 +12,7 @@ namespace UI.Views.Mcps.AssignTaskProcedure
             Localization.GetSentence(Sentence.TasksView.CHOOSE_THE_DATE_AND_TIME_TO_COLLECT_THE_SELECTED_MCPS))
         {
             CreateDateTimePicker();
+            Deactivate();
         }
 
         private void CreateDateTimePicker()

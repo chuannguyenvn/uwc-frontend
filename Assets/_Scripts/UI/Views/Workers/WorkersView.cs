@@ -11,21 +11,25 @@ namespace UI.Views.Workers
 {
     public class WorkersView : View
     {
+        private readonly bool _isTaskAssigning;
         private ListControl _listControl;
         private ScrollViewWithShadow _scrollView;
         private WorkerInformationPopup _workerInformationPopup;
 
         private List<WorkerListEntry> _workerListEntries = new();
 
-        public WorkersView() : base(nameof(WorkersView))
+        public WorkersView(bool isTaskAssigning = false) : base(nameof(WorkersView))
         {
+            _isTaskAssigning = isTaskAssigning;
+            if (_isTaskAssigning) AddToClassList("task-assigning");
+
             ConfigureUss(nameof(WorkersView));
 
             AddToClassList("side-view");
 
             CreateControls();
             CreateScrollView();
-            CreateFullscreenPopup();
+            if (!_isTaskAssigning) CreateFullscreenPopup();
 
             DataStoreManager.UserProfile.AllWorkerProfileList.DataUpdated += DataUpdatedHandler;
         }
@@ -69,7 +73,7 @@ namespace UI.Views.Workers
             _workerListEntries.Clear();
             foreach (var userProfile in response.WorkerProfiles)
             {
-                var entry = new WorkerListEntry(userProfile);
+                var entry = new WorkerListEntry(userProfile, _isTaskAssigning);
                 _scrollView.AddToScrollView(entry);
                 _workerListEntries.Add(entry);
 
