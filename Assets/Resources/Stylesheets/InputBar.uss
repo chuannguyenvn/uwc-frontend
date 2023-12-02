@@ -5,8 +5,8 @@
 }
 
 .desktop .input-bar {
-    height: 56px;
-    padding: 4px;
+    height: 60px;
+    padding: 2px;
 }
 
 .mobile .input-bar {
@@ -23,7 +23,7 @@
 }
 
 .desktop .input-bar #TextField {
-    border-radius: 24px;
+    border-radius: 30px;
 }
 
 .mobile .input-bar #TextField {
@@ -45,8 +45,8 @@
 }
 
 .desktop .input-bar. #SendButton {
-    width: 45px;
-    height: 45px;
+    width: 55px;
+    height: 55px;
 }
 
 .mobile .input-bar. #SendButton {

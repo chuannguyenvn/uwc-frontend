@@ -2,3 +2,7 @@
     flex-direction: column-reverse;
     height: 100%;
 }
+
+.message-list .scroll-view-with-shadow {
+    flex-grow: 1;
+}
