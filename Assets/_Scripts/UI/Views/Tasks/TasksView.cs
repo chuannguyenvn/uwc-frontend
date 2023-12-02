@@ -89,13 +89,23 @@ namespace UI.Views.Tasks
 
         public override void FocusView()
         {
-            if (Configs.IS_DESKTOP) DataStoreManager.Tasks.AllTaskList.Focus();
+            if (Configs.IS_DESKTOP)
+            {
+                DataStoreManager.Tasks.AllTaskList.Focus();
+            }
             else DataStoreManager.Tasks.PersonalTaskList.Focus();
         }
 
         public override void UnfocusView()
         {
-            if (Configs.IS_DESKTOP) DataStoreManager.Tasks.AllTaskList.Unfocus();
+            if (Configs.IS_DESKTOP)
+            {
+                DataStoreManager.Tasks.AllTaskList.Unfocus();
+                _assignTaskFlow.Reset();
+                _assignTaskFlow.style.display = DisplayStyle.None;
+                _assignTaskButton.style.display = DisplayStyle.Flex;
+                _taskList.style.display = DisplayStyle.Flex;
+            }
             else DataStoreManager.Tasks.PersonalTaskList.Unfocus();
         }
     }

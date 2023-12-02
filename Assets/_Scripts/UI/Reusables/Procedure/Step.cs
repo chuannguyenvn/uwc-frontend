@@ -168,5 +168,12 @@ namespace UI.Reusables.Procedure
                 _stepTitleText.AddToClassList("black-text");
             }
         }
+
+        public virtual void Reset()
+        {
+            Deactivate();
+            MarkActive(false);
+            MarkComplete(false);
+        }
     }
 }

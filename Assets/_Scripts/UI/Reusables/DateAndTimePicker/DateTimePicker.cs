@@ -63,9 +63,10 @@ namespace UI.Reusables.DateAndTimePicker
             _timeContainer.Refresh();
         }
 
-        public void ResetDateTime()
+        public void Reset()
         {
             SelectedDateTime = DateTime.Now;
+            Refresh();
         }
     }
 }

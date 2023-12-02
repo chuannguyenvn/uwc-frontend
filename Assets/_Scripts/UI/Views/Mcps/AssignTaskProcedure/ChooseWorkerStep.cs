@@ -41,5 +41,10 @@ namespace UI.Views.Mcps.AssignTaskProcedure
         {
             return true;
         }
+
+        public override void Reset()
+        {
+            base.Reset();
+        }
     }
 }

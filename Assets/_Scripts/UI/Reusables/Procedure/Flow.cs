@@ -78,5 +78,13 @@ namespace UI.Reusables.Procedure
         }
 
         protected abstract void SubmitResult(ClickEvent evt);
+
+        public void Reset()
+        {
+            foreach (var step in Steps)
+            {
+                step.Reset();
+            }
+        }
     }
 }

@@ -8,7 +8,8 @@ namespace UI.Views.Mcps.AssignTaskProcedure
     {
         private DateTimePicker _dateTimePicker;
 
-        public ChooseDateTimeStep(Flow flow, int stepIndex) : base(flow, stepIndex, false, Localization.GetSentence(Sentence.TasksView.CHOOSE_THE_DATE_AND_TIME_TO_COLLECT_THE_SELECTED_MCPS))
+        public ChooseDateTimeStep(Flow flow, int stepIndex) : base(flow, stepIndex, false,
+            Localization.GetSentence(Sentence.TasksView.CHOOSE_THE_DATE_AND_TIME_TO_COLLECT_THE_SELECTED_MCPS))
         {
             CreateDateTimePicker();
         }
@@ -28,6 +29,12 @@ namespace UI.Views.Mcps.AssignTaskProcedure
         protected override bool CheckStepCompletion()
         {
             return true;
+        }
+
+        public override void Reset()
+        {
+            base.Reset();
+            _dateTimePicker.Reset();
         }
     }
 }
