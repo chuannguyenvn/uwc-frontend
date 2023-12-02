@@ -72,6 +72,9 @@ namespace UI.Reusables.Procedure
 
                 _confirmButton.UnregisterCallback<ClickEvent>(SubmitResult);
             }
+
+            var isAnyStepActive = Steps.Any(step => step.IsActive);
+            _expander.style.flexGrow = isAnyStepActive ? 0 : 1;
         }
 
         protected abstract void SubmitResult(ClickEvent evt);

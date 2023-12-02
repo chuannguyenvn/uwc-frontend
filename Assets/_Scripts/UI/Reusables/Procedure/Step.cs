@@ -14,7 +14,7 @@ namespace UI.Reusables.Procedure
         private readonly string _stepTitle;
         private readonly string _stepSubTitle;
 
-        private bool _isActive;
+        public bool IsActive { get; private set; }
         private bool _isInteracted;
 
         // Title
@@ -68,7 +68,7 @@ namespace UI.Reusables.Procedure
 
             _stepTitleContainer.RegisterCallback<ClickEvent>(evt =>
             {
-                if (_isActive) Deactivate();
+                if (IsActive) Deactivate();
                 else Activate();
             });
 
@@ -131,7 +131,7 @@ namespace UI.Reusables.Procedure
 
         private void MarkActive(bool isActive)
         {
-            _isActive = isActive;
+            IsActive = isActive;
 
             if (isActive)
             {

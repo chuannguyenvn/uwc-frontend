@@ -25,10 +25,6 @@
     flex-shrink: 0;
 }
 
-.flow #Expander {
-    flex-grow: 1;
-}
-
 .flow .confirm-button {
     -unity-text-align: upper-center;
     padding-top: 12px;
@@ -64,7 +60,7 @@
 }
 
 .step.active {
-    flex-shrink: 1;
+    flex-grow: 1;
 }
 
 .step.active #StepTitleContainer {
