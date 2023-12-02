@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using Commons.Communications.Mcps;
 using Commons.Endpoints;
 using LocalizationNS;
@@ -8,6 +9,7 @@ using UI.Base;
 using UI.Reusables;
 using UI.Reusables.Control;
 using UI.Reusables.Control.Sort;
+using UI.Views.Mcps.AssignTaskProcedure;
 using UnityEngine.UIElements;
 using Utilities;
 
@@ -75,35 +77,62 @@ namespace UI.Views.Mcps
                 mcpEntries.Add(entry);
                 _mcpListEntriesByAddress[mcpData.Address] = entry;
 
-                if (_isTaskAssigning) continue;
-
-                entry.Clicked += () =>
+                if (_isTaskAssigning)
                 {
-                    DataStoreManager.Instance.StartCoroutine(RequestHelper.SendPostRequest<GetSingleMcpDataResponse>(
-                        Endpoints.McpData.GetSingle,
-                        new GetSingleMcpDataRequest
-                        {
-                            McpId = mcpData.Id,
-                            HistoryCountLimit = 100,
-                            HistoryDateTimeLimit = DateTime.Now.AddDays(-1),
-                        },
-                        (success, result) =>
-                        {
-                            if (success)
+                    entry.Clicked += SortByAssigningOrder;
+                }
+                else
+                {
+                    entry.Clicked += () =>
+                    {
+                        DataStoreManager.Instance.StartCoroutine(RequestHelper.SendPostRequest<GetSingleMcpDataResponse>(
+                            Endpoints.McpData.GetSingle,
+                            new GetSingleMcpDataRequest
                             {
-                                mcpData.McpEmptyRecords = result.Result.McpEmptyRecords;
-                                mcpData.McpFillLevelLogs = result.Result.McpFillLevelLogs;
-                                _mcpInformationPopup.SetContent(mcpData);
-                                _mcpInformationPopup.Show();
-                            }
-                        }));
-                };
+                                McpId = mcpData.Id,
+                                HistoryCountLimit = 100,
+                                HistoryDateTimeLimit = DateTime.Now.AddDays(-1),
+                            },
+                            (success, result) =>
+                            {
+                                if (success)
+                                {
+                                    mcpData.McpEmptyRecords = result.Result.McpEmptyRecords;
+                                    mcpData.McpFillLevelLogs = result.Result.McpFillLevelLogs;
+                                    _mcpInformationPopup.SetContent(mcpData);
+                                    _mcpInformationPopup.Show();
+                                }
+                            }));
+                    };
+                }
             }
 
             if (_listControl.SortStates[0] == SortType.Ascending)
                 mcpEntries.Sort((a, b) => a.CurrentLoadPercentage.CompareTo(b.CurrentLoadPercentage));
             else if (_listControl.SortStates[0] == SortType.Descending)
                 mcpEntries.Sort((a, b) => b.CurrentLoadPercentage.CompareTo(a.CurrentLoadPercentage));
+
+            foreach (var mcpEntry in mcpEntries) _scrollView.AddToScrollView(mcpEntry);
+        }
+
+        public void SortByAssigningOrder()
+        {
+            var mcpEntries = _mcpListEntriesByAddress.Values.ToList();
+
+            _scrollView.Clear();
+            for (var i = ChooseMcpsStep.ChosenMcpIds.Count - 1; i >= 0; i--)
+            {
+                var id = ChooseMcpsStep.ChosenMcpIds[i];
+                var entry = mcpEntries.Find(e => e.McpData.Id == id);
+                mcpEntries.Remove(entry);
+                mcpEntries.Insert(0, entry);
+            }
+
+            if (_listControl.SortStates[0] == SortType.Ascending)
+                mcpEntries.Sort((a, b) => a.CurrentLoadPercentage.CompareTo(b.CurrentLoadPercentage));
+            else if (_listControl.SortStates[0] == SortType.Descending)
+                mcpEntries.Sort((a, b) => b.CurrentLoadPercentage.CompareTo(a.CurrentLoadPercentage));
+
 
             foreach (var mcpEntry in mcpEntries) _scrollView.AddToScrollView(mcpEntry);
         }

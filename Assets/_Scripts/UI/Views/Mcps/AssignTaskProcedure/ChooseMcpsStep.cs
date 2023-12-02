@@ -2,12 +2,31 @@
 using LocalizationNS;
 using Maps;
 using UI.Reusables.Procedure;
+using Unity.Android.Gradle.Manifest;
+using UnityEngine;
+using Action = System.Action;
 
 namespace UI.Views.Mcps.AssignTaskProcedure
 {
     public class ChooseMcpsStep : Step
     {
+        public static bool IsOrdered { get; private set; } = true;
         public static List<int> ChosenMcpIds { get; private set; } = new();
+        public static event Action McpListChanged;
+
+        public static void AddMcp(int mcpId)
+        {
+            if (ChosenMcpIds.Contains(mcpId)) return;
+            ChosenMcpIds.Add(mcpId);
+            McpListChanged?.Invoke();
+        }
+
+        public static void RemoveMcp(int mcpId)
+        {
+            if (!ChosenMcpIds.Contains(mcpId)) return;
+            ChosenMcpIds.Remove(mcpId);
+            McpListChanged?.Invoke();
+        }
 
         private McpsView _mcpsView;
 

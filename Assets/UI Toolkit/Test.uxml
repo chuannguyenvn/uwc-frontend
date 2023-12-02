@@ -3,4 +3,5 @@
     <Style src="project://database/Assets/Resources/Stylesheets/FullscreenPopup.uss?fileID=7433441132597879392&amp;guid=5eb35a17392c4c1594216a41ad561781&amp;type=3#FullscreenPopup" />
     <Style src="project://database/Assets/Resources/Stylesheets/Panel.uss?fileID=7433441132597879392&amp;guid=a6420d711ef34808bddb21a0e78aaa92&amp;type=3#Panel" />
     <Style src="project://database/Assets/Resources/Stylesheets/AnimatedButton.uss?fileID=7433441132597879392&amp;guid=03e2ab327ec04d11b84697dc8d7a224a&amp;type=3#AnimatedButton" />
+    <Style src="project://database/Assets/Resources/Stylesheets/McpListEntry.uss?fileID=7433441132597879392&amp;guid=39c427f2d67c49689e7182f552456b19&amp;type=3#McpListEntry" />
 </ui:UXML>

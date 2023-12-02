@@ -12,7 +12,7 @@ namespace UI.Views.Mcps
 {
     public class McpListEntry : AnimatedButton
     {
-        private readonly McpData _mcpData;
+        public McpData McpData { get; private set; }
         private readonly bool _isTaskAssigning;
 
         private float _currentLoadPercentage;
@@ -24,21 +24,21 @@ namespace UI.Views.Mcps
             {
                 _currentLoadPercentage = value;
 
-                _iconContainer.RemoveFromClassList("not-full");
-                _iconContainer.RemoveFromClassList("almost-full");
-                _iconContainer.RemoveFromClassList("full");
+                EnableInClassList("not-full", false);
+                EnableInClassList("almost-full", false);
+                EnableInClassList("full", false);
 
-                if (_currentLoadPercentage < 90)
+                if (_currentLoadPercentage < 50)
                 {
-                    _iconContainer.AddToClassList("not-full");
+                    EnableInClassList("not-full", true);
                 }
-                else if (_currentLoadPercentage < 100)
+                else if (_currentLoadPercentage < 90)
                 {
-                    _iconContainer.AddToClassList("almost-full");
+                    EnableInClassList("almost-full", true);
                 }
                 else
                 {
-                    _iconContainer.AddToClassList("full");
+                    EnableInClassList("full", true);
                 }
 
                 _currentLoadPercentageText.text = _currentLoadPercentage.ToString("F2") + "%";
@@ -49,6 +49,7 @@ namespace UI.Views.Mcps
         private VisualElement _informationContainer;
         private VisualElement _iconContainer;
         private Image _icon;
+        private TextElement _assigningText;
         private VisualElement _textContainer;
         private TextElement _addressText;
         private TextElement _currentLoadPercentageText;
@@ -58,7 +59,7 @@ namespace UI.Views.Mcps
 
         public McpListEntry(McpData mcpData, bool isTaskAssigning) : base(nameof(McpListEntry))
         {
-            _mcpData = mcpData;
+            McpData = mcpData;
             _isTaskAssigning = isTaskAssigning;
 
             ConfigureUss(nameof(McpListEntry));
@@ -73,6 +74,7 @@ namespace UI.Views.Mcps
             {
                 AddToClassList("task-assigning");
                 Clicked += TaskAssigningMcpClickedHandler;
+                ChooseMcpsStep.McpListChanged += RefreshIndex;
             }
             else
             {
@@ -106,6 +108,16 @@ namespace UI.Views.Mcps
 
             _icon = new Image { name = "Icon" };
             _iconContainer.Add(_icon);
+
+            if (_isTaskAssigning)
+            {
+                _assigningText = new TextElement { name = "AssigningText" };
+                _assigningText.AddToClassList("title-text");
+                _assigningText.AddToClassList("white-text");
+                _iconContainer.Add(_assigningText);
+
+                _assigningText.style.display = DisplayStyle.None;
+            }
         }
 
         private void CreateMcpName(McpData mcpData)
@@ -138,24 +150,52 @@ namespace UI.Views.Mcps
 
         private void DataUpdatedHandler(McpFillLevelBroadcastData data)
         {
-            CurrentLoadPercentage = data.FillLevelsById[_mcpData.Id];
+            CurrentLoadPercentage = data.FillLevelsById[McpData.Id];
         }
 
         private void TaskAssigningMcpClickedHandler()
         {
-            if (!ChooseMcpsStep.ChosenMcpIds.Contains(_mcpData.Id))
+            if (!ChooseMcpsStep.ChosenMcpIds.Contains(McpData.Id))
             {
-                ChooseMcpsStep.ChosenMcpIds.Add(_mcpData.Id);
+                ChooseMcpsStep.AddMcp(McpData.Id);
+
                 EnableInClassList("chosen", true);
+
+                if (ChooseMcpsStep.IsOrdered)
+                {
+                    _assigningText.style.display = DisplayStyle.Flex;
+                    _assigningText.text = ChooseMcpsStep.ChosenMcpIds.IndexOf(McpData.Id) + 1 + "";
+
+                    _icon.style.display = DisplayStyle.None;
+                }
+                else
+                {
+                    _icon.EnableInClassList("chosen", true);
+                }
             }
             else
             {
-                ChooseMcpsStep.ChosenMcpIds.Remove(_mcpData.Id);
+                ChooseMcpsStep.RemoveMcp(McpData.Id);
                 EnableInClassList("chosen", false);
+
+                if (ChooseMcpsStep.IsOrdered)
+                {
+                    _assigningText.style.display = DisplayStyle.None;
+                    _icon.style.display = DisplayStyle.Flex;
+                }
+                else
+                {
+                    _icon.EnableInClassList("chosen", false);
+                }
             }
 
             MapDrawer.Instance.UpdateAssignedMcps();
-            MapManager.Instance.ZoomToMcp(_mcpData.Id);
+            // MapManager.Instance.ZoomToMcp(McpData.Id);
+        }
+
+        public void RefreshIndex()
+        {
+            _assigningText.text = ChooseMcpsStep.ChosenMcpIds.IndexOf(McpData.Id) + 1 + "";
         }
     }
 }

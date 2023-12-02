@@ -97,7 +97,14 @@ namespace Maps
         {
             foreach (var (id, coordinate) in data.LocationByIds.ToList())
             {
-                DrawMcpMarker(id, coordinate, Utility.GetRandomEnumValue<McpFillStatus>());
+                var fillLevel = DataStoreManager.Mcps.FillLevel.Data.FillLevelsById[id];
+                var status = fillLevel switch
+                {
+                    < 0.5f => McpFillStatus.NotFull,
+                    < 0.9f => McpFillStatus.AlmostFull,
+                    _ => McpFillStatus.Full
+                };
+                DrawMcpMarker(id, coordinate, status);
             }
         }
 
@@ -105,7 +112,14 @@ namespace Maps
         {
             foreach (var (id, coordinate) in data.McpLocationBroadcastData.LocationByIds.ToList())
             {
-                DrawMcpMarker(id, coordinate, Utility.GetRandomEnumValue<McpFillStatus>());
+                var fillLevel = data.McpFillLevelBroadcastData.FillLevelsById[id];
+                var status = fillLevel switch
+                {
+                    < 0.5f => McpFillStatus.NotFull,
+                    < 0.9f => McpFillStatus.AlmostFull,
+                    _ => McpFillStatus.Full
+                };
+                DrawMcpMarker(id, coordinate, status);
             }
         }
 
@@ -287,9 +301,61 @@ namespace Maps
         public void UpdateAssignedMcps()
         {
             var mcpIds = ChooseMcpsStep.ChosenMcpIds;
-            for (var i = 0; i < mcpIds.Count; i++)
+
+            foreach (var (id, marker) in _mcpMarkers)
             {
-                _mcpMarkers[mcpIds[i]].texture = _fullMcpAssigningIndexTextures[i];
+                var fillLevel = DataStoreManager.Mcps.FillLevel.Data.FillLevelsById[id];
+                var status = fillLevel switch
+                {
+                    < 0.5f => McpFillStatus.NotFull,
+                    < 0.9f => McpFillStatus.AlmostFull,
+                    _ => McpFillStatus.Full
+                };
+
+                if (mcpIds.Contains(id))
+                {
+                    if (ChooseMcpsStep.IsOrdered)
+                    {
+                        var index = ChooseMcpsStep.ChosenMcpIds.FindIndex(i => i == id);
+
+                        if (index < 9)
+                        {
+                            marker.texture = status switch
+                            {
+                                McpFillStatus.Full => _fullMcpAssigningIndexTextures[index],
+                                McpFillStatus.AlmostFull => _almostFullMcpAssigningIndexTextures[index],
+                                McpFillStatus.NotFull => _notFullMcpAssigningIndexTextures[index],
+                            };
+                        }
+                        else
+                        {
+                            marker.texture = status switch
+                            {
+                                McpFillStatus.Full => _fullMcpAssigningOverflowIndexTexture,
+                                McpFillStatus.AlmostFull => _almostFullMcpAssigningOverflowIndexTexture,
+                                McpFillStatus.NotFull => _notFullMcpAssigningOverflowIndexTexture,
+                            };
+                        }
+                    }
+                    else
+                    {
+                        marker.texture = status switch
+                        {
+                            McpFillStatus.Full => _fullMcpAssigningChosenTexture,
+                            McpFillStatus.AlmostFull => _almostFullMcpAssigningChosenTexture,
+                            McpFillStatus.NotFull => _notFullMcpAssigningChosenTexture,
+                        };
+                    }
+                }
+                else
+                {
+                    marker.texture = status switch
+                    {
+                        McpFillStatus.Full => _fullMcpMapIconTexture,
+                        McpFillStatus.AlmostFull => _almostFullMcpMapIconTexture,
+                        McpFillStatus.NotFull => _notFullMcpMapIconTexture,
+                    };
+                }
             }
         }
     }
