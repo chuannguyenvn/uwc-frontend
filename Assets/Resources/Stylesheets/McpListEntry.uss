@@ -3,10 +3,14 @@
     align-items: flex-start;
 }
 
+#ButtonText {
+    display: none;
+}
+
 #InformationContainer {
     width: 100%;
-    height: 64px;
     flex-direction: row;
+    flex-grow: 1;
     justify-content: flex-start;
     align-items: flex-start;
 }
@@ -33,17 +37,18 @@
     justify-content: center;
 }
 
-.not-full#IconContainer{
+.not-full#IconContainer {
     background-color: var(--mcp-not-full-color);
 }
 
-.almost-full#IconContainer{
+.almost-full#IconContainer {
     background-color: var(--mcp-almost-full-color);
 }
 
-.full#IconContainer{
+.full#IconContainer {
     background-color: var(--mcp-full-color);
 }
+
 #Icon {
     width: 70%;
     height: 70%;
