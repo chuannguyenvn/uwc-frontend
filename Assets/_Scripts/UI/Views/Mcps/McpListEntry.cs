@@ -4,6 +4,7 @@ using Commons.Models;
 using Maps;
 using Requests;
 using UI.Base;
+using UI.Views.Mcps.AssignTaskProcedure;
 using UnityEngine.UIElements;
 using Random = UnityEngine.Random;
 
@@ -71,6 +72,7 @@ namespace UI.Views.Mcps
             if (_isTaskAssigning)
             {
                 AddToClassList("task-assigning");
+                Clicked += TaskAssigningMcpClickedHandler;
             }
             else
             {
@@ -137,6 +139,23 @@ namespace UI.Views.Mcps
         private void DataUpdatedHandler(McpFillLevelBroadcastData data)
         {
             CurrentLoadPercentage = data.FillLevelsById[_mcpData.Id];
+        }
+
+        private void TaskAssigningMcpClickedHandler()
+        {
+            if (!ChooseMcpsStep.ChosenMcpIds.Contains(_mcpData.Id))
+            {
+                ChooseMcpsStep.ChosenMcpIds.Add(_mcpData.Id);
+                EnableInClassList("chosen", true);
+            }
+            else
+            {
+                ChooseMcpsStep.ChosenMcpIds.Remove(_mcpData.Id);
+                EnableInClassList("chosen", false);
+            }
+
+            MapDrawer.Instance.UpdateAssignedMcps();
+            MapManager.Instance.ZoomToMcp(_mcpData.Id);
         }
     }
 }

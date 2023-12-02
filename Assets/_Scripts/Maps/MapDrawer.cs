@@ -11,12 +11,14 @@ using Commons.Types;
 using InfinityCode.OnlineMapsExamples;
 using Newtonsoft.Json;
 using Requests;
+using UI.Views.Mcps.AssignTaskProcedure;
 using UnityEngine;
+using UnityEngine.Serialization;
 using Utilities;
 
 namespace Maps
 {
-    public class MapDrawer : MonoBehaviour
+    public class MapDrawer : PersistentSingleton<MapDrawer>
     {
         [SerializeField] private Texture2D _driverMapIconTexture;
         [SerializeField] private Texture2D _cleanerMapIconTexture;
@@ -27,6 +29,21 @@ namespace Maps
         private readonly Dictionary<int, OnlineMapsMarker> _driverMarkers = new();
         private readonly Dictionary<int, OnlineMapsMarker> _cleanerMarkers = new();
         private readonly Dictionary<int, OnlineMapsMarker> _mcpMarkers = new();
+
+        [SerializeField] private List<Texture2D> _fullMcpAssigningIndexTextures;
+        [SerializeField] private Texture2D _fullMcpAssigningOverflowIndexTexture;
+        [SerializeField] private Texture2D _fullMcpAssigningChosenTexture;
+        [SerializeField] private Texture2D _fullMcpAssigningRemoveTexture;
+
+        [SerializeField] private List<Texture2D> _almostFullMcpAssigningIndexTextures;
+        [SerializeField] private Texture2D _almostFullMcpAssigningOverflowIndexTexture;
+        [SerializeField] private Texture2D _almostFullMcpAssigningChosenTexture;
+        [SerializeField] private Texture2D _almostFullMcpAssigningRemoveTexture;
+
+        [SerializeField] private List<Texture2D> _notFullMcpAssigningIndexTextures;
+        [SerializeField] private Texture2D _notFullMcpAssigningOverflowIndexTexture;
+        [SerializeField] private Texture2D _notFullMcpAssigningChosenTexture;
+        [SerializeField] private Texture2D _notFullMcpAssigningRemoveTexture;
 
         private OnlineMapsDrawingElement _route;
         private bool _isRouteDirty = false;
@@ -265,6 +282,15 @@ namespace Maps
             OnlineMaps.instance.drawingElementManager.Add(poly);
 
             _selfLocation = poly;
+        }
+
+        public void UpdateAssignedMcps()
+        {
+            var mcpIds = ChooseMcpsStep.ChosenMcpIds;
+            for (var i = 0; i < mcpIds.Count; i++)
+            {
+                _mcpMarkers[mcpIds[i]].texture = _fullMcpAssigningIndexTextures[i];
+            }
         }
     }
 }

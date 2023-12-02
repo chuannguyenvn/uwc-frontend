@@ -1,4 +1,5 @@
-﻿using UI.Reusables.Procedure;
+﻿using System.Collections.Generic;
+using UI.Reusables.Procedure;
 using UnityEngine.UIElements;
 
 namespace UI.Views.Mcps.AssignTaskProcedure

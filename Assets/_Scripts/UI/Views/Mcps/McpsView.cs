@@ -74,6 +74,9 @@ namespace UI.Views.Mcps
                 var entry = new McpListEntry(mcpData, _isTaskAssigning);
                 mcpEntries.Add(entry);
                 _mcpListEntriesByAddress[mcpData.Address] = entry;
+
+                if (_isTaskAssigning) continue;
+
                 entry.Clicked += () =>
                 {
                     DataStoreManager.Instance.StartCoroutine(RequestHelper.SendPostRequest<GetSingleMcpDataResponse>(
