@@ -5,3 +5,8 @@
 .mcps-view #ScrollView {
     flex-grow: 1;
 }
+
+.mcps-view.task-assigning {
+    flex-basis: 200px;
+    flex-grow: 1;
+}

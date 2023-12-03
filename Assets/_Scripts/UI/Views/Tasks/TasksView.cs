@@ -34,7 +34,7 @@ namespace UI.Views.Tasks
             _taskList = new TaskList();
             Add(_taskList);
 
-            _assignTaskFlow = new AssignTaskFlow();
+            _assignTaskFlow = new AssignTaskFlow(this);
             _assignTaskFlow.style.display = DisplayStyle.None;
             Add(_assignTaskFlow);
 
@@ -89,14 +89,29 @@ namespace UI.Views.Tasks
 
         public override void FocusView()
         {
-            if (Configs.IS_DESKTOP) DataStoreManager.Tasks.AllTaskList.Focus();
+            if (Configs.IS_DESKTOP)
+            {
+                DataStoreManager.Tasks.AllTaskList.Focus();
+            }
             else DataStoreManager.Tasks.PersonalTaskList.Focus();
         }
 
         public override void UnfocusView()
         {
-            if (Configs.IS_DESKTOP) DataStoreManager.Tasks.AllTaskList.Unfocus();
+            if (Configs.IS_DESKTOP)
+            {
+                DataStoreManager.Tasks.AllTaskList.Unfocus();
+                _assignTaskFlow.Reset();
+                BackToListView();
+            }
             else DataStoreManager.Tasks.PersonalTaskList.Unfocus();
+        }
+
+        public void BackToListView()
+        {
+            _assignTaskFlow.style.display = DisplayStyle.None;
+            _assignTaskButton.style.display = DisplayStyle.Flex;
+            _taskList.style.display = DisplayStyle.Flex;
         }
     }
 }

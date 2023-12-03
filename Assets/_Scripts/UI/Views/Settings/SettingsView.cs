@@ -46,38 +46,56 @@ namespace UI.Views.Settings
             _settingList.Add(new SectionHeader(Localization.GetSentence(Sentence.SettingsView.INTERFACE_SETTINGS)));
 
             _settingList.Add(new ChoiceSettingListEntry(Localization.GetSentence(Sentence.SettingsView.DARK_MODE), () => Setting.DarkMode.ToString(),
+                new List<string>()
+                {
+                    Sentence.SettingsView.ON,
+                    Sentence.SettingsView.OFF,
+                },
                 new Dictionary<string, Action>
                 {
-                    { Sentence.SettingsView.ON, () => Setting.DarkMode = ToggleOption.On },
-                    { Sentence.SettingsView.OFF, () => Setting.DarkMode = ToggleOption.Off },
+                    { ToggleOption.On.ToString(), () => Setting.DarkMode = ToggleOption.On },
+                    { ToggleOption.Off.ToString(), () => Setting.DarkMode = ToggleOption.Off },
                 }));
 
             _settingList.Add(new ChoiceSettingListEntry(Localization.GetSentence(Sentence.SettingsView.COLORBLIND_MODE),
-                () => Setting.ColorblindMode.ToString(), new Dictionary<string, Action>
+                () => Setting.ColorblindMode.ToString(), new List<string>()
                 {
-                    { Sentence.SettingsView.ON, () => Setting.ColorblindMode = ToggleOption.On },
-                    { Sentence.SettingsView.OFF, () => Setting.ColorblindMode = ToggleOption.Off },
+                    Sentence.SettingsView.ON,
+                    Sentence.SettingsView.OFF,
+                }, new Dictionary<string, Action>
+                {
+                    { ToggleOption.On.ToString(), () => Setting.ColorblindMode = ToggleOption.On },
+                    { ToggleOption.Off.ToString(), () => Setting.ColorblindMode = ToggleOption.Off },
                 }));
 
             _settingList.Add(new ChoiceSettingListEntry(Localization.GetSentence(Sentence.SettingsView.REDUCE_MOTION),
-                () => Setting.ReducedMotionMode.ToString(), new Dictionary<string, Action>
+                () => Setting.ReducedMotionMode.ToString(), new List<string>()
                 {
-                    { Sentence.SettingsView.ON, () => Setting.ReducedMotionMode = ToggleOption.On },
-                    { Sentence.SettingsView.OFF, () => Setting.ReducedMotionMode = ToggleOption.Off },
+                    Sentence.SettingsView.ON,
+                    Sentence.SettingsView.OFF,
+                }, new Dictionary<string, Action>
+                {
+                    { ToggleOption.On.ToString(), () => Setting.ReducedMotionMode = ToggleOption.On },
+                    { ToggleOption.Off.ToString(), () => Setting.ReducedMotionMode = ToggleOption.Off },
                 }));
 
             _settingList.Add(new ChoiceSettingListEntry(Localization.GetSentence(Sentence.SettingsView.LANGUAGE), () => Setting.Language.ToString(),
+                new List<string>()
+                {
+                    Sentence.SettingsView.ENGLISH,
+                    Sentence.SettingsView.VIETNAMESE,
+                },
                 new Dictionary<string, Action>
                 {
                     {
-                        Sentence.SettingsView.ENGLISH, () =>
+                        LanguageOption.English.ToString(), () =>
                         {
                             Setting.Language = Localization.LanguageOption = LanguageOption.English;
                             PlayerPrefs.SetString("Language", LanguageOption.English.ToString());
                         }
                     },
                     {
-                        Sentence.SettingsView.VIETNAMESE, () =>
+                        LanguageOption.Vietnamese.ToString(), () =>
                         {
                             Setting.Language = Localization.LanguageOption = LanguageOption.Vietnamese;
                             PlayerPrefs.SetString("Language", LanguageOption.Vietnamese.ToString());
@@ -91,7 +109,11 @@ namespace UI.Views.Settings
             _settingList.Add(new SectionHeader(Localization.GetSentence(Sentence.SettingsView.NOTIFICATION_SETTINGS)));
 
             _settingList.Add(new ChoiceSettingListEntry(Localization.GetSentence(Sentence.SettingsView.MESSAGES), () => Setting.Messages.ToString(),
-                new Dictionary<string, Action>
+                new List<string>()
+                {
+                    Sentence.SettingsView.ON,
+                    Sentence.SettingsView.OFF,
+                }, new Dictionary<string, Action>
                 {
                     { Sentence.SettingsView.ON, () => Setting.Messages = ToggleOption.On },
                     { Sentence.SettingsView.OFF, () => Setting.Messages = ToggleOption.Off },
@@ -101,7 +123,11 @@ namespace UI.Views.Settings
             {
                 _settingList.Add(new ChoiceSettingListEntry(Localization.GetSentence(Sentence.SettingsView.EMPLOYEES_LOGGED_IN),
                     () => Setting.EmployeesLoggedIn.ToString(),
-                    new Dictionary<string, Action>
+                    new List<string>()
+                    {
+                        Sentence.SettingsView.ON,
+                        Sentence.SettingsView.OFF,
+                    }, new Dictionary<string, Action>
                     {
                         { Sentence.SettingsView.ON, () => Setting.EmployeesLoggedIn = ToggleOption.On },
                         { Sentence.SettingsView.OFF, () => Setting.EmployeesLoggedIn = ToggleOption.Off },
@@ -109,7 +135,11 @@ namespace UI.Views.Settings
 
                 _settingList.Add(new ChoiceSettingListEntry(Localization.GetSentence(Sentence.SettingsView.EMPLOYEES_LOGGED_OUT),
                     () => Setting.EmployeesLoggedOut.ToString(),
-                    new Dictionary<string, Action>
+                    new List<string>()
+                    {
+                        Sentence.SettingsView.ON,
+                        Sentence.SettingsView.OFF,
+                    }, new Dictionary<string, Action>
                     {
                         { Sentence.SettingsView.ON, () => Setting.EmployeesLoggedOut = ToggleOption.On },
                         { Sentence.SettingsView.OFF, () => Setting.EmployeesLoggedOut = ToggleOption.Off },
@@ -117,32 +147,48 @@ namespace UI.Views.Settings
             }
 
             _settingList.Add(new ChoiceSettingListEntry(Localization.GetSentence(Sentence.SettingsView.MCPS_ALMOST_FULL),
-                () => Setting.McpsAlmostFull.ToString(), new Dictionary<string, Action>
+                () => Setting.McpsAlmostFull.ToString(), new List<string>()
                 {
-                    { Sentence.SettingsView.ON, () => Setting.McpsAlmostFull = ToggleOption.On },
-                    { Sentence.SettingsView.OFF, () => Setting.McpsAlmostFull = ToggleOption.Off },
+                    Sentence.SettingsView.ON,
+                    Sentence.SettingsView.OFF,
+                }, new Dictionary<string, Action>
+                {
+                    { ToggleOption.On.ToString(), () => Setting.McpsAlmostFull = ToggleOption.On },
+                    { ToggleOption.Off.ToString(), () => Setting.McpsAlmostFull = ToggleOption.Off },
                 }));
 
             _settingList.Add(new ChoiceSettingListEntry(Localization.GetSentence(Sentence.SettingsView.MCPS_FULL), () => Setting.McpsFull.ToString(),
-                new Dictionary<string, Action>
+                new List<string>()
                 {
-                    { Sentence.SettingsView.ON, () => Setting.McpsFull = ToggleOption.On },
-                    { Sentence.SettingsView.OFF, () => Setting.McpsFull = ToggleOption.Off },
+                    Sentence.SettingsView.ON,
+                    Sentence.SettingsView.OFF,
+                }, new Dictionary<string, Action>
+                {
+                    { ToggleOption.On.ToString(), () => Setting.McpsFull = ToggleOption.On },
+                    { ToggleOption.Off.ToString(), () => Setting.McpsFull = ToggleOption.Off },
                 }));
 
             _settingList.Add(new ChoiceSettingListEntry(Localization.GetSentence(Sentence.SettingsView.MCPS_EMPTIED),
-                () => Setting.McpsEmptied.ToString(), new Dictionary<string, Action>
+                () => Setting.McpsEmptied.ToString(), new List<string>()
                 {
-                    { Sentence.SettingsView.ON, () => Setting.McpsEmptied = ToggleOption.On },
-                    { Sentence.SettingsView.OFF, () => Setting.McpsEmptied = ToggleOption.Off },
+                    Sentence.SettingsView.ON,
+                    Sentence.SettingsView.OFF,
+                }, new Dictionary<string, Action>
+                {
+                    { ToggleOption.On.ToString(), () => Setting.McpsEmptied = ToggleOption.On },
+                    { ToggleOption.Off.ToString(), () => Setting.McpsEmptied = ToggleOption.Off },
                 }));
 
             _settingList.Add(new ChoiceSettingListEntry(Localization.GetSentence(Sentence.SettingsView.SOFTWARE_UPDATE_AVAILABLE),
                 () => Setting.SoftwareUpdateAvailable.ToString(),
-                new Dictionary<string, Action>
+                new List<string>()
                 {
-                    { Sentence.SettingsView.ON, () => Setting.SoftwareUpdateAvailable = ToggleOption.On },
-                    { Sentence.SettingsView.OFF, () => Setting.SoftwareUpdateAvailable = ToggleOption.Off },
+                    Sentence.SettingsView.ON,
+                    Sentence.SettingsView.OFF,
+                }, new Dictionary<string, Action>
+                {
+                    { ToggleOption.On.ToString(), () => Setting.SoftwareUpdateAvailable = ToggleOption.On },
+                    { ToggleOption.Off.ToString(), () => Setting.SoftwareUpdateAvailable = ToggleOption.Off },
                 }));
         }
 
@@ -151,10 +197,14 @@ namespace UI.Views.Settings
             _settingList.Add(new SectionHeader(Localization.GetSentence(Sentence.SettingsView.ACCOUNT_SETTINGS)));
 
             _settingList.Add(new ChoiceSettingListEntry(Localization.GetSentence(Sentence.SettingsView.ONLINE_STATUS),
-                () => Setting.OnlineStatus.ToString(), new Dictionary<string, Action>
+                () => Setting.OnlineStatus.ToString(), new List<string>()
                 {
-                    { "Online", () => { Setting.OnlineStatus = OnlineStatusOption.Online; } },
-                    { "Offline", () => { Setting.OnlineStatus = OnlineStatusOption.Offline; } },
+                    Sentence.SettingsView.ONLINE,
+                    Sentence.SettingsView.OFFLINE,
+                }, new Dictionary<string, Action>
+                {
+                    { OnlineStatusOption.Online.ToString(), () => { Setting.OnlineStatus = OnlineStatusOption.Online; } },
+                    { OnlineStatusOption.Offline.ToString(), () => { Setting.OnlineStatus = OnlineStatusOption.Offline; } },
                 }));
 
             if (Configs.IS_DESKTOP)
@@ -180,7 +230,7 @@ namespace UI.Views.Settings
         {
             _registerForFacialRecognitionView = new RegisterForFacialRecognitionView();
             Add(_registerForFacialRecognitionView);
-            
+
             _registerForFacialRecognitionView.Hide();
         }
 

@@ -12,6 +12,16 @@ namespace LocalizationNS
 
         private static LanguageOption _languageOption = LanguageOption.English;
 
+        public static LanguageOption LanguageOption
+        {
+            get => _languageOption;
+            set
+            {
+                _languageOption = value;
+                LanguageChanged?.Invoke();
+            }
+        }
+
         private static Dictionary<string, LocalizationUnit> _localizationUnitsBySentence = new()
         {
             { Sentence.AuthenticationView.LOGIN, new LocalizationUnit("Login", "Đăng nhập") },
@@ -35,6 +45,14 @@ namespace LocalizationNS
             { Sentence.TasksView.COMPLETE_BY, new LocalizationUnit("Complete by", "Hoàn thành trước") },
             { Sentence.TasksView.LAST_STATUS, new LocalizationUnit("Last status", "Trạng thái cuối") },
             { Sentence.TasksView.LAST_STATUS_CHANGE_AT, new LocalizationUnit("Last status change at", "Thời gian cập nhật trạng thái cuối") },
+            { Sentence.TasksView.CONFIGURE_ASSIGNING_SETTINGS, new LocalizationUnit("Configure assigning settings", "Điều chỉnh cài đặt giao việc") },
+            { Sentence.TasksView.OPTIMIZE_ROUTE, new LocalizationUnit("Optimize route for MCPs", "Tối ưu hóa đường đi với các MCP") },
+            { Sentence.TasksView.NONE, new LocalizationUnit("None", "Không") },
+            { Sentence.TasksView.SELECTED, new LocalizationUnit("Selected", "Đã chọn") },
+            { Sentence.TasksView.ALL, new LocalizationUnit("All", "Tất cả") },
+            { Sentence.TasksView.OPTIMIZE_AUTO_ASSIGNMENT, new LocalizationUnit("Optimize auto assignment", "Tối ưu hóa giao nhiệm vụ tự động") },
+            { Sentence.TasksView.TIME_EFFICIENT, new LocalizationUnit("Time", "Thời gian") },
+            { Sentence.TasksView.COST_OPTIMIZED, new LocalizationUnit("Cost", "Tiêu tốn") },
             {
                 Sentence.TasksView.CHOOSE_THE_MCPS_THAT_YOU_WANT_TO_BE_COLLECTED,
                 new LocalizationUnit("Choose the MCPs that you want to be collected", "Chọn các MCP bạn muốn thu gom")
@@ -171,16 +189,6 @@ namespace LocalizationNS
             { Sentence.DateAndTime.SHORT_HAND_SATURDAY, new LocalizationUnit("S", "T7") },
             { Sentence.DateAndTime.SHORT_HAND_SUNDAY, new LocalizationUnit("S", "CN") },
         };
-
-        public static LanguageOption LanguageOption
-        {
-            get => _languageOption;
-            set
-            {
-                _languageOption = value;
-                LanguageChanged?.Invoke();
-            }
-        }
 
         public static string GetSentence(string sentence)
         {

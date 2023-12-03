@@ -212,6 +212,45 @@ MonoBehaviour:
   _notFullMcpMapIconTexture: {fileID: 2800000, guid: 6c0c813e790162348a07877423f8f6a5, type: 3}
   _almostFullMcpMapIconTexture: {fileID: 2800000, guid: a24d47ad81688ff409c85be998610735, type: 3}
   _fullMcpMapIconTexture: {fileID: 2800000, guid: 0f8e912bf87b38e42ba9500e86deea98, type: 3}
+  _fullMcpAssigningIndexTextures:
+  - {fileID: 2800000, guid: 9d37e26b4fc6eb745bc47bca87fdbd68, type: 3}
+  - {fileID: 2800000, guid: 1e68ae1ecaf97684d871dc9e4258cad5, type: 3}
+  - {fileID: 2800000, guid: fa8d7e4acf3a1b64c979cf0117ade315, type: 3}
+  - {fileID: 2800000, guid: 930646d1c9373f14185109bcb881b735, type: 3}
+  - {fileID: 2800000, guid: 9efb9c46e63b5684bb084002fc2bac6b, type: 3}
+  - {fileID: 2800000, guid: 33254c4e58879d14296667dfec591216, type: 3}
+  - {fileID: 2800000, guid: 806e8f3c778eaff4595cb7cef590888d, type: 3}
+  - {fileID: 2800000, guid: 52e51c4cfeb577841b518ffb90a906f3, type: 3}
+  - {fileID: 2800000, guid: 1bc163e5dfa65e740a3c32fdc748606e, type: 3}
+  _fullMcpAssigningOverflowIndexTexture: {fileID: 2800000, guid: dd9a5f101e22f2343a72444adea4d51f, type: 3}
+  _fullMcpAssigningChosenTexture: {fileID: 2800000, guid: 3e1c4f1bf931b414a80eb39fb7d9e0eb, type: 3}
+  _fullMcpAssigningRemoveTexture: {fileID: 2800000, guid: 43a1510fdd0dc45488d54464b71e6d3e, type: 3}
+  _almostFullMcpAssigningIndexTextures:
+  - {fileID: 2800000, guid: 7c3d907e0d615024992b28308171d6ba, type: 3}
+  - {fileID: 2800000, guid: dbd7ef4e57a536c4b85cb49bec99882b, type: 3}
+  - {fileID: 2800000, guid: 7cf3027bbdd867447b03b1a7871eb6be, type: 3}
+  - {fileID: 2800000, guid: 4760112dde49b1a4ca8afb26823b4861, type: 3}
+  - {fileID: 2800000, guid: 9df152eb7d5675b40afba69f824eea0b, type: 3}
+  - {fileID: 2800000, guid: 04583b41c47a7124b9430b3775f77e7f, type: 3}
+  - {fileID: 2800000, guid: b4dded03d794ff6489aff50b12929ba6, type: 3}
+  - {fileID: 2800000, guid: 106bd1b62c468b947b3e9aa3984b24a1, type: 3}
+  - {fileID: 2800000, guid: 9496a5c57dc9e5045a970ca331c51a82, type: 3}
+  _almostFullMcpAssigningOverflowIndexTexture: {fileID: 2800000, guid: b209a812787b01e4eb81d8bb3a5ddfaa, type: 3}
+  _almostFullMcpAssigningChosenTexture: {fileID: 2800000, guid: 31af4d342c8e37f47a5ac00896677fb9, type: 3}
+  _almostFullMcpAssigningRemoveTexture: {fileID: 2800000, guid: 00f6831589bc2114e85dce1124e90fd0, type: 3}
+  _notFullMcpAssigningIndexTextures:
+  - {fileID: 2800000, guid: 0801c5f2babf07a4fa101c4b123b30c7, type: 3}
+  - {fileID: 2800000, guid: ad13ba7b26165324aaf5605ea91d36bd, type: 3}
+  - {fileID: 2800000, guid: 31733a2031cee8c459a131217c4c00c5, type: 3}
+  - {fileID: 2800000, guid: b21c6546577a9ca4a9fe19408932b048, type: 3}
+  - {fileID: 2800000, guid: b19df167280e75e46b0f43914bec5ca3, type: 3}
+  - {fileID: 2800000, guid: 25d9ce2a1ddd9264fa0509eeaf926d6f, type: 3}
+  - {fileID: 2800000, guid: fda39aab55c72974780f66235ad683bd, type: 3}
+  - {fileID: 2800000, guid: c0a3e87c575765a4b9b7066853239e64, type: 3}
+  - {fileID: 2800000, guid: a876edd70a3cf4b4699dc34de6e02d9f, type: 3}
+  _notFullMcpAssigningOverflowIndexTexture: {fileID: 2800000, guid: a424dc23851a6da489a181f32c2f17ae, type: 3}
+  _notFullMcpAssigningChosenTexture: {fileID: 2800000, guid: 440c0ff09d0475640a6dde26173b4754, type: 3}
+  _notFullMcpAssigningRemoveTexture: {fileID: 2800000, guid: 7a22a198131136041b7aab83629a0575, type: 3}
 --- !u!1 &268021858
 GameObject:
   m_ObjectHideFlags: 0

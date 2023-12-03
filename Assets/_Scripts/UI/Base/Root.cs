@@ -217,6 +217,8 @@ namespace UI.Base
                 if (!asExtension || type != _mainActiveViewType) view.style.display = DisplayStyle.None;
             }
 
+            if (_viewsByViewType.TryGetValue(_mainActiveViewType, out var oldView)) oldView.UnfocusView();
+
             if (viewType == _mainActiveViewType && Configs.IS_DESKTOP)
             {
                 _viewsByViewType[viewType].style.display = DisplayStyle.None;

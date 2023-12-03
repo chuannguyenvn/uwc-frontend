@@ -14,7 +14,7 @@ namespace UI.Reusables.Procedure
         private readonly string _stepTitle;
         private readonly string _stepSubTitle;
 
-        private bool _isActive;
+        public bool IsActive { get; private set; }
         private bool _isInteracted;
 
         // Title
@@ -38,8 +38,9 @@ namespace UI.Reusables.Procedure
             ConfigureUss(nameof(Step));
 
             CreateTitle();
-            CreateSteps();
-            Deactivate();
+            CreateStep();
+            
+            MarkActive(false);
         }
 
         private void CreateTitle()
@@ -68,7 +69,7 @@ namespace UI.Reusables.Procedure
 
             _stepTitleContainer.RegisterCallback<ClickEvent>(evt =>
             {
-                if (_isActive) Deactivate();
+                if (IsActive) Deactivate();
                 else Activate();
             });
 
@@ -76,7 +77,7 @@ namespace UI.Reusables.Procedure
             Add(_separator);
         }
 
-        private void CreateSteps()
+        private void CreateStep()
         {
             _stepContainer = new VisualElement() { name = "StepContainer" };
             Add(_stepContainer);
@@ -131,7 +132,7 @@ namespace UI.Reusables.Procedure
 
         private void MarkActive(bool isActive)
         {
-            _isActive = isActive;
+            IsActive = isActive;
 
             if (isActive)
             {
@@ -157,16 +158,24 @@ namespace UI.Reusables.Procedure
 
             if (isCompleted)
             {
-                _stepTitleText.text = $"<i><s>{_stepIndex}. {_stepTitle}</s></i>";
+                _stepTitleText.text = $"<i><s>{_stepIndex}. {_stepTitle}.</s></i>";
                 _stepTitleText.RemoveFromClassList("black-text");
                 _stepTitleText.AddToClassList("grey-text");
             }
             else
             {
-                _stepTitleText.text = $"{_stepIndex}. {_stepTitle}";
+                _stepTitleText.text = $"{_stepIndex}. {_stepTitle}.";
                 _stepTitleText.RemoveFromClassList("grey-text");
                 _stepTitleText.AddToClassList("black-text");
             }
+        }
+
+        public virtual void Reset()
+        {
+            _isInteracted = false;
+            Deactivate();
+            MarkActive(false);
+            MarkComplete(false);
         }
     }
 }

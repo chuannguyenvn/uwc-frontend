@@ -8,15 +8,14 @@ using Commons.Communications.Map;
 using Commons.Communications.Status;
 using Commons.Endpoints;
 using Commons.Types;
-using InfinityCode.OnlineMapsExamples;
-using Newtonsoft.Json;
 using Requests;
+using UI.Views.Mcps.AssignTaskProcedure;
 using UnityEngine;
 using Utilities;
 
 namespace Maps
 {
-    public class MapDrawer : MonoBehaviour
+    public class MapDrawer : PersistentSingleton<MapDrawer>
     {
         [SerializeField] private Texture2D _driverMapIconTexture;
         [SerializeField] private Texture2D _cleanerMapIconTexture;
@@ -27,6 +26,21 @@ namespace Maps
         private readonly Dictionary<int, OnlineMapsMarker> _driverMarkers = new();
         private readonly Dictionary<int, OnlineMapsMarker> _cleanerMarkers = new();
         private readonly Dictionary<int, OnlineMapsMarker> _mcpMarkers = new();
+
+        [SerializeField] private List<Texture2D> _fullMcpAssigningIndexTextures;
+        [SerializeField] private Texture2D _fullMcpAssigningOverflowIndexTexture;
+        [SerializeField] private Texture2D _fullMcpAssigningChosenTexture;
+        [SerializeField] private Texture2D _fullMcpAssigningRemoveTexture;
+
+        [SerializeField] private List<Texture2D> _almostFullMcpAssigningIndexTextures;
+        [SerializeField] private Texture2D _almostFullMcpAssigningOverflowIndexTexture;
+        [SerializeField] private Texture2D _almostFullMcpAssigningChosenTexture;
+        [SerializeField] private Texture2D _almostFullMcpAssigningRemoveTexture;
+
+        [SerializeField] private List<Texture2D> _notFullMcpAssigningIndexTextures;
+        [SerializeField] private Texture2D _notFullMcpAssigningOverflowIndexTexture;
+        [SerializeField] private Texture2D _notFullMcpAssigningChosenTexture;
+        [SerializeField] private Texture2D _notFullMcpAssigningRemoveTexture;
 
         private OnlineMapsDrawingElement _route;
         private bool _isRouteDirty = false;
@@ -51,6 +65,7 @@ namespace Maps
             };
             DataStoreManager.Map.McpLocation.DataUpdated += UpdateAllMcps;
             LocationManager.Instance.LocationUpdated += (_) => UpdateLocation();
+            ChooseMcpsStep.OrderSettingChanged += UpdateAssignedMcps;
         }
 
         private void Update()
@@ -80,7 +95,14 @@ namespace Maps
         {
             foreach (var (id, coordinate) in data.LocationByIds.ToList())
             {
-                DrawMcpMarker(id, coordinate, Utility.GetRandomEnumValue<McpFillStatus>());
+                var fillLevel = DataStoreManager.Mcps.FillLevel.Data.FillLevelsById[id];
+                var status = fillLevel switch
+                {
+                    < 0.5f => McpFillStatus.NotFull,
+                    < 0.9f => McpFillStatus.AlmostFull,
+                    _ => McpFillStatus.Full
+                };
+                DrawMcpMarker(id, coordinate, status);
             }
         }
 
@@ -88,7 +110,14 @@ namespace Maps
         {
             foreach (var (id, coordinate) in data.McpLocationBroadcastData.LocationByIds.ToList())
             {
-                DrawMcpMarker(id, coordinate, Utility.GetRandomEnumValue<McpFillStatus>());
+                var fillLevel = data.McpFillLevelBroadcastData.FillLevelsById[id];
+                var status = fillLevel switch
+                {
+                    < 0.5f => McpFillStatus.NotFull,
+                    < 0.9f => McpFillStatus.AlmostFull,
+                    _ => McpFillStatus.Full
+                };
+                DrawMcpMarker(id, coordinate, status);
             }
         }
 
@@ -152,6 +181,23 @@ namespace Maps
                     McpFillStatus.AlmostFull => _almostFullMcpMapIconTexture,
                     McpFillStatus.NotFull => _notFullMcpMapIconTexture,
                     _ => throw new ArgumentOutOfRangeException(nameof(status), status, null)
+                };
+
+                marker.OnClick += (_) =>
+                {
+                    if (ChooseMcpsStep.IsActivated)
+                    {
+                        if (ChooseMcpsStep.ChosenMcpIds.Contains(mcpId))
+                        {
+                            ChooseMcpsStep.RemoveMcp(mcpId);
+                        }
+                        else
+                        {
+                            ChooseMcpsStep.AddMcp(mcpId);
+                        }
+                    }
+
+                    UpdateAssignedMcps();
                 };
             }
 
@@ -265,6 +311,67 @@ namespace Maps
             OnlineMaps.instance.drawingElementManager.Add(poly);
 
             _selfLocation = poly;
+        }
+
+        public void UpdateAssignedMcps()
+        {
+            var mcpIds = ChooseMcpsStep.ChosenMcpIds;
+
+            foreach (var (id, marker) in _mcpMarkers)
+            {
+                var fillLevel = DataStoreManager.Mcps.FillLevel.Data.FillLevelsById[id];
+                var status = fillLevel switch
+                {
+                    < 0.5f => McpFillStatus.NotFull,
+                    < 0.9f => McpFillStatus.AlmostFull,
+                    _ => McpFillStatus.Full
+                };
+
+                if (mcpIds.Contains(id))
+                {
+                    if (ChooseMcpsStep.IsOrdered)
+                    {
+                        var index = ChooseMcpsStep.ChosenMcpIds.FindIndex(i => i == id);
+
+                        if (index < 9)
+                        {
+                            marker.texture = status switch
+                            {
+                                McpFillStatus.Full => _fullMcpAssigningIndexTextures[index],
+                                McpFillStatus.AlmostFull => _almostFullMcpAssigningIndexTextures[index],
+                                McpFillStatus.NotFull => _notFullMcpAssigningIndexTextures[index],
+                            };
+                        }
+                        else
+                        {
+                            marker.texture = status switch
+                            {
+                                McpFillStatus.Full => _fullMcpAssigningOverflowIndexTexture,
+                                McpFillStatus.AlmostFull => _almostFullMcpAssigningOverflowIndexTexture,
+                                McpFillStatus.NotFull => _notFullMcpAssigningOverflowIndexTexture,
+                            };
+                        }
+                    }
+                    else
+                    {
+                        marker.texture = status switch
+                        {
+                            McpFillStatus.Full => _fullMcpAssigningChosenTexture,
+                            McpFillStatus.AlmostFull => _almostFullMcpAssigningChosenTexture,
+                            McpFillStatus.NotFull => _notFullMcpAssigningChosenTexture,
+                        };
+                    }
+                }
+                else
+                {
+                    marker.texture = status switch
+                    {
+                        McpFillStatus.Full => _fullMcpMapIconTexture,
+                        McpFillStatus.AlmostFull => _almostFullMcpMapIconTexture,
+                        McpFillStatus.NotFull => _notFullMcpMapIconTexture,
+                    };
+                }
+            }
         }
     }
 }

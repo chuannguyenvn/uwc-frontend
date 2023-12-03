@@ -5,6 +5,7 @@ using Commons.Communications.Map;
 using Commons.Endpoints;
 using Commons.Types;
 using Requests;
+using Settings;
 using UnityEngine;
 using Utilities;
 
@@ -18,11 +19,14 @@ namespace Maps
 
         private void Start()
         {
-            AuthenticationManager.Instance.Initialized += (data) =>
+            if (!Configs.IS_DESKTOP)
             {
-                Input.location.Start(5, 5);
-                StartCoroutine(UpdateLocation_CO());
-            };
+                AuthenticationManager.Instance.Initialized += (data) =>
+                {
+                    Input.location.Start(5, 5);
+                    StartCoroutine(UpdateLocation_CO());
+                };
+            }
         }
 
         private IEnumerator UpdateLocation_CO()

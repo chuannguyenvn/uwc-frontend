@@ -1,6 +1,7 @@
 ﻿using Commons.Models;
 using Maps;
 using UI.Base;
+using UI.Views.Mcps.AssignTaskProcedure;
 using UnityEngine.UIElements;
 using Color = UnityEngine.Color;
 
@@ -8,7 +9,8 @@ namespace UI.Views.Workers
 {
     public class WorkerListEntry : AnimatedButton
     {
-        public UserProfile Profile { get; }
+        public UserProfile Profile { get; private set; }
+        private readonly bool _isTaskAssigning;
 
         private TextElement _avatar;
 
@@ -16,9 +18,11 @@ namespace UI.Views.Workers
         private TextElement _nameText;
         private TextElement _statusText;
 
-        public WorkerListEntry(UserProfile profile) : base(nameof(WorkerListEntry))
+        public WorkerListEntry(UserProfile profile, bool isTaskAssigning) : base(nameof(WorkerListEntry))
         {
             Profile = profile;
+            _isTaskAssigning = isTaskAssigning;
+            if (_isTaskAssigning) AddToClassList("task-assigning");
 
             ConfigureUss(nameof(WorkerListEntry));
 
@@ -29,7 +33,16 @@ namespace UI.Views.Workers
             CreateImage(profile);
             CreateDetails(profile);
 
-            Clicked += () => MapManager.Instance.ZoomToWorker(profile.Id);
+            if (_isTaskAssigning)
+            {
+                AddToClassList("task-assigning");
+                Clicked += TaskAssigningWorkerClickedHandler;
+                ChooseWorkerStep.WorkerIdChanged += RefreshAssigningStatus;
+            }
+            else
+            {
+                Clicked += () => MapManager.Instance.ZoomToWorker(profile.Id);
+            }
         }
 
         private void CreateImage(UserProfile profile)
@@ -58,6 +71,19 @@ namespace UI.Views.Workers
             _statusText.AddToClassList("grey-text");
             _statusText.text = profile.Address;
             _textContainer.Add(_statusText);
+        }
+
+        private void TaskAssigningWorkerClickedHandler()
+        {
+            if (ChooseWorkerStep.WorkerId != Profile.Id) ChooseWorkerStep.SetWorkerId(Profile.Id);
+            else ChooseWorkerStep.SetWorkerId(-1);
+
+            RefreshAssigningStatus();
+        }
+
+        public void RefreshAssigningStatus()
+        {
+            EnableInClassList("chosen", ChooseWorkerStep.WorkerId == Profile.Id);
         }
     }
 }
