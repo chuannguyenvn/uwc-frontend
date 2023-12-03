@@ -5,15 +5,15 @@ namespace UI.Views.Mcps.AssignTaskProcedure
 {
     public sealed class AssignTaskFlow : Flow
     {
-        private SetAssigningOptions _setAssigningOptions;
+        private SetAssigningOptionsStep _setAssigningOptionsStep;
         private ChooseMcpsStep _chooseMcpsStep;
         private ChooseWorkerStep _chooseWorkerStep;
         private ChooseDateTimeStep _chooseDateTimeStep;
 
         protected override void CreateSteps()
         {
-            _setAssigningOptions = new SetAssigningOptions(this, 1);
-            AddStep(_setAssigningOptions);
+            _setAssigningOptionsStep = new SetAssigningOptionsStep(this, 1);
+            AddStep(_setAssigningOptionsStep);
 
             _chooseMcpsStep = new ChooseMcpsStep(this, 2);
             AddStep(_chooseMcpsStep);

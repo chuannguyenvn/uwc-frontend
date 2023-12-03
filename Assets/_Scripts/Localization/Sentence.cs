@@ -36,6 +36,9 @@
             public const string NONE = "Tasks.None";
             public const string SELECTED = "Tasks.OnlySelectedMcps";
             public const string ALL = "Tasks.AllMcps";
+            public const string OPTIMIZE_AUTO_ASSIGNMENT = "Tasks.OptimizeAutoAssignment";
+            public const string TIME_EFFICIENT = "Tasks.TimeEfficient";
+            public const string COST_OPTIMIZED = "Tasks.CostOptimized";
             public const string CHOOSE_THE_MCPS_THAT_YOU_WANT_TO_BE_COLLECTED = "Tasks.ChooseTheMcpsThatYouWantToBeCollected";
             public const string CHOOSE_THE_WORKERS_TO_ASSIGN = "Tasks.ChooseTheWorkersToAssign";
             public const string LEAVE_THIS_STEP_EMPTY_IF_YOU_WANT_TO_ASSIGN_THE_TASK_TO_ALL_WORKERS = "Tasks.LeaveThisStepEmptyIfYouWantTo";

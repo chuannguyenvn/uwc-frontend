@@ -6,15 +6,16 @@ using UI.Views.Settings;
 
 namespace UI.Views.Mcps.AssignTaskProcedure
 {
-    public class SetAssigningOptions : Step
+    public class SetAssigningOptionsStep : Step
     {
         private SettingList _settingList;
         public OptimizeRoute OptimizeRoute { get; private set; } = OptimizeRoute.None;
+        public OptimizeAutoAssignment OptimizeAutoAssignment { get; private set; } = OptimizeAutoAssignment.TimeEfficient;
 
-        public SetAssigningOptions(Flow flow, int stepIndex) : base(flow, stepIndex, false,
+        public SetAssigningOptionsStep(Flow flow, int stepIndex) : base(flow, stepIndex, false,
             Localization.GetSentence(Sentence.TasksView.CONFIGURE_ASSIGNING_SETTINGS))
         {
-            ConfigureUss(nameof(SetAssigningOptions));
+            ConfigureUss(nameof(SetAssigningOptionsStep));
 
             _settingList = new SettingList();
             AddToContainer(_settingList);
@@ -26,6 +27,14 @@ namespace UI.Views.Mcps.AssignTaskProcedure
                     { Sentence.TasksView.NONE, () => OptimizeRoute = OptimizeRoute.None },
                     { Sentence.TasksView.SELECTED, () => OptimizeRoute = OptimizeRoute.Selected },
                     { Sentence.TasksView.ALL, () => OptimizeRoute = OptimizeRoute.All },
+                }));
+
+            _settingList.Add(new ChoiceSettingListEntry(Localization.GetSentence(Sentence.TasksView.OPTIMIZE_AUTO_ASSIGNMENT),
+                () => OptimizeAutoAssignment.TimeEfficient.ToString(),
+                new Dictionary<string, Action>
+                {
+                    { Sentence.TasksView.TIME_EFFICIENT, () => OptimizeAutoAssignment = OptimizeAutoAssignment.TimeEfficient },
+                    { Sentence.TasksView.COST_OPTIMIZED, () => OptimizeAutoAssignment = OptimizeAutoAssignment.CostOptimized },
                 }));
         }
 
@@ -45,5 +54,11 @@ namespace UI.Views.Mcps.AssignTaskProcedure
         None,
         Selected,
         All,
+    }
+
+    public enum OptimizeAutoAssignment
+    {
+        TimeEfficient,
+        CostOptimized,
     }
 }
