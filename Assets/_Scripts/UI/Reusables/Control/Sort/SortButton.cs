@@ -53,18 +53,6 @@ namespace UI.Reusables.Control.Sort
                 switch (_sortType)
                 {
                     case SortType.None:
-                        _sortType = SortType.Ascending;
-
-                        AddToClassList("ascending");
-                        RemoveFromClassList("descending");
-                        RemoveFromClassList("none");
-
-                        _sortIcon.style.display = DisplayStyle.Flex;
-
-                        _sortNameText.AddToClassList("colored-text");
-                        _sortNameText.RemoveFromClassList("grey-text");
-                        break;
-                    case SortType.Ascending:
                         _sortType = SortType.Descending;
 
                         AddToClassList("descending");
@@ -77,6 +65,18 @@ namespace UI.Reusables.Control.Sort
                         _sortNameText.RemoveFromClassList("grey-text");
                         break;
                     case SortType.Descending:
+                        _sortType = SortType.Ascending;
+
+                        AddToClassList("ascending");
+                        RemoveFromClassList("descending");
+                        RemoveFromClassList("none");
+
+                        _sortIcon.style.display = DisplayStyle.Flex;
+
+                        _sortNameText.AddToClassList("colored-text");
+                        _sortNameText.RemoveFromClassList("grey-text");
+                        break;
+                    case SortType.Ascending:
                         _sortType = SortType.None;
 
                         AddToClassList("none");
@@ -88,8 +88,6 @@ namespace UI.Reusables.Control.Sort
                         _sortNameText.RemoveFromClassList("colored-text");
                         _sortNameText.AddToClassList("grey-text");
                         break;
-                    default:
-                        throw new ArgumentOutOfRangeException();
                 }
 
                 _sortPanel.SortStates[_index] = _sortType;
