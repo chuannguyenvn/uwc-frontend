@@ -158,13 +158,13 @@ namespace UI.Reusables.Procedure
 
             if (isCompleted)
             {
-                _stepTitleText.text = $"<i><s>{_stepIndex}. {_stepTitle}</s></i>";
+                _stepTitleText.text = $"<i><s>{_stepIndex}. {_stepTitle}.</s></i>";
                 _stepTitleText.RemoveFromClassList("black-text");
                 _stepTitleText.AddToClassList("grey-text");
             }
             else
             {
-                _stepTitleText.text = $"{_stepIndex}. {_stepTitle}";
+                _stepTitleText.text = $"{_stepIndex}. {_stepTitle}.";
                 _stepTitleText.RemoveFromClassList("grey-text");
                 _stepTitleText.AddToClassList("black-text");
             }
@@ -172,6 +172,7 @@ namespace UI.Reusables.Procedure
 
         public virtual void Reset()
         {
+            _isInteracted = false;
             Deactivate();
             MarkActive(false);
             MarkComplete(false);

@@ -46,7 +46,7 @@ namespace UI.Views.Mcps.AssignTaskProcedure
 
         protected override bool CheckStepCompletion()
         {
-            return true;
+            return ChosenMcpIds.Count > 0;
         }
 
         protected override void Activate()
