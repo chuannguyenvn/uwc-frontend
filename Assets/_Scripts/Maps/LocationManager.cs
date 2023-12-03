@@ -19,7 +19,7 @@ namespace Maps
 
         private void Start()
         {
-            if (Configs.IS_DESKTOP)
+            if (!Configs.IS_DESKTOP)
             {
                 AuthenticationManager.Instance.Initialized += (data) =>
                 {
