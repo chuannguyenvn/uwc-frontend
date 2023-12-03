@@ -1,4 +1,6 @@
-﻿using UI.Base;
+﻿using Commons.Models;
+using Commons.Types;
+using UI.Base;
 using UnityEngine.UIElements;
 
 namespace UI.Views.Tasks.Details
@@ -16,8 +18,8 @@ namespace UI.Views.Tasks.Details
 
         // Buttons
         private VisualElement _buttonContainer;
-        private AnimatedButton _completeButton;
-        private AnimatedButton _rejectButton;
+        private AnimatedButton _leftButton;
+        private AnimatedButton _rightButton;
 
         public TaskDetails() : base(nameof(TaskDetails))
         {
@@ -54,21 +56,39 @@ namespace UI.Views.Tasks.Details
             _buttonContainer = new VisualElement() { name = "ButtonContainer" };
             Add(_buttonContainer);
 
-            _completeButton = new AnimatedButton("Complete");
-            _completeButton.SetText("Complete");
-            _completeButton.AddToTextClassList("white-text");
-            _completeButton.AddToTextClassList("normal-text");
-            _completeButton.AddToClassList("green-button");
-            _completeButton.AddToClassList("rounded-button-32px");
-            _buttonContainer.Add(_completeButton);
+            _leftButton = new AnimatedButton("LeftButton");
+            _leftButton.AddToTextClassList("white-text");
+            _leftButton.AddToTextClassList("normal-text");
+            _leftButton.AddToClassList("green-button");
+            _leftButton.AddToClassList("rounded-button-32px");
+            _buttonContainer.Add(_leftButton);
 
-            _rejectButton = new AnimatedButton("Reject");
-            _rejectButton.SetText("Reject");
-            _rejectButton.AddToTextClassList("white-text");
-            _rejectButton.AddToTextClassList("normal-text");
-            _rejectButton.AddToClassList("red-button");
-            _rejectButton.AddToClassList("rounded-button-32px");
-            _buttonContainer.Add(_rejectButton);
+            _rightButton = new AnimatedButton("RightButton");
+            _rightButton.SetText("Reject");
+            _rightButton.AddToTextClassList("white-text");
+            _rightButton.AddToTextClassList("normal-text");
+            _rightButton.AddToClassList("reject");
+            _rightButton.AddToClassList("red-button");
+            _rightButton.AddToClassList("rounded-button-32px");
+            _buttonContainer.Add(_rightButton);
+        }
+
+        public void ShowTaskData(TaskData taskData)
+        {
+            if (taskData.TaskStatus == TaskStatus.InProgress)
+            {
+                _leftButton.SetText("Complete");
+                EnableInClassList("complete", true);
+                EnableInClassList("focus", false);
+            }
+            else
+            {
+                _leftButton.SetText("Focus");
+                EnableInClassList("complete", false);
+                EnableInClassList("focus", true);
+            }
+
+            _destinationPanel.SetAddressText(taskData.McpData.Address);
         }
     }
 }

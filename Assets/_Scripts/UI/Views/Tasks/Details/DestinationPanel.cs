@@ -90,5 +90,10 @@ namespace UI.Views.Tasks.Details
             _etaText.text = "ETA placeholder";
             _etaContainer.Add(_etaText);
         }
+        
+        public void SetAddressText(string address)
+        {
+            _addressText.text = address;
+        }
     }
 }

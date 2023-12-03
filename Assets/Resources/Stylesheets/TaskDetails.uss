@@ -25,3 +25,22 @@
     justify-content: center;
     align-content: center;
 }
+
+.task-details .animated-button #ButtonIcon {
+    -unity-background-image-tint-color: white;
+    width: 48px;
+    height: 48px;
+    margin-right: 16px;
+}
+
+.complete #ButtonIcon {
+    background-image: url('project://database/Assets/Graphics/Icons/tick.svg');
+}
+
+.focus #ButtonIcon {
+    background-image: url('project://database/Assets/Graphics/Icons/Navigation/focus.svg');
+}
+
+.reject #ButtonIcon {
+    background-image: url('project://database/Assets/Graphics/Icons/close.svg');
+}
