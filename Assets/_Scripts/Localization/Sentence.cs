@@ -31,12 +31,14 @@
             public const string COMPLETE_BY = "Tasks.CompleteBy";
             public const string LAST_STATUS = "Tasks.LastStatus";
             public const string LAST_STATUS_CHANGE_AT = "Tasks.LastStatusChangeAt";
+            public const string CONFIGURE_ASSIGNING_SETTINGS = "Tasks.ConfigureAssigningSettings";
+            public const string OPTIMIZE_ROUTE = "Tasks.OptimizeRoute";
+            public const string NONE = "Tasks.None";
+            public const string SELECTED = "Tasks.OnlySelectedMcps";
+            public const string ALL = "Tasks.AllMcps";
             public const string CHOOSE_THE_MCPS_THAT_YOU_WANT_TO_BE_COLLECTED = "Tasks.ChooseTheMcpsThatYouWantToBeCollected";
             public const string CHOOSE_THE_WORKERS_TO_ASSIGN = "Tasks.ChooseTheWorkersToAssign";
-
-            public const string LEAVE_THIS_STEP_EMPTY_IF_YOU_WANT_TO_ASSIGN_THE_TASK_TO_ALL_WORKERS =
-                "Tasks.LeaveThisStepEmptyIfYouWantToAssignTheTaskToAllWorkers";
-
+            public const string LEAVE_THIS_STEP_EMPTY_IF_YOU_WANT_TO_ASSIGN_THE_TASK_TO_ALL_WORKERS = "Tasks.LeaveThisStepEmptyIfYouWantTo";
             public const string CHOOSE_THE_DATE_AND_TIME_TO_COLLECT_THE_SELECTED_MCPS = "Tasks.ChooseTheDateAndTimeToCollectTheSelectedMcps";
             public const string CLEANING_TASK = "Tasks.CleaningTask";
             public const string ONGOING = "Tasks.Ongoing";

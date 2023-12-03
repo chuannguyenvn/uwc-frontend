@@ -35,6 +35,11 @@ namespace LocalizationNS
             { Sentence.TasksView.COMPLETE_BY, new LocalizationUnit("Complete by", "Hoàn thành trước") },
             { Sentence.TasksView.LAST_STATUS, new LocalizationUnit("Last status", "Trạng thái cuối") },
             { Sentence.TasksView.LAST_STATUS_CHANGE_AT, new LocalizationUnit("Last status change at", "Thời gian cập nhật trạng thái cuối") },
+            { Sentence.TasksView.CONFIGURE_ASSIGNING_SETTINGS, new LocalizationUnit("Configure assigning settings", "Điều chỉnh cài đặt giao việc") },
+            { Sentence.TasksView.OPTIMIZE_ROUTE, new LocalizationUnit("Optimize route for MCPs", "Tối ưu hóa đường đi với các MCP") },
+            { Sentence.TasksView.NONE, new LocalizationUnit("None", "Không") },
+            { Sentence.TasksView.SELECTED, new LocalizationUnit("Selected", "Đã chọn") },
+            { Sentence.TasksView.ALL, new LocalizationUnit("All", "Tất cả") },
             {
                 Sentence.TasksView.CHOOSE_THE_MCPS_THAT_YOU_WANT_TO_BE_COLLECTED,
                 new LocalizationUnit("Choose the MCPs that you want to be collected", "Chọn các MCP bạn muốn thu gom")

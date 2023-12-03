@@ -38,7 +38,9 @@ namespace UI.Reusables.Procedure
             ConfigureUss(nameof(Step));
 
             CreateTitle();
-            CreateSteps();
+            CreateStep();
+            
+            MarkActive(false);
         }
 
         private void CreateTitle()
@@ -75,7 +77,7 @@ namespace UI.Reusables.Procedure
             Add(_separator);
         }
 
-        private void CreateSteps()
+        private void CreateStep()
         {
             _stepContainer = new VisualElement() { name = "StepContainer" };
             Add(_stepContainer);
