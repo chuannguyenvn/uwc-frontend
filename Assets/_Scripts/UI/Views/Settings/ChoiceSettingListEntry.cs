@@ -16,7 +16,8 @@ namespace UI.Views.Settings
         private VisualElement _optionsContainer;
         private Dictionary<string, Option> _optionsByName = new();
 
-        public ChoiceSettingListEntry(string name, Func<string> initializingCallback, Dictionary<string, Action> optionCallbacks,
+        public ChoiceSettingListEntry(string name, Func<string> initializingCallback, List<string> optionDisplayNames,
+            Dictionary<string, Action> optionCallbacks,
             bool isSettingsView = true) : base(name)
         {
             _initializingCallback = initializingCallback;
@@ -25,7 +26,7 @@ namespace UI.Views.Settings
             ConfigureUss(nameof(ChoiceSettingListEntry));
 
             CreateOptionsContainer();
-            CreateOptions(optionCallbacks);
+            CreateOptions(optionDisplayNames, optionCallbacks);
             ModifySettingNameText();
 
             DataStoreManager.Setting.Settings.DataUpdated += _ => Refresh();
@@ -42,13 +43,17 @@ namespace UI.Views.Settings
             Add(_optionsContainer);
         }
 
-        private void CreateOptions(Dictionary<string, Action> options)
+        private void CreateOptions(List<string> settingNames, Dictionary<string, Action> options)
         {
-            foreach (var (settingName, settingCallback) in options)
+            for (int i = 0; i < settingNames.Count; i++)
             {
-                var newOption = new Option(settingName, () =>
+                var settingName = settingNames[i];
+                var settingValue = options.Keys.ElementAt(i);
+                var settingCallback = options.Values.ElementAt(i);
+
+                var newOption = new Option(settingName, settingValue, () =>
                 {
-                    OptionSelectedHandler(settingName);
+                    OptionSelectedHandler(settingValue);
                     settingCallback?.Invoke();
 
                     if (!_isSettingsView) return;
@@ -63,7 +68,7 @@ namespace UI.Views.Settings
                         }));
                 });
                 _optionsContainer.Add(newOption);
-                _optionsByName.Add(settingName, newOption);
+                _optionsByName.Add(settingValue, newOption);
             }
 
             _optionsByName.Values.First().Activate();

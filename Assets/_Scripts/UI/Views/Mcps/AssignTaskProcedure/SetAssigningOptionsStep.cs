@@ -26,24 +26,30 @@ namespace UI.Views.Mcps.AssignTaskProcedure
 
             _settingList.Add(new ChoiceSettingListEntry(Localization.GetSentence(Sentence.TasksView.OPTIMIZE_ROUTE),
                 () => RoutingOptimizationScope.ToString(),
+                new List<string>()
+                {
+                    Sentence.TasksView.NONE,
+                    Sentence.TasksView.SELECTED,
+                    Sentence.TasksView.ALL,
+                },
                 new Dictionary<string, Action>
                 {
                     {
-                        Sentence.TasksView.NONE, () =>
+                        RoutingOptimizationScope.None.ToString(), () =>
                         {
                             RoutingOptimizationScope = RoutingOptimizationScope.None;
                             ChooseMcpsStep.IsOrdered = true;
                         }
                     },
                     {
-                        Sentence.TasksView.SELECTED, () =>
+                        RoutingOptimizationScope.Selected.ToString(), () =>
                         {
                             RoutingOptimizationScope = RoutingOptimizationScope.Selected;
                             ChooseMcpsStep.IsOrdered = false;
                         }
                     },
                     {
-                        Sentence.TasksView.ALL, () =>
+                        RoutingOptimizationScope.All.ToString(), () =>
                         {
                             RoutingOptimizationScope = RoutingOptimizationScope.All;
                             ChooseMcpsStep.IsOrdered = false;
@@ -53,13 +59,20 @@ namespace UI.Views.Mcps.AssignTaskProcedure
 
             _settingList.Add(new ChoiceSettingListEntry(Localization.GetSentence(Sentence.TasksView.OPTIMIZE_AUTO_ASSIGNMENT),
                 () => AutoAssignmentOptimizationStrategy.ToString(),
+                new List<string>()
+                {
+                    Sentence.TasksView.TIME_EFFICIENT,
+                    Sentence.TasksView.COST_OPTIMIZED,
+                },
                 new Dictionary<string, Action>
                 {
                     {
-                        Sentence.TasksView.TIME_EFFICIENT, () => AutoAssignmentOptimizationStrategy = AutoAssignmentOptimizationStrategy.TimeEfficient
+                        AutoAssignmentOptimizationStrategy.TimeEfficient.ToString(),
+                        () => AutoAssignmentOptimizationStrategy = AutoAssignmentOptimizationStrategy.TimeEfficient
                     },
                     {
-                        Sentence.TasksView.COST_OPTIMIZED, () => AutoAssignmentOptimizationStrategy = AutoAssignmentOptimizationStrategy.CostOptimized
+                        AutoAssignmentOptimizationStrategy.CostOptimized.ToString(),
+                        () => AutoAssignmentOptimizationStrategy = AutoAssignmentOptimizationStrategy.CostOptimized
                     },
                 }, false));
         }

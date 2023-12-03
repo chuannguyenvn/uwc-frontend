@@ -9,7 +9,7 @@ namespace UI.Views.Settings
     {
         private TextElement _optionNameText;
 
-        public Option(string name, Action callback) : base(name)
+        public Option(string name, string value, Action callback) : base(name)
         {
             ConfigureUss(nameof(Option));
 
