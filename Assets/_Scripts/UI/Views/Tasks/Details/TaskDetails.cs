@@ -1,5 +1,7 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using Authentication;
+using Commons.Communications.Mcps;
 using Commons.Communications.Tasks;
 using Commons.Endpoints;
 using Commons.Models;
@@ -153,6 +155,22 @@ namespace UI.Views.Tasks.Details
             }
 
             _destinationPanel.SetAddressText(taskData.McpData.Address);
+            _currentLoadPanel.SetCurrentLoadText(DataStoreManager.Mcps.FillLevel.Data.FillLevelsById[_taskData.McpData.Id]);
+
+            DataStoreManager.Instance.StartCoroutine(RequestHelper.SendPostRequest<GetEmptyRecordsResponse>(Endpoints.McpData.GetEmptyRecords,
+                new GetEmptyRecordsRequest
+                {
+                    McpId = taskData.McpDataId,
+                    CountLimit = 50,
+                    DateTimeLimit = DateTime.Now.AddDays(-5),
+                },
+                (success, result) =>
+                {
+                    if (success)
+                    {
+                        _emptyingLogPanel.SetEmptyingLogText(result.Results.ToList());
+                    }
+                }));
         }
     }
 }

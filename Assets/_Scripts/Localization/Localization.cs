@@ -78,7 +78,7 @@ namespace LocalizationNS
             { Sentence.TasksView.DISTANCE, new LocalizationUnit("Distance", "Khoảng cách") },
             { Sentence.TasksView.ETA, new LocalizationUnit("ETA", "Dự kiến đến nơi") },
             { Sentence.TasksView.EMPTYING_LOGS, new LocalizationUnit("Emptying logs", "Lịch sử thu gom") },
-            { Sentence.TasksView.CURRENT_LOAD, new LocalizationUnit("Current load", "Tải hiện tại") },
+            { Sentence.TasksView.CURRENT_LOAD, new LocalizationUnit("Current fill level", "Tải hiện tại") },
 
             { Sentence.StatusView.STATUS, new LocalizationUnit("Status", "Trạng thái") },
 

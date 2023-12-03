@@ -45,5 +45,10 @@ namespace UI.Views.Tasks.Details
             _visualLoadContainer = new VisualElement { name = "VisualLoadContainer" };
             Add(_visualLoadContainer);
         }
+
+        public void SetCurrentLoadText(float load)
+        {
+            _numericalLoadText.text = (load * 100).ToString("F0") + "%";
+        }
     }
 }
