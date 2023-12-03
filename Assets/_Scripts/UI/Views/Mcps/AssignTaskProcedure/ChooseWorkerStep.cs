@@ -13,7 +13,7 @@ namespace UI.Views.Mcps.AssignTaskProcedure
         public static int WorkerId { get; private set; } = -1;
 
         public static event Action WorkerIdChanged;
-        
+
         public static void SetWorkerId(int workerId)
         {
             WorkerId = workerId;
@@ -26,6 +26,8 @@ namespace UI.Views.Mcps.AssignTaskProcedure
             Localization.GetSentence(Sentence.TasksView.CHOOSE_THE_WORKERS_TO_ASSIGN),
             Localization.GetSentence(Sentence.TasksView.LEAVE_THIS_STEP_EMPTY_IF_YOU_WANT_TO_ASSIGN_THE_TASK_TO_ALL_WORKERS))
         {
+            WorkerId = -1;
+
             CreateWorkerList();
             Deactivate();
         }

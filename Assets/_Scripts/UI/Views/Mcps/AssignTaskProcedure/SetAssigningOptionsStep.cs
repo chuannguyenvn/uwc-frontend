@@ -11,7 +11,7 @@ namespace UI.Views.Mcps.AssignTaskProcedure
     public class SetAssigningOptionsStep : Step
     {
         private SettingList _settingList;
-        public RoutingOptimizationScope RoutingOptimizationScope { get; private set; } = RoutingOptimizationScope.None;
+        public RoutingOptimizationScope RoutingOptimizationScope { get; private set; } = RoutingOptimizationScope.All;
 
         public AutoAssignmentOptimizationStrategy AutoAssignmentOptimizationStrategy { get; private set; } =
             AutoAssignmentOptimizationStrategy.TimeEfficient;
