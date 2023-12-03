@@ -65,6 +65,7 @@ namespace UI.Views.Tasks.Tasks
         {
             _scrollView.Clear();
             _taskListEntries.Clear();
+
             foreach (var task in getAllTasksResponse.Tasks)
             {
                 task.McpData.Address = task.McpData.Address;
@@ -107,6 +108,7 @@ namespace UI.Views.Tasks.Tasks
         private void PersonalTaskListDataUpdatedHandler(GetTasksOfWorkerResponse getTasksOfWorkerResponse)
         {
             _scrollView.Clear();
+            _taskListEntries.Clear();
 
             foreach (var task in getTasksOfWorkerResponse.Tasks)
             {

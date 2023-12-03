@@ -1,4 +1,5 @@
-﻿using Authentication;
+﻿using System.Linq;
+using Authentication;
 using Commons.Communications.Tasks;
 using Commons.Endpoints;
 using Commons.Models;
@@ -81,8 +82,8 @@ namespace UI.Views.Tasks.Details
                         {
                             if (success)
                             {
-                                _taskData.TaskStatus = TaskStatus.InProgress;
-                                ShowTaskData(_taskData);
+                                DataStoreManager.Tasks.PersonalTaskList.SendRequest(() =>
+                                    ShowTaskData(DataStoreManager.Tasks.PersonalTaskList.Data.Tasks.First(task => task.Id == _taskData.Id)));
                             }
                         }));
                 }
@@ -95,7 +96,10 @@ namespace UI.Views.Tasks.Details
                         },
                         success =>
                         {
-                            if (success) GetFirstAncestorOfType<TasksView>().ShowTaskList();
+                            if (success)
+                            {
+                                DataStoreManager.Tasks.PersonalTaskList.SendRequest(() => GetFirstAncestorOfType<TasksView>().ShowTaskList());
+                            }
                         }));
                 }
             };
@@ -117,7 +121,10 @@ namespace UI.Views.Tasks.Details
                     },
                     success =>
                     {
-                        if (success) GetFirstAncestorOfType<TasksView>().ShowTaskList();
+                        if (success)
+                        {
+                            DataStoreManager.Tasks.PersonalTaskList.SendRequest(() => GetFirstAncestorOfType<TasksView>().ShowTaskList());
+                        }
                     }));
             };
         }
@@ -128,15 +135,21 @@ namespace UI.Views.Tasks.Details
 
             if (taskData.TaskStatus == TaskStatus.InProgress)
             {
+                _buttonContainer.style.display = DisplayStyle.Flex;
                 _leftButton.SetText("Complete");
                 EnableInClassList("complete", true);
                 EnableInClassList("focus", false);
             }
-            else
+            else if (taskData.TaskStatus == TaskStatus.NotStarted)
             {
+                _buttonContainer.style.display = DisplayStyle.Flex;
                 _leftButton.SetText("Focus");
                 EnableInClassList("complete", false);
                 EnableInClassList("focus", true);
+            }
+            else
+            {
+                _buttonContainer.style.display = DisplayStyle.None;
             }
 
             _destinationPanel.SetAddressText(taskData.McpData.Address);
