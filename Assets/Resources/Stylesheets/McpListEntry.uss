@@ -60,7 +60,7 @@
 #AssigningText {
 }
 
-.chosen {
+.task-assigning {
     border-width: 3px;
 }
 

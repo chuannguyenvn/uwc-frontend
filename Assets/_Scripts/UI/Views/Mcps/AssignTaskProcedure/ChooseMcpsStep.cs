@@ -9,7 +9,7 @@ namespace UI.Views.Mcps.AssignTaskProcedure
     public class ChooseMcpsStep : Step
     {
         public static bool IsActivated { get; private set; } = false;
-        public static bool IsOrdered { get; private set; } = true;
+        public static bool IsOrdered { get; private set; } = false;
         public static List<int> ChosenMcpIds { get; private set; } = new();
         public static event Action McpListChanged;
 

@@ -1,4 +1,5 @@
-﻿using Commons.Models;
+﻿using System;
+using Commons.Models;
 using LocalizationNS;
 using UI.Reusables.Procedure;
 using UI.Views.Workers;
@@ -9,6 +10,16 @@ namespace UI.Views.Mcps.AssignTaskProcedure
 {
     public class ChooseWorkerStep : Step
     {
+        public static int WorkerId { get; private set; } = -1;
+
+        public static event Action WorkerIdChanged;
+        
+        public static void SetWorkerId(int workerId)
+        {
+            WorkerId = workerId;
+            WorkerIdChanged?.Invoke();
+        }
+
         private WorkersView _workersView;
 
         public ChooseWorkerStep(Flow flow, int stepIndex) : base(flow, stepIndex, true,
@@ -35,7 +46,7 @@ namespace UI.Views.Mcps.AssignTaskProcedure
             base.Activate();
             _workersView.FocusView();
         }
-        
+
         protected override void Deactivate()
         {
             base.Deactivate();

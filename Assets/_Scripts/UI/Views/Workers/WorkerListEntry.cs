@@ -1,6 +1,7 @@
 ﻿using Commons.Models;
 using Maps;
 using UI.Base;
+using UI.Views.Mcps.AssignTaskProcedure;
 using UnityEngine.UIElements;
 using Color = UnityEngine.Color;
 
@@ -8,8 +9,8 @@ namespace UI.Views.Workers
 {
     public class WorkerListEntry : AnimatedButton
     {
+        public UserProfile Profile { get; private set; }
         private readonly bool _isTaskAssigning;
-        public UserProfile Profile { get; }
 
         private TextElement _avatar;
 
@@ -32,7 +33,16 @@ namespace UI.Views.Workers
             CreateImage(profile);
             CreateDetails(profile);
 
-            if (!_isTaskAssigning) Clicked += () => MapManager.Instance.ZoomToWorker(profile.Id);
+            if (_isTaskAssigning)
+            {
+                AddToClassList("task-assigning");
+                Clicked += TaskAssigningWorkerClickedHandler;
+                ChooseWorkerStep.WorkerIdChanged += RefreshAssigningStatus;
+            }
+            else
+            {
+                Clicked += () => MapManager.Instance.ZoomToWorker(profile.Id);
+            }
         }
 
         private void CreateImage(UserProfile profile)
@@ -61,6 +71,19 @@ namespace UI.Views.Workers
             _statusText.AddToClassList("grey-text");
             _statusText.text = profile.Address;
             _textContainer.Add(_statusText);
+        }
+
+        private void TaskAssigningWorkerClickedHandler()
+        {
+            if (ChooseWorkerStep.WorkerId != Profile.Id) ChooseWorkerStep.SetWorkerId(Profile.Id);
+            else ChooseWorkerStep.SetWorkerId(-1);
+
+            RefreshAssigningStatus();
+        }
+
+        public void RefreshAssigningStatus()
+        {
+            EnableInClassList("chosen", ChooseWorkerStep.WorkerId == Profile.Id);
         }
     }
 }

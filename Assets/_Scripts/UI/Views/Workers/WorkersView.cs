@@ -1,9 +1,12 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using Commons.Communications.UserProfiles;
 using Requests;
 using UI.Base;
 using UI.Reusables;
 using UI.Reusables.Control;
+using UI.Reusables.Control.Sort;
+using UI.Views.Mcps.AssignTaskProcedure;
 using UnityEngine.UIElements;
 using Utilities;
 
@@ -29,7 +32,9 @@ namespace UI.Views.Workers
 
             CreateControls();
             CreateScrollView();
-            if (!_isTaskAssigning) CreateFullscreenPopup();
+
+            if (_isTaskAssigning) ChooseWorkerStep.WorkerIdChanged += SortByAssigningOrder;
+            else CreateFullscreenPopup();
 
             DataStoreManager.UserProfile.AllWorkerProfileList.DataUpdated += DataUpdatedHandler;
         }
@@ -77,12 +82,35 @@ namespace UI.Views.Workers
                 _scrollView.AddToScrollView(entry);
                 _workerListEntries.Add(entry);
 
-                entry.Clicked += () =>
+                if (!_isTaskAssigning)
                 {
-                    _workerInformationPopup.SetContent(userProfile);
-                    _workerInformationPopup.Show();
-                };
+                    entry.Clicked += () =>
+                    {
+                        _workerInformationPopup.SetContent(userProfile);
+                        _workerInformationPopup.Show();
+                    };
+                }
             }
+
+            if (_isTaskAssigning) SortByAssigningOrder();
+        }
+
+        private void SortByAssigningOrder()
+        {
+            var mcpEntries = _workerListEntries.ToList();
+
+            _scrollView.Clear();
+
+            var id = ChooseWorkerStep.WorkerId;
+            if (id != -1)
+            {
+                var entry = mcpEntries.Find(e => e.Profile.Id == id);
+                mcpEntries.Remove(entry);
+                mcpEntries.Insert(0, entry);
+                entry.RefreshAssigningStatus();
+            }
+
+            foreach (var mcpEntry in mcpEntries) _scrollView.AddToScrollView(mcpEntry);
         }
 
         private void SearchHandler(string text)
