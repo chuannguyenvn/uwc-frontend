@@ -12,12 +12,15 @@ namespace UI.Views.Settings
     public class ChoiceSettingListEntry : SettingListEntry
     {
         private readonly Func<string> _initializingCallback;
+        private readonly bool _isSettingsView;
         private VisualElement _optionsContainer;
         private Dictionary<string, Option> _optionsByName = new();
 
-        public ChoiceSettingListEntry(string name, Func<string> initializingCallback, Dictionary<string, Action> optionCallbacks) : base(name)
+        public ChoiceSettingListEntry(string name, Func<string> initializingCallback, Dictionary<string, Action> optionCallbacks,
+            bool isSettingsView = true) : base(name)
         {
             _initializingCallback = initializingCallback;
+            _isSettingsView = isSettingsView;
 
             ConfigureUss(nameof(ChoiceSettingListEntry));
 
@@ -47,7 +50,9 @@ namespace UI.Views.Settings
                 {
                     OptionSelectedHandler(settingName);
                     settingCallback?.Invoke();
-                    
+
+                    if (!_isSettingsView) return;
+
                     var newSetting = GetFirstAncestorOfType<SettingsView>().Setting;
                     DataStoreManager.Instance.StartCoroutine(RequestHelper.SendPostRequest(
                         Endpoints.Setting.UpdateSetting,

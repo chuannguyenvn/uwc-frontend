@@ -34,7 +34,7 @@ namespace UI.Views.Tasks
             _taskList = new TaskList();
             Add(_taskList);
 
-            _assignTaskFlow = new AssignTaskFlow();
+            _assignTaskFlow = new AssignTaskFlow(this);
             _assignTaskFlow.style.display = DisplayStyle.None;
             Add(_assignTaskFlow);
 
@@ -102,11 +102,16 @@ namespace UI.Views.Tasks
             {
                 DataStoreManager.Tasks.AllTaskList.Unfocus();
                 _assignTaskFlow.Reset();
-                _assignTaskFlow.style.display = DisplayStyle.None;
-                _assignTaskButton.style.display = DisplayStyle.Flex;
-                _taskList.style.display = DisplayStyle.Flex;
+                BackToListView();
             }
             else DataStoreManager.Tasks.PersonalTaskList.Unfocus();
+        }
+
+        public void BackToListView()
+        {
+            _assignTaskFlow.style.display = DisplayStyle.None;
+            _assignTaskButton.style.display = DisplayStyle.Flex;
+            _taskList.style.display = DisplayStyle.Flex;
         }
     }
 }
