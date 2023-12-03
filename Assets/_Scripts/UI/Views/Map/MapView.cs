@@ -68,12 +68,12 @@ namespace UI.Views.Map
 
         public override void FocusView()
         {
-            if (!Configs.IS_DESKTOP) MapManager.Instance.MapGameObject.SetActive(true);
+            // if (!Configs.IS_DESKTOP) MapManager.Instance.MapGameObject.SetActive(true);
         }
 
         public override void UnfocusView()
         {
-            if (!Configs.IS_DESKTOP) MapManager.Instance.MapGameObject.SetActive(false);
+            // if (!Configs.IS_DESKTOP) MapManager.Instance.MapGameObject.SetActive(false);
         }
     }
 }
