@@ -184,6 +184,23 @@ namespace Maps
                     McpFillStatus.NotFull => _notFullMcpMapIconTexture,
                     _ => throw new ArgumentOutOfRangeException(nameof(status), status, null)
                 };
+
+                marker.OnClick += (_) =>
+                {
+                    if (ChooseMcpsStep.IsActivated)
+                    {
+                        if (ChooseMcpsStep.ChosenMcpIds.Contains(mcpId))
+                        {
+                            ChooseMcpsStep.RemoveMcp(mcpId);
+                        }
+                        else
+                        {
+                            ChooseMcpsStep.AddMcp(mcpId);
+                        }
+                    }
+
+                    UpdateAssignedMcps();
+                };
             }
 
             marker.SetPosition(coordinate.Longitude, coordinate.Latitude);

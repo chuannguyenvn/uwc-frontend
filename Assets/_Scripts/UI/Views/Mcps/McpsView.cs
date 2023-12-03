@@ -10,6 +10,7 @@ using UI.Reusables;
 using UI.Reusables.Control;
 using UI.Reusables.Control.Sort;
 using UI.Views.Mcps.AssignTaskProcedure;
+using UnityEngine;
 using UnityEngine.UIElements;
 using Utilities;
 
@@ -35,7 +36,9 @@ namespace UI.Views.Mcps
 
             CreateControls();
             CreateScrollView();
-            if (!_isTaskAssigning) CreateFullscreenPopup();
+
+            if (_isTaskAssigning) ChooseMcpsStep.McpListChanged += SortByAssigningOrder;
+            else CreateFullscreenPopup();
 
             DataStoreManager.Mcps.ListView.DataUpdated += DataUpdatedHandler;
         }
@@ -77,11 +80,7 @@ namespace UI.Views.Mcps
                 mcpEntries.Add(entry);
                 _mcpListEntriesByAddress[mcpData.Address] = entry;
 
-                if (_isTaskAssigning)
-                {
-                    entry.Clicked += SortByAssigningOrder;
-                }
-                else
+                if (!_isTaskAssigning)
                 {
                     entry.Clicked += () =>
                     {
@@ -107,6 +106,12 @@ namespace UI.Views.Mcps
                 }
             }
 
+            if (_isTaskAssigning)
+            {
+                SortByAssigningOrder();
+                return;
+            }
+
             if (_listControl.SortStates[0] == SortType.Ascending)
                 mcpEntries.Sort((a, b) => a.CurrentLoadPercentage.CompareTo(b.CurrentLoadPercentage));
             else if (_listControl.SortStates[0] == SortType.Descending)
@@ -126,13 +131,13 @@ namespace UI.Views.Mcps
                 var entry = mcpEntries.Find(e => e.McpData.Id == id);
                 mcpEntries.Remove(entry);
                 mcpEntries.Insert(0, entry);
+                entry.RefreshAssigningStatus();
             }
 
             if (_listControl.SortStates[0] == SortType.Ascending)
                 mcpEntries.Sort((a, b) => a.CurrentLoadPercentage.CompareTo(b.CurrentLoadPercentage));
             else if (_listControl.SortStates[0] == SortType.Descending)
                 mcpEntries.Sort((a, b) => b.CurrentLoadPercentage.CompareTo(a.CurrentLoadPercentage));
-
 
             foreach (var mcpEntry in mcpEntries) _scrollView.AddToScrollView(mcpEntry);
         }

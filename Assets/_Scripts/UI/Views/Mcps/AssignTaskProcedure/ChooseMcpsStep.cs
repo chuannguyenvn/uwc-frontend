@@ -8,7 +8,8 @@ namespace UI.Views.Mcps.AssignTaskProcedure
 {
     public class ChooseMcpsStep : Step
     {
-        public static bool IsOrdered { get; private set; } = false;
+        public static bool IsActivated { get; private set; } = false;
+        public static bool IsOrdered { get; private set; } = true;
         public static List<int> ChosenMcpIds { get; private set; } = new();
         public static event Action McpListChanged;
 
@@ -52,12 +53,14 @@ namespace UI.Views.Mcps.AssignTaskProcedure
         {
             base.Activate();
             _mcpsView.FocusView();
+            IsActivated = true;
         }
 
         protected override void Deactivate()
         {
             base.Deactivate();
             _mcpsView.UnfocusView();
+            IsActivated = false;
         }
 
         public override void Reset()

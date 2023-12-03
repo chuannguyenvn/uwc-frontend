@@ -74,7 +74,7 @@ namespace UI.Views.Mcps
             {
                 AddToClassList("task-assigning");
                 Clicked += TaskAssigningMcpClickedHandler;
-                ChooseMcpsStep.McpListChanged += RefreshIndex;
+                ChooseMcpsStep.McpListChanged += RefreshAssigningStatus;
             }
             else
             {
@@ -155,10 +155,19 @@ namespace UI.Views.Mcps
 
         private void TaskAssigningMcpClickedHandler()
         {
-            if (!ChooseMcpsStep.ChosenMcpIds.Contains(McpData.Id))
-            {
-                ChooseMcpsStep.AddMcp(McpData.Id);
+            if (!ChooseMcpsStep.ChosenMcpIds.Contains(McpData.Id)) ChooseMcpsStep.AddMcp(McpData.Id);
+            else ChooseMcpsStep.RemoveMcp(McpData.Id);
 
+            RefreshAssigningStatus();
+            
+            MapDrawer.Instance.UpdateAssignedMcps();
+            // MapManager.Instance.ZoomToMcp(McpData.Id);
+        }
+
+        public void RefreshAssigningStatus()
+        {
+            if (ChooseMcpsStep.ChosenMcpIds.Contains(McpData.Id))
+            {
                 EnableInClassList("chosen", true);
 
                 if (ChooseMcpsStep.IsOrdered)
@@ -175,7 +184,6 @@ namespace UI.Views.Mcps
             }
             else
             {
-                ChooseMcpsStep.RemoveMcp(McpData.Id);
                 EnableInClassList("chosen", false);
 
                 if (ChooseMcpsStep.IsOrdered)
@@ -188,14 +196,6 @@ namespace UI.Views.Mcps
                     _icon.EnableInClassList("chosen", false);
                 }
             }
-
-            MapDrawer.Instance.UpdateAssignedMcps();
-            // MapManager.Instance.ZoomToMcp(McpData.Id);
-        }
-
-        public void RefreshIndex()
-        {
-            _assigningText.text = ChooseMcpsStep.ChosenMcpIds.IndexOf(McpData.Id) + 1 + "";
         }
     }
 }
