@@ -5,11 +5,11 @@ namespace UI.Views.Map
 {
     public class MobileMapModeTogglePanel : Panel
     {
-        private AnimatedButton _showAllDestinationsButton;
+        private AnimatedButton _focusButton;
         private VisualElement _separator;
         private AnimatedButton _showTrafficButton;
 
-        private bool _showAllDestinations;
+        private bool _focus;
         private bool _showTraffic;
 
         public MobileMapModeTogglePanel()
@@ -18,23 +18,23 @@ namespace UI.Views.Map
 
             AddToClassList("rounded-64px");
 
-            CreateShowAllDestinationsButton();
+            CreateFocusButton();
             CreateSeparator();
             CreateShowTrafficButton();
 
-            SetShowAllDestination(false);
+            SetFocusMode(false);
             SetShowTraffic(false);
         }
 
-        private void CreateShowAllDestinationsButton()
+        private void CreateFocusButton()
         {
-            _showAllDestinationsButton = new AnimatedButton("ShowAllDestinationsButton");
-            _showAllDestinationsButton.AddToClassList("rounded-64px");
-            _showAllDestinationsButton.AddToTextClassList("normal-text");
-            _showAllDestinationsButton.SetText("Show all stops");
-            Add(_showAllDestinationsButton);
+            _focusButton = new AnimatedButton("FocusButton");
+            _focusButton.AddToClassList("rounded-64px");
+            _focusButton.AddToTextClassList("normal-text");
+            _focusButton.SetText("Focus mode");
+            Add(_focusButton);
 
-            _showAllDestinationsButton.Clicked += () => { SetShowAllDestination(!_showAllDestinations); };
+            _focusButton.Clicked += () => { SetFocusMode(!_focus); };
         }
 
         private void CreateSeparator()
@@ -54,11 +54,11 @@ namespace UI.Views.Map
             _showTrafficButton.Clicked += () => { SetShowTraffic(!_showTraffic); };
         }
 
-        private void SetShowAllDestination(bool showAllDestination)
+        private void SetFocusMode(bool focus)
         {
-            _showAllDestinations = showAllDestination;
-            _showAllDestinationsButton.EnableInClassList("active", _showAllDestinations);
-            _showAllDestinationsButton.EnableInClassList("inactive", !_showAllDestinations);
+            _focus = focus;
+            _focusButton.EnableInClassList("active", _focus);
+            _focusButton.EnableInClassList("inactive", !_focus);
         }
 
         private void SetShowTraffic(bool showTraffic)

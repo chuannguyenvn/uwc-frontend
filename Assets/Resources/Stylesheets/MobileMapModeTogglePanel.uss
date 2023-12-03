@@ -14,7 +14,7 @@
     background-color: rgb(180, 180, 180);
 }
 
-.mobile-map-mode-toggle-panel #ShowAllDestinationsButton #ButtonIcon {
+.mobile-map-mode-toggle-panel #FocusButton #ButtonIcon {
     background-image: url('project://database/Assets/Graphics/Icons/Navigation/route.svg');
 }
 
