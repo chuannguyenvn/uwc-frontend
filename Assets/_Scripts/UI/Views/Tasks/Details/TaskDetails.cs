@@ -1,5 +1,9 @@
-﻿using Commons.Models;
+﻿using Authentication;
+using Commons.Communications.Tasks;
+using Commons.Endpoints;
+using Commons.Models;
 using Commons.Types;
+using Requests;
 using UI.Base;
 using UnityEngine.UIElements;
 
@@ -20,6 +24,8 @@ namespace UI.Views.Tasks.Details
         private VisualElement _buttonContainer;
         private AnimatedButton _leftButton;
         private AnimatedButton _rightButton;
+
+        private TaskData _taskData;
 
         public TaskDetails() : base(nameof(TaskDetails))
         {
@@ -62,6 +68,37 @@ namespace UI.Views.Tasks.Details
             _leftButton.AddToClassList("green-button");
             _leftButton.AddToClassList("rounded-button-32px");
             _buttonContainer.Add(_leftButton);
+            _leftButton.Clicked += () =>
+            {
+                if (_taskData.TaskStatus == TaskStatus.NotStarted)
+                {
+                    DataStoreManager.Instance.StartCoroutine(RequestHelper.SendPostRequest(Endpoints.TaskData.FocusTask, new FocusTaskRequest()
+                        {
+                            TaskId = _taskData.Id,
+                            WorkerId = AuthenticationManager.Instance.UserAccountId,
+                        },
+                        success =>
+                        {
+                            if (success)
+                            {
+                                _taskData.TaskStatus = TaskStatus.InProgress;
+                                ShowTaskData(_taskData);
+                            }
+                        }));
+                }
+                else
+                {
+                    DataStoreManager.Instance.StartCoroutine(RequestHelper.SendPostRequest(Endpoints.TaskData.CompleteTask, new FocusTaskRequest()
+                        {
+                            TaskId = _taskData.Id,
+                            WorkerId = AuthenticationManager.Instance.UserAccountId,
+                        },
+                        success =>
+                        {
+                            if (success) GetFirstAncestorOfType<TasksView>().ShowTaskList();
+                        }));
+                }
+            };
 
             _rightButton = new AnimatedButton("RightButton");
             _rightButton.SetText("Reject");
@@ -71,10 +108,24 @@ namespace UI.Views.Tasks.Details
             _rightButton.AddToClassList("red-button");
             _rightButton.AddToClassList("rounded-button-32px");
             _buttonContainer.Add(_rightButton);
+            _rightButton.Clicked += () =>
+            {
+                DataStoreManager.Instance.StartCoroutine(RequestHelper.SendPostRequest(Endpoints.TaskData.RejectTask, new FocusTaskRequest()
+                    {
+                        TaskId = _taskData.Id,
+                        WorkerId = AuthenticationManager.Instance.UserAccountId,
+                    },
+                    success =>
+                    {
+                        if (success) GetFirstAncestorOfType<TasksView>().ShowTaskList();
+                    }));
+            };
         }
 
         public void ShowTaskData(TaskData taskData)
         {
+            _taskData = taskData;
+
             if (taskData.TaskStatus == TaskStatus.InProgress)
             {
                 _leftButton.SetText("Complete");

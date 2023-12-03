@@ -57,7 +57,7 @@ namespace UI.Views.Tasks.Tasks
 
         private void CreateScrollView()
         {
-            _scrollView = new ScrollViewWithShadow(ShadowType.InnerTop) { name = "ScrollView" };
+            _scrollView = new ScrollViewWithShadow(ShadowType.None) { name = "ScrollView" };
             Add(_scrollView);
         }
 
