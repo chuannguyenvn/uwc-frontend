@@ -75,6 +75,7 @@ namespace UI.Views.Mcps
                 AddToClassList("task-assigning");
                 Clicked += TaskAssigningMcpClickedHandler;
                 ChooseMcpsStep.McpListChanged += RefreshAssigningStatus;
+                ChooseMcpsStep.OrderSettingChanged += RefreshAssigningStatus;
             }
             else
             {
@@ -159,7 +160,7 @@ namespace UI.Views.Mcps
             else ChooseMcpsStep.RemoveMcp(McpData.Id);
 
             RefreshAssigningStatus();
-            
+
             MapDrawer.Instance.UpdateAssignedMcps();
             // MapManager.Instance.ZoomToMcp(McpData.Id);
         }

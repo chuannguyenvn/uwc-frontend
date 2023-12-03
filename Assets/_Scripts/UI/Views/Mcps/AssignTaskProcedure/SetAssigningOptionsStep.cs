@@ -25,16 +25,34 @@ namespace UI.Views.Mcps.AssignTaskProcedure
             AddToContainer(_settingList);
 
             _settingList.Add(new ChoiceSettingListEntry(Localization.GetSentence(Sentence.TasksView.OPTIMIZE_ROUTE),
-                () => RoutingOptimizationScope.None.ToString(),
+                () => RoutingOptimizationScope.ToString(),
                 new Dictionary<string, Action>
                 {
-                    { Sentence.TasksView.NONE, () => RoutingOptimizationScope = RoutingOptimizationScope.None },
-                    { Sentence.TasksView.SELECTED, () => RoutingOptimizationScope = RoutingOptimizationScope.Selected },
-                    { Sentence.TasksView.ALL, () => RoutingOptimizationScope = RoutingOptimizationScope.All },
+                    {
+                        Sentence.TasksView.NONE, () =>
+                        {
+                            RoutingOptimizationScope = RoutingOptimizationScope.None;
+                            ChooseMcpsStep.IsOrdered = true;
+                        }
+                    },
+                    {
+                        Sentence.TasksView.SELECTED, () =>
+                        {
+                            RoutingOptimizationScope = RoutingOptimizationScope.Selected;
+                            ChooseMcpsStep.IsOrdered = false;
+                        }
+                    },
+                    {
+                        Sentence.TasksView.ALL, () =>
+                        {
+                            RoutingOptimizationScope = RoutingOptimizationScope.All;
+                            ChooseMcpsStep.IsOrdered = false;
+                        }
+                    },
                 }, false));
 
             _settingList.Add(new ChoiceSettingListEntry(Localization.GetSentence(Sentence.TasksView.OPTIMIZE_AUTO_ASSIGNMENT),
-                () => AutoAssignmentOptimizationStrategy.TimeEfficient.ToString(),
+                () => AutoAssignmentOptimizationStrategy.ToString(),
                 new Dictionary<string, Action>
                 {
                     {

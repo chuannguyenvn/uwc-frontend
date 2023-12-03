@@ -8,12 +8,9 @@ using Commons.Communications.Map;
 using Commons.Communications.Status;
 using Commons.Endpoints;
 using Commons.Types;
-using InfinityCode.OnlineMapsExamples;
-using Newtonsoft.Json;
 using Requests;
 using UI.Views.Mcps.AssignTaskProcedure;
 using UnityEngine;
-using UnityEngine.Serialization;
 using Utilities;
 
 namespace Maps
@@ -68,6 +65,7 @@ namespace Maps
             };
             DataStoreManager.Map.McpLocation.DataUpdated += UpdateAllMcps;
             LocationManager.Instance.LocationUpdated += (_) => UpdateLocation();
+            ChooseMcpsStep.OrderSettingChanged += UpdateAssignedMcps;
         }
 
         private void Update()
