@@ -123,7 +123,7 @@ namespace UI.Views.Mcps
         private void SortByAssigningOrder()
         {
             var mcpEntries = _mcpListEntriesByAddress.Values.ToList();
-
+            Debug.Log(mcpEntries.Count);
             _scrollView.Clear();
             for (var i = ChooseMcpsStep.ChosenMcpIds.Count - 1; i >= 0; i--)
             {

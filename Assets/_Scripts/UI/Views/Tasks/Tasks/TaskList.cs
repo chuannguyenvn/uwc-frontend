@@ -122,6 +122,9 @@ namespace UI.Views.Tasks.Tasks
                 var sortByStatus = b.TaskData.TaskStatus.CompareTo(a.TaskData.TaskStatus);
                 if (sortByStatus != 0) return sortByStatus;
 
+                var sortByPriority = b.TaskData.Priority.CompareTo(a.TaskData.Priority);
+                if (sortByPriority != 0) return sortByPriority;
+
                 var sortByLastChangedTime = a.TaskData.LastStatusChangeTimestamp.CompareTo(b.TaskData.LastStatusChangeTimestamp);
                 return sortByLastChangedTime;
             });
