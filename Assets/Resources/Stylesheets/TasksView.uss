@@ -25,7 +25,7 @@
     -unity-background-scale-mode: scale-to-fit;
 }
 
-.tasks-view #TaskList {
+.mobile .tasks-view #TaskList {
     flex-direction: column-reverse;
     flex-grow: 1;
 }
