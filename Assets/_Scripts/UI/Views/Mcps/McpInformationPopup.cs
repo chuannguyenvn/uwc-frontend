@@ -53,7 +53,7 @@ namespace UI.Views.Mcps
             _fillLevelGraph = new Graph(false, true, false);
             AddContent(_fillLevelGraph);
 
-            _fillLevelGraph.ConfigureAreaGraph(Localization.GetSentence(Sentence.McpsView.FILL_LEVEL_BY_HOUR), Color.red, true);
+            _fillLevelGraph.ConfigureAreaGraph(Localization.GetSentence(Sentence.McpsView.FILL_LEVEL_BY_HOUR), new(121f / 255, 225f / 255, 153f / 255, 1), true);
         }
 
         public override void SetContent(McpData data)
@@ -61,9 +61,9 @@ namespace UI.Views.Mcps
             _addressEntry.SetValue(data.Address);
             _latitudeEntry.SetValue(data.Latitude.ToString());
             _longitudeEntry.SetValue(data.Longitude.ToString());
-            _fillLevelEntry.SetValue(DataStoreManager.Mcps.FillLevel.Data.FillLevelsById[data.Id] + " %");
+            _fillLevelEntry.SetValue((DataStoreManager.Mcps.FillLevel.Data.FillLevelsById[data.Id] * 100).ToString("F1") + " %");
             _lastEmptiedEntry.SetValue(data.McpEmptyRecords.Count > 0
-                ? data.McpEmptyRecords.Last().Timestamp.ToString("hh:mm tt dd/MM")
+                ? data.McpEmptyRecords.Last().Timestamp.ToString("hh:mmtt dd/MM/yy")
                 : Localization.GetSentence(Sentence.McpsView.NEVER));
 
             var timestamps = new List<DateTime>();

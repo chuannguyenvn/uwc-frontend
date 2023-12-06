@@ -210,7 +210,6 @@ namespace UI.Views.Settings
             if (Configs.IS_DESKTOP)
             {
                 _settingList.Add(new TriggerSettingListEntry(Localization.GetSentence(Sentence.SettingsView.EXPORT_WORK_LOGS), () => { }));
-                _settingList.Add(new TriggerSettingListEntry("Export work logs", () => { }));
             }
 
             _settingList.Add(new TriggerSettingListEntry(Localization.GetSentence(Sentence.SettingsView.CHANGE_PERSONAL_INFORMATION), () => { }));

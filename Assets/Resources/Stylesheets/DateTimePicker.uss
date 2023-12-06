@@ -49,6 +49,7 @@
 .date-time-picker #TimeContainer {
     flex-direction: row;
     justify-content: space-between;
+    align-items: center;
 }
 
 .date-time-picker .time-text {
