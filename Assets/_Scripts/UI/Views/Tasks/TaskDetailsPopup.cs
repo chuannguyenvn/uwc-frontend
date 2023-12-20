@@ -52,7 +52,7 @@ namespace UI.Views.Tasks
 
             _mcpAddressEntry.SetValue(data.McpData.Address);
             _assignerEntry.SetValue(data.AssignerProfile.FirstName + " " + data.AssignerProfile.LastName);
-            _assigneeEntry.SetValue(data.AssigneeProfile.FirstName + " " + data.AssigneeProfile.LastName);
+            _assigneeEntry.SetValue(data.AssigneeProfile?.FirstName + " " + data.AssigneeProfile?.LastName);
             _createdTimestampEntry.SetValue(data.CreatedTimestamp.ToString("hh:mmtt dd/MM/yy"));
             _completeByTimestampEntry.SetValue(data.CompleteByTimestamp.ToString("hh:mmtt dd/MM/yy"));
             _statusEntry.SetValue(data.TaskStatus.GetFriendlyString());
