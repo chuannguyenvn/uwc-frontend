@@ -124,6 +124,7 @@ namespace UI.Views.Mcps
         {
             var mcpEntries = _mcpListEntriesByAddress.Values.ToList();
             Debug.Log(mcpEntries.Count);
+            if (mcpEntries.Count == 0) return;
             _scrollView.Clear();
             for (var i = ChooseMcpsStep.ChosenMcpIds.Count - 1; i >= 0; i--)
             {
