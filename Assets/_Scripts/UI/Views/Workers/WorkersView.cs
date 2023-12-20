@@ -99,9 +99,9 @@ namespace UI.Views.Workers
         private void SortByAssigningOrder()
         {
             var workerEntries = _workerListEntries.ToList();
-            Debug.Log(workerEntries.Count);
+            if (workerEntries.Count == 0) return;
+            
             _scrollView.Clear();
-
             var id = ChooseWorkerStep.WorkerId;
             if (id != -1)
             {
