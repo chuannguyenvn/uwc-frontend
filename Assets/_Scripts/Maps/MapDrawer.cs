@@ -9,6 +9,7 @@ using Commons.Communications.Status;
 using Commons.Endpoints;
 using Commons.Types;
 using Requests;
+using Settings;
 using UI.Views.Mcps.AssignTaskProcedure;
 using UnityEngine;
 using Utilities;
@@ -57,7 +58,11 @@ namespace Maps
 
         private void Start()
         {
-            AuthenticationManager.Instance.Initialized += UpdateAllMcps;
+            AuthenticationManager.Instance.Initialized += (data) =>
+            {
+                UpdateAllMcps(data);
+                if (!Configs.IS_DESKTOP) _focusedWorkerId = AuthenticationManager.Instance.UserAccountId;
+            };
             DataStoreManager.Map.WorkerLocation.DataUpdated += (data) =>
             {
                 _data = data;
@@ -68,6 +73,8 @@ namespace Maps
             ChooseMcpsStep.OrderSettingChanged += UpdateAssignedMcps;
         }
 
+        private float _mcpDrawTimer = 3f;
+
         private void Update()
         {
             UpdateAllWorkers(_data);
@@ -76,8 +83,13 @@ namespace Maps
                 DrawWorkerRoute();
                 _isRouteDirty = false;
             }
-            
-            UpdateAssignedMcps();
+
+            _mcpDrawTimer -= Time.deltaTime;
+            if (_mcpDrawTimer <= 0f)
+            {
+                UpdateAssignedMcps();
+                _mcpDrawTimer = 3f;
+            }
         }
 
         private void UpdateAllWorkers(WorkerLocationBroadcastData data)
