@@ -76,6 +76,8 @@ namespace Maps
                 DrawWorkerRoute();
                 _isRouteDirty = false;
             }
+            
+            UpdateAssignedMcps();
         }
 
         private void UpdateAllWorkers(WorkerLocationBroadcastData data)
