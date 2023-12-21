@@ -81,8 +81,9 @@ namespace Authentication
             PlayerPrefs.SetString("Language", Localization.LanguageOption.ToString());
         }
 
-        protected override void OnApplicationQuit()
+        protected override async void OnApplicationQuit()
         {
+            await HubConnection.StopAsync();
             HubConnection?.DisposeAsync();
             base.OnApplicationQuit();
         }
