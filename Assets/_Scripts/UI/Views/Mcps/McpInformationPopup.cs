@@ -63,7 +63,7 @@ namespace UI.Views.Mcps
             _longitudeEntry.SetValue(data.Longitude.ToString());
             _fillLevelEntry.SetValue((DataStoreManager.Mcps.FillLevel.Data.FillLevelsById[data.Id] * 100).ToString("F1") + " %");
             _lastEmptiedEntry.SetValue(data.McpEmptyRecords.Count > 0
-                ? data.McpEmptyRecords.Last().Timestamp.ToString("hh:mmtt dd/MM/yy")
+                ? data.McpEmptyRecords.Last().Timestamp.ToLocalTime().ToString("hh:mmtt dd/MM/yy")
                 : Localization.GetSentence(Sentence.McpsView.NEVER));
 
             var timestamps = new List<DateTime>();

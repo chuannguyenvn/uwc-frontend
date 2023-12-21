@@ -62,7 +62,7 @@ namespace UI.Views.Tasks.Tasks
                 case TaskStatus.Completed:
                 case TaskStatus.Rejected:
                     _content = new CompletedTaskCard(taskData);
-                    _statusText.text = taskData.LastStatusChangeTimestamp.ToString("hh:mm");
+                    _statusText.text = taskData.LastStatusChangeTimestamp.ToLocalTime().ToString("hh:mmtt");
                     break;
             }
 
