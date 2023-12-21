@@ -1,5 +1,8 @@
 .animated-button {
     background-color: rgba(0, 0, 0, 0);
+    flex-direction: row;
+    align-items: stretch;
+    justify-content: flex-start;
 }
 
 .iconless-button > #ButtonIcon {

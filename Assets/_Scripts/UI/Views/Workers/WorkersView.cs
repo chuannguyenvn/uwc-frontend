@@ -7,6 +7,7 @@ using UI.Reusables;
 using UI.Reusables.Control;
 using UI.Reusables.Control.Sort;
 using UI.Views.Mcps.AssignTaskProcedure;
+using UnityEngine;
 using UnityEngine.UIElements;
 using Utilities;
 
@@ -97,20 +98,20 @@ namespace UI.Views.Workers
 
         private void SortByAssigningOrder()
         {
-            var mcpEntries = _workerListEntries.ToList();
-
+            var workerEntries = _workerListEntries.ToList();
+            if (workerEntries.Count == 0) return;
+            
             _scrollView.Clear();
-
             var id = ChooseWorkerStep.WorkerId;
             if (id != -1)
             {
-                var entry = mcpEntries.Find(e => e.Profile.Id == id);
-                mcpEntries.Remove(entry);
-                mcpEntries.Insert(0, entry);
+                var entry = workerEntries.Find(e => e.Profile.Id == id);
+                workerEntries.Remove(entry);
+                workerEntries.Insert(0, entry);
                 entry.RefreshAssigningStatus();
             }
 
-            foreach (var mcpEntry in mcpEntries) _scrollView.AddToScrollView(mcpEntry);
+            foreach (var mcpEntry in workerEntries) _scrollView.AddToScrollView(mcpEntry);
         }
 
         private void SearchHandler(string text)

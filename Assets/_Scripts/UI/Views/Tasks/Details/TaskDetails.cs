@@ -1,4 +1,13 @@
-﻿using UI.Base;
+﻿using System;
+using System.Linq;
+using Authentication;
+using Commons.Communications.Mcps;
+using Commons.Communications.Tasks;
+using Commons.Endpoints;
+using Commons.Models;
+using Commons.Types;
+using Requests;
+using UI.Base;
 using UnityEngine.UIElements;
 
 namespace UI.Views.Tasks.Details
@@ -16,8 +25,10 @@ namespace UI.Views.Tasks.Details
 
         // Buttons
         private VisualElement _buttonContainer;
-        private AnimatedButton _completeButton;
-        private AnimatedButton _rejectButton;
+        private AnimatedButton _leftButton;
+        private AnimatedButton _rightButton;
+
+        private TaskData _taskData;
 
         public TaskDetails() : base(nameof(TaskDetails))
         {
@@ -54,21 +65,112 @@ namespace UI.Views.Tasks.Details
             _buttonContainer = new VisualElement() { name = "ButtonContainer" };
             Add(_buttonContainer);
 
-            _completeButton = new AnimatedButton("Complete");
-            _completeButton.SetText("Complete");
-            _completeButton.AddToTextClassList("white-text");
-            _completeButton.AddToTextClassList("normal-text");
-            _completeButton.AddToClassList("green-button");
-            _completeButton.AddToClassList("rounded-button-32px");
-            _buttonContainer.Add(_completeButton);
+            _leftButton = new AnimatedButton("LeftButton");
+            _leftButton.AddToTextClassList("white-text");
+            _leftButton.AddToTextClassList("normal-text");
+            _leftButton.AddToClassList("green-button");
+            _leftButton.AddToClassList("rounded-button-32px");
+            _buttonContainer.Add(_leftButton);
+            _leftButton.Clicked += () =>
+            {
+                if (_taskData.TaskStatus == TaskStatus.NotStarted)
+                {
+                    DataStoreManager.Instance.StartCoroutine(RequestHelper.SendPostRequest(Endpoints.TaskData.FocusTask, new FocusTaskRequest()
+                        {
+                            TaskId = _taskData.Id,
+                            WorkerId = AuthenticationManager.Instance.UserAccountId,
+                        },
+                        success =>
+                        {
+                            if (success)
+                            {
+                                DataStoreManager.Tasks.PersonalTaskList.SendRequest(() =>
+                                    ShowTaskData(DataStoreManager.Tasks.PersonalTaskList.Data.Tasks.First(task => task.Id == _taskData.Id)));
+                            }
+                        }));
+                }
+                else
+                {
+                    DataStoreManager.Instance.StartCoroutine(RequestHelper.SendPostRequest(Endpoints.TaskData.CompleteTask, new FocusTaskRequest()
+                        {
+                            TaskId = _taskData.Id,
+                            WorkerId = AuthenticationManager.Instance.UserAccountId,
+                        },
+                        success =>
+                        {
+                            if (success)
+                            {
+                                DataStoreManager.Tasks.PersonalTaskList.SendRequest(() => GetFirstAncestorOfType<TasksView>().ShowTaskList());
+                            }
+                        }));
+                }
+            };
 
-            _rejectButton = new AnimatedButton("Reject");
-            _rejectButton.SetText("Reject");
-            _rejectButton.AddToTextClassList("white-text");
-            _rejectButton.AddToTextClassList("normal-text");
-            _rejectButton.AddToClassList("red-button");
-            _rejectButton.AddToClassList("rounded-button-32px");
-            _buttonContainer.Add(_rejectButton);
+            _rightButton = new AnimatedButton("RightButton");
+            _rightButton.SetText("Reject");
+            _rightButton.AddToTextClassList("white-text");
+            _rightButton.AddToTextClassList("normal-text");
+            _rightButton.AddToClassList("reject");
+            _rightButton.AddToClassList("red-button");
+            _rightButton.AddToClassList("rounded-button-32px");
+            _buttonContainer.Add(_rightButton);
+            _rightButton.Clicked += () =>
+            {
+                DataStoreManager.Instance.StartCoroutine(RequestHelper.SendPostRequest(Endpoints.TaskData.RejectTask, new FocusTaskRequest()
+                    {
+                        TaskId = _taskData.Id,
+                        WorkerId = AuthenticationManager.Instance.UserAccountId,
+                    },
+                    success =>
+                    {
+                        if (success)
+                        {
+                            DataStoreManager.Tasks.PersonalTaskList.SendRequest(() => GetFirstAncestorOfType<TasksView>().ShowTaskList());
+                        }
+                    }));
+            };
+        }
+
+        public void ShowTaskData(TaskData taskData)
+        {
+            _taskData = taskData;
+
+            if (taskData.TaskStatus == TaskStatus.InProgress)
+            {
+                _buttonContainer.style.display = DisplayStyle.Flex;
+                _leftButton.SetText("Complete");
+                EnableInClassList("complete", true);
+                EnableInClassList("focus", false);
+            }
+            else if (taskData.TaskStatus == TaskStatus.NotStarted)
+            {
+                _buttonContainer.style.display = DisplayStyle.Flex;
+                _leftButton.SetText("Focus");
+                EnableInClassList("complete", false);
+                EnableInClassList("focus", true);
+            }
+            else
+            {
+                _buttonContainer.style.display = DisplayStyle.None;
+            }
+
+            _destinationPanel.SetAddressText(taskData.McpData.Address);
+            _currentLoadPanel.SetCurrentLoadText(DataStoreManager.Mcps.FillLevel.Data.FillLevelsById[_taskData.McpData.Id]);
+
+            DataStoreManager.Instance.StartCoroutine(RequestHelper.SendPostRequest<GetEmptyRecordsResponse>(Endpoints.McpData.GetEmptyRecords,
+                new GetEmptyRecordsRequest
+                {
+                    McpId = taskData.McpDataId,
+                    CountLimit = 50,
+                    DateTimeLimit = DateTime.Now.AddDays(-5),
+                },
+                (success, result) =>
+                {
+                    if (success)
+                    {
+                        _emptyingLogPanel.SetEmptyingLogText(result.Results.ToList());
+                    }
+                }));
         }
     }
 }

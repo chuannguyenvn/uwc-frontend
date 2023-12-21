@@ -1,4 +1,6 @@
-﻿using LocalizationNS;
+﻿using System.Collections.Generic;
+using Commons.Models;
+using LocalizationNS;
 using UI.Base;
 using UnityEngine.UIElements;
 
@@ -7,6 +9,7 @@ namespace UI.Views.Tasks.Details
     public class EmptyingLogPanel : Panel
     {
         private TextElement _titleText;
+        private List<TextElement> _emptyingLogTexts = new List<TextElement>();
 
         public EmptyingLogPanel() : base(nameof(EmptyingLogPanel))
         {
@@ -15,7 +18,6 @@ namespace UI.Views.Tasks.Details
             AddToClassList("rounded-32px");
 
             CreateTitleText();
-            CreateLogs();
         }
 
         private void CreateTitleText()
@@ -27,16 +29,25 @@ namespace UI.Views.Tasks.Details
             Add(_titleText);
         }
 
-        private void CreateLogs()
+        public void SetEmptyingLogText(List<McpEmptyRecord> records)
         {
-            for (int i = 0; i < 10; i++)
+            foreach (var textElement in _emptyingLogTexts)
+            {
+                Remove(textElement);
+            }
+
+            _emptyingLogTexts.Clear();
+
+            foreach (var record in records)
             {
                 var child = new TextElement();
                 child.name = "EmptyLog";
-                child.text = "Robert Sampletext Jr. - 11:56 AM";
+                child.text = record.EmptyingWorker.FirstName + " " + record.EmptyingWorker.LastName + " - " +
+                             record.Timestamp.ToString("HH:mmtt dd/MM");
                 child.AddToClassList("black-text");
                 child.AddToClassList("normal-text");
                 Add(child);
+                _emptyingLogTexts.Add(child);
             }
         }
     }

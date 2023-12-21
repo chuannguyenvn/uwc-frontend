@@ -1,4 +1,5 @@
 ﻿using System;
+using Newtonsoft.Json;
 using Requests.DataStores.Implementations.Map;
 using Requests.DataStores.Implementations.Mcps;
 using Requests.DataStores.Implementations.Messaging;
@@ -8,6 +9,7 @@ using Requests.DataStores.Implementations.Setting;
 using Requests.DataStores.Implementations.Tasks;
 using Requests.DataStores.Implementations.UserProfile;
 using Requests.DataStores.Implementations.Vehicles;
+using UnityEngine;
 using Utilities;
 
 namespace Requests
@@ -72,6 +74,7 @@ namespace Requests
             Messaging.InboxMessageList = new InboxMessageListStore();
 
             Map.WorkerLocation = new WorkerLocationStore();
+            Map.WorkerLocation.DataUpdated += (data) => { Debug.Log(JsonConvert.SerializeObject(data)); };
             Map.McpLocation = new McpLocationStore();
 
             Reporting.ReportingView = new ReportingViewStore();

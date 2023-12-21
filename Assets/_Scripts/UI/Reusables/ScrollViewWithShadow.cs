@@ -118,6 +118,7 @@ namespace UI.Reusables
 
     public enum ShadowType
     {
+        None,
         InnerTop,
         InnerBottom,
         InnerLeft,

@@ -8,6 +8,7 @@ using Requests;
 using Settings;
 using UnityEngine;
 using Utilities;
+using Random = UnityEngine.Random;
 
 namespace Maps
 {
@@ -15,7 +16,10 @@ namespace Maps
     {
         public event Action<Coordinate> LocationUpdated;
         public Coordinate LastKnownCoordinate { get; private set; }
-        public float AccuracyInMeters => Input.location.lastData.horizontalAccuracy;
+
+        public float AccuracyInMeters => Input.location.status == LocationServiceStatus.Running
+            ? Input.location.lastData.horizontalAccuracy
+            : Random.Range(5f, 100f);
 
         private void Start()
         {
@@ -42,7 +46,10 @@ namespace Maps
                 }
                 else
                 {
-                    Debug.LogError("Location service is not running.");
+                    Debug.LogError("Location service is not running. Using default location.");
+                    LastKnownCoordinate = new Coordinate(10.7670552457392, 106.656326672901);
+                    LocationUpdated?.Invoke(LastKnownCoordinate);
+                    SendLocationToServer(LastKnownCoordinate);
                 }
 
                 yield return new WaitForSeconds(5f);

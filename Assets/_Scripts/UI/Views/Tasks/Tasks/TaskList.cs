@@ -57,7 +57,7 @@ namespace UI.Views.Tasks.Tasks
 
         private void CreateScrollView()
         {
-            _scrollView = new ScrollViewWithShadow(ShadowType.InnerTop) { name = "ScrollView" };
+            _scrollView = new ScrollViewWithShadow(ShadowType.None) { name = "ScrollView" };
             Add(_scrollView);
         }
 
@@ -65,6 +65,7 @@ namespace UI.Views.Tasks.Tasks
         {
             _scrollView.Clear();
             _taskListEntries.Clear();
+
             foreach (var task in getAllTasksResponse.Tasks)
             {
                 task.McpData.Address = task.McpData.Address;
@@ -107,6 +108,7 @@ namespace UI.Views.Tasks.Tasks
         private void PersonalTaskListDataUpdatedHandler(GetTasksOfWorkerResponse getTasksOfWorkerResponse)
         {
             _scrollView.Clear();
+            _taskListEntries.Clear();
 
             foreach (var task in getTasksOfWorkerResponse.Tasks)
             {
@@ -120,7 +122,10 @@ namespace UI.Views.Tasks.Tasks
                 var sortByStatus = b.TaskData.TaskStatus.CompareTo(a.TaskData.TaskStatus);
                 if (sortByStatus != 0) return sortByStatus;
 
-                var sortByLastChangedTime = b.TaskData.LastStatusChangeTimestamp.CompareTo(a.TaskData.LastStatusChangeTimestamp);
+                var sortByPriority = b.TaskData.Priority.CompareTo(a.TaskData.Priority);
+                if (sortByPriority != 0) return sortByPriority;
+
+                var sortByLastChangedTime = a.TaskData.LastStatusChangeTimestamp.CompareTo(b.TaskData.LastStatusChangeTimestamp);
                 return sortByLastChangedTime;
             });
 

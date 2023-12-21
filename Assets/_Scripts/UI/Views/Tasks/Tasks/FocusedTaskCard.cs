@@ -1,6 +1,7 @@
 ﻿using System;
 using Commons.Models;
 using Commons.Types;
+using Requests;
 using UnityEngine.UIElements;
 
 namespace UI.Views.Tasks.Tasks
@@ -86,7 +87,7 @@ namespace UI.Views.Tasks.Tasks
             _currentLoadContainer.Add(_currentLoadTitleText);
 
             _currentLoadValueText = new TextElement { name = "CurrentLoadText" };
-            _currentLoadValueText.text = "90%";
+            _currentLoadValueText.text = (DataStoreManager.Mcps.FillLevel.Data.FillLevelsById[_taskData.McpData.Id] * 100).ToString("F0") + "%";
             _currentLoadValueText.AddToClassList("title-text");
             _currentLoadValueText.AddToClassList("black-text");
             _currentLoadContainer.Add(_currentLoadValueText);

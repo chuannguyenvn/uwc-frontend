@@ -24,3 +24,8 @@
     height: 48px;
     -unity-background-scale-mode: scale-to-fit;
 }
+
+.mobile .tasks-view #TaskList {
+    flex-direction: column-reverse;
+    flex-grow: 1;
+}

@@ -69,7 +69,7 @@ namespace UI.Views.Messaging.Contacts
             _previewText = new TextElement { name = "PreviewText" };
             _previewText.AddToClassList("sub-text");
             _previewText.AddToClassList("grey-text");
-            _previewText.text = timestamp.ToString(DateTime.Now.Date == timestamp.Date ? "HH:mm" : "HH:mm dd/MM") + " | " +
+            _previewText.text = timestamp.ToLocalTime().ToString(DateTime.Now.Date == timestamp.Date ? "HH:mmtt" : "HH:mmtt dd/MM") + " | " +
                                 (isFromUser ? "You: " : "") + messageContent;
             _detailsContainer.Add(_previewText);
         }

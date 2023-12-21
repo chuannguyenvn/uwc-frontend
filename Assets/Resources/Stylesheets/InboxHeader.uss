@@ -54,24 +54,24 @@
     display: none;
 }
 
-.inbox-header  #Avatar {
+.inbox-header #Avatar {
     -unity-text-align: middle-center;
     border-radius: 999px;
 }
 
-.desktop .inbox-header  #Avatar {
+.desktop .inbox-header #Avatar {
     width: 64px;
     height: 64px;
     margin-right: 8px;
 }
 
-.mobile .inbox-header  #Avatar {
+.mobile .inbox-header #Avatar {
     width: 96px;
     height: 96px;
     margin-right: 16px;
 }
 
-.chat-bubbles-panel #Avatar {
+.chat-bubbles-panel .desktop #Avatar {
     width: 40px;
     height: 40px;
     -unity-text-align: middle-center;
@@ -79,4 +79,3 @@
     margin-right: 8px;
     font-size: 20px;
 }
-

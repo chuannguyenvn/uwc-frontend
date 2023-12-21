@@ -1,5 +1,7 @@
 ﻿using System;
 using Commons.Communications.Mcps;
+using Commons.Communications.Tasks;
+using Commons.Endpoints;
 using Commons.Models;
 using Maps;
 using Requests;
@@ -143,10 +145,24 @@ namespace UI.Views.Mcps
             _logsContainer = new VisualElement { name = "LogsContainer" };
             Add(_logsContainer);
 
-            for (int i = 0; i < Random.Range(1, 8); i++)
+            foreach (var child in _logsContainer.Children())
             {
-                _logsContainer.Add(new LogEntry(DateTime.Now.AddDays(i).AddHours(Random.Range(0, 10)).AddMinutes(Random.Range(0, 10) * 15)));
+                _logsContainer.Remove(child);
             }
+
+            DataStoreManager.Instance.StartCoroutine(
+                RequestHelper.SendPostRequest<GetTasksWithMcpResponse>(Endpoints.TaskData.GetTasksWithMcp, new GetTasksWithMcpRequest
+                {
+                    McpId = McpData.Id
+                }, (success, result) =>
+                {
+                    if (!success) return;
+
+                    foreach (var taskData in result.Tasks)
+                    {
+                        _logsContainer.Add(new LogEntry(taskData.CompleteByTimestamp));
+                    }
+                }));
         }
 
         private void DataUpdatedHandler(McpFillLevelBroadcastData data)

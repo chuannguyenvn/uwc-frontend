@@ -78,6 +78,7 @@ namespace UI.Views.Tasks
             {
                 _taskList.style.display = DisplayStyle.None;
                 _taskDetails.style.display = DisplayStyle.Flex;
+                _taskDetails.ShowTaskData(taskData);
             }
         }
 
