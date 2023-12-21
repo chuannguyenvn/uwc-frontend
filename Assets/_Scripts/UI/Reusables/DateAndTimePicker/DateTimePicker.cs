@@ -1,5 +1,6 @@
 ﻿using System;
 using UI.Base;
+using UnityEngine;
 
 namespace UI.Reusables.DateAndTimePicker
 {
@@ -65,7 +66,10 @@ namespace UI.Reusables.DateAndTimePicker
 
         public void Reset()
         {
-            SelectedDateTime = DateTime.Now;
+            var now = DateTime.Now;
+            var roundedTime = new DateTime(now.Year, now.Month, now.Day, now.Hour, 0, 0);
+            roundedTime = roundedTime.AddMinutes(Mathf.CeilToInt(now.Minute / 15f) * 15);
+            SelectedDateTime = roundedTime;
             Refresh();
         }
     }

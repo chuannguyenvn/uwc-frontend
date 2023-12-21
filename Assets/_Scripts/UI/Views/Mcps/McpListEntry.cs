@@ -3,6 +3,7 @@ using Commons.Communications.Mcps;
 using Commons.Communications.Tasks;
 using Commons.Endpoints;
 using Commons.Models;
+using Commons.Types;
 using Maps;
 using Requests;
 using UI.Base;
@@ -160,6 +161,8 @@ namespace UI.Views.Mcps
 
                     foreach (var taskData in result.Tasks)
                     {
+                        if (taskData.TaskStatus == TaskStatus.Completed || taskData.TaskStatus == TaskStatus.Rejected) continue;
+                        if (taskData.CompleteByTimestamp < DateTime.UtcNow) continue;
                         _logsContainer.Add(new LogEntry(taskData.CompleteByTimestamp));
                     }
                 }));
