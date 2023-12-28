@@ -52,7 +52,7 @@ namespace UI.Views.Messaging.Inbox
             _timestampText = new TextElement { name = "TimestampText" };
             _timestampText.AddToClassList("sub-text");
             _timestampText.AddToClassList("grey-text");
-            _timestampText.text = message.Timestamp.ToLocalTime().ToString(DateTime.Now.Date == message.Timestamp.Date ? "HH:mmtt" : "HH:mmtt dd/MM");
+            _timestampText.text = message.Timestamp.ToLocalTime().ToString(DateTime.Now.Date == message.Timestamp.Date ? "hh:mmtt" : "hh:mmtt dd/MM");
             Add(_timestampText);
         }
 
