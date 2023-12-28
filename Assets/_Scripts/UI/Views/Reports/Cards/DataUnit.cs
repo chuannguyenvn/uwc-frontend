@@ -47,6 +47,8 @@ namespace UI.Views.Reports.Cards
             _relativeChange = new RelativeChange(mode);
             if (mode != RelativeChange.Mode.None) _relativeChange.UpdateChange(-1f);
             Add(_relativeChange);
+            
+            _relativeChange.style.display = DisplayStyle.None;
         }
 
         public void UpdateValue(float value, float percentage)

@@ -30,7 +30,7 @@ namespace UI.Views.Reports.Cards
 
         public override void UpdateData(GetDashboardReportResponse response)
         {
-            _tasksLeftDataUnit.UpdateValue(response.TotalTasksCompleted - response.TotalTasksCreated, -1f);
+            _tasksLeftDataUnit.UpdateValue(response.TotalTasksCreated - response.TotalTasksCompleted, -1f);
             _tasksCreatedDataUnit.UpdateValue(response.TotalTasksCreated, -1f);
         }
     }

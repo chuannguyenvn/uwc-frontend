@@ -1,5 +1,6 @@
 ﻿using Commons.Communications.Reports;
 using LocalizationNS;
+using UnityEngine;
 
 namespace UI.Views.Reports.Cards
 {
@@ -32,6 +33,8 @@ namespace UI.Views.Reports.Cards
 
         public override void UpdateData(GetDashboardReportResponse response)
         {
+            _currentTemperatureDataUnit.UpdateValue(Mathf.Round(response.CurrentTemperature * 2) / 2, -1f);
+            _chanceOfPrecipitationDataUnit.UpdateValue(response.ChanceOfPrecipitation.ToString());
         }
     }
 }

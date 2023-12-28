@@ -1,5 +1,6 @@
 ﻿using Commons.Communications.Reports;
 using LocalizationNS;
+using UnityEngine;
 
 namespace UI.Views.Reports.Cards
 {
@@ -22,7 +23,7 @@ namespace UI.Views.Reports.Cards
 
         public override void UpdateData(GetDashboardReportResponse response)
         {
-            _mcpCapacityDataUnit.UpdateValue(1f, -1f);
+            _mcpCapacityDataUnit.UpdateValue(Mathf.Round(response.AverageMcpCapacity * 100), -1f);
         }
     }
 }
