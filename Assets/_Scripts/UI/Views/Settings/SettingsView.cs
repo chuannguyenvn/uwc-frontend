@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using Commons.Communications.Reports;
+using Commons.Endpoints;
 using Commons.Models;
 using Commons.Types.SettingOptions;
 using LocalizationNS;
@@ -8,6 +10,7 @@ using Settings;
 using UI.Base;
 using UnityEngine;
 using UnityEngine.UIElements;
+using Utilities;
 
 namespace UI.Views.Settings
 {
@@ -209,7 +212,20 @@ namespace UI.Views.Settings
 
             if (Configs.IS_DESKTOP)
             {
-                _settingList.Add(new TriggerSettingListEntry(Localization.GetSentence(Sentence.SettingsView.EXPORT_WORK_LOGS), () => { }));
+                _settingList.Add(new TriggerSettingListEntry(Localization.GetSentence(Sentence.SettingsView.EXPORT_WORK_LOGS), () =>
+                {
+                    DataStoreManager.Instance.StartCoroutine(RequestHelper.SendPostRequest<GetReportFileResponse>(Endpoints.Report.GetFile, new GetReportFileRequest
+                    {
+                        StartDate = default,
+                        EndDate = default
+                    }, (success, result) =>
+                    {
+                        if (success)
+                        {
+                            ReportParser.SaveReport(result);
+                        }
+                    }));
+                }));
             }
 
             _settingList.Add(new TriggerSettingListEntry(Localization.GetSentence(Sentence.SettingsView.CHANGE_PERSONAL_INFORMATION), () => { }));
