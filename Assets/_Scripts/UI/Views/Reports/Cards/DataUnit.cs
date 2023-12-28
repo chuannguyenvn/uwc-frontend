@@ -27,7 +27,7 @@ namespace UI.Views.Reports.Cards
         private void CreateTitle(string name)
         {
             _title = new TextElement() { name = "McpCollectedTitle" };
-            _title.AddToClassList("sub-text");
+            _title.AddToClassList("normal-text");
             _title.AddToClassList("grey-text");
             _title.text = name;
             Add(_title);

@@ -11,12 +11,10 @@ namespace UI.Views.Reports
         // First row
         private VisualElement _firstCardRowContainer;
         private McpCollectedCard _mcpCollectedCard;
-        private LogisticCard _logisticCard;
         private WeatherCard _weatherCard;
 
         // Second row
         private VisualElement _secondCardRowContainer;
-        private McpCapacityCard _mcpCapacityCard;
         private TaskCard _taskCard;
         private WorkerCard _workerCard;
 
@@ -59,11 +57,9 @@ namespace UI.Views.Reports
             Add(_firstCardRowContainer);
 
             _mcpCollectedCard = new McpCollectedCard();
-            _logisticCard = new LogisticCard();
             _weatherCard = new WeatherCard();
 
             _firstCardRowContainer.Add(_mcpCollectedCard);
-            _firstCardRowContainer.Add(_logisticCard);
             _firstCardRowContainer.Add(_weatherCard);
         }
 
@@ -73,11 +69,9 @@ namespace UI.Views.Reports
             _secondCardRowContainer.AddToClassList("report-card-row-container");
             Add(_secondCardRowContainer);
 
-            _mcpCapacityCard = new McpCapacityCard();
             _taskCard = new TaskCard();
             _workerCard = new WorkerCard();
 
-            _secondCardRowContainer.Add(_mcpCapacityCard);
             _secondCardRowContainer.Add(_taskCard);
             _secondCardRowContainer.Add(_workerCard);
         }
@@ -85,9 +79,7 @@ namespace UI.Views.Reports
         private void DataUpdatedHandler(GetDashboardReportResponse response)
         {
             _mcpCollectedCard.UpdateData(response);
-            _logisticCard.UpdateData(response);
             _weatherCard.UpdateData(response);
-            _mcpCapacityCard.UpdateData(response);
             _taskCard.UpdateData(response);
             _workerCard.UpdateData(response);
             _graphCard.UpdateData(response);
