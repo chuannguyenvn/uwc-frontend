@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Authentication;
@@ -80,7 +80,7 @@ namespace UI.Views.Messaging.Inbox
                 if (Math.Abs(scroller.verticalScroller.value - scroller.verticalScroller.lowValue) > 10f) return;
 
                 DataStoreManager.Messaging.InboxMessageList.CurrentMessageCount = _messageListEntries.Count;
-                // DataStoreManager.Messaging.InboxMessageList.SendRequest();
+                DataStoreManager.Messaging.InboxMessageList.SendRequest();
             })
             {
                 name = "ScrollView"
