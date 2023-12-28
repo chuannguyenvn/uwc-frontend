@@ -25,7 +25,7 @@ namespace UI.Reusables.ChatBubbles
 
             Root.Instance.ViewFocused += type =>
             {
-                if (type == ViewType.Map)
+                if (type == ViewType.Map && _focusedUserProfile != null)
                 {
                     _chatBox.SwitchInbox(_focusedUserProfile);
                 }
@@ -42,6 +42,7 @@ namespace UI.Reusables.ChatBubbles
             {
                 _chatBox.SwitchInbox(_focusedUserProfile);
             }
+
             ShowChatBox();
         }
 
