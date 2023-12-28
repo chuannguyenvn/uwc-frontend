@@ -6,3 +6,8 @@
 .message-list .scroll-view-with-shadow {
     flex-grow: 1;
 }
+
+.message-list #unity-content-container
+{
+    flex-direction: column-reverse;
+}

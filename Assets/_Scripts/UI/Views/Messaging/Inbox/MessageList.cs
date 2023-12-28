@@ -1,13 +1,22 @@
-﻿using Commons.Communications.Messages;
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using Authentication;
+using Commons.Communications.Messages;
+using Commons.Endpoints;
+using Commons.Models;
 using Requests;
 using UI.Base;
 using UI.Reusables;
+using UnityEngine;
+using UnityEngine.UIElements;
 
 namespace UI.Views.Messaging.Inbox
 {
     public class MessageList : AdaptiveElement
     {
         private ScrollViewWithShadow _scrollView;
+        private List<MessageListEntry> _messageListEntries = new List<MessageListEntry>();
 
         public MessageList() : base(nameof(MessageList))
         {
@@ -16,6 +25,7 @@ namespace UI.Views.Messaging.Inbox
             CreateScrollView();
 
             DataStoreManager.Messaging.InboxMessageList.DataUpdated += DataUpdatedHandler;
+            DataStoreManager.Messaging.InboxMessageList.CurrentReceiverReadMessages += MarkAllMessagesAsRead;
         }
 
         ~MessageList()
@@ -25,20 +35,71 @@ namespace UI.Views.Messaging.Inbox
 
         private void DataUpdatedHandler(GetMessagesBetweenTwoUsersResponse data)
         {
-            _scrollView.Clear();
-            data.Messages.Sort((a, b) => a.Timestamp.CompareTo(b.Timestamp));
-            foreach (var message in data.Messages)
+            if (data.IsContinuous)
             {
-                _scrollView.AddToScrollView(new MessageListEntry(message));
+                _scrollView.MarkOldVerticalScrollerValue();
+            }
+            else
+            {
+                ClearMessages();
             }
 
-            _scrollView.ScrollToLast();
+            data.Messages.Sort((a, b) => b.Timestamp.CompareTo(a.Timestamp));
+
+            var messageListEntries = new List<MessageListEntry>();
+            foreach (var message in data.Messages)
+            {
+                var messageListEntry = new MessageListEntry(message);
+                _scrollView.AddToScrollView(messageListEntry);
+                messageListEntries.Add(messageListEntry);
+            }
+            
+            _messageListEntries.AddRange(messageListEntries.AsEnumerable().Reverse());
+
+            if (data.IsContinuous)
+            {
+                _scrollView.ScrollToOldVerticalScrollerValue();
+            }
+            else
+            {
+                _scrollView.ScrollToLast();
+            }
+
+            DataStoreManager.Instance.StartCoroutine(RequestHelper.SendPostRequest(Endpoints.Messaging.ReadMessage, new ReadAllMessagesRequest
+            {
+                SenderId = DataStoreManager.Messaging.InboxMessageList.OtherUserProfile.Id,
+                ReceiverId = AuthenticationManager.Instance.UserAccountId,
+            }));
         }
 
         private void CreateScrollView()
         {
-            _scrollView = new ScrollViewWithShadow(ShadowType.InnerTop);
+            _scrollView = new ScrollViewWithShadow(ShadowType.InnerTop, scroller =>
+            {
+                if (Math.Abs(scroller.verticalScroller.value - scroller.verticalScroller.lowValue) > 10f) return;
+
+                DataStoreManager.Messaging.InboxMessageList.CurrentMessageCount = _messageListEntries.Count;
+                DataStoreManager.Messaging.InboxMessageList.SendRequest();
+            })
+            {
+                name = "ScrollView"
+            };
+
             Add(_scrollView);
+        }
+
+        public void ClearMessages()
+        {
+            _scrollView.Clear();
+            _messageListEntries.Clear();
+        }
+
+        private void MarkAllMessagesAsRead()
+        {
+            foreach (var messageListEntry in _messageListEntries)
+            {
+                messageListEntry.MarkAsRead();
+            }
         }
     }
 }

@@ -19,6 +19,7 @@ namespace UI.Views.Messaging.Inbox
 
             CreateContent(message);
             CreateTimestamp(message);
+            SetSeenMode(message);
         }
 
         private void CreateContent(Message message)
@@ -50,6 +51,23 @@ namespace UI.Views.Messaging.Inbox
             _timestampText.AddToClassList("grey-text");
             _timestampText.text = message.Timestamp.ToLocalTime().ToString(DateTime.Now.Date == message.Timestamp.Date ? "HH:mmtt" : "HH:mmtt dd/MM");
             Add(_timestampText);
+        }
+
+        private void SetSeenMode(Message message)
+        {
+            if (message.SenderProfileId == AuthenticationManager.Instance.UserAccountId && !message.IsSeen)
+            {
+                _contentContainer.AddToClassList("not-seen");
+                _contentText.AddToClassList("black-text");
+                _contentText.RemoveFromClassList("white-text");
+            }
+        }
+
+        public void MarkAsRead()
+        {
+            _contentContainer.RemoveFromClassList("not-seen");
+            _contentText.RemoveFromClassList("black-text");
+            _contentText.AddToClassList("white-text");
         }
     }
 }

@@ -1,4 +1,6 @@
-﻿using UI.Base;
+﻿using System;
+using Requests;
+using UI.Base;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -6,15 +8,21 @@ namespace UI.Reusables
 {
     public class ScrollViewWithShadow : AdaptiveElement
     {
+        private readonly Action<ScrollView> _scrolled;
         private VisualElement _shadow;
         private ScrollView _scrollView;
+        private float _oldVerticalScrollerValue;
 
-        public ScrollViewWithShadow(ShadowType shadowType) : base(nameof(ScrollViewWithShadow))
+        public ScrollViewWithShadow(ShadowType shadowType, Action<ScrollView> scrolled = null) : base(nameof(ScrollViewWithShadow))
         {
+            _scrolled = scrolled;
+
             ConfigureUss(nameof(ScrollViewWithShadow));
 
             CreateShadow(shadowType);
             CreateScrollView();
+
+            _scrollView.verticalScroller.valueChanged += (_) => _scrolled?.Invoke(_scrollView);
         }
 
         private void CreateShadow(ShadowType shadowType)
@@ -61,12 +69,31 @@ namespace UI.Reusables
 
         public void ScrollToLast()
         {
-            if (_scrollView.childCount > 0)
-            {
-                var lastChild = _scrollView[_scrollView.childCount - 1];
-                ScrollToImmediate(lastChild);
-            }
+            _scrollView.contentContainer.RegisterCallback<GeometryChangedEvent>(ScrollToLastHandler);
         }
+
+        private void ScrollToLastHandler(GeometryChangedEvent evt)
+        {
+            ((VisualElement)evt.target).UnregisterCallback<GeometryChangedEvent>(ScrollToLastHandler);
+            _scrollView.verticalScroller.value = _scrollView.verticalScroller.highValue;
+        }
+
+        public void MarkOldVerticalScrollerValue()
+        {
+            _oldVerticalScrollerValue = _scrollView.verticalScroller.highValue;
+        }
+
+        public void ScrollToOldVerticalScrollerValue()
+        {
+            _scrollView.contentContainer.RegisterCallback<GeometryChangedEvent>(ScrollToOldVerticalScrollerValueHandler);
+        }
+
+        private void ScrollToOldVerticalScrollerValueHandler(GeometryChangedEvent evt)
+        {
+            ((VisualElement)evt.target).UnregisterCallback<GeometryChangedEvent>(ScrollToOldVerticalScrollerValueHandler);
+            _scrollView.verticalScroller.value = _scrollView.verticalScroller.highValue - _oldVerticalScrollerValue;
+        }
+
 
         private void ScrollToImmediate(VisualElement item)
         {

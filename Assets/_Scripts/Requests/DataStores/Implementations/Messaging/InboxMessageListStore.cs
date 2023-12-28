@@ -13,7 +13,9 @@ namespace Requests.DataStores.Implementations.Messaging
 {
     public class InboxMessageListStore : ServerSendInBackgroundDataStore<GetMessagesBetweenTwoUsersResponse>
     {
+        public event Action CurrentReceiverReadMessages;
         public Commons.Models.UserProfile OtherUserProfile { get; set; }
+        public int CurrentMessageCount { get; set; }
 
         protected override IEnumerator CreateRequest(Action callback)
         {
@@ -23,6 +25,7 @@ namespace Requests.DataStores.Implementations.Messaging
                 {
                     UserAccountId = AuthenticationManager.Instance.UserAccountId,
                     OtherUserAccountId = OtherUserProfile.Id,
+                    CurrentMessageCount = CurrentMessageCount,
                 },
                 (success, response) =>
                 {
@@ -40,8 +43,15 @@ namespace Requests.DataStores.Implementations.Messaging
             AuthenticationManager.Instance.HubConnection.On(HubHandlers.Messaging.SEND_MESSAGE, (SendMessageBroadcastData data) =>
             {
                 Data.Messages.Add(data.NewMessage);
+                Data.IsContinuous = false;
                 OnDataUpdated(Data);
             });
+
+            AuthenticationManager.Instance.HubConnection.On(HubHandlers.Messaging.READ_MESSAGE,
+                (ReadAllMessagesBroadcastData data) =>
+                {
+                    if (data.ReceiverId == OtherUserProfile.Id) CurrentReceiverReadMessages?.Invoke();
+                });
         }
 
         public void SendMessage(string content)

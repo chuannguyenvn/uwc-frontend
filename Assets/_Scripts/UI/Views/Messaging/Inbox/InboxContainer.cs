@@ -42,7 +42,9 @@ namespace UI.Views.Messaging.Inbox
 
         public void SwitchInbox(UserProfile userProfile, Action callback = null)
         {
+            _messageList.ClearMessages();
             DataStoreManager.Messaging.InboxMessageList.OtherUserProfile = userProfile;
+            DataStoreManager.Messaging.InboxMessageList.CurrentMessageCount = 0;
             DataStoreManager.Messaging.InboxMessageList.SendRequest(callback);
             _inboxHeader.UpdateStatus();
         }
