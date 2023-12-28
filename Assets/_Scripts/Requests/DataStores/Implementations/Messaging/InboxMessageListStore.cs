@@ -56,6 +56,7 @@ namespace Requests.DataStores.Implementations.Messaging
 
         public void SendMessage(string content)
         {
+            Data.Messages.Clear();
             Data.Messages.Add(new Message
             {
                 SenderProfileId = AuthenticationManager.Instance.UserAccountId,
@@ -64,6 +65,7 @@ namespace Requests.DataStores.Implementations.Messaging
                 Timestamp = DateTime.Now
             });
 
+            Data.IsContinuous = true;
             OnDataUpdated(Data);
 
             SendRequest(RequestHelper.SendPostRequest(

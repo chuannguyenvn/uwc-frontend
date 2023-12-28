@@ -38,10 +38,10 @@ namespace UI.Reusables.ChatBubbles
         {
             _focusedUserProfile = userProfile;
             _bubblesColumn.OpenBubble(_focusedUserProfile);
-            if (Root.Instance.ActiveViewType == ViewType.Map)
-            {
-                _chatBox.SwitchInbox(_focusedUserProfile);
-            }
+            // if (Root.Instance.ActiveViewType == ViewType.Map)
+            // {
+            //     _chatBox.SwitchInbox(_focusedUserProfile);
+            // }
 
             ShowChatBox();
         }

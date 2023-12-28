@@ -56,9 +56,10 @@ namespace UI.Reusables
             Add(_scrollView);
         }
 
-        public void AddToScrollView(VisualElement element)
+        public void AddToScrollView(VisualElement element, bool sendToBack = false)
         {
             _scrollView.Add(element);
+            if (sendToBack) element.SendToBack();
             _shadow.BringToFront();
         }
 
@@ -81,6 +82,11 @@ namespace UI.Reusables
         public void MarkOldVerticalScrollerValue()
         {
             _oldVerticalScrollerValue = _scrollView.verticalScroller.highValue;
+        }
+        
+        public void ResetOldVerticalScrollerValue()
+        {
+            _oldVerticalScrollerValue = 0;
         }
 
         public void ScrollToOldVerticalScrollerValue()

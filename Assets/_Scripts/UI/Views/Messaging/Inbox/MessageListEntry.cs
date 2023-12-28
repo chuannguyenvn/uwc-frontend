@@ -2,12 +2,14 @@
 using Authentication;
 using Commons.Models;
 using UI.Base;
+using UnityEngine;
 using UnityEngine.UIElements;
 
 namespace UI.Views.Messaging.Inbox
 {
     public class MessageListEntry : AdaptiveElement
     {
+        public readonly Message Message;
         private VisualElement _contentContainer;
         private TextElement _contentText;
 
@@ -15,6 +17,7 @@ namespace UI.Views.Messaging.Inbox
 
         public MessageListEntry(Message message) : base(nameof(MessageListEntry))
         {
+            Message = message;
             ConfigureUss(nameof(MessageListEntry));
 
             CreateContent(message);
@@ -65,6 +68,10 @@ namespace UI.Views.Messaging.Inbox
 
         public void MarkAsRead()
         {
+            if (Message.SenderProfileId != AuthenticationManager.Instance.UserAccountId) return;
+
+            Debug.Log(Message.Content);
+
             _contentContainer.RemoveFromClassList("not-seen");
             _contentText.RemoveFromClassList("black-text");
             _contentText.AddToClassList("white-text");

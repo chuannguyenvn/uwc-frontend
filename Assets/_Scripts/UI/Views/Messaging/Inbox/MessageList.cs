@@ -10,6 +10,7 @@ using UI.Base;
 using UI.Reusables;
 using UnityEngine;
 using UnityEngine.UIElements;
+using Utilities;
 
 namespace UI.Views.Messaging.Inbox
 {
@@ -36,41 +37,40 @@ namespace UI.Views.Messaging.Inbox
         private void DataUpdatedHandler(GetMessagesBetweenTwoUsersResponse data)
         {
             Debug.Log("update");
+            var isJustSentMessage = data.Messages.Count == 1 && data.Messages[0].Timestamp > DateTime.Now.AddSeconds(-5);
+
             if (data.IsContinuous)
             {
                 _scrollView.MarkOldVerticalScrollerValue();
             }
-            else
+            else if (!isJustSentMessage)
             {
                 ClearMessages();
             }
 
+            data.Messages = data.Messages.DistinctBy(message => message.Id).ToList();
             data.Messages.Sort((a, b) => b.Timestamp.CompareTo(a.Timestamp));
 
             var messageListEntries = new List<MessageListEntry>();
             foreach (var message in data.Messages)
             {
                 var messageListEntry = new MessageListEntry(message);
-                _scrollView.AddToScrollView(messageListEntry);
+                _scrollView.AddToScrollView(messageListEntry, isJustSentMessage);
                 messageListEntries.Add(messageListEntry);
             }
             
             _messageListEntries.AddRange(messageListEntries.AsEnumerable().Reverse());
 
-            if (data.IsContinuous)
+            if (data.IsContinuous && !isJustSentMessage)
             {
+                Debug.Log("ScrollToOldVerticalScrollerValue");
                 _scrollView.ScrollToOldVerticalScrollerValue();
             }
             else
             {
+                Debug.Log("ScrollToLast");
                 _scrollView.ScrollToLast();
             }
-
-            DataStoreManager.Instance.StartCoroutine(RequestHelper.SendPostRequest(Endpoints.Messaging.ReadMessage, new ReadAllMessagesRequest
-            {
-                SenderId = DataStoreManager.Messaging.InboxMessageList.OtherUserProfile.Id,
-                ReceiverId = AuthenticationManager.Instance.UserAccountId,
-            }));
         }
 
         private void CreateScrollView()
@@ -87,6 +87,8 @@ namespace UI.Views.Messaging.Inbox
             };
 
             Add(_scrollView);
+
+            Root.Instance.ViewUnfocused += (_) => _scrollView.ResetOldVerticalScrollerValue();
         }
 
         public void ClearMessages()
