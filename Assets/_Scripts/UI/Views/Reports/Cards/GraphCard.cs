@@ -12,16 +12,16 @@ namespace UI.Views.Reports.Cards
 {
     public class GraphCard : ReportCard
     {
-        private List<DateTime> _totalMcpFillLevelTimestamps;
-        private List<float> _totalMcpFillLevelValues;
-        private List<DateTime> _mcpEmptiedTimestamps;
+        private List<DateTime> _totalMcpFillLevelTimestamps = new();
+        private List<float> _totalMcpFillLevelValues = new();
+        private List<DateTime> _mcpEmptiedTimestamps = new();
 
-        private List<TextElement> _totalMcpFillLevelLabels;
-        private List<TextElement> _mcpEmptiedLabels;
-        private List<TextElement> _timestamps;
+        private List<TextElement> _totalMcpFillLevelLabels = new();
+        private List<TextElement> _mcpEmptiedLabels = new();
+        private List<TextElement> _timestamps = new();
 
         private const int VALUE_COUNT = 9;
-        private const int HOUR_COUNT = 24;
+        private const int HOUR_COUNT = 25;
         private static readonly Padding GraphPadding = new(96, 96, 64, 128);
         private static readonly Padding LabelPadding = new(64, 64, 64, 128);
         private static readonly Color GraphLineColor = new(217f / 255, 217f / 255, 217f / 255, 1);
@@ -33,7 +33,6 @@ namespace UI.Views.Reports.Cards
         {
             ConfigureUss(nameof(GraphCard));
 
-            GenerateMockData();
             CreateLabels();
             CreateLegends();
 
@@ -47,29 +46,12 @@ namespace UI.Views.Reports.Cards
             ModifyTimestamps();
         }
 
-        private void GenerateMockData()
-        {
-            _totalMcpFillLevelTimestamps = new List<DateTime>();
-            _totalMcpFillLevelValues = new List<float>();
-            _mcpEmptiedTimestamps = new List<DateTime>();
-
-            for (int i = 0; i < HOUR_COUNT; i++)
-            {
-                _totalMcpFillLevelTimestamps.Add(DateTime.Now.AddHours(i - HOUR_COUNT));
-                _totalMcpFillLevelValues.Add(Random.Range(0f, 1f));
-                var emptyTimes = Random.Range(1, 9);
-                for (int j = 0; j < emptyTimes; j++)
-                {
-                    _mcpEmptiedTimestamps.Add(DateTime.Now.AddHours(i - HOUR_COUNT));
-                }
-            }
-        }
-
         public override void UpdateData(GetDashboardReportResponse response)
         {
             _totalMcpFillLevelTimestamps = response.TotalMcpFillLevelTimestamps;
             _totalMcpFillLevelValues = response.TotalMcpFillLevelValues;
             _mcpEmptiedTimestamps = response.McpEmptiedTimestamps;
+            MarkDirtyRepaint();
         }
 
         private void CreateLabels()
@@ -191,7 +173,7 @@ namespace UI.Views.Reports.Cards
                 mcpEmptiedLabel.style.right = resolvedStyle.width - (mcpEmptiedLabelPosition.x + size.x / 2);
                 mcpEmptiedLabel.style.top = mcpEmptiedLabelPosition.y - size.y / 2;
                 mcpEmptiedLabel.style.bottom = resolvedStyle.height - (mcpEmptiedLabelPosition.y + size.y / 2);
-                mcpEmptiedLabel.text = $"{VALUE_COUNT - 1 - i}";
+                mcpEmptiedLabel.text = $"{(VALUE_COUNT - 1 - i) * 2}";
             }
         }
 
@@ -212,7 +194,7 @@ namespace UI.Views.Reports.Cards
                 timestamp.style.top = position.y - size.y / 2;
                 timestamp.style.bottom = resolvedStyle.height - (position.y + size.y / 2);
 
-                timestamp.text = $"{i}:00";
+                timestamp.text = $"{DateTime.Now.AddHours(-HOUR_COUNT + i + 1).Hour}:00";
             }
         }
 
@@ -222,19 +204,40 @@ namespace UI.Views.Reports.Cards
 
             painter.BeginPath();
             painter.MoveTo(_graphRect.position + new Vector2(0, _graphRect.height));
+
+            var first = true;
+            var firstPoint = new Vector2();
+            var lastPoint = new Vector2();
+
+            var minHour = new DateTime(DateTime.UtcNow.AddHours(-24).Year, DateTime.UtcNow.AddHours(-24).Month, DateTime.UtcNow.AddHours(-24).Day,
+                DateTime.UtcNow.AddHours(-24).Hour, 0, 0);
+            var maxHour = new DateTime(DateTime.UtcNow.Year, DateTime.UtcNow.Month, DateTime.UtcNow.Day, DateTime.UtcNow.Hour, 0, 0);
             for (int i = 0; i < _totalMcpFillLevelValues.Count; i++)
             {
+                var currentHour = new DateTime(_totalMcpFillLevelTimestamps[i].Year, _totalMcpFillLevelTimestamps[i].Month,
+                    _totalMcpFillLevelTimestamps[i].Day, _totalMcpFillLevelTimestamps[i].Hour, 0, 0);
                 var point = GetGraphPoint(
                     _totalMcpFillLevelValues[i],
                     0,
-                    _totalMcpFillLevelValues.Max(),
-                    _totalMcpFillLevelTimestamps[i],
-                    DateTime.Now.AddHours(-24),
-                    DateTime.Now);
-                painter.LineTo(point);
+                    1,
+                    currentHour,
+                    minHour,
+                    maxHour);
+
+                if (first)
+                {
+                    painter.MoveTo(point);
+                    firstPoint = point;
+                }
+                else painter.LineTo(point);
+
+                first = false;
+
+                lastPoint = point;
             }
 
-            painter.LineTo(_graphRect.position + new Vector2(_graphRect.width, _graphRect.height));
+            painter.LineTo(new Vector2(lastPoint.x, _graphRect.height + _graphRect.position.y));
+            painter.LineTo(new Vector2(firstPoint.x, _graphRect.height + _graphRect.position.y));
             painter.Fill();
         }
 
@@ -243,7 +246,7 @@ namespace UI.Views.Reports.Cards
             var mcpEmptiedPerHour = new Dictionary<int, int>();
             foreach (var emptyTimestamp in _mcpEmptiedTimestamps)
             {
-                var offsetHours = DateTime.Now.Hour - emptyTimestamp.Hour;
+                var offsetHours = DateTime.UtcNow.Hour - emptyTimestamp.Hour;
                 if (mcpEmptiedPerHour.ContainsKey(offsetHours))
                 {
                     mcpEmptiedPerHour[offsetHours]++;
@@ -261,12 +264,26 @@ namespace UI.Views.Reports.Cards
 
             painter.BeginPath();
             painter.MoveTo(_graphRect.position + new Vector2(0, _graphRect.height));
+
+            var first = true;
+
+            var minHour = new DateTime(DateTime.UtcNow.AddHours(-24).Year, DateTime.UtcNow.AddHours(-24).Month, DateTime.UtcNow.AddHours(-24).Day,
+                DateTime.UtcNow.AddHours(-24).Hour, 0, 0);
+            var maxHour = new DateTime(DateTime.UtcNow.Year, DateTime.UtcNow.Month, DateTime.UtcNow.Day, DateTime.UtcNow.Hour, 0, 0);
             for (int i = HOUR_COUNT - 1; i >= 0; i--)
             {
                 if (!mcpEmptiedPerHour.ContainsKey(i)) continue;
 
-                var point = GetGraphPoint(mcpEmptiedPerHour[i], 0, 8, DateTime.Now.AddHours(-i), DateTime.Now.AddHours(-24), DateTime.Now);
-                painter.LineTo(point);
+                var currentHour = new DateTime(DateTime.UtcNow.AddHours(-i).Year, DateTime.UtcNow.AddHours(-i).Month,
+                    DateTime.UtcNow.AddHours(-i).Day, DateTime.UtcNow.AddHours(-i).Hour, 0, 0);
+                var point = GetGraphPoint(mcpEmptiedPerHour[i], 0, 16, currentHour,
+                    minHour,
+                    maxHour);
+
+                if (first) painter.MoveTo(point);
+                else painter.LineTo(point);
+
+                first = false;
             }
 
             painter.Stroke();
