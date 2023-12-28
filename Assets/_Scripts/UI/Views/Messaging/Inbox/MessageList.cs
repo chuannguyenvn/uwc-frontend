@@ -77,7 +77,6 @@ namespace UI.Views.Messaging.Inbox
         {
             _scrollView = new ScrollViewWithShadow(ShadowType.InnerTop, scroller =>
             {
-                Debug.Log(scroller.verticalScroller.value - scroller.verticalScroller.lowValue);
                 if (Math.Abs(scroller.verticalScroller.value - scroller.verticalScroller.lowValue) > 10f) return;
 
                 DataStoreManager.Messaging.InboxMessageList.CurrentMessageCount = _messageListEntries.Count;

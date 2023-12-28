@@ -59,7 +59,7 @@ namespace UI.Views.Messaging.Inbox
             DataStoreManager.Messaging.InboxMessageList.SendMessage(_textField.value);
             _textField.value = "";
 
-            if (Configs.IS_DESKTOP)
+            if (Configs.IS_DESKTOP && Root.Instance.ActiveViewType != ViewType.Map)
                 GetFirstAncestorOfType<Root>().Q<ChatBubblesPanel>().FocusInbox(DataStoreManager.Messaging.InboxMessageList.OtherUserProfile);
         }
     }
