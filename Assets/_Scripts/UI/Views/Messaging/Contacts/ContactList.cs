@@ -17,6 +17,7 @@ namespace UI.Views.Messaging.Contacts
         private ScrollViewWithShadow _scrollView;
 
         private List<ContactListEntry> _contactListEntries = new();
+        private bool _firstTime = true;
 
         public ContactList() : base(nameof(ContactList))
         {
@@ -58,11 +59,12 @@ namespace UI.Views.Messaging.Contacts
                 _contactListEntries.Add(entry);
                 _scrollView.AddToScrollView(entry);
             }
-
-            // if (data.FullNames.Count > 0)
-            // {
-            //     GetFirstAncestorOfType<MessagingView>().Q<InboxContainer>().SwitchInbox(_contactListEntries[0].UserProfile);
-            // }
+            
+            if (_firstTime && data.FullNames.Count > 0)
+            {
+                GetFirstAncestorOfType<MessagingView>().Q<InboxContainer>().SwitchInbox(_contactListEntries[0].UserProfile);
+                _firstTime = false;
+            }
         }
 
         private void SearchHandler(string text)

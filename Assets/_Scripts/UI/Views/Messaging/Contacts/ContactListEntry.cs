@@ -1,6 +1,7 @@
 ﻿using System;
 using Authentication;
 using Commons.Models;
+using Requests;
 using Settings;
 using UI.Base;
 using UI.Views.Messaging.Inbox;
@@ -76,10 +77,16 @@ namespace UI.Views.Messaging.Contacts
 
         private void RegisterCallbacks()
         {
-            RegisterCallback<ClickEvent>(_ => GetFirstAncestorOfType<MessagingView>().Q<InboxContainer>().SwitchInbox(UserProfile, () =>
+            RegisterCallback<ClickEvent>(_ =>
             {
-                if (!Configs.IS_DESKTOP) GetFirstAncestorOfType<MessagingView>().MobileShowInbox();
-            }));
+                if (DataStoreManager.Messaging.InboxMessageList.OtherUserProfile != null && UserProfile != null &&
+                    DataStoreManager.Messaging.InboxMessageList.OtherUserProfile.Id == UserProfile.Id) return;
+
+                GetFirstAncestorOfType<MessagingView>().Q<InboxContainer>().SwitchInbox(UserProfile, () =>
+                {
+                    if (!Configs.IS_DESKTOP) GetFirstAncestorOfType<MessagingView>().MobileShowInbox();
+                });
+            });
         }
     }
 }
