@@ -35,6 +35,7 @@ namespace UI.Views.Messaging.Inbox
 
         private void DataUpdatedHandler(GetMessagesBetweenTwoUsersResponse data)
         {
+            Debug.Log("update");
             if (data.IsContinuous)
             {
                 _scrollView.MarkOldVerticalScrollerValue();
@@ -76,10 +77,11 @@ namespace UI.Views.Messaging.Inbox
         {
             _scrollView = new ScrollViewWithShadow(ShadowType.InnerTop, scroller =>
             {
+                Debug.Log(scroller.verticalScroller.value - scroller.verticalScroller.lowValue);
                 if (Math.Abs(scroller.verticalScroller.value - scroller.verticalScroller.lowValue) > 10f) return;
 
                 DataStoreManager.Messaging.InboxMessageList.CurrentMessageCount = _messageListEntries.Count;
-                DataStoreManager.Messaging.InboxMessageList.SendRequest();
+                // DataStoreManager.Messaging.InboxMessageList.SendRequest();
             })
             {
                 name = "ScrollView"

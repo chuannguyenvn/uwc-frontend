@@ -59,10 +59,10 @@ namespace UI.Views.Messaging.Contacts
                 _scrollView.AddToScrollView(entry);
             }
 
-            if (data.FullNames.Count > 0)
-            {
-                GetFirstAncestorOfType<MessagingView>().Q<InboxContainer>().SwitchInbox(_contactListEntries[0].UserProfile);
-            }
+            // if (data.FullNames.Count > 0)
+            // {
+            //     GetFirstAncestorOfType<MessagingView>().Q<InboxContainer>().SwitchInbox(_contactListEntries[0].UserProfile);
+            // }
         }
 
         private void SearchHandler(string text)

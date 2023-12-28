@@ -38,7 +38,7 @@ namespace UI.Base
 
         // View flags
         private readonly Dictionary<ViewType, View> _viewsByViewType = new();
-        private ViewType _mainActiveViewType = ViewType.None;
+        public ViewType ActiveViewType = ViewType.None;
 
         // Views
         private MapView _mapView;
@@ -214,12 +214,12 @@ namespace UI.Base
         {
             foreach (var (type, view) in _viewsByViewType)
             {
-                if (!asExtension || type != _mainActiveViewType) view.style.display = DisplayStyle.None;
+                if (!asExtension || type != ActiveViewType) view.style.display = DisplayStyle.None;
             }
 
-            if (_viewsByViewType.TryGetValue(_mainActiveViewType, out var oldView)) oldView.UnfocusView();
+            if (_viewsByViewType.TryGetValue(ActiveViewType, out var oldView)) oldView.UnfocusView();
 
-            if (viewType == _mainActiveViewType && Configs.IS_DESKTOP)
+            if (viewType == ActiveViewType && Configs.IS_DESKTOP)
             {
                 _viewsByViewType[viewType].style.display = DisplayStyle.None;
                 viewType = ViewType.Map;
@@ -263,9 +263,9 @@ namespace UI.Base
             }
 
             ViewFocused?.Invoke(viewType);
-            ViewUnfocused?.Invoke(_mainActiveViewType);
+            ViewUnfocused?.Invoke(ActiveViewType);
 
-            if (!asExtension) _mainActiveViewType = viewType;
+            if (!asExtension) ActiveViewType = viewType;
         }
 
         private void SubscribeToAuthenticationScreenEvents()
@@ -290,7 +290,7 @@ namespace UI.Base
         {
             RootController.BackButtonPressed += () =>
             {
-                if (_mainActiveViewType == ViewType.Map)
+                if (ActiveViewType == ViewType.Map)
                 {
                     if (Time.time - _timeSinceLastBackButtonPress < 3)
                     {

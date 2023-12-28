@@ -32,9 +32,12 @@ namespace UI.Views.Messaging.Inbox
             // _textField.RegisterCallback<FocusInEvent>(_ => { GetFirstAncestorOfType<Root>().ShowKeyboard(); });
             // _textField.RegisterCallback<FocusOutEvent>(_ => { GetFirstAncestorOfType<Root>().HideKeyboard(); });
 
-            _textField.RegisterCallback<KeyDownEvent>(e =>
+            _textField.Q<TextElement>().RegisterCallback<KeyDownEvent>(e =>
             {
-                if (e.keyCode == KeyCode.Return) SendMessage();
+                if (e.keyCode == KeyCode.Return)
+                {
+                    SendMessage();
+                }
             });
         }
 
@@ -51,8 +54,11 @@ namespace UI.Views.Messaging.Inbox
 
         private void SendMessage()
         {
+            if (string.IsNullOrEmpty(_textField.value)) return;
+
             DataStoreManager.Messaging.InboxMessageList.SendMessage(_textField.value);
             _textField.value = "";
+
             if (Configs.IS_DESKTOP)
                 GetFirstAncestorOfType<Root>().Q<ChatBubblesPanel>().FocusInbox(DataStoreManager.Messaging.InboxMessageList.OtherUserProfile);
         }

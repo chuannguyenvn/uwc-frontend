@@ -22,20 +22,21 @@ namespace UI.Reusables.ChatBubbles
 
             if (_focusedUserProfiles.Count >= MAX_BUBBLES)
             {
-                _focusedBubbles.RemoveAt(0);
-                Remove(_focusedBubbles[0]);
+                Remove(_focusedBubbles[^1]);
+                _focusedBubbles.RemoveAt(_focusedBubbles.Count - 1);
 
-                _focusedUserProfiles.RemoveAt(0);
+                _focusedUserProfiles.RemoveAt(_focusedUserProfiles.Count - 1);
             }
 
-            _focusedUserProfiles.Add(userProfile);
-            
+            _focusedUserProfiles.Insert(0, userProfile);
+
             var bubble = new ChatBubble(userProfile);
-            _focusedBubbles.Add(bubble);
+            _focusedBubbles.Insert(0, bubble);
             Add(bubble);
+            bubble.SendToBack();
             ChatBubble.FocusedBubble = bubble;
         }
-        
+
         public void CloseBubble(UserProfile userProfile)
         {
             if (_focusedUserProfiles.Any(profile => profile.Id == userProfile.Id))

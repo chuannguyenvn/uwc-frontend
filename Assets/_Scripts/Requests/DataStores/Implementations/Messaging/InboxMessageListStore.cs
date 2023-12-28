@@ -63,6 +63,7 @@ namespace Requests.DataStores.Implementations.Messaging
                 Content = content,
                 Timestamp = DateTime.Now
             });
+
             OnDataUpdated(Data);
 
             SendRequest(RequestHelper.SendPostRequest(
