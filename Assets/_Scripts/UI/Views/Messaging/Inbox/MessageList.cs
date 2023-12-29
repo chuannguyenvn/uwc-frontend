@@ -5,6 +5,7 @@ using Authentication;
 using Commons.Communications.Messages;
 using Commons.Endpoints;
 using Commons.Models;
+using Newtonsoft.Json;
 using Requests;
 using UI.Base;
 using UI.Reusables;
@@ -45,11 +46,14 @@ namespace UI.Views.Messaging.Inbox
             }
             else if (!isJustSentMessage)
             {
+                Debug.Log("clear");
                 ClearMessages();
             }
 
             data.Messages = data.Messages.DistinctBy(message => message.Id).ToList();
             data.Messages.Sort((a, b) => b.Timestamp.CompareTo(a.Timestamp));
+
+            Debug.Log(JsonConvert.SerializeObject(data.Messages, Formatting.Indented));
 
             var messageListEntries = new List<MessageListEntry>();
             foreach (var message in data.Messages)
@@ -58,7 +62,7 @@ namespace UI.Views.Messaging.Inbox
                 _scrollView.AddToScrollView(messageListEntry, isJustSentMessage);
                 messageListEntries.Add(messageListEntry);
             }
-            
+
             _messageListEntries.AddRange(messageListEntries.AsEnumerable().Reverse());
 
             if (data.IsContinuous && !isJustSentMessage)
@@ -71,6 +75,12 @@ namespace UI.Views.Messaging.Inbox
                 Debug.Log("ScrollToLast");
                 _scrollView.ScrollToLast();
             }
+            
+            DataStoreManager.Instance.StartCoroutine(RequestHelper.SendPostRequest(Endpoints.Messaging.ReadMessage, new ReadAllMessagesRequest
+            {
+                SenderId = DataStoreManager.Messaging.InboxMessageList.OtherUserProfile.Id,
+                ReceiverId = AuthenticationManager.Instance.UserAccountId,
+            }));
         }
 
         private void CreateScrollView()
@@ -99,10 +109,13 @@ namespace UI.Views.Messaging.Inbox
 
         private void MarkAllMessagesAsRead()
         {
-            foreach (var messageListEntry in _messageListEntries)
+            schedule.Execute(() =>
             {
-                messageListEntry.MarkAsRead();
-            }
+                foreach (var messageListEntry in _messageListEntries)
+                {
+                    messageListEntry.MarkAsRead();
+                }
+            });
         }
     }
 }

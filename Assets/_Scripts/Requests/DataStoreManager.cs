@@ -1,4 +1,6 @@
 ﻿using System;
+using System.Collections;
+using System.Collections.Generic;
 using Newtonsoft.Json;
 using Requests.DataStores.Implementations.Map;
 using Requests.DataStores.Implementations.Mcps;
@@ -74,7 +76,7 @@ namespace Requests
             Messaging.InboxMessageList = new InboxMessageListStore();
 
             Map.WorkerLocation = new WorkerLocationStore();
-            Map.WorkerLocation.DataUpdated += (data) => { Debug.Log(JsonConvert.SerializeObject(data)); };
+
             Map.McpLocation = new McpLocationStore();
 
             Reporting.ReportingView = new ReportingViewStore();
@@ -89,6 +91,23 @@ namespace Requests
             Vehicles.AllVehicleList = new AllVehicleListStore();
 
             Setting.Settings = new SettingStore();
+        }
+
+
+        public event Action MainThreadEvent;
+
+        public void ScheduleOnMainThread(Action action)
+        {
+            MainThreadEvent += action;
+        }
+
+        private void Update()
+        {
+            if (MainThreadEvent != null)
+            {
+                MainThreadEvent();
+                MainThreadEvent = null;
+            }
         }
     }
 }

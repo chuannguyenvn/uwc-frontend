@@ -42,15 +42,19 @@ namespace Requests.DataStores.Implementations.Messaging
         {
             AuthenticationManager.Instance.HubConnection.On(HubHandlers.Messaging.SEND_MESSAGE, (SendMessageBroadcastData data) =>
             {
-                Data.Messages.Add(data.NewMessage);
-                Data.IsContinuous = false;
-                OnDataUpdated(Data);
+                Data = new GetMessagesBetweenTwoUsersResponse
+                {
+                    Messages = data.Messages,
+                    IsContinuous = false
+                };
+                DataStoreManager.Instance.ScheduleOnMainThread(() => OnDataUpdated(Data));
             });
 
             AuthenticationManager.Instance.HubConnection.On(HubHandlers.Messaging.READ_MESSAGE,
                 (ReadAllMessagesBroadcastData data) =>
                 {
-                    if (data.ReceiverId == OtherUserProfile.Id) CurrentReceiverReadMessages?.Invoke();
+                    if (data.ReceiverId == OtherUserProfile.Id)
+                        DataStoreManager.Instance.ScheduleOnMainThread(() => CurrentReceiverReadMessages?.Invoke());
                 });
         }
 

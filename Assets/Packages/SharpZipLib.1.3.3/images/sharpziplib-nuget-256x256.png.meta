@@ -143,7 +143,8 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      sharpziplib-nuget-256x256_0: -4379948055890965083
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

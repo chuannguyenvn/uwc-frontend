@@ -143,7 +143,8 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      sixlabors.fonts.128_0: 471046327715530374
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
