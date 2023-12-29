@@ -1,5 +1,7 @@
 ﻿using System;
+using System.Linq;
 using Authentication;
+using Commons.Communications.Messages;
 using Commons.Models;
 using Requests;
 using Settings;
@@ -44,6 +46,21 @@ namespace UI.Views.Messaging.Contacts
                 message.SenderProfileId == AuthenticationManager.Instance.UserAccountId);
 
             RegisterCallbacks();
+
+            DataStoreManager.Messaging.ContactList.UserSentMessages += UserSentMessagesHandler;
+        }
+
+        private void UserSentMessagesHandler(SendMessageBroadcastData data)
+        {
+            if (data.Messages.Count == 0) return;
+            var latestMessage = data.Messages.OrderByDescending(message => message.Timestamp).First();
+            if (latestMessage.ReceiverProfileId != UserProfile.Id) return;
+
+            schedule.Execute(() =>
+            {
+                UpdateDetails(latestMessage.Content, latestMessage.Timestamp,
+                    latestMessage.SenderProfileId == AuthenticationManager.Instance.UserAccountId);
+            });
         }
 
         private void CreateImage(UserProfile profile)
@@ -87,6 +104,21 @@ namespace UI.Views.Messaging.Contacts
                     if (!Configs.IS_DESKTOP) GetFirstAncestorOfType<MessagingView>().MobileShowInbox();
                 });
             });
+        }
+
+        private void UpdateDetails(string content, DateTime timestamp, bool isFromUser)
+        {
+            var previewText = timestamp.ToLocalTime().ToString(DateTime.Now.Date == timestamp.Date ? "HH:mmtt" : "HH:mmtt dd/MM") + " | " +
+                              (isFromUser ? "You: " : "") + content;
+            if (!isFromUser && DataStoreManager.Messaging.InboxMessageList.OtherUserProfile != null &&
+                DataStoreManager.Messaging.InboxMessageList.OtherUserProfile.Id != UserProfile.Id)
+                _previewText.text = $"<b>{previewText}</b>";
+            else _previewText.text = previewText;
+        }
+
+        public void MarkAsRead()
+        {
+            _previewText.text = _previewText.text.Replace("<b>", "").Replace("</b>", "");
         }
     }
 }

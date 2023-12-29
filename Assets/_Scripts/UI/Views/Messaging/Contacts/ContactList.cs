@@ -16,7 +16,7 @@ namespace UI.Views.Messaging.Contacts
         private ListControl _listControl;
         private ScrollViewWithShadow _scrollView;
 
-        private List<ContactListEntry> _contactListEntries = new();
+        public List<ContactListEntry> ContactListEntries = new();
         private bool _firstTime = true;
 
         public ContactList() : base(nameof(ContactList))
@@ -51,18 +51,18 @@ namespace UI.Views.Messaging.Contacts
         private void DataUpdatedHandler(GetPreviewMessagesResponse data)
         {
             _scrollView.Clear();
-            _contactListEntries.Clear();
+            ContactListEntries.Clear();
 
             foreach (var previewMessage in data.Messages)
             {
                 var entry = new ContactListEntry(previewMessage);
-                _contactListEntries.Add(entry);
+                ContactListEntries.Add(entry);
                 _scrollView.AddToScrollView(entry);
             }
             
             if (_firstTime && data.FullNames.Count > 0)
             {
-                GetFirstAncestorOfType<MessagingView>().Q<InboxContainer>().SwitchInbox(_contactListEntries[0].UserProfile);
+                GetFirstAncestorOfType<MessagingView>().Q<InboxContainer>().SwitchInbox(ContactListEntries[0].UserProfile);
                 _firstTime = false;
             }
         }
@@ -70,7 +70,7 @@ namespace UI.Views.Messaging.Contacts
         private void SearchHandler(string text)
         {
             text = Utility.CreateSearchString(text);
-            foreach (var entry in _contactListEntries)
+            foreach (var entry in ContactListEntries)
             {
                 if (Utility.CreateSearchString(entry.FullName, entry.PreviewMessage).Contains(text) ||
                     text == "")

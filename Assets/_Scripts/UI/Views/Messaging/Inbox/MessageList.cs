@@ -4,12 +4,10 @@ using System.Linq;
 using Authentication;
 using Commons.Communications.Messages;
 using Commons.Endpoints;
-using Commons.Models;
-using Newtonsoft.Json;
 using Requests;
+using Settings;
 using UI.Base;
 using UI.Reusables;
-using UnityEngine;
 using UnityEngine.UIElements;
 using Utilities;
 
@@ -37,7 +35,13 @@ namespace UI.Views.Messaging.Inbox
 
         private void DataUpdatedHandler(GetMessagesBetweenTwoUsersResponse data)
         {
-            Debug.Log("update");
+            if (Root.Instance.ActiveViewType != ViewType.Messaging) return;
+            if (DataStoreManager.Messaging.InboxMessageList.OtherUserProfile == null) return;
+            var otherUserProfileId = DataStoreManager.Messaging.InboxMessageList.OtherUserProfile.Id;
+            if (data.Messages.Count == 0) return;
+            if (data.Messages[0].SenderProfileId != otherUserProfileId && data.Messages[0].ReceiverProfileId != otherUserProfileId) return;
+            if (!Configs.IS_DESKTOP && GetFirstAncestorOfType<InboxContainer>().style.display == DisplayStyle.None) return;
+
             var isJustSentMessage = data.Messages.Count == 1 && data.Messages[0].Timestamp > DateTime.Now.AddSeconds(-5);
 
             if (data.IsContinuous)
@@ -46,14 +50,11 @@ namespace UI.Views.Messaging.Inbox
             }
             else if (!isJustSentMessage)
             {
-                Debug.Log("clear");
                 ClearMessages();
             }
 
             data.Messages = data.Messages.DistinctBy(message => message.Id).ToList();
             data.Messages.Sort((a, b) => b.Timestamp.CompareTo(a.Timestamp));
-
-            Debug.Log(JsonConvert.SerializeObject(data.Messages, Formatting.Indented));
 
             var messageListEntries = new List<MessageListEntry>();
             foreach (var message in data.Messages)
@@ -67,15 +68,13 @@ namespace UI.Views.Messaging.Inbox
 
             if (data.IsContinuous && !isJustSentMessage)
             {
-                Debug.Log("ScrollToOldVerticalScrollerValue");
                 _scrollView.ScrollToOldVerticalScrollerValue();
             }
             else
             {
-                Debug.Log("ScrollToLast");
                 _scrollView.ScrollToLast();
             }
-            
+
             DataStoreManager.Instance.StartCoroutine(RequestHelper.SendPostRequest(Endpoints.Messaging.ReadMessage, new ReadAllMessagesRequest
             {
                 SenderId = DataStoreManager.Messaging.InboxMessageList.OtherUserProfile.Id,

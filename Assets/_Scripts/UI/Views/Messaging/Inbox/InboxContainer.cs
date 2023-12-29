@@ -2,6 +2,8 @@
 using Commons.Models;
 using Requests;
 using UI.Base;
+using UI.Views.Messaging.Contacts;
+using UnityEngine.UIElements;
 
 namespace UI.Views.Messaging.Inbox
 {
@@ -45,7 +47,17 @@ namespace UI.Views.Messaging.Inbox
             _messageList.ClearMessages();
             DataStoreManager.Messaging.InboxMessageList.OtherUserProfile = userProfile;
             DataStoreManager.Messaging.InboxMessageList.CurrentMessageCount = 0;
-            DataStoreManager.Messaging.InboxMessageList.SendRequest(callback);
+            DataStoreManager.Messaging.InboxMessageList.SendRequest(() =>
+            {
+                callback?.Invoke();
+                GetFirstAncestorOfType<MessagingView>().Q<ContactList>().ContactListEntries.ForEach(entry =>
+                {
+                    if (entry.UserProfile.Id == userProfile.Id)
+                    {
+                        entry.MarkAsRead();
+                    }
+                });
+            });
             _inboxHeader.UpdateStatus();
         }
     }

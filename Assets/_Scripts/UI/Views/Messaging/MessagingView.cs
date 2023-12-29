@@ -1,4 +1,4 @@
-﻿using Requests;
+using Requests;
 using Settings;
 using UI.Base;
 using UI.Views.Messaging.Inbox;
@@ -38,12 +38,11 @@ namespace UI.Views.Messaging
 
         public override void FocusView()
         {
-            DataStoreManager.Messaging.ContactList.Focus();
+            DataStoreManager.Messaging.ContactList.SendRequest();
         }
 
         public override void UnfocusView()
         {
-            DataStoreManager.Messaging.ContactList.Unfocus();
         }
 
         public void MobileShowInbox()
