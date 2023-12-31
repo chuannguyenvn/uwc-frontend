@@ -96,7 +96,7 @@ namespace Maps
         {
             foreach (var (id, coordinate) in data.DriverLocationByIds.ToList())
             {
-                DrawDriverMarker(id, coordinate, 0f);
+                DrawDriverMarker(id, coordinate, coordinate.Rotation);
             }
 
             foreach (var (id, coordinate) in data.CleanerLocationByIds.ToList())
@@ -152,6 +152,7 @@ namespace Maps
             }
 
             marker.SetPosition(coordinate.Longitude, coordinate.Latitude);
+            marker.rotationDegree = orientationInDegrees + 90;
 
             _driverMarkers[driverId] = marker;
         }
