@@ -102,24 +102,16 @@
     background-color: var(--theme-color);
 }
 
-.green-button:hover {
-    background-color: rgb(240, 240, 240);
-}
-
 .green-button.pressed {
-    background-color: rgb(200, 200, 200);
+    background-color: rgb(42, 110, 63);
 }
 
 .red-button {
     background-color: var(--mcp-full-color);
 }
 
-.red-button:hover {
-    background-color: rgb(240, 240, 240);
-}
-
 .red-button.pressed {
-    background-color: rgb(200, 200, 200);
+    background-color: rgb(147, 18, 9);
 }
 
 .close-button #ButtonIcon {

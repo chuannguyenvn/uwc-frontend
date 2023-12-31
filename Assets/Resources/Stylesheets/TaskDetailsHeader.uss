@@ -1,4 +1,5 @@
 ﻿#TaskDetailsHeader {
+    flex-shrink: 0;
     background-color: var(--theme-color);
     height: 150px;
     flex-direction: row;

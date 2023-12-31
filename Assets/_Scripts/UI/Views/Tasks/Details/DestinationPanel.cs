@@ -72,6 +72,11 @@ namespace UI.Views.Tasks.Details
             _distanceText.text = "Distance placeholder";
             _distanceContainer.Add(_distanceText);
         }
+        
+        public void SetDistanceText(string distance)
+        {
+            _distanceText.text = distance;
+        }
 
         private void CreateEta()
         {
@@ -91,9 +96,24 @@ namespace UI.Views.Tasks.Details
             _etaContainer.Add(_etaText);
         }
         
+        public void SetEtaText(string eta)
+        {
+            _etaText.text = eta;
+        }
+        
         public void SetAddressText(string address)
         {
             _addressText.text = address;
+        }
+        
+        public void ShowDistanceAndEta()
+        {
+            _distanceAndEtaContainer.style.display = DisplayStyle.Flex;
+        }
+        
+        public void HideDistanceAndEta()
+        {
+            _distanceAndEtaContainer.style.display = DisplayStyle.None;
         }
     }
 }

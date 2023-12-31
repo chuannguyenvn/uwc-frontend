@@ -64,7 +64,6 @@ namespace UI.Views.Tasks.Tasks
 
         private void AllTaskListDataUpdatedHandler(GetAllTasksResponse getAllTasksResponse)
         {
-            Debug.Log("AAAAAAAAAAAAA");
             _scrollView.Clear();
             _taskListEntries.Clear();
 

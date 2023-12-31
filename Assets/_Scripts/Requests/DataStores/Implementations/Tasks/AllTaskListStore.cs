@@ -36,18 +36,34 @@ namespace Requests.DataStores.Implementations.Tasks
                 Data.Tasks = data.NewTasks;
                 DataStoreManager.Instance.ScheduleOnMainThread(() => OnDataUpdated(Data));
             });
-            
+
+            AuthenticationManager.Instance.HubConnection.On(HubHandlers.Tasks.FOCUS_TASK, (FocusTaskBroadcastData data) =>
+            {
+                var task = Data.Tasks.Find(t => t.Id == data.TaskId);
+                task.TaskStatus = TaskStatus.InProgress;
+
+                foreach (var taskData in Data.Tasks)
+                {
+                    if (taskData.AssigneeId.HasValue && taskData.AssigneeId.Value == data.WorkerId)
+                    {
+                        taskData.TaskStatus = TaskStatus.NotStarted;
+                    }
+                }
+
+                DataStoreManager.Instance.ScheduleOnMainThread(() => OnDataUpdated(Data));
+            });
+
             AuthenticationManager.Instance.HubConnection.On(HubHandlers.Tasks.COMPLETE_TASK, (CompleteTaskBroadcastData data) =>
             {
                 var task = Data.Tasks.Find(t => t.Id == data.TaskId);
                 task.TaskStatus = TaskStatus.Completed;
                 DataStoreManager.Instance.ScheduleOnMainThread(() => OnDataUpdated(Data));
             });
-            
-            AuthenticationManager.Instance.HubConnection.On(HubHandlers.Tasks.COMPLETE_TASK, (CompleteTaskBroadcastData data) =>
+
+            AuthenticationManager.Instance.HubConnection.On(HubHandlers.Tasks.REJECT_TASK, (CompleteTaskBroadcastData data) =>
             {
                 var task = Data.Tasks.Find(t => t.Id == data.TaskId);
-                task.TaskStatus = TaskStatus.Completed;
+                task.TaskStatus = TaskStatus.Rejected;
                 DataStoreManager.Instance.ScheduleOnMainThread(() => OnDataUpdated(Data));
             });
         }

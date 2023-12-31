@@ -1,7 +1,12 @@
 ﻿using System;
+using Authentication;
+using Commons.Communications.Map;
+using Commons.Endpoints;
 using Commons.Models;
 using Commons.Types;
+using Maps;
 using Requests;
+using Settings;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -73,7 +78,7 @@ namespace UI.Views.Tasks.Tasks
             _mask.Add(_detailsContainer);
 
             CreateCurrentLoad();
-            CreateEta();
+            if (!Configs.IS_DESKTOP) CreateEta();
         }
 
         private void CreateCurrentLoad()
@@ -106,11 +111,24 @@ namespace UI.Views.Tasks.Tasks
             _etaContainer.Add(_etaTitleText);
 
             _etaValueText = new TextElement { name = "EtaValueText" };
-            _etaValueText.text = "...";
-            // DateTime.Now.AddHours(UnityEngine.Random.Range(0, 4)).AddMinutes(UnityEngine.Random.Range(1, 60)).ToString("hh:mmtt");
             _etaValueText.AddToClassList("title-text");
             _etaValueText.AddToClassList("black-text");
             _etaContainer.Add(_etaValueText);
+
+            DataStoreManager.Instance.StartCoroutine(RequestHelper.SendPostRequest<GetDirectionResponse>(Endpoints.Map.GetDirection,
+                new GetDirectionRequest
+                {
+                    AccountId = AuthenticationManager.Instance.UserAccountId,
+                    CurrentLocation = LocationManager.Instance.LastKnownCoordinate,
+                    McpIds = new() { _taskData.McpDataId },
+                },
+                (success, result) =>
+                {
+                    if (success)
+                    {
+                        _etaValueText.text = DateTime.Now.AddSeconds(result.Direction.Duration).ToString("hh:mmtt");
+                    }
+                }));
         }
 
         private void ModifyBasedOnFillStatus(McpFillStatus mcpFillStatus)

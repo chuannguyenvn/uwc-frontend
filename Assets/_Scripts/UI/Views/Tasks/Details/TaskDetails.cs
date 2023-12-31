@@ -1,13 +1,17 @@
 ﻿using System;
 using System.Linq;
 using Authentication;
+using Commons.Communications.Map;
 using Commons.Communications.Mcps;
 using Commons.Communications.Tasks;
 using Commons.Endpoints;
 using Commons.Models;
 using Commons.Types;
+using Maps;
+using Newtonsoft.Json;
 using Requests;
 using UI.Base;
+using UnityEngine;
 using UnityEngine.UIElements;
 
 namespace UI.Views.Tasks.Details
@@ -152,6 +156,30 @@ namespace UI.Views.Tasks.Details
             else
             {
                 _buttonContainer.style.display = DisplayStyle.None;
+            }
+
+            _destinationPanel.HideDistanceAndEta();
+            if (taskData.TaskStatus is TaskStatus.NotStarted or TaskStatus.InProgress)
+            {
+                DataStoreManager.Instance.StartCoroutine(RequestHelper.SendPostRequest<GetDirectionResponse>(Endpoints.Map.GetDirection,
+                    new GetDirectionRequest
+                    {
+                        AccountId = AuthenticationManager.Instance.UserAccountId,
+                        CurrentLocation = LocationManager.Instance.LastKnownCoordinate,
+                        McpIds = new() { taskData.McpDataId },
+                    },
+                    (success, result) =>
+                    {
+                        if (success)
+                        {
+                            _destinationPanel.SetDistanceText(result.Direction.Distance < 1000
+                                ? result.Direction.Distance.ToString("F0") + "m"
+                                : (result.Direction.Distance / 1000).ToString("0.0") + "km");
+                            _destinationPanel.SetEtaText(DateTime.Now.AddSeconds(result.Direction.Duration).ToString("hh:mmtt"));
+
+                            _destinationPanel.ShowDistanceAndEta();
+                        }
+                    }));
             }
 
             _destinationPanel.SetAddressText(taskData.McpData.Address);
