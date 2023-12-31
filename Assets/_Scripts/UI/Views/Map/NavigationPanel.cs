@@ -1,4 +1,4 @@
-﻿using UI.Base;
+using UI.Base;
 using UnityEngine.UIElements;
 
 namespace UI.Views.Map
@@ -62,9 +62,14 @@ namespace UI.Views.Map
             _textContainer.Add(_roadName);
         }
 
-        public void SetInformation(TurnType turnType, float distanceInMeters, string roadName)
+        public void SetInformation(float distanceInMeters, string instruction)
         {
             DisableAllNavigationIconClasses();
+
+            var turnType = TurnType.Straight;
+            if (instruction.ToLower().Contains("left")) turnType = TurnType.Left;
+            if (instruction.ToLower().Contains("right")) turnType = TurnType.Right;
+
             switch (turnType)
             {
                 case TurnType.Left:
@@ -99,9 +104,9 @@ namespace UI.Views.Map
                     break;
             }
 
-            if (distanceInMeters < 1000) _distance.text = $"{distanceInMeters}m";
+            if (distanceInMeters < 1000) _distance.text = $"{distanceInMeters:F0}m";
             else _distance.text = $"{distanceInMeters / 1000:F1}km";
-            _roadName.text = roadName;
+            _roadName.text = instruction;
         }
     }
 }
