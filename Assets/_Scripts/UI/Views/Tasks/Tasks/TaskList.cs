@@ -1,6 +1,8 @@
 using System.Collections.Generic;
 using Commons.Communications.Tasks;
+using Commons.Types;
 using LocalizationNS;
+using Newtonsoft.Json;
 using Requests;
 using Settings;
 using UI.Base;
@@ -54,6 +56,8 @@ namespace UI.Views.Tasks.Tasks
                 () => AllTaskListDataUpdatedHandler(DataStoreManager.Tasks.AllTaskList.Data));
             _listControl.CreateSortButton(Localization.GetSentence(Sentence.TasksView.LAST_CHANGED_TIME),
                 () => AllTaskListDataUpdatedHandler(DataStoreManager.Tasks.AllTaskList.Data));
+
+            _listControl.SortStates[4] = SortType.Descending;
         }
 
         private void CreateScrollView()
@@ -72,7 +76,10 @@ namespace UI.Views.Tasks.Tasks
                 task.McpData.Address = task.McpData.Address;
                 var newTask = new TaskListEntry(task);
                 _taskListEntries.Add(newTask);
+
+                if (task.TaskStatus == TaskStatus.InProgress) Debug.Log(JsonConvert.SerializeObject(task, Formatting.Indented));
             }
+
 
             if (_listControl.SortStates[0] == SortType.Ascending)
                 _taskListEntries.Sort((a, b) =>
@@ -123,7 +130,7 @@ namespace UI.Views.Tasks.Tasks
                 var sortByStatus = b.TaskData.TaskStatus.CompareTo(a.TaskData.TaskStatus);
                 if (sortByStatus != 0) return sortByStatus;
 
-                var sortByPriority = b.TaskData.Priority.CompareTo(a.TaskData.Priority);
+                var sortByPriority = a.TaskData.Priority.CompareTo(b.TaskData.Priority);
                 if (sortByPriority != 0) return sortByPriority;
 
                 var sortByLastChangedTime = a.TaskData.LastStatusChangeTimestamp.CompareTo(b.TaskData.LastStatusChangeTimestamp);

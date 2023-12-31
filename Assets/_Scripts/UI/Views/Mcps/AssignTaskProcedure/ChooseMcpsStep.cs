@@ -10,7 +10,7 @@ namespace UI.Views.Mcps.AssignTaskProcedure
     {
         public static bool IsActivated { get; private set; } = false;
 
-        private static bool _isOrdered = false;
+        private static bool _isOrdered = true;
 
         public static bool IsOrdered
         {

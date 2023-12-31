@@ -8,6 +8,7 @@ using Commons.HubHandlers;
 using Commons.Types;
 using Microsoft.AspNetCore.SignalR.Client;
 using Requests.DataStores.Base;
+using UnityEngine;
 
 namespace Requests.DataStores.Implementations.Tasks
 {
@@ -31,40 +32,51 @@ namespace Requests.DataStores.Implementations.Tasks
 
         protected override void EstablishHubConnection()
         {
-            AuthenticationManager.Instance.HubConnection.On(HubHandlers.Tasks.ADD_TASK, (AddTasksBroadcastData data) =>
-            {
-                Data.Tasks = data.NewTasks;
-                DataStoreManager.Instance.ScheduleOnMainThread(() => OnDataUpdated(Data));
-            });
+            AuthenticationManager.Instance.HubConnection.On(HubHandlers.Tasks.ADD_TASK,
+                (AddTasksBroadcastData data) =>
+                {
+                    DataStoreManager.Instance.ScheduleOnMainThread(() => OnDataUpdated(new GetAllTasksResponse() { Tasks = data.NewTasks }));
+                });
 
             AuthenticationManager.Instance.HubConnection.On(HubHandlers.Tasks.FOCUS_TASK, (FocusTaskBroadcastData data) =>
             {
-                var task = Data.Tasks.Find(t => t.Id == data.TaskId);
-                task.TaskStatus = TaskStatus.InProgress;
-
-                foreach (var taskData in Data.Tasks)
+                DataStoreManager.Instance.ScheduleOnMainThread(() =>
                 {
-                    if (taskData.AssigneeId.HasValue && taskData.AssigneeId.Value == data.WorkerId)
+                    foreach (var taskData in Data.Tasks)
                     {
-                        taskData.TaskStatus = TaskStatus.NotStarted;
+                        if (taskData.AssigneeId.HasValue && taskData.AssigneeId.Value == data.WorkerId &&
+                            taskData.TaskStatus == TaskStatus.InProgress)
+                        {
+                            taskData.TaskStatus = TaskStatus.NotStarted;
+                        }
+                        else if (taskData.Id == data.TaskId)
+                        {
+                            taskData.TaskStatus = TaskStatus.InProgress;
+                        }
                     }
-                }
 
-                DataStoreManager.Instance.ScheduleOnMainThread(() => OnDataUpdated(Data));
+                    OnDataUpdated(Data);
+                });
             });
 
             AuthenticationManager.Instance.HubConnection.On(HubHandlers.Tasks.COMPLETE_TASK, (CompleteTaskBroadcastData data) =>
             {
-                var task = Data.Tasks.Find(t => t.Id == data.TaskId);
-                task.TaskStatus = TaskStatus.Completed;
-                DataStoreManager.Instance.ScheduleOnMainThread(() => OnDataUpdated(Data));
+                DataStoreManager.Instance.ScheduleOnMainThread(() =>
+                {
+                    var task = Data.Tasks.Find(t => t.Id == data.TaskId);
+                    task.TaskStatus = TaskStatus.Completed;
+                    OnDataUpdated(Data);
+                });
             });
 
             AuthenticationManager.Instance.HubConnection.On(HubHandlers.Tasks.REJECT_TASK, (CompleteTaskBroadcastData data) =>
             {
-                var task = Data.Tasks.Find(t => t.Id == data.TaskId);
-                task.TaskStatus = TaskStatus.Rejected;
-                DataStoreManager.Instance.ScheduleOnMainThread(() => OnDataUpdated(Data));
+                DataStoreManager.Instance.ScheduleOnMainThread(() =>
+                {
+                    var task = Data.Tasks.Find(t => t.Id == data.TaskId);
+                    task.TaskStatus = TaskStatus.Rejected;
+                    OnDataUpdated(Data);
+                });
             });
         }
     }

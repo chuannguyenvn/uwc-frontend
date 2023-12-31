@@ -85,6 +85,10 @@ namespace UI.Views.Mcps.AssignTaskProcedure
         public override void Reset()
         {
             base.Reset();
+            
+            RoutingOptimizationScope = RoutingOptimizationScope.None;
+            AutoAssignmentOptimizationStrategy = AutoAssignmentOptimizationStrategy.TimeEfficient;
+            ChooseMcpsStep.IsOrdered = true;
         }
     }
 }
