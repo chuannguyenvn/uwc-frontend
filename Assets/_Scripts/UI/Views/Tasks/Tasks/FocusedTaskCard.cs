@@ -2,6 +2,7 @@
 using Commons.Models;
 using Commons.Types;
 using Requests;
+using UnityEngine;
 using UnityEngine.UIElements;
 
 namespace UI.Views.Tasks.Tasks
@@ -105,7 +106,8 @@ namespace UI.Views.Tasks.Tasks
             _etaContainer.Add(_etaTitleText);
 
             _etaValueText = new TextElement { name = "EtaValueText" };
-            _etaValueText.text = "10:05AM";
+            _etaValueText.text = "...";
+            // DateTime.Now.AddHours(UnityEngine.Random.Range(0, 4)).AddMinutes(UnityEngine.Random.Range(1, 60)).ToString("hh:mmtt");
             _etaValueText.AddToClassList("title-text");
             _etaValueText.AddToClassList("black-text");
             _etaContainer.Add(_etaValueText);
