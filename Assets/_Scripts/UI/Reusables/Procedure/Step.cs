@@ -118,7 +118,7 @@ namespace UI.Reusables.Procedure
             UnregisterCallback<KeyDownEvent>(TriggerCheckFlowCompletion);
 
             MarkActive(false);
-            RefrestCompleteStatus();
+            RefreshCompleteStatus();
 
             _flow.CheckFlowCompletion();
         }
@@ -170,8 +170,9 @@ namespace UI.Reusables.Procedure
             }
         }
 
-        public void RefrestCompleteStatus()
+        public void RefreshCompleteStatus()
         {
+            if (IsActive) return;
             MarkComplete(_isInteracted && (CheckStepCompletion() || (_completeImmediately && !IsCompleted)));
         }
 

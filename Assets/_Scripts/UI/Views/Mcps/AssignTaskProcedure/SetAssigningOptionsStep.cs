@@ -4,6 +4,7 @@ using Commons.Types;
 using LocalizationNS;
 using UI.Reusables.Procedure;
 using UI.Views.Settings;
+using UnityEngine.UIElements;
 using Step = UI.Reusables.Procedure.Step;
 
 namespace UI.Views.Mcps.AssignTaskProcedure
@@ -11,7 +12,10 @@ namespace UI.Views.Mcps.AssignTaskProcedure
     public class SetAssigningOptionsStep : Step
     {
         private SettingList _settingList;
-        public static RoutingOptimizationScope RoutingOptimizationScope { get; private set; } = RoutingOptimizationScope.None;
+        private ChoiceSettingListEntry _setAssigningOptionsStep;
+        private ChoiceSettingListEntry _optimizeAssignmentSetting;
+
+        public static RoutingOptimizationScope RoutingOptimizationScope { get; private set; } = RoutingOptimizationScope.All;
 
         public static AutoAssignmentOptimizationStrategy AutoAssignmentOptimizationStrategy { get; private set; } =
             AutoAssignmentOptimizationStrategy.TimeEfficient;
@@ -24,7 +28,7 @@ namespace UI.Views.Mcps.AssignTaskProcedure
             _settingList = new SettingList();
             AddToContainer(_settingList);
 
-            _settingList.Add(new ChoiceSettingListEntry(Localization.GetSentence(Sentence.TasksView.OPTIMIZE_ROUTE),
+            _setAssigningOptionsStep = new ChoiceSettingListEntry(Localization.GetSentence(Sentence.TasksView.OPTIMIZE_ROUTE),
                 () => RoutingOptimizationScope.ToString(),
                 new List<string>()
                 {
@@ -40,6 +44,7 @@ namespace UI.Views.Mcps.AssignTaskProcedure
                             RoutingOptimizationScope = RoutingOptimizationScope.None;
                             ChooseMcpsStep.IsOrdered = true;
                             flow.RefreshCompletionStatus();
+                            _optimizeAssignmentSetting.style.display = DisplayStyle.None;
                         }
                     },
                     {
@@ -48,6 +53,7 @@ namespace UI.Views.Mcps.AssignTaskProcedure
                             RoutingOptimizationScope = RoutingOptimizationScope.Selected;
                             ChooseMcpsStep.IsOrdered = false;
                             flow.RefreshCompletionStatus();
+                            _optimizeAssignmentSetting.style.display = DisplayStyle.Flex;
                         }
                     },
                     {
@@ -56,11 +62,13 @@ namespace UI.Views.Mcps.AssignTaskProcedure
                             RoutingOptimizationScope = RoutingOptimizationScope.All;
                             ChooseMcpsStep.IsOrdered = false;
                             flow.RefreshCompletionStatus();
+                            _optimizeAssignmentSetting.style.display = DisplayStyle.Flex;
                         }
                     },
-                }, false));
+                }, false);
+            _settingList.Add(_setAssigningOptionsStep);
 
-            _settingList.Add(new ChoiceSettingListEntry(Localization.GetSentence(Sentence.TasksView.OPTIMIZE_AUTO_ASSIGNMENT),
+            _optimizeAssignmentSetting = new ChoiceSettingListEntry(Localization.GetSentence(Sentence.TasksView.OPTIMIZE_AUTO_ASSIGNMENT),
                 () => AutoAssignmentOptimizationStrategy.ToString(),
                 new List<string>()
                 {
@@ -85,7 +93,11 @@ namespace UI.Views.Mcps.AssignTaskProcedure
                             flow.RefreshCompletionStatus();
                         }
                     },
-                }, false));
+                }, false);
+            _settingList.Add(_optimizeAssignmentSetting);
+            
+            _setAssigningOptionsStep.Refresh();
+            _optimizeAssignmentSetting.Refresh();
         }
 
         protected override bool CheckStepCompletion()
@@ -97,9 +109,12 @@ namespace UI.Views.Mcps.AssignTaskProcedure
         {
             base.Reset();
 
-            RoutingOptimizationScope = RoutingOptimizationScope.None;
+            RoutingOptimizationScope = RoutingOptimizationScope.All;
             AutoAssignmentOptimizationStrategy = AutoAssignmentOptimizationStrategy.TimeEfficient;
-            ChooseMcpsStep.IsOrdered = true;
+            ChooseMcpsStep.IsOrdered = false;
+            
+            _setAssigningOptionsStep.Refresh();
+            _optimizeAssignmentSetting.Refresh();
         }
     }
 }

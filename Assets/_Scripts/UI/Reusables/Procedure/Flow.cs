@@ -81,7 +81,7 @@ namespace UI.Reusables.Procedure
         {
             foreach (var step in Steps)
             {
-                step.RefrestCompleteStatus();
+                step.RefreshCompleteStatus();
             }
         }
 
