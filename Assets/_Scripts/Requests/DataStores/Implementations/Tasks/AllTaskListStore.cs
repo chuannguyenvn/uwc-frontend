@@ -42,6 +42,7 @@ namespace Requests.DataStores.Implementations.Tasks
             {
                 DataStoreManager.Instance.ScheduleOnMainThread(() =>
                 {
+                    if (Data == null) return;
                     foreach (var taskData in Data.Tasks)
                     {
                         if (taskData.AssigneeId.HasValue && taskData.AssigneeId.Value == data.WorkerId &&
@@ -63,7 +64,9 @@ namespace Requests.DataStores.Implementations.Tasks
             {
                 DataStoreManager.Instance.ScheduleOnMainThread(() =>
                 {
+                    if (Data == null) return;
                     var task = Data.Tasks.Find(t => t.Id == data.TaskId);
+                    if (task == null) return;
                     task.TaskStatus = TaskStatus.Completed;
                     OnDataUpdated(Data);
                 });
@@ -73,7 +76,9 @@ namespace Requests.DataStores.Implementations.Tasks
             {
                 DataStoreManager.Instance.ScheduleOnMainThread(() =>
                 {
+                    if (Data == null) return;
                     var task = Data.Tasks.Find(t => t.Id == data.TaskId);
+                    if (task == null) return;
                     task.TaskStatus = TaskStatus.Rejected;
                     OnDataUpdated(Data);
                 });

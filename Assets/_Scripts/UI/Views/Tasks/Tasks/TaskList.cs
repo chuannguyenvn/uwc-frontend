@@ -125,6 +125,11 @@ namespace UI.Views.Tasks.Tasks
                 _taskListEntries.Add(newTask);
             }
 
+            _taskListEntries.ForEach(task =>
+            {
+                if (task.TaskData.TaskStatus == TaskStatus.Rejected) task.TaskData.TaskStatus = TaskStatus.Completed;
+            });
+
             _taskListEntries.Sort((a, b) =>
             {
                 var sortByStatus = b.TaskData.TaskStatus.CompareTo(a.TaskData.TaskStatus);

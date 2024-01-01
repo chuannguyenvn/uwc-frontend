@@ -93,7 +93,6 @@ namespace UI.Views.Map
                         DataStoreManager.Instance.StartCoroutine(RequestHelper.SendPostRequest<GetDirectionResponse>(Endpoints.Map.GetDirection,
                             new GetDirectionRequest
                             {
-                                AccountId = AuthenticationManager.Instance.UserAccountId,
                                 CurrentLocation = LocationManager.Instance.LastKnownCoordinate,
                                 McpIds = new() { result.Task.McpDataId },
                             },

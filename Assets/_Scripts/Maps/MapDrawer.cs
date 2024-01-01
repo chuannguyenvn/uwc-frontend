@@ -278,6 +278,8 @@ namespace Maps
                         if (result.FocusedTask != null)
                         {
                             var route = result.DirectionToFocusedTask.Routes[0].Geometry.Coordinates;
+                            if (result.DirectionToFiveUpcomingTasks != null)
+                                route = result.DirectionToFiveUpcomingTasks.Routes[0].Geometry.Coordinates;
                             var coordinatesRoute = route.Select(coordinate => new Coordinate(coordinate[1], coordinate[0])).ToList();
                             ShowWorkerRoute(coordinatesRoute);
                         }

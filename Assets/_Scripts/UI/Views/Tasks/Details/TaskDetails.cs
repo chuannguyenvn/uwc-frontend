@@ -164,7 +164,6 @@ namespace UI.Views.Tasks.Details
                 DataStoreManager.Instance.StartCoroutine(RequestHelper.SendPostRequest<GetDirectionResponse>(Endpoints.Map.GetDirection,
                     new GetDirectionRequest
                     {
-                        AccountId = AuthenticationManager.Instance.UserAccountId,
                         CurrentLocation = LocationManager.Instance.LastKnownCoordinate,
                         McpIds = new() { taskData.McpDataId },
                     },
