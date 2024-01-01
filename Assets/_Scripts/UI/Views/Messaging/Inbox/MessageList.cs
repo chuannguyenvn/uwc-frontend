@@ -35,7 +35,7 @@ namespace UI.Views.Messaging.Inbox
 
         private void DataUpdatedHandler(GetMessagesBetweenTwoUsersResponse data)
         {
-            if (Root.Instance.ActiveViewType != ViewType.Messaging) return;
+            if (Root.Instance.ActiveViewType is not (ViewType.Messaging or ViewType.Map)) return;
             if (DataStoreManager.Messaging.InboxMessageList.OtherUserProfile == null) return;
             var otherUserProfileId = DataStoreManager.Messaging.InboxMessageList.OtherUserProfile.Id;
             if (data.Messages.Count == 0) return;

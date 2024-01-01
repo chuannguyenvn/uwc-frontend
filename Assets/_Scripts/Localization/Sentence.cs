@@ -117,6 +117,10 @@
             public const string TOTAL_WORKERS = "Reporting.TotalWorkers";
             public const string HOURLY_AGGREGATED_MCPS_FILL_LEVEL = "Reporting.HourlyAggregatedMcpsFillLevel";
             public const string HOURLY_MCPS_EMPTIED = "Reporting.HourlyMcpsEmptied";
+            public const string PRECIPITATION_CHANCE_NONE = "Reporting.PrecipitationChanceNone";
+            public const string PRECIPITATION_CHANCE_SLIGHT = "Reporting.PrecipitationChanceLow";
+            public const string PRECIPITATION_CHANCE_MODERATE = "Reporting.PrecipitationChanceMedium";
+            public const string PRECIPITATION_CHANCE_HIGH = "Reporting.PrecipitationChanceHigh";
         }
 
         public class MessagingView

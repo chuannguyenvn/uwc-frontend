@@ -30,7 +30,13 @@ namespace UI.Reusables.ChatBubbles
 
             _focusedUserProfiles.Insert(0, userProfile);
 
+            foreach (var chatBubble in _focusedBubbles)
+            {
+                chatBubble.Deactivate();
+            }
+            
             var bubble = new ChatBubble(userProfile);
+            bubble.Activate();
             _focusedBubbles.Insert(0, bubble);
             Add(bubble);
             bubble.SendToBack();

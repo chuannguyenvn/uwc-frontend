@@ -1,6 +1,5 @@
 ﻿using System;
 using System.IO;
-using System.Reflection;
 using Commons.Communications.Reports;
 using NPOI.XSSF.UserModel;
 using UnityEngine;
@@ -16,7 +15,8 @@ namespace Utilities
             CreateMcpFillLevelsSheet(response, workbook);
             CreateEmptyingRecordsSheet(response, workbook);
 
-            string xlsxPath = Path.Combine("C:\\Users\\chuan\\Desktop",
+            Directory.GetParent(Application.dataPath).CreateSubdirectory("Reports");
+            string xlsxPath = Path.Combine(Directory.GetParent(Application.dataPath) + "/Reports/",
                 DateTime.Now.AddDays(-7).ToString("yyyy-MM-ddTHHmmss") + " " + DateTime.Now.ToString("yyyy-MM-ddTHHmmss") + ".xlsx");
 
             using var fileStream = new FileStream(xlsxPath, FileMode.Create, FileAccess.Write);

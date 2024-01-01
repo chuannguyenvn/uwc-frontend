@@ -118,8 +118,8 @@ namespace UI.Views.Settings
                     Sentence.SettingsView.OFF,
                 }, new Dictionary<string, Action>
                 {
-                    { Sentence.SettingsView.ON, () => Setting.Messages = ToggleOption.On },
-                    { Sentence.SettingsView.OFF, () => Setting.Messages = ToggleOption.Off },
+                    { ToggleOption.On.ToString(), () => Setting.Messages = ToggleOption.On },
+                    { ToggleOption.Off.ToString(), () => Setting.Messages = ToggleOption.Off },
                 }));
 
             if (Configs.IS_DESKTOP)
@@ -132,8 +132,8 @@ namespace UI.Views.Settings
                         Sentence.SettingsView.OFF,
                     }, new Dictionary<string, Action>
                     {
-                        { Sentence.SettingsView.ON, () => Setting.EmployeesLoggedIn = ToggleOption.On },
-                        { Sentence.SettingsView.OFF, () => Setting.EmployeesLoggedIn = ToggleOption.Off },
+                        { ToggleOption.On.ToString(), () => Setting.EmployeesLoggedIn = ToggleOption.On },
+                        { ToggleOption.Off.ToString(), () => Setting.EmployeesLoggedIn = ToggleOption.Off },
                     }));
 
                 _settingList.Add(new ChoiceSettingListEntry(Localization.GetSentence(Sentence.SettingsView.EMPLOYEES_LOGGED_OUT),
@@ -144,8 +144,8 @@ namespace UI.Views.Settings
                         Sentence.SettingsView.OFF,
                     }, new Dictionary<string, Action>
                     {
-                        { Sentence.SettingsView.ON, () => Setting.EmployeesLoggedOut = ToggleOption.On },
-                        { Sentence.SettingsView.OFF, () => Setting.EmployeesLoggedOut = ToggleOption.Off },
+                        { ToggleOption.On.ToString(), () => Setting.EmployeesLoggedOut = ToggleOption.On },
+                        { ToggleOption.Off.ToString(), () => Setting.EmployeesLoggedOut = ToggleOption.Off },
                     }));
             }
 
@@ -214,17 +214,18 @@ namespace UI.Views.Settings
             {
                 _settingList.Add(new TriggerSettingListEntry(Localization.GetSentence(Sentence.SettingsView.EXPORT_WORK_LOGS), () =>
                 {
-                    DataStoreManager.Instance.StartCoroutine(RequestHelper.SendPostRequest<GetReportFileResponse>(Endpoints.Report.GetFile, new GetReportFileRequest
-                    {
-                        StartDate = default,
-                        EndDate = default
-                    }, (success, result) =>
-                    {
-                        if (success)
+                    DataStoreManager.Instance.StartCoroutine(RequestHelper.SendPostRequest<GetReportFileResponse>(Endpoints.Report.GetFile,
+                        new GetReportFileRequest
                         {
-                            ReportParser.SaveReport(result);
-                        }
-                    }));
+                            StartDate = default,
+                            EndDate = default
+                        }, (success, result) =>
+                        {
+                            if (success)
+                            {
+                                ReportParser.SaveReport(result);
+                            }
+                        }));
                 }));
             }
 

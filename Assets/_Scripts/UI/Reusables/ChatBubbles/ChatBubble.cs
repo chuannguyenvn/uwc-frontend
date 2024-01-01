@@ -88,5 +88,15 @@ namespace UI.Reusables.ChatBubbles
                 GetFirstAncestorOfType<ChatBubblesPanel>().Q<BubblesColumn>().CloseBubble(UserProfile);
             });
         }
+        
+        public void Activate()
+        {
+            AddToClassList("active-bubble");
+        }
+        
+        public void Deactivate()
+        {
+            RemoveFromClassList("active-bubble");
+        }
     }
 }

@@ -118,7 +118,7 @@ namespace LocalizationNS
             { Sentence.ReportingView.DISTANCE_TRAVELED, new LocalizationUnit("Distance traveled", "Quãng đường đã đi") },
             { Sentence.ReportingView.FUEL_CONSUMED, new LocalizationUnit("Fuel consumed", "Nhiên liệu đã tiêu thụ") },
             { Sentence.ReportingView.CURRENT_TEMPERATURE, new LocalizationUnit("Current temperature", "Nhiệt độ") },
-            { Sentence.ReportingView.CHANCE_OF_PRECIPITATION, new LocalizationUnit("Chance of precipitation", "Tỉ lệ mưa") },
+            { Sentence.ReportingView.CHANCE_OF_PRECIPITATION, new LocalizationUnit("Chance of precipitation", "Khả năng mưa") },
             { Sentence.ReportingView.MCP_CAPACITY, new LocalizationUnit("MCP capacity", "Dung lượng MCP") },
             { Sentence.ReportingView.TASKS_LEFT, new LocalizationUnit("Tasks left", "Số nhiệm vụ còn lại") },
             { Sentence.ReportingView.TASKS_CREATED, new LocalizationUnit("Tasks created", "Số nhiệm vụ đã tạo") },
@@ -129,6 +129,10 @@ namespace LocalizationNS
                 new LocalizationUnit("Hourly aggregated MCPS fill level", "Tổng mức đầy mỗi giờ của MCP")
             },
             { Sentence.ReportingView.HOURLY_MCPS_EMPTIED, new LocalizationUnit("Hourly MCPS emptied", "MCP được thu gom mỗi giờ") },
+            { Sentence.ReportingView.PRECIPITATION_CHANCE_NONE, new LocalizationUnit("None", "Không mưa") },
+            { Sentence.ReportingView.PRECIPITATION_CHANCE_SLIGHT, new LocalizationUnit("Slight", "Thấp") },
+            { Sentence.ReportingView.PRECIPITATION_CHANCE_MODERATE, new LocalizationUnit("Moderate", "Tương đối") },
+            { Sentence.ReportingView.PRECIPITATION_CHANCE_HIGH, new LocalizationUnit("High", "Cao") },
 
             { Sentence.MessagingView.MESSAGING, new LocalizationUnit("Messaging", "Tin nhắn") },
             { Sentence.MessagingView.ONLINE, new LocalizationUnit("Online", "Trực tuyến") },

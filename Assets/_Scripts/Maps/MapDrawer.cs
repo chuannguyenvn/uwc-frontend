@@ -251,6 +251,13 @@ namespace Maps
 
         private void FocusWorker(int workerId)
         {
+            if (_focusedWorkerId == workerId)
+            {
+                _focusedWorkerId = -1;
+                HideWorkerRoute();
+                return;
+            }
+
             _focusedWorkerId = workerId;
 
             StopCoroutine(SendRouteRequest());

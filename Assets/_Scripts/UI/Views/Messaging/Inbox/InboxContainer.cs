@@ -50,9 +50,11 @@ namespace UI.Views.Messaging.Inbox
             DataStoreManager.Messaging.InboxMessageList.SendRequest(() =>
             {
                 callback?.Invoke();
+                if (GetFirstAncestorOfType<MessagingView>() == null) return;
+
                 GetFirstAncestorOfType<MessagingView>().Q<ContactList>().ContactListEntries.ForEach(entry =>
                 {
-                    if (entry.UserProfile.Id == userProfile.Id)
+                    if (entry.UserProfile != null && entry.UserProfile.Id == userProfile.Id)
                     {
                         entry.MarkAsRead();
                     }

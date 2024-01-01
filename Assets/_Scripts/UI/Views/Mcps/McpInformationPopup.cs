@@ -27,7 +27,7 @@ namespace UI.Views.Mcps
             Title.text = Localization.GetSentence(Sentence.McpsView.MAJOR_COLLECTION_POINT);
 
             CreateDetails();
-            CreateGraph();
+            // CreateGraph();
         }
 
         private void CreateDetails()
@@ -66,16 +66,16 @@ namespace UI.Views.Mcps
                 ? data.McpEmptyRecords.Last().Timestamp.ToLocalTime().ToString("hh:mmtt dd/MM/yy")
                 : Localization.GetSentence(Sentence.McpsView.NEVER));
 
-            var timestamps = new List<DateTime>();
-            var values = new List<float>();
-            data.McpFillLevelLogs = data.McpFillLevelLogs.OrderBy(log => log.Timestamp).ToList();
-            foreach (var fillLevelLog in data.McpFillLevelLogs)
-            {
-                timestamps.Add(fillLevelLog.Timestamp);
-                values.Add(fillLevelLog.McpFillLevel / 100f);
-            }
-
-            _fillLevelGraph.UpdateAreaGraph(timestamps, values);
+            // var timestamps = new List<DateTime>();
+            // var values = new List<float>();
+            // data.McpFillLevelLogs = data.McpFillLevelLogs.OrderBy(log => log.Timestamp).ToList();
+            // foreach (var fillLevelLog in data.McpFillLevelLogs)
+            // {
+            //     timestamps.Add(fillLevelLog.Timestamp);
+            //     values.Add(fillLevelLog.McpFillLevel / 100f);
+            // }
+            //
+            // _fillLevelGraph.UpdateAreaGraph(timestamps, values);
         }
     }
 }

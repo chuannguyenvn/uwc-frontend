@@ -1,4 +1,5 @@
 ﻿using Commons.Communications.Reports;
+using Commons.Types;
 using LocalizationNS;
 using UnityEngine;
 
@@ -34,7 +35,15 @@ namespace UI.Views.Reports.Cards
         public override void UpdateData(GetDashboardReportResponse response)
         {
             _currentTemperatureDataUnit.UpdateValue(Mathf.Round(response.CurrentTemperature * 2) / 2, -1f);
-            _chanceOfPrecipitationDataUnit.UpdateValue(response.ChanceOfPrecipitation.ToString());
+            var precipitationText = response.ChanceOfPrecipitation switch
+            {
+                ChanceOfPrecipitation.None => Localization.GetSentence(Sentence.ReportingView.PRECIPITATION_CHANCE_NONE),
+                ChanceOfPrecipitation.Slight => Localization.GetSentence(Sentence.ReportingView.PRECIPITATION_CHANCE_SLIGHT),
+                ChanceOfPrecipitation.Moderate => Localization.GetSentence(Sentence.ReportingView.PRECIPITATION_CHANCE_MODERATE),
+                ChanceOfPrecipitation.High => Localization.GetSentence(Sentence.ReportingView.PRECIPITATION_CHANCE_HIGH),
+                _ => throw new System.NotImplementedException()
+            };
+            _chanceOfPrecipitationDataUnit.UpdateValue(precipitationText);
         }
     }
 }
