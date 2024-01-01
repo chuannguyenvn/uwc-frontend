@@ -1,10 +1,13 @@
 ﻿using System;
 using Commons.Models;
+using Commons.Types;
 using LocalizationNS;
 using UI.Reusables.Procedure;
 using UI.Views.Workers;
+using UnityEngine;
 using UnityEngine.UIElements;
 using Utilities;
+using Step = UI.Reusables.Procedure.Step;
 
 namespace UI.Views.Mcps.AssignTaskProcedure
 {
@@ -22,7 +25,7 @@ namespace UI.Views.Mcps.AssignTaskProcedure
 
         private WorkersView _workersView;
 
-        public ChooseWorkerStep(Flow flow, int stepIndex) : base(flow, stepIndex, true,
+        public ChooseWorkerStep(Flow flow, int stepIndex) : base(flow, stepIndex, false,
             Localization.GetSentence(Sentence.TasksView.CHOOSE_THE_WORKERS_TO_ASSIGN),
             Localization.GetSentence(Sentence.TasksView.LEAVE_THIS_STEP_EMPTY_IF_YOU_WANT_TO_ASSIGN_THE_TASK_TO_ALL_WORKERS))
         {
@@ -40,7 +43,13 @@ namespace UI.Views.Mcps.AssignTaskProcedure
 
         protected override bool CheckStepCompletion()
         {
-            return true;
+            Debug.Log("SetAssigningOptionsStep.RoutingOptimizationScope != RoutingOptimizationScope.All: " +
+                      (SetAssigningOptionsStep.RoutingOptimizationScope != RoutingOptimizationScope.All));
+
+            Debug.Log("WorkerId != -1: " + (WorkerId != -1));
+
+            return SetAssigningOptionsStep.RoutingOptimizationScope != RoutingOptimizationScope.All ||
+                   WorkerId != -1;
         }
 
         protected override void Activate()

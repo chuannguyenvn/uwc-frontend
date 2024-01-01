@@ -39,7 +39,7 @@ namespace UI.Reusables.Procedure
 
             CreateTitle();
             CreateStep();
-            
+
             MarkActive(false);
         }
 
@@ -118,7 +118,7 @@ namespace UI.Reusables.Procedure
             UnregisterCallback<KeyDownEvent>(TriggerCheckFlowCompletion);
 
             MarkActive(false);
-            if (_isInteracted && (CheckStepCompletion() || (_completeImmediately && !IsCompleted))) MarkComplete(true);
+            RefrestCompleteStatus();
 
             _flow.CheckFlowCompletion();
         }
@@ -168,6 +168,11 @@ namespace UI.Reusables.Procedure
                 _stepTitleText.RemoveFromClassList("grey-text");
                 _stepTitleText.AddToClassList("black-text");
             }
+        }
+
+        public void RefrestCompleteStatus()
+        {
+            MarkComplete(_isInteracted && (CheckStepCompletion() || (_completeImmediately && !IsCompleted)));
         }
 
         public virtual void Reset()

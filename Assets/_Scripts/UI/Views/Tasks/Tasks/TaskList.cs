@@ -76,8 +76,6 @@ namespace UI.Views.Tasks.Tasks
                 task.McpData.Address = task.McpData.Address;
                 var newTask = new TaskListEntry(task);
                 _taskListEntries.Add(newTask);
-
-                if (task.TaskStatus == TaskStatus.InProgress) Debug.Log(JsonConvert.SerializeObject(task, Formatting.Indented));
             }
 
 

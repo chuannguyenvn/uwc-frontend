@@ -11,9 +11,9 @@ namespace UI.Views.Mcps.AssignTaskProcedure
     public class SetAssigningOptionsStep : Step
     {
         private SettingList _settingList;
-        public RoutingOptimizationScope RoutingOptimizationScope { get; private set; } = RoutingOptimizationScope.None;
+        public static RoutingOptimizationScope RoutingOptimizationScope { get; private set; } = RoutingOptimizationScope.None;
 
-        public AutoAssignmentOptimizationStrategy AutoAssignmentOptimizationStrategy { get; private set; } =
+        public static AutoAssignmentOptimizationStrategy AutoAssignmentOptimizationStrategy { get; private set; } =
             AutoAssignmentOptimizationStrategy.TimeEfficient;
 
         public SetAssigningOptionsStep(Flow flow, int stepIndex) : base(flow, stepIndex, false,
@@ -39,6 +39,7 @@ namespace UI.Views.Mcps.AssignTaskProcedure
                         {
                             RoutingOptimizationScope = RoutingOptimizationScope.None;
                             ChooseMcpsStep.IsOrdered = true;
+                            flow.RefreshCompletionStatus();
                         }
                     },
                     {
@@ -46,6 +47,7 @@ namespace UI.Views.Mcps.AssignTaskProcedure
                         {
                             RoutingOptimizationScope = RoutingOptimizationScope.Selected;
                             ChooseMcpsStep.IsOrdered = false;
+                            flow.RefreshCompletionStatus();
                         }
                     },
                     {
@@ -53,6 +55,7 @@ namespace UI.Views.Mcps.AssignTaskProcedure
                         {
                             RoutingOptimizationScope = RoutingOptimizationScope.All;
                             ChooseMcpsStep.IsOrdered = false;
+                            flow.RefreshCompletionStatus();
                         }
                     },
                 }, false));
@@ -68,11 +71,19 @@ namespace UI.Views.Mcps.AssignTaskProcedure
                 {
                     {
                         AutoAssignmentOptimizationStrategy.TimeEfficient.ToString(),
-                        () => AutoAssignmentOptimizationStrategy = AutoAssignmentOptimizationStrategy.TimeEfficient
+                        () =>
+                        {
+                            AutoAssignmentOptimizationStrategy = AutoAssignmentOptimizationStrategy.TimeEfficient;
+                            flow.RefreshCompletionStatus();
+                        }
                     },
                     {
                         AutoAssignmentOptimizationStrategy.CostOptimized.ToString(),
-                        () => AutoAssignmentOptimizationStrategy = AutoAssignmentOptimizationStrategy.CostOptimized
+                        () =>
+                        {
+                            AutoAssignmentOptimizationStrategy = AutoAssignmentOptimizationStrategy.CostOptimized;
+                            flow.RefreshCompletionStatus();
+                        }
                     },
                 }, false));
         }
@@ -85,7 +96,7 @@ namespace UI.Views.Mcps.AssignTaskProcedure
         public override void Reset()
         {
             base.Reset();
-            
+
             RoutingOptimizationScope = RoutingOptimizationScope.None;
             AutoAssignmentOptimizationStrategy = AutoAssignmentOptimizationStrategy.TimeEfficient;
             ChooseMcpsStep.IsOrdered = true;

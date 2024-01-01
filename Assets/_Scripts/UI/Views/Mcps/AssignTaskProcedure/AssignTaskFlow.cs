@@ -46,8 +46,8 @@ namespace UI.Views.Mcps.AssignTaskProcedure
                     AssigneeAccountId = ChooseWorkerStep.WorkerId != -1 ? ChooseWorkerStep.WorkerId : null,
                     McpDataIds = ChooseMcpsStep.ChosenMcpIds,
                     CompleteByTimestamp = _chooseDateTimeStep.SelectedDateTime,
-                    RoutingOptimizationScope = _setAssigningOptionsStep.RoutingOptimizationScope,
-                    AutoAssignmentOptimizationStrategy = _setAssigningOptionsStep.AutoAssignmentOptimizationStrategy
+                    RoutingOptimizationScope = SetAssigningOptionsStep.RoutingOptimizationScope,
+                    AutoAssignmentOptimizationStrategy = SetAssigningOptionsStep.AutoAssignmentOptimizationStrategy
                 }, success =>
                 {
                     Reset();

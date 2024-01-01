@@ -72,7 +72,6 @@ namespace Authentication
             await HubConnection.StartAsync();
 
             Initialized?.Invoke(response.InitializationData);
-            Debug.Log(JsonConvert.SerializeObject(response.InitializationData, Formatting.Indented));
 
             LoggedIn?.Invoke();
             Debug.Log("Successfully logged in with JWT: " + JWT + " and UserAccountId: " + UserAccountId);

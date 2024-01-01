@@ -76,6 +76,14 @@ namespace UI.Reusables.Procedure
             var isAnyStepActive = Steps.Any(step => step.IsActive);
             _expander.style.flexGrow = isAnyStepActive ? 0 : 1;
         }
+        
+        public void RefreshCompletionStatus()
+        {
+            foreach (var step in Steps)
+            {
+                step.RefrestCompleteStatus();
+            }
+        }
 
         protected abstract void SubmitResult(ClickEvent evt);
 
