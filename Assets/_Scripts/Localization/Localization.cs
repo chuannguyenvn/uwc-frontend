@@ -160,6 +160,8 @@ namespace LocalizationNS
             { Sentence.SettingsView.ONLINE_STATUS, new LocalizationUnit("Online status", "Trạng thái trực tuyến") },
             { Sentence.SettingsView.ONLINE, new LocalizationUnit("Online", "Trực tuyến") },
             { Sentence.SettingsView.OFFLINE, new LocalizationUnit("Offline", "Ngoại tuyến") },
+            { Sentence.SettingsView.TASKS_ASSIGNMENT_POLICIES_SETTINGS, new LocalizationUnit("Tasks assignment policies", "Tạo nhiệm vụ") },
+            { Sentence.SettingsView.USE_AUTO_TASKS_ASSIGNMENT, new LocalizationUnit("Auto tasks assignment", "Tạo nhiệm vụ tự động") },
             { Sentence.SettingsView.EXPORT_MESSAGES, new LocalizationUnit("Export messages", "Xuất tin nhắn") },
             { Sentence.SettingsView.EXPORT_WORK_LOGS, new LocalizationUnit("Export work logs", "Xuất nhật ký công việc") },
             { Sentence.SettingsView.CHANGE_PERSONAL_INFORMATION, new LocalizationUnit("Change personal information", "Thay đổi thông tin cá nhân") },

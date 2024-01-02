@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using Commons.Communications.Reports;
+using Commons.Communications.Tasks;
 using Commons.Endpoints;
 using Commons.Models;
 using Commons.Types.SettingOptions;
@@ -30,6 +31,7 @@ namespace UI.Views.Settings
 
             CreateSettings();
             CreateNotificationSettings();
+            CreateTasksAssignmentPoliciesSettings();
             CreateAccountSettings();
             CreateRegisterForFacialRecognitionView();
 
@@ -240,6 +242,42 @@ namespace UI.Views.Settings
             _settingList.Add(new TriggerSettingListEntry(Localization.GetSentence(Sentence.SettingsView.REPORT_PROBLEM), () => { }));
 
             _settingList.Add(new TriggerSettingListEntry(Localization.GetSentence(Sentence.SettingsView.LOGOUT), () => { }, true));
+        }
+
+        private void CreateTasksAssignmentPoliciesSettings()
+        {
+            if (!Configs.IS_DESKTOP) return;
+
+            _settingList.Add(new SectionHeader(Localization.GetSentence(Sentence.SettingsView.TASKS_ASSIGNMENT_POLICIES_SETTINGS)));
+
+            _settingList.Add(new ChoiceSettingListEntry(Localization.GetSentence(Sentence.SettingsView.USE_AUTO_TASKS_ASSIGNMENT),
+                () => Setting.IsAutoTaskDistributionEnabled.ToString(), new List<string>()
+                {
+                    Sentence.SettingsView.ON,
+                    Sentence.SettingsView.OFF,
+                }, new Dictionary<string, Action>
+                {
+                    {
+                        ToggleOption.On.ToString(), () =>
+                        {
+                            DataStoreManager.Instance.StartCoroutine(RequestHelper.SendPostRequest(Endpoints.TaskData.ToggleAutoTaskDistribution,
+                                new ToggleAutoTaskDistributionRequest
+                                {
+                                    IsOn = true,
+                                }));
+                        }
+                    },
+                    {
+                        ToggleOption.Off.ToString(), () =>
+                        {
+                            DataStoreManager.Instance.StartCoroutine(RequestHelper.SendPostRequest(Endpoints.TaskData.ToggleAutoTaskDistribution,
+                                new ToggleAutoTaskDistributionRequest
+                                {
+                                    IsOn = false,
+                                }));
+                        }
+                    },
+                }));
         }
 
         private void CreateRegisterForFacialRecognitionView()

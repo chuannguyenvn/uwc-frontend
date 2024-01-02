@@ -154,6 +154,8 @@
             public const string ONLINE_STATUS = "Settings.OnlineStatus";
             public const string ONLINE = "Settings.Online";
             public const string OFFLINE = "Settings.Offline";
+            public const string TASKS_ASSIGNMENT_POLICIES_SETTINGS = "Settings.TasksAssignmentPoliciesSettings";
+            public const string USE_AUTO_TASKS_ASSIGNMENT = "Settings.UseAutoTasksAssignment";
             public const string EXPORT_MESSAGES = "Settings.ExportMessages";
             public const string EXPORT_WORK_LOGS = "Settings.ExportWorkLogs";
             public const string CHANGE_PERSONAL_INFORMATION = "Settings.ChangePersonalInformation";
