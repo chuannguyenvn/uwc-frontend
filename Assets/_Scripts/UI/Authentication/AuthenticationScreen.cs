@@ -1,7 +1,14 @@
-﻿using Authentication;
+﻿using System;
+using System.Collections.Generic;
+using System.Threading.Tasks;
+using Authentication;
+using Commons.Communications.Authentication;
+using Commons.Endpoints;
 using LocalizationNS;
+using Requests;
 using Settings;
 using UI.Base;
+using UnityEngine;
 using UnityEngine.UIElements;
 
 namespace UI.Authentication
@@ -16,6 +23,7 @@ namespace UI.Authentication
         private TextField _passwordTextField;
         private Button _loginButton;
         private Button _forgotPasswordButton;
+        private VisualElement _faceRecognitionLogo;
 
         // Splash
         private VisualElement _splashContainer;
@@ -80,6 +88,46 @@ namespace UI.Authentication
             _forgotPasswordButton.AddToClassList("grey-text");
             _forgotPasswordButton.text = Localization.GetSentence(Sentence.AuthenticationView.FORGOT_PASSWORD);
             _loginElementsContainer.Add(_forgotPasswordButton);
+
+            if (!Configs.IS_DESKTOP)
+            {
+                _faceRecognitionLogo = new VisualElement { name = "FaceRecognitionLogo" };
+                _faceRecognitionLogo.style.opacity = 0f;
+                Add(_faceRecognitionLogo);
+
+                _faceRecognitionLogo.schedule.Execute(async () =>
+                {
+                    var time = 0f;
+                    var sendFaceTimer = 2000f;
+                    await Task.Delay(1000);
+
+                    while (true)
+                    {
+                        _faceRecognitionLogo.style.opacity = Mathf.Sin(time / 200f);
+                        time += 20f;
+                        sendFaceTimer -= 20f;
+
+                        if (sendFaceTimer <= 0f)
+                        {
+                            sendFaceTimer = 2000f;
+                            DataStoreManager.Instance.StartCoroutine(RequestHelper.SendPostRequest<LoginResponse>(
+                                Endpoints.Authentication.LoginWithFace,
+                                new LoginWithFaceRequest
+                                {
+                                    Username = "driver_driver",
+                                    Images = new List<byte[]>
+                                    {
+                                    }
+                                }, (success, result) =>
+                                {
+                                    if (success) AuthenticationManager.Instance.SuccessfulLoginHandler(result);
+                                }));
+                        }
+
+                        await Task.Delay(20);
+                    }
+                });
+            }
         }
 
         private void CreateSplash()

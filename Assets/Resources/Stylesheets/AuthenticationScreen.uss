@@ -128,3 +128,12 @@
 .mobile #SplashContainer {
     display: none;
 }
+
+#FaceRecognitionLogo {
+    background-image: url('project://database/Assets/Graphics/Icons/face-reg.svg');
+    width: 150px;
+    height: 150px;
+    position: absolute;
+    top: 100px;
+    -unity-background-image-tint-color: rgba(255, 255, 255, 1);
+}

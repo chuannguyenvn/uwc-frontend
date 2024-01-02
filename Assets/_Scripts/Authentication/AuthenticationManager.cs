@@ -59,7 +59,7 @@ namespace Authentication
             HubConnection?.DisposeAsync();
         }
 
-        private async void SuccessfulLoginHandler(LoginResponse response)
+        public async void SuccessfulLoginHandler(LoginResponse response)
         {
             JWT = response.Credentials.JwtToken;
             UserAccountId = response.Credentials.AccountId;
