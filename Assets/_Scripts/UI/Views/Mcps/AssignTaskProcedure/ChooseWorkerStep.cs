@@ -48,7 +48,7 @@ namespace UI.Views.Mcps.AssignTaskProcedure
 
             Debug.Log("WorkerId != -1: " + (WorkerId != -1));
 
-            return SetAssigningOptionsStep.RoutingOptimizationScope != RoutingOptimizationScope.All ||
+            return SetAssigningOptionsStep.RoutingOptimizationScope == RoutingOptimizationScope.All ||
                    WorkerId != -1;
         }
 
