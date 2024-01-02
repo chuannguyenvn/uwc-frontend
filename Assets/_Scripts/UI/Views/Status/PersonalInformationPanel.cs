@@ -37,5 +37,15 @@ namespace UI.Views.Status
             _nameText.text = "Placeholder Name";
             Add(_nameText);
         }
+
+        public void SetNameText(string name)
+        {
+            _nameText.text = name;
+        }
+
+        public void SetRoleText(UserRole role)
+        {
+            _roleText.text = Localization.GetUserRole(role);
+        }
     }
 }

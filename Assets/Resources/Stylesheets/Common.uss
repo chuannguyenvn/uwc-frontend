@@ -3,7 +3,7 @@
     --grey-color: rgb(213, 213, 213);
     --black-text-color: rgb(0, 0, 0);
     --grey-text-color: rgb(102, 102, 102);
-    --red-text-color: rgb(98, 14, 8);
+    --red-text-color: rgb(241, 35, 21);
     --white-text-color: rgb(255, 255, 255);
     --mcp-full-color: rgb(225, 27, 13);
     --mcp-almost-full-color: rgb(241, 209, 2);

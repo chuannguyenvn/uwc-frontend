@@ -4,3 +4,22 @@
     padding-right: 24px;
     padding-left: 24px;
 }
+
+#AddressContainer {
+    align-items: center;
+}
+
+#DobAndGenderContainer {
+    flex-direction: row;
+    justify-content: space-around;
+}
+
+#DobContainer {
+    flex-grow: 1;
+    align-items: center;
+}
+
+#GenderContainer {
+    flex-grow: 1;
+    align-items: center;
+}

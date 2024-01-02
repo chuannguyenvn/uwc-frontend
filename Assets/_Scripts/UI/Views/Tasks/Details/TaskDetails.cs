@@ -25,6 +25,7 @@ namespace UI.Views.Tasks.Details
         private PanelList _panelList;
         private DestinationPanel _destinationPanel;
         private CurrentLoadPanel _currentLoadPanel;
+        private CompleteByPanel _completeByPanel;
         private EmptyingLogPanel _emptyingLogPanel;
 
         // Buttons
@@ -59,6 +60,9 @@ namespace UI.Views.Tasks.Details
 
             _currentLoadPanel = new CurrentLoadPanel();
             _panelList.AddPanel(_currentLoadPanel);
+
+            _completeByPanel = new CompleteByPanel();
+            _panelList.AddPanel(_completeByPanel);
 
             _emptyingLogPanel = new EmptyingLogPanel();
             _panelList.AddPanel(_emptyingLogPanel);
@@ -183,6 +187,7 @@ namespace UI.Views.Tasks.Details
 
             _destinationPanel.SetAddressText(taskData.McpData.Address);
             _currentLoadPanel.SetCurrentLoadText(DataStoreManager.Mcps.FillLevel.Data.FillLevelsById[_taskData.McpData.Id]);
+            _completeByPanel.SetCompleteByText(taskData.CompleteByTimestamp.ToLocalTime());
 
             DataStoreManager.Instance.StartCoroutine(RequestHelper.SendPostRequest<GetEmptyRecordsResponse>(Endpoints.McpData.GetEmptyRecords,
                 new GetEmptyRecordsRequest

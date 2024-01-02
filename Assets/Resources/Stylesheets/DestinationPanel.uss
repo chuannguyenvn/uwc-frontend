@@ -8,9 +8,11 @@
 }
 
 #DistanceContainer {
+    flex-grow: 1;
     align-items: center;
 }
 
 #EtaContainer {
+    flex-grow: 1;
     align-items: center;
 }

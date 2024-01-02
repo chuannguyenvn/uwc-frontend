@@ -1,4 +1,5 @@
-﻿using Authentication;
+﻿using System;
+using Authentication;
 using Commons.Communications.Tasks;
 using Commons.Endpoints;
 using Commons.Types;
@@ -39,13 +40,25 @@ namespace UI.Views.Mcps.AssignTaskProcedure
 
         protected override void SubmitResult(ClickEvent evt)
         {
+            var dateTime = _chooseDateTimeStep.SelectedDateTime;
+            int minutes = dateTime.Minute;
+            int remainder = minutes % 15;
+            int minutesToAdd = 15 - remainder;
+
+            if (remainder != 0)
+            {
+                dateTime = dateTime.AddMinutes(minutesToAdd);
+            }
+
+            dateTime = new DateTime(dateTime.Year, dateTime.Month, dateTime.Day, dateTime.Hour, dateTime.Minute, 0);
+            
             DataStoreManager.Instance.StartCoroutine(RequestHelper.SendPostRequest(Endpoints.TaskData.AddTask,
                 new AddTasksRequest
                 {
                     AssignerAccountId = AuthenticationManager.Instance.UserAccountId,
                     AssigneeAccountId = ChooseWorkerStep.WorkerId != -1 ? ChooseWorkerStep.WorkerId : null,
                     McpDataIds = ChooseMcpsStep.ChosenMcpIds,
-                    CompleteByTimestamp = _chooseDateTimeStep.SelectedDateTime,
+                    CompleteByTimestamp = dateTime.ToUniversalTime(),
                     RoutingOptimizationScope = SetAssigningOptionsStep.RoutingOptimizationScope,
                     AutoAssignmentOptimizationStrategy = SetAssigningOptionsStep.AutoAssignmentOptimizationStrategy
                 }, success =>
