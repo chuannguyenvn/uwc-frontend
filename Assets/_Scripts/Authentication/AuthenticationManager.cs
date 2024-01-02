@@ -21,7 +21,7 @@ namespace Authentication
         public event Action<InitializationData> Initialized;
 
         public string JWT { get; private set; }
-        public int UserAccountId { get; private set; }
+        public int UserAccountId { get; private set; } = -1;
 
         public HubConnection HubConnection { get; private set; }
 

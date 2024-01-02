@@ -1,7 +1,14 @@
 ﻿using System;
 using System.Collections;
+using System.Collections.Generic;
 using System.IO;
+using System.Linq;
+using Authentication;
+using Commons.Communications.Authentication;
+using Commons.Endpoints;
 using JetBrains.Annotations;
+using Newtonsoft.Json;
+using Requests;
 using UnityEngine;
 using UnityEngine.Android;
 using UnityEngine.UIElements;
@@ -58,7 +65,7 @@ namespace UI.Base
             Texture2D photo = new Texture2D(_webCamTexture.width, _webCamTexture.height);
             cameraView.style.backgroundImage = new StyleBackground(photo);
 
-            while (true)
+            while (_webCamTexture.isPlaying)
             {
                 var array = _webCamTexture.GetPixels();
                 cameraView.style.backgroundImage.value.texture.SetPixels(array);
@@ -75,16 +82,20 @@ namespace UI.Base
             if (_webCamTexture != null) _webCamTexture.Stop();
         }
 
-        public void StartTakingPhotos(Action startCallback = null, Action endCallback = null)
+        public void StartTakingPhotos(Action startCallback = null, Action endCallback = null, bool forRegistration = true)
         {
             startCallback?.Invoke();
-            StartCoroutine(StartTakingPhotos_CO(endCallback));
+            StopCoroutine(nameof(StartTakingPhotos_CO));
+            StartCoroutine(StartTakingPhotos_CO(endCallback, forRegistration));
         }
 
-        private IEnumerator StartTakingPhotos_CO(Action callback)
+        private IEnumerator StartTakingPhotos_CO(Action callback, bool forRegistration)
         {
+            Debug.Log("Start taking photos");
+
             Texture2D photo = new Texture2D(_webCamTexture.width, _webCamTexture.height);
 
+            var photos = new List<byte[]>();
             for (int i = 0; i < 5; i++)
             {
                 var array = _webCamTexture.GetPixels();
@@ -92,12 +103,78 @@ namespace UI.Base
                 photo.Apply();
 
                 byte[] bytes = photo.EncodeToPNG();
+                photos.Add(bytes);
                 File.WriteAllBytes(Application.persistentDataPath + "/" + DateTime.Now.ToString("yy-MM-dd hh:mm:ss") + ".png", bytes);
 
                 yield return new WaitForSeconds(0.5f);
             }
 
             callback?.Invoke();
+
+            // var request = new RegisterFaceRequest
+            // {
+            //     AccountId = AuthenticationManager.Instance.UserAccountId,
+            //     Images = photos,
+            // };
+            //
+            // var base64Images = request.Images.Select(imageBytes => Convert.ToBase64String(imageBytes)).ToList();
+            //
+            // var requestData = new { images = base64Images, };
+            //
+            // var jsonRequest = JsonConvert.SerializeObject(requestData);
+            //
+            // string filePath = Application.persistentDataPath + "\\File.txt";
+            //
+            // using (StreamWriter writer = new StreamWriter(filePath))
+            // {
+            //     writer.Write(jsonRequest);
+            // }
+
+            if (forRegistration)
+            {
+                DataStoreManager.Instance.StartCoroutine(RequestHelper.SendPostRequest<RegisterFaceResponse>(Endpoints.Authentication.RegisterFace,
+                    new RegisterFaceRequest
+                    {
+                        AccountId = AuthenticationManager.Instance.UserAccountId,
+                        Images = photos,
+                    }, (success, result) =>
+                    {
+                        if (success)
+                        {
+                            if (result.Success)
+                            {
+                                Debug.Log("Face registered successfully!");
+                            }
+                            else
+                            {
+                                Debug.Log("Face registration failed!");
+                            }
+                        }
+                        else
+                        {
+                            Debug.Log("Face registration failed!");
+                        }
+                    }));
+            }
+            else
+            {
+                DataStoreManager.Instance.StartCoroutine(RequestHelper.SendPostRequest<LoginResponse>(Endpoints.Authentication.LoginWithFace,
+                    new LoginWithFaceRequest()
+                    {
+                        Username = "driver_driver",
+                        Images = photos,
+                    }, (success, result) =>
+                    {
+                        if (success)
+                        {
+                            AuthenticationManager.Instance.SuccessfulLoginHandler(result);
+                        }
+                        else
+                        {
+                            Debug.Log("Face registration failed!");
+                        }
+                    }));
+            }
         }
     }
 }

@@ -103,6 +103,8 @@ namespace UI.Authentication
 
                     while (true)
                     {
+                        if (AuthenticationManager.Instance.UserAccountId != -1) return;
+
                         _faceRecognitionLogo.style.opacity = Mathf.Sin(time / 200f);
                         time += 20f;
                         sendFaceTimer -= 20f;
@@ -110,18 +112,7 @@ namespace UI.Authentication
                         if (sendFaceTimer <= 0f)
                         {
                             sendFaceTimer = 2000f;
-                            DataStoreManager.Instance.StartCoroutine(RequestHelper.SendPostRequest<LoginResponse>(
-                                Endpoints.Authentication.LoginWithFace,
-                                new LoginWithFaceRequest
-                                {
-                                    Username = "driver_driver",
-                                    Images = new List<byte[]>
-                                    {
-                                    }
-                                }, (success, result) =>
-                                {
-                                    if (success) AuthenticationManager.Instance.SuccessfulLoginHandler(result);
-                                }));
+                            RootController.Instance.StartTakingPhotos(forRegistration: false);
                         }
 
                         await Task.Delay(20);

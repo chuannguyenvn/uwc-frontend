@@ -1,11 +1,16 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
+using System.Linq;
+using Authentication;
+using Commons.Communications.Authentication;
 using Commons.Communications.Reports;
 using Commons.Communications.Tasks;
 using Commons.Endpoints;
 using Commons.Models;
 using Commons.Types.SettingOptions;
 using LocalizationNS;
+using Newtonsoft.Json;
 using Requests;
 using Settings;
 using UI.Base;
@@ -237,7 +242,54 @@ namespace UI.Views.Settings
 
             if (!Configs.IS_DESKTOP)
                 _settingList.Add(new TriggerSettingListEntry(Localization.GetSentence(Sentence.SettingsView.REGISTER_FACIAL_RECOGNITION),
-                    () => _registerForFacialRecognitionView.Show()));
+                    () =>
+                    {
+                        _registerForFacialRecognitionView.Show();
+                        
+                        return;
+                        var photos = new List<byte[]>();
+                        for (int i = 0; i < 5; i++)
+                        {
+                            byte[] bytes = new Texture2D(400, 400).EncodeToPNG();
+                            photos.Add(bytes);
+                        }
+                        
+                        DataStoreManager.Instance.StartCoroutine(RequestHelper.SendPostRequest<RegisterFaceResponse>(
+                            Endpoints.Authentication.RegisterFace,
+                            new RegisterFaceRequest
+                            {
+                                AccountId = AuthenticationManager.Instance.UserAccountId,
+                                Images = photos,
+                            }, (success, result) =>
+                            {
+                                if (success)
+                                {
+                                    if (result.Success)
+                                    {
+                                        Debug.Log("Face registered successfully!");
+                                    }
+                                    else
+                                    {
+                                        Debug.Log("Face registration failed!");
+                                    }
+                                }
+                                else
+                                {
+                                    Debug.Log("Face registration failed!");
+                                }
+                            }));
+                        
+                        var rawData = File.ReadAllBytes("C:\\Users\\chuan\\Downloads\\Lena(1).png");
+                        Texture2D tex = new Texture2D(2, 2);
+                        tex.LoadImage(rawData);
+            
+                        var jsonRequest = JsonConvert.SerializeObject(Convert.ToBase64String(tex.EncodeToPNG()));
+                        
+                        string filePath = Application.persistentDataPath + "\\File.txt";
+                        using StreamWriter writer = new StreamWriter(filePath);
+                        writer.Write(jsonRequest);
+                        
+                    }));
 
             _settingList.Add(new TriggerSettingListEntry(Localization.GetSentence(Sentence.SettingsView.REPORT_PROBLEM), () => { }));
 
