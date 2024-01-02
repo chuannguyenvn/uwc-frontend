@@ -8,6 +8,7 @@ using Requests;
 using Settings;
 using UI.Base;
 using UI.Reusables;
+using UI.Views.Messaging.Contacts;
 using UnityEngine.UIElements;
 using Utilities;
 
@@ -40,7 +41,7 @@ namespace UI.Views.Messaging.Inbox
             var otherUserProfileId = DataStoreManager.Messaging.InboxMessageList.OtherUserProfile.Id;
             if (data.Messages.Count == 0) return;
             if (data.Messages[0].SenderProfileId != otherUserProfileId && data.Messages[0].ReceiverProfileId != otherUserProfileId) return;
-            if (!Configs.IS_DESKTOP && GetFirstAncestorOfType<InboxContainer>().style.display == DisplayStyle.None) return;
+            if (!Configs.IS_DESKTOP && ContactList.IsShow) return;
 
             var isJustSentMessage = data.Messages.Count == 1 && data.Messages[0].Timestamp > DateTime.Now.AddSeconds(-5);
 

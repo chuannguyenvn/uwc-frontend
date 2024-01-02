@@ -30,6 +30,11 @@
 .contact-list-entry #PreviewText {
     text-overflow: ellipsis;
     overflow: hidden;
+    -unity-font-definition: url('project://database/Assets/Graphics/Fonts/OpenSans/OpenSans-Bold.ttf?fileID=12800000&guid=68e7b07bba1bee2448945f56641bd1fd&type=3#OpenSans-Bold');
+}
+
+.contact-list-entry.read #PreviewText {
+    -unity-font-definition: url('project://database/Assets/Graphics/Fonts/OpenSans/OpenSans-Light.ttf?fileID=12800000&guid=200405e1ec83b2f4f8665582ba6ca522&type=3#OpenSans-Light');
 }
 
 .desktop .contact-list-entry #PreviewText {

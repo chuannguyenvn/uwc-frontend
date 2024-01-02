@@ -47,12 +47,14 @@ namespace UI.Views.Messaging
 
         public void MobileShowInbox()
         {
+            ContactList.IsShow = false;
             _contactList.style.display = DisplayStyle.None;
             _inboxContainer.style.display = DisplayStyle.Flex;
         }
 
         public void MobileShowContactList()
         {
+            ContactList.IsShow = true;
             _contactList.style.display = DisplayStyle.Flex;
             _inboxContainer.style.display = DisplayStyle.None;
         }

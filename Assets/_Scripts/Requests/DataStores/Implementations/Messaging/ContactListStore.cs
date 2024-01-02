@@ -12,7 +12,7 @@ namespace Requests.DataStores.Implementations.Messaging
 {
     public class ContactListStore : ServerSendInBackgroundDataStore<GetPreviewMessagesResponse>
     {
-        public event Action<SendMessageBroadcastData> UserSentMessages;
+        public Action<SendMessageBroadcastData> UserSentMessages;
         public event Action<int> UserIdReadMessages;
 
         protected override IEnumerator CreateRequest(Action callback)
@@ -41,12 +41,6 @@ namespace Requests.DataStores.Implementations.Messaging
                 {
                     DataStoreManager.Instance.ScheduleOnMainThread(() => UserSentMessages?.Invoke(data));
                 });
-
-            // AuthenticationManager.Instance.HubConnection.On(HubHandlers.Messaging.READ_MESSAGE,
-            //     (ReadAllMessagesBroadcastData data) =>
-            //     {
-            //         DataStoreManager.Instance.ScheduleOnMainThread(() => UserIdReadMessages?.Invoke(data.ReceiverId));
-            //     });
         }
     }
 }

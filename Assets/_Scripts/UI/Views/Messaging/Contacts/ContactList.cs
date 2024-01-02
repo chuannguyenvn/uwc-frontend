@@ -13,6 +13,8 @@ namespace UI.Views.Messaging.Contacts
 {
     public class ContactList : View
     {
+        public static bool IsShow = true;
+
         private ListControl _listControl;
         private ScrollViewWithShadow _scrollView;
 
@@ -29,6 +31,10 @@ namespace UI.Views.Messaging.Contacts
             CreateScrollView();
 
             DataStoreManager.Messaging.ContactList.DataUpdated += DataUpdatedHandler;
+            DataStoreManager.Messaging.InboxMessageList.DataUpdated += _ =>
+            {
+                DataStoreManager.Messaging.ContactList.SendRequest(() => { DataUpdatedHandler(DataStoreManager.Messaging.ContactList.Data); });
+            };
         }
 
         ~ContactList()
@@ -59,8 +65,8 @@ namespace UI.Views.Messaging.Contacts
                 ContactListEntries.Add(entry);
                 _scrollView.AddToScrollView(entry);
             }
-            
-            if (_firstTime && data.FullNames.Count > 0)
+
+            if (Configs.IS_DESKTOP && _firstTime && data.FullNames.Count > 0)
             {
                 GetFirstAncestorOfType<MessagingView>().Q<InboxContainer>().SwitchInbox(ContactListEntries[0].UserProfile);
                 _firstTime = false;

@@ -18,6 +18,8 @@ namespace UI.Views.Messaging.Contacts
         public string FullName => UserProfile.FirstName + " " + UserProfile.LastName;
         public string PreviewMessage { get; }
 
+        private DateTime _lastMessageTimestamp;
+
         // Avatar
         private TextElement _avatar;
 
@@ -29,6 +31,8 @@ namespace UI.Views.Messaging.Contacts
         public ContactListEntry(Message message) : base(
             nameof(ContactListEntry))
         {
+            _lastMessageTimestamp = message.Timestamp;
+
             UserProfile = message.SenderProfileId == AuthenticationManager.Instance.UserAccountId
                 ? message.ReceiverUserProfile
                 : message.SenderUserProfile;
@@ -45,6 +49,7 @@ namespace UI.Views.Messaging.Contacts
             CreateDetails(UserProfile.FirstName + " " + UserProfile.LastName, message.Content, message.Timestamp,
                 message.SenderProfileId == AuthenticationManager.Instance.UserAccountId);
 
+            if (message.IsSeen || message.SenderProfileId == AuthenticationManager.Instance.UserAccountId) MarkAsRead();
             RegisterCallbacks();
 
             DataStoreManager.Messaging.ContactList.UserSentMessages += UserSentMessagesHandler;
@@ -54,8 +59,9 @@ namespace UI.Views.Messaging.Contacts
         {
             if (data.Messages.Count == 0) return;
             var latestMessage = data.Messages.OrderByDescending(message => message.Timestamp).First();
-            if (latestMessage.ReceiverProfileId != UserProfile.Id) return;
+            if (latestMessage.ReceiverProfileId != UserProfile.Id && latestMessage.SenderProfileId != UserProfile.Id) return;
 
+            if (latestMessage.IsSeen || latestMessage.SenderProfileId == AuthenticationManager.Instance.UserAccountId) MarkAsRead();
             schedule.Execute(() =>
             {
                 UpdateDetails(latestMessage.Content, latestMessage.Timestamp,
@@ -96,8 +102,10 @@ namespace UI.Views.Messaging.Contacts
         {
             RegisterCallback<ClickEvent>(_ =>
             {
-                if (DataStoreManager.Messaging.InboxMessageList.OtherUserProfile != null && UserProfile != null &&
-                    DataStoreManager.Messaging.InboxMessageList.OtherUserProfile.Id == UserProfile.Id) return;
+                // if (DataStoreManager.Messaging.InboxMessageList.OtherUserProfile != null && UserProfile != null &&
+                //     (Configs.IS_DESKTOP && DataStoreManager.Messaging.InboxMessageList.OtherUserProfile.Id == UserProfile.Id)) return;
+
+                ContactList.IsShow = false;
 
                 GetFirstAncestorOfType<MessagingView>().Q<InboxContainer>().SwitchInbox(UserProfile, () =>
                 {
@@ -108,17 +116,28 @@ namespace UI.Views.Messaging.Contacts
 
         private void UpdateDetails(string content, DateTime timestamp, bool isFromUser)
         {
+            if (timestamp <= _lastMessageTimestamp) return;
+            _lastMessageTimestamp = timestamp;
+
             var previewText = timestamp.ToLocalTime().ToString(DateTime.Now.Date == timestamp.Date ? "HH:mmtt" : "HH:mmtt dd/MM") + " | " +
                               (isFromUser ? "You: " : "") + content;
+
+            _previewText.text = previewText;
+
             if (!isFromUser && DataStoreManager.Messaging.InboxMessageList.OtherUserProfile != null &&
                 DataStoreManager.Messaging.InboxMessageList.OtherUserProfile.Id != UserProfile.Id)
-                _previewText.text = $"<b>{previewText}</b>";
-            else _previewText.text = previewText;
+            {
+                EnableInClassList("read", false);
+            }
+            else
+            {
+                EnableInClassList("read", true);
+            }
         }
 
         public void MarkAsRead()
         {
-            _previewText.text = _previewText.text.Replace("<b>", "").Replace("</b>", "");
+            EnableInClassList("read", true);
         }
     }
 }

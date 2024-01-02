@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections;
+using System.Collections.Generic;
 using Authentication;
 using Commons.Communications.Messages;
 using Commons.Endpoints;
@@ -71,6 +72,21 @@ namespace Requests.DataStores.Implementations.Messaging
 
             Data.IsContinuous = true;
             OnDataUpdated(Data);
+
+            DataStoreManager.Instance.ScheduleOnMainThread(() => DataStoreManager.Messaging.ContactList.UserSentMessages?.Invoke(
+                new SendMessageBroadcastData
+                {
+                    Messages = new List<Message>()
+                    {
+                        new Message
+                        {
+                            SenderProfileId = AuthenticationManager.Instance.UserAccountId,
+                            ReceiverProfileId = OtherUserProfile.Id,
+                            Content = content,
+                            Timestamp = DateTime.UtcNow
+                        }
+                    },
+                }));
 
             SendRequest(RequestHelper.SendPostRequest(
                 Endpoints.Messaging.SendMessage,
