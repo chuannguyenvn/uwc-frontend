@@ -56,12 +56,48 @@ namespace Maps
 
         private OnlineMapsDrawingPoly _selfLocation;
 
+        private bool _focusModeOn = false;
+
+        public bool FocusModeOn
+        {
+            get => _focusModeOn;
+            set
+            {
+                _focusModeOn = value;
+                if (Configs.IS_DESKTOP) return;
+                
+                DrawWorkerRoute();
+
+                if (!_focusModeOn)
+                {
+                    foreach (var (id, marker) in _mcpMarkers)
+                    {
+                        marker.enabled = true;
+                    }
+
+                    foreach (var (id, marker) in _driverMarkers)
+                    {
+                        marker.enabled = true;
+                    }
+
+                    foreach (var (id, marker) in _cleanerMarkers)
+                    {
+                        marker.enabled = true;
+                    }
+                }
+            }
+        }
+
         private void Start()
         {
             AuthenticationManager.Instance.Initialized += (data) =>
             {
                 UpdateAllMcps(data);
-                if (!Configs.IS_DESKTOP) _focusedWorkerId = AuthenticationManager.Instance.UserAccountId;
+                if (!Configs.IS_DESKTOP)
+                {
+                    _focusedWorkerId = AuthenticationManager.Instance.UserAccountId;
+                    FocusWorker(_focusedWorkerId);
+                }
             };
             DataStoreManager.Map.WorkerLocation.DataUpdated += (data) =>
             {
@@ -155,6 +191,11 @@ namespace Maps
             marker.rotationDegree = orientationInDegrees + 90;
 
             _driverMarkers[driverId] = marker;
+
+            if (Configs.IS_DESKTOP) return;
+
+            if (_focusModeOn && driverId != AuthenticationManager.Instance.UserAccountId) marker.enabled = false;
+            else marker.enabled = true;
         }
 
         private void DrawCleanerMarker(int cleanerId, Coordinate coordinate, float orientationInDegrees)
@@ -176,6 +217,11 @@ namespace Maps
             marker.SetPosition(coordinate.Longitude, coordinate.Latitude);
 
             _cleanerMarkers[cleanerId] = marker;
+
+            if (Configs.IS_DESKTOP) return;
+
+            if (_focusModeOn && cleanerId != AuthenticationManager.Instance.UserAccountId) marker.enabled = false;
+            else marker.enabled = true;
         }
 
         private void DrawMcpMarker(int mcpId, Coordinate coordinate, McpFillStatus status)
@@ -282,13 +328,32 @@ namespace Maps
                 {
                     if (success)
                     {
-                        if (result.FocusedTask != null)
+                        if (Configs.IS_DESKTOP && result.FocusedTask != null)
                         {
                             var route = result.DirectionToFocusedTask.Routes[0].Geometry.Coordinates;
                             if (result.DirectionToFiveUpcomingTasks != null)
                                 route = result.DirectionToFiveUpcomingTasks.Routes[0].Geometry.Coordinates;
                             var coordinatesRoute = route.Select(coordinate => new Coordinate(coordinate[1], coordinate[0])).ToList();
                             ShowWorkerRoute(coordinatesRoute);
+                        }
+
+                        if (!Configs.IS_DESKTOP && result.DirectionToFocusedTask != null)
+                        {
+                            var route = result.DirectionToFocusedTask.Routes[0].Geometry.Coordinates;
+                            // if (result.DirectionToFiveUpcomingTasks != null && !_focusModeOn)
+                            //     route = result.DirectionToFiveUpcomingTasks.Routes[0].Geometry.Coordinates;
+                            var coordinatesRoute = route.Select(coordinate => new Coordinate(coordinate[1], coordinate[0])).ToList();
+                            ShowWorkerRoute(coordinatesRoute);
+
+                            if (result.FocusedTask != null && _focusModeOn)
+                            {
+                                var focusedMcpId = result.FocusedTask.McpDataId;
+
+                                foreach (var (id, marker) in _mcpMarkers)
+                                {
+                                    marker.enabled = id == focusedMcpId;
+                                }
+                            }
                         }
                     }
                 });

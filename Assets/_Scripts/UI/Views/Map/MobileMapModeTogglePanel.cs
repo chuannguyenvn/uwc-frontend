@@ -1,4 +1,5 @@
-﻿using UI.Base;
+﻿using Maps;
+using UI.Base;
 using UnityEngine.UIElements;
 
 namespace UI.Views.Map
@@ -59,6 +60,8 @@ namespace UI.Views.Map
             _focus = focus;
             _focusButton.EnableInClassList("active", _focus);
             _focusButton.EnableInClassList("inactive", !_focus);
+
+            MapDrawer.Instance.FocusModeOn = focus;
         }
 
         private void SetShowTraffic(bool showTraffic)
